@@ -1,0 +1,117 @@
+<p class="field avatar my {accessMode}"><input type="file" placeholder="{avatar::default}" id="avatar" value="{avatar::value}" accept="image/*"></p>
+<script src="js/uploadAvatar.js"></script>
+<p class="field name {accessMode}"><input type="text" placeholder="{name::default}" id="name" value="{name::value}"></p>
+<p class="field surname my {accessMode}"><input type="text" placeholder="{surname::default}" id="surname" value="{surname::value}"></p>
+<p class="field title my {accessMode}"><input type="text" placeholder="{title::default}" id="title" value="{title::value}"></p>
+<p class="field recommandationOnActionButton my  {accessMode} {recommandationOnActionButton::show}">
+    <button type="button" id="recommandationOnActionButton" value="{recommandationOnActionButton::value}">
+</p>
+<p class="field recommandationOffActionButton my  {accessMode} {recommandationOffActionButton::show}">
+    <button type="button" placeholder="{recommandationOffActionButton::default}" id="recommandationOffActionButton" value="{recommandationOffActionButton::value}">
+    <div class="field confirmation recommandationOffActionButtonConfirm {recommandationOffActionButtonConfirm:show}">
+        <button type="button" id="recommandationOffActionButtonConfirm" value="{recommandationOffActionButtonConfirm::value}">
+    </div>
+</p>
+<p class="field contactAddActionButton my  {accessMode} {contactAddActionButton:show}">
+    <button type="button" id="contactAddActionButton" value="{contactAddActionButton::value}">
+</p>
+<p class="field contactRemoveActionButton my  {accessMode} {contactRemoveActionButton:show}">
+    <button type="button" id="contactRemoveActionButton" value="{contactRemoveActionButton::value}">
+    <div class="field confirmation contactRemoveActionButtonConfirm {contactRemoveActionButtonConfirm:show}">
+        <button type="button" id="contactRemoveActionButtonConfirm" value="{contactRemoveActionButtonConfirm::value}">
+    </div>
+</p>
+<p class="field recommandationAcceptActionButton my  {accessMode} {recommandationAcceptActionButton:show}">
+    <button type="button" id="recommandationAcceptActionButton" value="{recommandationAcceptActionButton::value}">
+</p>
+<p class="field contactAskAcceptActionButton my  {accessMode} {contactAskAcceptActionButton:show}">
+    <button type="button" id="contactAskAcceptActionButton" value="{contactAskAcceptActionButton::value}">
+</p>
+<p class="field saveActionButton my  {accessMode} {saveActionButton:show}">
+    <button type="button" id="saveActionButton" value="{saveActionButton::value}">
+</p>
+<p class="field recommandation my hidden">Nombre de recommdations: {recommandationNb}</p>
+<nav id="navigation" role="navigation">
+	<ul class="pam unstyled">
+		<li class="pam button listButton avantage">Recevez des recommandations</li>
+		<li class="pam button listButton portfolio my hidden">Portfolio</li>
+		<div class="list portfolio my hidden">
+			<div class="item portfolio my hidden">
+				<p class="field image my  {accessMode} hidden">
+					<img src="urlImage" title="Title">
+				</p>
+				<p class="field title  {accessMode} hidden">title</p>
+				<p class="field description edit hidden">description</p>
+			</div>
+			<div class="item portfolio my  {accessMode} hidden">
+				<p class="field image my  {accessMode} hidden">
+					<img src="urlImage" title="Title">
+				</p>
+				<p class="field title  {accessMode} hidden">title</p>
+				<p class="field description  {accessMode} hidden">description</p>
+			</div>
+		</div>
+		<li class="pam button listButton notification">Notifications</li>
+		<div class="list notification">
+			<div class="item notification my">
+				<p class="field type recommandationNew my">Nouvelle
+					recommandation</p>
+				<p class="field avatar my">Avatar</p>
+				<p class="field name">Nom</p>
+				<p class="field surname my">Prénom</p>
+				<p class="field title my">Titre du profil</p>
+				<p class="field notificationContent my">Demande de recommandation</p>
+				<p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
+				<p class="field recommandationOffActionButton my edit hidden">DERECOMMANDER
+
+
+				
+				<div
+					class="field confirmation recommandationOffActionButtonConfirm hidden">Etes
+					vous sur de vouloir dérecommander le profil?</div>
+				</p>
+				<p class="field contactAddActionButton my edit hidden">AJOUTER
+					AUX CONTACTS</p>
+				<p class="field contactRemoveActionButton my edit hidden">SUPPRIMER
+					DES CONTACTS
+				<div
+					class="field confirmation contactRemoveActionButtonConfirm hidden">Etes
+					vous sur de vouloir supprimer le profil?</div>
+				</p>
+
+				<p class="field recommandationAcceptActionButton my edit">ACCEPTER</p>
+				<p class="field contactAskAcceptActionButton my edit hidden">ACCEPTER</p>
+				<div class="detail profil"></div>
+			</div>
+		</div>
+		<div class="item notification hidden">
+			<p class="field type recommandationAccepted my hidden">Recommandation
+				acceptée</p>
+			<p class="field avatar my hidden">Avatar</p>
+			<p class="field name hidden">Nom</p>
+			<p class="field surname my hidden">Prénom</p>
+			<p class="field title my hidden">Titre du profil</p>
+			<p class="field notificationContent my hidden">Recommandation
+				acceptée</p>
+			<p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
+			<p class="field recommandationOffActionButton my edit hidden">DERECOMMANDER
+
+
+			
+			<div
+				class="field confirmation recommandationOffActionButtonConfirm hidden">Etes
+				vous sur de vouloir dérecommander le profil?</div>
+			</p>
+			<p class="field contactAddActionButton my edit hidden">AJOUTER
+				AUX CONTACTS</p>
+			<p class="field contactRemoveActionButton my edit hidden">SUPPRIMER
+				DES CONTACTS
+			<div
+				class="field confirmation contactRemoveActionButtonConfirm hidden">Etes
+				vous sur de vouloir supprimer le profil?</div>
+			</p>
+
+			<p class="field recommandationAcceptActionButton my edit hidden">ACCEPTER</p>
+			<p class="field contactAskAcceptActionButton my edit hidden">ACCEPTER</p>
+			<div class="detail profil"></div>
+		</div>

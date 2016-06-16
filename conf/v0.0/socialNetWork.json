@@ -1,0 +1,383 @@
+{
+    "fr":{
+            "domain": "jerecommande.fr",
+            "name": "JE RECOMMANDE",
+            "title": "JE RECOMMANDE C'EST TOP",
+            "menuList": {
+            
+                "profilListMy": {
+                    "url": "index.php?menu=profilListMy",
+                    "cssClass": "profil listButton my",
+                    "label": "Profil"                   
+                },
+                "notificationList": {
+                    "url": "index.php?menu=notificationList",
+                    "cssClass": "notification listButton",
+                    "label": "Notification"                   
+                },
+                "contactList": {
+                    "url": "index.php?menu=contactList",
+                    "cssClass": "contact listButton",
+                    "label": "Mes contacts"                   
+                },
+                "portfolioListMy": {
+                    "url": "index.php?menu=portfolioListMy",
+                    "cssClass": "portfolio listButton my",
+                    "label": "Mon Portfolio"                   
+                },
+                "contactAdd": {
+                    "url": "index.php?menu=contactAdd",
+                    "cssClass": "contact addButton",
+                    "label": "Ajouter un contact"                   
+                },
+                "recommandationAdd": {
+                    "url": "index.php?menu=recommandationAdd",
+                    "cssClass": "recommandation addButton",
+                    "label": "Ajouter une recommandation"                   
+                },
+                "recommandationList": {
+                    "url": "index.php?menu=recommandationList",
+                    "cssClass": "recommandation listButton",
+                    "label": "Prestataires recommandés"                   
+                },
+                "recommandationListMe": {
+                    "url": "index.php?menu=recommandationListMe",
+                    "cssClass": "recommandation listButton me",
+                    "label": "Personnes qui me recommandent"                   
+                },
+                "recommandationListMy": {
+                    "url": "index.php?menu=recommandationListMy",
+                    "cssClass": "recommandation listButton my",
+                    "label": "Mes recommandations"                   
+                },
+                "categoryList": {
+                    "url": "index.php?menu=categoryList",
+                    "cssClass": "recommandation listButton category",
+                    "label": "Catérogies"                   
+                },
+                "avantageList": {
+                    "url": "index.php?menu=avantageList",
+                    "cssClass": "avantage listButton avantage",
+                    "label": "Avantages premium"                   
+                }
+            }
+        },
+        "profilList":{
+            "deconnectedItem":{   
+                "accessMod}": "create",
+                "recommandState": false,
+                "contactState": false,
+                "avantage": false,
+                "avartar":{
+                    "default": "",
+                    "value":""
+                },   
+                "name":{
+                    "default": "Name",
+                    "value":""
+                },   
+                "surname":{
+                    "default": "Surname",
+                    "value":""
+                },   
+                "title":{
+                    "default": "Title",
+                    "value":""
+                },   
+                "recommandationOnActionButton":{
+                    "value":"RECOMMANDER",
+                    "show": false
+                },     
+                "recommandationOffActionButton":{
+                    "value":"DERECOMMANDER",
+                    "show": false
+                },  
+                "recommandationOffActionButtonConfirm":{
+                    "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
+                    "show": false
+                }, 
+                "contactAddActionButton":{
+                    "value":"AJOUTER AUX CONTACTS",
+                    "show": false
+                },
+                "contactRemoveActionButton":{
+                    "value":"SUPPRIMER DES CONTACTS",
+                    "show": false
+                },
+                "contactRemoveActionButtonConfirm":{
+                    "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
+                    "show": false
+                },
+                "recommandationAcceptActionButton":{
+                    "value":"ACCEPTER LA RECOMMANDATION",
+                    "show": false
+                },
+                "contactAskAcceptActionButton":{
+                    "value":"ACCEPTER LA MISE EN CONTACT",
+                    "show": false
+                },
+                "saveActionButton":{
+                    "value":"CREER UN COMPTE",
+                    "show": true
+                }
+            },               
+            "connectedItem":{
+                "accessMode": "update",
+                "recommandState": false,
+                "contactState": false,
+                "avantage": "personnConnected",
+                "avartar":{
+                    "default": "",
+                    "value":""
+                },   
+                "name":{
+                    "default": "Name",
+                    "value":""
+                },   
+                "surname":{
+                    "default": "Surname",
+                    "value":""
+                },   
+                "title":{
+                    "default": "Title",
+                    "value":""
+                },   
+                "recommandationOnActionButton":{
+                    "value":"RECOMMANDER",
+                    "show": false
+                },     
+                "recommandationOffActionButton":{
+                    "value":"DERECOMMANDER",
+                    "show": false
+                },  
+                "recommandationOffActionButtonConfirm":{
+                    "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
+                    "show": false
+                }, 
+                "contactAddActionButton":{
+                    "value":"AJOUTER AUX CONTACTS",
+                    "show": false
+                },
+                "contactRemoveActionButton":{
+                    "value":"SUPPRIMER DES CONTACTS",
+                    "show": false
+                },
+                "contactRemoveActionButtonConfirm":{
+                    "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
+                    "show": false
+                },
+                "recommandationAcceptActionButton":{
+                    "value":"ACCEPTER LA RECOMMANDATION",
+                    "show": false
+                },
+                "contactAskAcceptActionButton":{
+                    "value":"ACCEPTER LA MISE EN CONTACT",
+                    "show": false
+                },
+                "saveActionButton":{
+                    "value":"CREER UN COMPTE",
+                    "show": false
+                },
+                "detail":{
+                    "accessMode": "update",
+                    "recommandationNb": 0,
+                    "avartar":{
+                        "default": "",
+                        "value":""
+                    },   
+                    "name":{
+                        "default": "Name",
+                        "value":""
+                    },   
+                    "surname":{
+                        "default": "Surname",
+                        "value":""
+                    },   
+                    "title":{
+                        "default": "Title",
+                        "value":""
+                    },   
+                    "recommandationOnActionButton":{
+                        "value":"RECOMMANDER",
+                        "show": false
+                    },     
+                    "recommandationOffActionButton":{
+                        "value":"DERECOMMANDER",
+                        "show": false
+                    },  
+                    "recommandationOffActionButtonConfirm":{
+                        "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
+                        "show": false
+                    }, 
+                    "contactAddActionButton":{
+                        "value":"AJOUTER AUX CONTACTS",
+                        "show": false
+                    },
+                    "contactRemoveActionButton":{
+                        "value":"SUPPRIMER DES CONTACTS",
+                        "show": false
+                    },
+                    "contactRemoveActionButtonConfirm":{
+                        "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
+                        "show": false
+                    },
+                    "recommandationAcceptActionButton":{
+                        "value":"ACCEPTER LA RECOMMANDATION",
+                        "show": false
+                    },
+                    "contactAskAcceptActionButton":{
+                        "value":"ACCEPTER LA MISE EN CONTACT",
+                        "show": false
+                    },
+                    "saveActionButton":{
+                        "value":"CREER UN COMPTE",
+                        "show": false
+                    }
+                    "portFolioList":{
+                        "add": {
+                        
+                        },
+                        "sample1": {
+                        
+                        },
+                        "sample2": {
+                        
+                        }
+                    
+                    
+                    <p class="field image my  {accessMode} hidden">
+    <img src="urlImage" title="Title">
+</p>
+<p class="field title  {accessMode} hidden">title</p>
+<p class="field description edit hidden">description</p>
+                    
+                    }
+                }
+            },
+            "googleConnectedItem":{
+            },
+            "googleDeConnectedItem":{
+            },
+            "facebookConnectedItem":{
+            },
+            "facebookDeConnectedItem":{
+            },
+            
+            }
+        }
+}
+
+
+<p class="field avatar my edit">Avatar</p>
+                        <p class="field name my edit">Nom</p>
+                        <p class="field surname my edit">Prénom</p>
+                        <p class="field email my edit">Email</p>
+                        <p class="field telMobile my edit">Tel mobile</p>
+                        <p class="field title my edit">Titre du profil</p>
+                        <p class="field avantage my edit">Avantage Particulier</p>
+                        <p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
+                        <p class="field recommandationOffActionButton my edit hidden">DERECOMMANDER
+
+                        
+                        <div
+                            class="field confirmation recommandationOffActionButtonConfirm hidden">Etes
+                            vous sur de vouloir dérecommander le profil?</div>
+                        </p>
+                        <p class="field contactAddActionButton my edit hidden">AJOUTER
+                            AUX CONTACTS</p>
+                        <p class="field contactRemoveActionButton my edit hidden">SUPPRIMER
+                            DES CONTACTS
+                        <div
+                            class="field confirmation contactRemoveActionButtonConfirm hidden">Etes
+                            vous sur de vouloir supprimer le profil?</div>
+                        </p>
+
+                        <p class="field recommandationAcceptActionButton my edit hidden">ACCEPTER</p>
+                        <p class="field contactAskAcceptActionButton my edit hidden">ACCEPTER</p>
+                        <p class="field recommandation my hidden">Nombre de
+                            recommdation à recevoir</p>
+                        <nav id="navigation" role="navigation">
+                            <ul class="pam unstyled">
+                                <li class="pam button listButton avantage">Recevez des
+                                    recommandations</li>
+                                <li class="pam button listButton portfolio my hidden">Portfolio</li>
+                                <div class="list portfolio my hidden">
+                                    <div class="item portfolio my hidden">
+                                        <p class="field image my edit hidden">
+                                            <img src="urlImage" title="Title">
+                                        </p>
+                                        <p class="field title edit hidden">title</p>
+                                        <p class="field description edit hidden">description</p>
+                                    </div>
+                                    <div class="item portfolio my edit hidden">
+                                        <p class="field image my edit hidden">
+                                            <img src="urlImage" title="Title">
+                                        </p>
+                                        <p class="field title edit hidden">title</p>
+                                        <p class="field description edit hidden">description</p>
+                                    </div>
+                                </div>
+                                <li class="pam button listButton notification">Notifications</li>
+                                <div class="list notification">
+                                    <div class="item notification my">
+                                        <p class="field type recommandationNew my">Nouvelle
+                                            recommandation</p>
+                                        <p class="field avatar my">Avatar</p>
+                                        <p class="field name">Nom</p>
+                                        <p class="field surname my">Prénom</p>
+                                        <p class="field title my">Titre du profil</p>
+                                        <p class="field notificationContent my">Demande de
+                                            recommandation</p>
+                                        <p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
+                                        <p class="field recommandationOffActionButton my edit hidden">DERECOMMANDER
+
+                                        
+                                        <div
+                                            class="field confirmation recommandationOffActionButtonConfirm hidden">Etes
+                                            vous sur de vouloir dérecommander le profil?</div>
+                                        </p>
+                                        <p class="field contactAddActionButton my edit hidden">AJOUTER
+                                            AUX CONTACTS</p>
+                                        <p class="field contactRemoveActionButton my edit hidden">SUPPRIMER
+                                            DES CONTACTS
+                                        <div
+                                            class="field confirmation contactRemoveActionButtonConfirm hidden">Etes
+                                            vous sur de vouloir supprimer le profil?</div>
+                                        </p>
+
+                                        <p class="field recommandationAcceptActionButton my edit">ACCEPTER</p>
+                                        <p class="field contactAskAcceptActionButton my edit hidden">ACCEPTER</p>
+                                        <div class="detail profil"></div>
+                                    </div>
+                                </div>
+                                <div class="item notification hidden">
+                                    <p class="field type recommandationAccepted my hidden">Recommandation
+                                        acceptée</p>
+                                    <p class="field avatar my hidden">Avatar</p>
+                                    <p class="field name hidden">Nom</p>
+                                    <p class="field surname my hidden">Prénom</p>
+                                    <p class="field title my hidden">Titre du profil</p>
+                                    <p class="field notificationContent my hidden">Recommandation
+                                        acceptée</p>
+                                    <p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
+                                    <p class="field recommandationOffActionButton my edit hidden">DERECOMMANDER
+
+                                    
+                                    <div
+                                        class="field confirmation recommandationOffActionButtonConfirm hidden">Etes
+                                        vous sur de vouloir dérecommander le profil?</div>
+                                    </p>
+                                    <p class="field contactAddActionButton my edit hidden">AJOUTER
+                                        AUX CONTACTS</p>
+                                    <p class="field contactRemoveActionButton my edit hidden">SUPPRIMER
+                                        DES CONTACTS
+                                    <div
+                                        class="field confirmation contactRemoveActionButtonConfirm hidden">Etes
+                                        vous sur de vouloir supprimer le profil?</div>
+                                    </p>
+
+                                    <p
+                                        class="field recommandationAcceptActionButton my edit hidden">ACCEPTER</p>
+                                    <p class="field contactAskAcceptActionButton my edit hidden">ACCEPTER</p>
+                                    <div class="detail profil"></div>
+                                </div>
