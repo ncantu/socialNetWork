@@ -1,258 +1,533 @@
 {
+    "templateHtmlUrl":"http://{domain}/{site}/template/html/index.html", 
     "fr":{
-            "domain": "jerecommande.fr",
-            "name": "JE RECOMMANDE",
-            "title": "JE RECOMMANDE C'EST TOP",
-            "menuList": {
-            
-                "profilListMy": {
-                    "url": "index.php?menu=profilListMy",
-                    "cssClass": "profil listButton my",
-                    "label": "Profil"                   
-                },
-                "notificationList": {
-                    "url": "index.php?menu=notificationList",
-                    "cssClass": "notification listButton",
-                    "label": "Notification"                   
-                },
-                "contactList": {
-                    "url": "index.php?menu=contactList",
-                    "cssClass": "contact listButton",
-                    "label": "Mes contacts"                   
-                },
-                "portfolioListMy": {
-                    "url": "index.php?menu=portfolioListMy",
-                    "cssClass": "portfolio listButton my",
-                    "label": "Mon Portfolio"                   
-                },
-                "contactAdd": {
-                    "url": "index.php?menu=contactAdd",
-                    "cssClass": "contact addButton",
-                    "label": "Ajouter un contact"                   
-                },
-                "recommandationAdd": {
-                    "url": "index.php?menu=recommandationAdd",
-                    "cssClass": "recommandation addButton",
-                    "label": "Ajouter une recommandation"                   
-                },
-                "recommandationList": {
-                    "url": "index.php?menu=recommandationList",
-                    "cssClass": "recommandation listButton",
-                    "label": "Prestataires recommandés"                   
-                },
-                "recommandationListMe": {
-                    "url": "index.php?menu=recommandationListMe",
-                    "cssClass": "recommandation listButton me",
-                    "label": "Personnes qui me recommandent"                   
-                },
-                "recommandationListMy": {
-                    "url": "index.php?menu=recommandationListMy",
-                    "cssClass": "recommandation listButton my",
-                    "label": "Mes recommandations"                   
-                },
-                "categoryList": {
-                    "url": "index.php?menu=categoryList",
-                    "cssClass": "recommandation listButton category",
-                    "label": "Catérogies"                   
-                },
-                "avantageList": {
-                    "url": "index.php?menu=avantageList",
-                    "cssClass": "avantage listButton avantage",
-                    "label": "Avantages premium"                   
-                }
+        "lang": "fr",
+        "templateHtmlUrl":"http://{domain}/{site}/template/html/langFr.html",
+        "domain": "jerecommande.fr",
+        "name": "JE RECOMMANDE",
+        "descriptionLong": "JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.",
+        "descriptionShort": "JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.",
+        "keyWordList": ["parrainage", "recommandation", "professionnel", "confiance", "réseaux", "proches", "amis", "entourage", "artisans", "services", "entretien", "dépannage", "travaux", "maison", "santé", "bricolage", 
+        "jardinage", "plomberie", "électricité", "chauffage", "serrure", "voiture", "mécanique", "conseiller financier", "juridique", "avocat", "droit", "Santé", "médecin", "kiné", "ostéopathe", "gastro-entérologue", "dentiste", 
+        "ophtalmologiste", "pédiatre", "podologue", "diététicien", "psychiatre", "psychologue", "gynécologue", "acupuncteur", "ORL", "Bien-être", "Esthéticienne", "Coiffeur", "Prof de fitness", "yoga", "Enfants", "Pédiatre", "baby-sitter", 
+        "aide scolaire", "Animaux", "Vétérinaire", "éleveur", "toilettiste", "pet-sitter", "Dépannage", "plombier", "serrurier", "électricien", "mécanicien", "chauffagiste", "garagiste", "Maisons", "architecte", "maçon", "carreleur", "peintre", 
+        "plombier", "serrurier", "électricien", "décorateur", "ramoneur", "jardinier", "pépiniériste", "fenêtres", "toiture", "piscine(s)", "parquets", "cuisiniste", "charpentier", "ébéniste", "Juridique", "Notaire", "avocat", "conseiller",
+        "juridique", "syndic", "obsèques", "Finance", "Agent d’assurance", "Conseiller en Gestion de Patrimoine", "Agent immobilier", "Expert-comptable", "Expert fiscal", "Evènements", "Wedding planner", "traiteur", "DJ", "sonorisation", 
+        "éclairage", "photographe", "fleuriste", "musicien", "orchestre"],
+        "googleVerify": "",
+        "cssContent": {
+            "idList": {
+            },
+            "classList": {
+            }
+        },
+        "menuList": {    
+            "templateHtmlUrl":"http://{domain}/{site}/template/html/menuList.html",
+            "profilListMy": {
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=profilListMy",
+                "cssClass": "profil listButton my",
+                "label": "Profil"                   
+            },
+            "notificationList": { 
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=notificationList",
+                "cssClass": "notification listButton",
+                "label": "Notification"                   
+            },
+            "contactList": {
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=contactList",
+                "cssClass": "contact listButton",
+                "label": "Mes contacts"                   
+            },
+            "portfolioListMy": {
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=portfolioListMy",
+                "cssClass": "portfolio listButton my",
+                "label": "Mon Portfolio"                   
+            },
+            "contactAdd": {
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=contactAdd",
+                "cssClass": "contact addButton",
+                "label": "Ajouter un contact"                   
+            },
+            "recommandationAdd": {
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=recommandationAdd",
+                "cssClass": "recommandation addButton",
+                "label": "Ajouter une recommandation"                   
+            },
+            "recommandationList": {
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=recommandationList",
+                "cssClass": "recommandation listButton",
+                "label": "Prestataires recommandés"                   
+            },
+            "recommandationListMe": {
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=recommandationListMe",
+                "cssClass": "recommandation listButton me",
+                "label": "Personnes qui me recommandent"                   
+            },
+            "recommandationListMy": {
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=recommandationListMy",
+                "cssClass": "recommandation listButton my",
+                "label": "Mes recommandations"                   
+            },
+            "categoryList": {
+                "templatHtmleUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=categoryList",
+                "cssClass": "recommandation listButton category",
+                "label": "Catérogies"                   
+            },
+            "avantageList": {
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
+                "url": "index.php?menu=avantageList",
+                "cssClass": "avantage listButton avantage",
+                "label": "Avantages premium"                   
             }
         },
         "profilList":{
-            "deconnectedItem":{   
-                "accessMod}": "create",
-                "recommandState": false,
-                "contactState": false,
-                "avantage": false,
-                "avartar":{
-                    "default": "",
-                    "value":""
-                },   
-                "name":{
-                    "default": "Name",
-                    "value":""
-                },   
-                "surname":{
-                    "default": "Surname",
-                    "value":""
-                },   
-                "title":{
-                    "default": "Title",
-                    "value":""
-                },   
-                "recommandationOnActionButton":{
-                    "value":"RECOMMANDER",
-                    "show": false
-                },     
-                "recommandationOffActionButton":{
-                    "value":"DERECOMMANDER",
-                    "show": false
-                },  
-                "recommandationOffActionButtonConfirm":{
-                    "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
-                    "show": false
-                }, 
-                "contactAddActionButton":{
-                    "value":"AJOUTER AUX CONTACTS",
-                    "show": false
-                },
-                "contactRemoveActionButton":{
-                    "value":"SUPPRIMER DES CONTACTS",
-                    "show": false
-                },
-                "contactRemoveActionButtonConfirm":{
-                    "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
-                    "show": false
-                },
-                "recommandationAcceptActionButton":{
-                    "value":"ACCEPTER LA RECOMMANDATION",
-                    "show": false
-                },
-                "contactAskAcceptActionButton":{
-                    "value":"ACCEPTER LA MISE EN CONTACT",
-                    "show": false
-                },
-                "saveActionButton":{
-                    "value":"CREER UN COMPTE",
-                    "show": true
-                }
+            "templateHtmlUrl":"http://{domain}/{site}/template/html/profilList.html",
+            "nodeName": "user1",
+            "labelName": "profilList",
+            "accessMode": "update"
+            "fieldList": {
+                "createItem":{
+                    "templateHtmlUrl":"http://{domain}/{site}/template/html/profilItem.html",
+                    "nodeName": "createItem",
+                    "labelName": "profil",
+                    "accessMode": "create",
+                    "recommandState": false,
+                    "contactState": false,
+                    "avantage": false,
+                    "sponsorshipNb": 3,
+                    "recommandationNb": 0,
+                    "fieldList": {
+                        "avatar":{
+                            "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
+                            "nodeName": "create",
+                            "labelName": "avatar",
+                            "accessMode": "create",
+                            "default": "",
+                            "title":"",
+                            "titleDefault":"",
+                            "urlDefault": "",
+                            "url": "http://{domain}/media/profilCreate.png",
+                            "fieldList": {
+                                "image": {
+                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
+                                    "nodeName": "create",
+                                    "labelName": "avatar",
+                                    "accessMode": "create",
+                                    "default": "",
+                                    "value":"",
+                                    "show": "none"
+                                },
+                                "script": {
+                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldScript.html",
+                                    "nodeName": "avatar",
+                                    "labelName": "upload",
+                                    "accessMode": "read",
+                                    "show": "show"
+                                }                      
+                            },
+                            "show": "show"
+                        }, 
+                        "name":{
+                            "templateHtmlUrl":"http://{domain}/{site}/template/html/name.html",
+                            "nodeName": "create",
+                            "labelName": "name",
+                            "accessMode": "create",
+                            "default": "Name",
+                            "value":"",
+                            "show": "show"
+                        },   
+                        "surname":{
+                            "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldSurname.html",
+                            "nodeName": "create",
+                            "labelName": "surname",
+                            "accessMode": "create",
+                            "default": "Surname",
+                            "value":"",
+                            "show": "show"
+                        },   
+                        "title":{
+                            "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldTitle.html",
+                            "nodeName": "create",
+                            "labelName": "title",
+                            "accessMode": "create",
+                            "default": "Title",
+                            "value":"",
+                            "show": "show"
+                        },   
+                        "recommandationOnActionButton":{
+                            "nodeName": "create",
+                            "labelName": "recommandationOnActionButton",
+                            "accessMode": "create",
+                            "value":"RECOMMANDER",
+                            "show": "none"
+                        },     
+                        "recommandationOffActionButton":{
+                            "nodeName": "create",
+                            "labelName": "recommandationOffActionButton",
+                            "accessMode": "create",
+                            "value":"DERECOMMANDER",
+                            "show": "none",
+                            "fieldList": {
+                                "confirm":{
+                                    "nodeName": "create",
+                                    "labelName": "confirm",
+                                    "accessMode": "create",
+                                    "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
+                                    "show": "none"
+                                } 
+                            }
+                        },
+                        "contactAddActionButton":{
+                            "nodeName": "create",
+                            "labelName": "contactAddActionButton",
+                            "accessMode": "create",
+                            "value":"AJOUTER AUX CONTACTS",
+                            "show": "none"
+                        },
+                        "contactRemoveActionButton":{
+                            "nodeName": "create",
+                            "labelName": "contactRemoveActionButton",
+                            "accessMode": "create",
+                            "value":"SUPPRIMER DES CONTACTS",
+                            "show": "none"
+                        },
+                        "contactRemoveActionButtonConfirm":{
+                            "nodeName": "create",
+                            "labelName": "contactRemoveActionButtonConfirm",
+                            "accessMode": "create",
+                            "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
+                            "show": "none",
+                            "confirm":{
+                                "nodeName": "create",
+                                "labelName": "confirm",
+                                "accessMode": "create",
+                                "value":"ACCEPTER LA RECOMMANDATION",
+                                "show": "none"
+                            } 
+                        },
+                        "recommandationAcceptActionButton":{
+                            "nodeName": "create",
+                            "labelName": "recommandationAcceptActionButton",
+                            "accessMode": "create",
+                            "value":"ACCEPTER LA RECOMMANDATION",
+                            "show": "none"
+                        },
+                        "contactAskAcceptActionButton":{
+                            "nodeName": "create",
+                            "labelName": "contactAskAcceptActionButton",
+                            "accessMode": "create",
+                            "value":"ACCEPTER LA MISE EN CONTACT",
+                            "show": "none"
+                        },
+                        "saveActionButton":{
+                            "nodeName": "create",
+                            "labelName": "saveActionButton",
+                            "accessMode": "create",
+                            "value":"CREER UN COMPTE",
+                            "show": "show"
+                        }
+                   }
+               }
             },               
-            "connectedItem":{
+            "connected1Item":{
+                "nodeName": "connected1",
+                "labelName": "profil",
                 "accessMode": "update",
                 "recommandState": false,
                 "contactState": false,
                 "avantage": "personnConnected",
-                "avartar":{
-                    "default": "",
-                    "value":""
-                },   
-                "name":{
-                    "default": "Name",
-                    "value":""
-                },   
-                "surname":{
-                    "default": "Surname",
-                    "value":""
-                },   
-                "title":{
-                    "default": "Title",
-                    "value":""
-                },   
-                "recommandationOnActionButton":{
-                    "value":"RECOMMANDER",
-                    "show": false
-                },     
-                "recommandationOffActionButton":{
-                    "value":"DERECOMMANDER",
-                    "show": false
-                },  
-                "recommandationOffActionButtonConfirm":{
-                    "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
-                    "show": false
-                }, 
-                "contactAddActionButton":{
-                    "value":"AJOUTER AUX CONTACTS",
-                    "show": false
-                },
-                "contactRemoveActionButton":{
-                    "value":"SUPPRIMER DES CONTACTS",
-                    "show": false
-                },
-                "contactRemoveActionButtonConfirm":{
-                    "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
-                    "show": false
-                },
-                "recommandationAcceptActionButton":{
-                    "value":"ACCEPTER LA RECOMMANDATION",
-                    "show": false
-                },
-                "contactAskAcceptActionButton":{
-                    "value":"ACCEPTER LA MISE EN CONTACT",
-                    "show": false
-                },
-                "saveActionButton":{
-                    "value":"CREER UN COMPTE",
-                    "show": false
-                },
-                "detail":{
-                    "accessMode": "update",
-                    "recommandationNb": 0,
-                    "avartar":{
+                "templateHtmlUrl":"http://{domain}/{site}/template/html/profilItem.html",
+                "sponsorshipNb": 3,
+                "recommandationNb": 0,
+                "fieldList":{
+                    "avatar": {
+                        "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
+                        "nodeName": "connected1",
+                        "labelName": "avatar",
+                        "accessMode": "update",
                         "default": "",
-                        "value":""
-                    },   
+                        "title":"connected1",
+                        "titleDefault":"",
+                        "urlDefault": "",
+                        "url": "http://{domain}/media/connected1.png",
+                        "fieldList": {
+                            "image": {
+                                "nodeName": "connected1",
+                                "labelName": "avatar",
+                                "accessMode": "update",
+                                "default": "",
+                                "value":"",
+                                "show": "none"
+                            },
+                            "script": {
+                                "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldScript.html",
+                                "nodeName": "avatar",
+                                "labelName": "upload",
+                                "accessMode": "read",
+                                "show": "show"
+                            }     
+                         },
+                         show": true
+                    },
                     "name":{
+                        "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldName.html",
+                        "nodeName": "connected1",
+                        "labelName": "name",
+                        "accessMode": "update",
                         "default": "Name",
-                        "value":""
+                        "value":"",
+                        "show": "show"
                     },   
                     "surname":{
+                        "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldSurname.html",
+                        "nodeName": "connected1",
+                        "labelName": "surname",
+                        "accessMode": "update",
                         "default": "Surname",
-                        "value":""
+                        "value":"",
+                            "show": "show"
                     },   
                     "title":{
+                        "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldTitle.html",
+                        "nodeName": "connected1",
+                        "labelName": "title",
+                        "accessMode": "update",
                         "default": "Title",
-                        "value":""
+                        "value":"",
+                            "show": "show"
                     },   
                     "recommandationOnActionButton":{
+                        "nodeName": "connected1",
+                        "labelName": "recommandationOnActionButton",
+                        "accessMode": "update",
                         "value":"RECOMMANDER",
-                        "show": false
+                        "show": "none"
                     },     
                     "recommandationOffActionButton":{
+                        "nodeName": "connected1",
+                        "labelName": "recommandationOffActionButton",
+                        "accessMode": "update",
                         "value":"DERECOMMANDER",
-                        "show": false
+                        "show": "none",
+                        "confirm":{
+                            "nodeName": "connected1",
+                            "labelName": "confirm",
+                            "accessMode": "update",
+                            "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
+                            "show": "none"
+                        } 
                     },  
-                    "recommandationOffActionButtonConfirm":{
-                        "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
-                        "show": false
-                    }, 
                     "contactAddActionButton":{
+                        "nodeName": "connected1",
+                        "labelName": "contactAddActionButton",
+                            "accessMode": "update",
                         "value":"AJOUTER AUX CONTACTS",
-                        "show": false
+                        "show": "none"
                     },
                     "contactRemoveActionButton":{
+                        "nodeName": "connected1",
+                        "labelName": "contactRemoveActionButton",
+                        "accessMode": "update",
                         "value":"SUPPRIMER DES CONTACTS",
-                        "show": false
-                    },
-                    "contactRemoveActionButtonConfirm":{
-                        "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
-                        "show": false
+                        "show": "none",
+                        "confirm":{
+                            "nodeName": "connected1",
+                            "labelName": "confirm",
+                            "accessMode": "update",
+                            "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
+                            "show": "none"
+                        } 
                     },
                     "recommandationAcceptActionButton":{
+                        "nodeName": "connected1",
+                        "labelName": "recommandationAcceptActionButton",
+                            "accessMode": "update",
                         "value":"ACCEPTER LA RECOMMANDATION",
-                        "show": false
+                        "show": "none"
                     },
                     "contactAskAcceptActionButton":{
+                        "nodeName": "connected1",
+                        "labelName": "contactAskAcceptActionButton",
+                            "accessMode": "update",
                         "value":"ACCEPTER LA MISE EN CONTACT",
-                        "show": false
+                        "show": "none"
                     },
                     "saveActionButton":{
+                        "nodeName": "connected1",
+                        "labelName": "saveActionButton",
+                            "accessMode": "update",
                         "value":"CREER UN COMPTE",
-                        "show": false
-                    }
-                    "portFolioList":{
-                        "add": {
-                        
-                        },
-                        "sample1": {
-                        
-                        },
-                        "sample2": {
-                        
+                        "show": "none"
+                    },
+                    "detail":{
+                       "templateHtmlUrl":"http://{domain}/{site}/template/html/profilDetail.html",
+                       "nodeName": "connected1",
+                       "labelName": "profil",
+                       "accessMode": "update",
+                       "recommandState": false,
+                       "contactState": false,
+                       "avantage": "personnConnected",
+                       "sponsorshipNb": 3,
+                       "recommandationNb": 0,
+                       "item": {
+                           "nodeName": "connected1",
+                            "labelName": "profil",
+                            "accessMode": "update",
+                            "recommandState": false,
+                            "contactState": false,
+                            "avantage": "personnConnected",
+                            "templateHtmlUrl":"http://{domain}/{site}/template/html/profilItem.html",
+                            "sponsorshipNb": 3,
+                            "recommandationNb": 0
+                       },
+                        "portFolioList":{
+                            "create": {                            
+                                "nodeName": "create",
+                                "labelName": "portfolio",
+                                "accessMode": "create",
+                                "value":"CREER UN COMPTE",
+                                "show": "show",
+                                "title":{
+                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldTitle.html",
+                                    "nodeName": "create",
+                                    "labelName": "title",
+                                    "accessMode": "create",
+                                    "default": "Title",
+                                    "value":"",
+                                    "show": "show",
+                                },  
+                                "image":{
+                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
+                                    "nodeName": "create",
+                                    "labelName": "image",
+                                    "accessMode": "create",
+                                    "default": "",
+                                    "title":"",
+                                    "titleDefault":"",
+                                    "urlDefault": "",
+                                    "url": "http://{domain}/media/portFolioCreate.png",
+                                    "fieldList": {
+                                        "nodeName": "create",
+                                        "labelName": "image",
+                                        "accessMode": "create",
+                                        "default": "",
+                                        "value":"",
+                                        "show": "none"
+                                    },
+                                    "show": "show"
+                                },   
+                                "description":{
+                                    "nodeName": "create",
+                                    "labelName": "description",
+                                    "accessMode": "create",
+                                    "default": "description",
+                                    "value":"",
+                                    "show": "show"
+                                }
+                            },
+                            "sample1": {
+                                "nodeName": "sample1",
+                                "labelName": "portfolio",
+                                "accessMode": "create",
+                                "value":"CREER UN COMPTE",
+                                "show": "show",
+                                "title":{
+                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldTitle.html",
+                                    "nodeName": "sample1",
+                                    "labelName": "title",
+                                    "accessMode": "create",
+                                    "default": "Title",
+                                    "value":"sample1",
+                                    "show": "show"
+                                },  
+                                "image":{
+                                    "nodeName": "sample1",
+                                    "labelName": "image",
+                                    "accessMode": "create",
+                                    "default": "",
+                                    "title":"sample1",
+                                    "titleDefault":"",
+                                    "urlDefault": "",
+                                    "url": "http://{domain}/media/portFolioSample1.png",
+                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
+                                    "fieldList": {
+                                        "nodeName": "sample1",
+                                        "labelName": "image",
+                                        "accessMode": "create",
+                                        "default": "",
+                                        "value":"",
+                                        "show": "none"
+                                    },
+                                    "show": "show"
+                                },   
+                                "description":{
+                                    "nodeName": "sample1",
+                                    "labelName": "description",
+                                    "accessMode": "create",
+                                    "default": "description",
+                                    "value":"sample1",
+                                    "show": "show"
+                                }
+                            },
+                            "sample2": {
+                                "nodeName": "sample2",
+                                "labelName": "portfolio",
+                                "accessMode": "create",
+                                "value":"CREER UN COMPTE",
+                                "show": "show",
+                                "title":{
+                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldTitle.html",
+                                    "nodeName": "sample2",
+                                    "labelName": "title",
+                                    "accessMode": "create",
+                                    "default": "Title",
+                                    "value":"sample2",
+                                    "show": "show"
+                                },  
+                                "image":{
+                                    "nodeName": "sample2",
+                                    "labelName": "image",
+                                    "accessMode": "create",
+                                    "default": "",
+                                    "title":"sample2",
+                                    "titleDefault":"",
+                                    "urlDefault": "",
+                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
+                                    "url": "http://{domain}/media/portFolioSample2.png",
+                                    "fieldList": {
+                                        "nodeName": "sample2",
+                                        "labelName": "image",
+                                        "accessMode": "create",
+                                        "default": "",
+                                        "value":"",
+                                        "show": "none"
+                                    },
+                                    "show": "show"
+                                },   
+                                "description":{
+                                    "nodeName": "sample2",
+                                    "labelName": "description",
+                                    "accessMode": "create",
+                                    "default": "description",
+                                    "value":"sample2",
+                                    "show": "show"
+                                }
+                            }
                         }
-                    
-                    
-                    <p class="field image my  {accessMode} hidden">
-    <img src="urlImage" title="Title">
-</p>
-<p class="field title  {accessMode} hidden">title</p>
-<p class="field description edit hidden">description</p>
-                    
                     }
                 }
+            },
+            "conntected2Item":{
             },
             "googleConnectedItem":{
             },

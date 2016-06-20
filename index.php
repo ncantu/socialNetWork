@@ -11,6 +11,380 @@ if (isset($_FILES['uploaded_file'])) {
     }
 }
 
+trait  TraitHtmlField {
+    
+    public static $htmlFieldNamePrefix  = 'field_';
+    public static $htmlFieldClassPrefix = 'field';
+    public static $htmlFieldContener    = 'p';
+
+    public function HtmlField($content, $templateUrl = true) {
+        
+        $this->htmlNodeName  = self::$htmlFieldNamePrefix.$this->htmlNodeName;
+        $this->htmlLabelName = self::$htmlFieldNamePrefix.$this->htmlLabelName;
+        
+        $this->htmlElement(self::$htmlFieldContener);        
+        $this->htmlElementClassAdd(self::$htmlFieldClassPrefix);
+        $this->htmlInject($content, $templateUrl);
+        
+        return true;
+    }
+}
+trait TraitHtml {
+
+    use TraitHtmlField;
+    
+    public static $htmlAttributId              = 'id';
+    public static $htmlAttributName            = 'name';
+    
+    public static $htmlAttributClass           = 'class';
+    public static $htmlAttributUrl             = 'src';
+    public static $htmlAttributValue           = 'value';
+    public static $htmlAttributTitle           = 'title';
+    public static $htmlAttributClassLabelName  = 'labelName';
+    public static $htmlAttributClassNodeName   = 'nodeName';
+    public static $htmlAttributClassAccessMode = 'accessMode';
+    public static $htmlAttributClassAvantage   = 'avantage';
+    public static $htmlAttributClassShow       = 'show';
+    
+    public static $htmlAccessModeRead          = 'accessModeRead';
+    public static $htmlAccessModeUpdate        = 'accessModeUpdate';
+    public static $htmlAccessModeCreate        = 'accessModeUpdate';
+    public static $htmlAccessModeDelete        = 'accessModeDelete';
+    public static $htmlAccessModeAdd           = 'accessModeAdd';
+    public static $htmlShowNone                = 'showNone';
+    public static $htmlShowVisible             = 'showVisible';
+    public static $htmlShowHidden              = 'showHidden';    
+    public static $htmlSelfCloserList          = array('input', 'img', 'hr', 'br', 'meta', 'link');
+    public static $htmlTitleGetList            = array('img', 'a');
+    public static $htmlUrlGetList              = array('img', 'script', 'link');
+    public static $htmlValueGetList            = array('input', 'select', 'textara', 'option', 'button');
+    public static $htmlClassGetList            = array('p', 'a', 'div', 'input', 'select', 'textara', 'option', 'button', 'img', 'br');
+    public static $htmlIdGetList               = array('p', 'a', 'div', 'input', 'select', 'textara', 'option', 'button', 'img', 'br');
+    public static $htmlNameGetList             = array('p', 'a', 'div', 'input', 'select', 'textara', 'option', 'button', 'img', 'br');
+
+    public $htmlAccessMode                     = self::$htmlAccessModeRead;
+    public $htmlShowState                      = self::$htmlShowNone;
+    public $htmlAttributList                   = array();
+    public $htmlText                           = '';
+    public $htmlLabelName                      = false;
+    public $htmlNodeName                       = false;    
+    public $htmlRecommandState                 = false;
+    public $htmlContactState                   = false;
+    public $htmlAvantage                       = false;    
+    public $htmlName                           = false;
+    public $htmlId                             = false;    
+    public $htmlType                           = false;
+    public $htmlUrl                            = false;
+    public $htmlSponsorshipNb                  = false;
+    public $htmlDefault                        = false;
+    public $htmlRecommandationNb               = false;
+    public $htmlTitleDefault                   = false;
+    public $htmlTitle                          = false;
+    public $htmlUrlDefault                     = false;
+    public $htmlValue                          = false;
+    public $htmlTemplateUrl                    = false;
+    public $htmlTemplateScriptUrl              = false;
+       
+    public function htmlFromConf($conf) {
+        
+        if(isset($conf->lang)             === true) UxComponent::$lang             = $conf->lang;
+        if(isset($conf->domain)           === true) UxComponent::$domain           = $conf->domain;
+        if(isset($conf->name)             === true) UxComponent::$name             = $conf->name;
+        if(isset($conf->descriptionLong)  === true) UxComponent::$descriptionLong  = $conf->descriptionLong;
+        if(isset($conf->descriptionShort) === true) UxComponent::$descriptionShort = $conf->descriptionShort;
+        if(isset($conf->keyWordList)      === true) UxComponent::$keyWordList      = $conf->keyWordList;
+        
+        $this->htmlLabelName  = $conf->labelName;
+        $this->htmlNodeName   = $conf->nodeName;
+        $this->htmlAccessMode = $conf->accessMode;
+        $this->htmlShowState  = $conf->show;
+        
+        if(isset($conf->recommandState) === true)   $this->htmlRecommandState   = $conf->recommandState;
+        if(isset($conf->contactState) === true)     $this->htmlContactState     = $conf->contactState;
+        if(isset($conf->avantage) === true)         $this->htmlAvantage         = $conf->avantage;        
+        if(isset($conf->sponsorshipNb) === true)    $this->htmlSponsorshipNb    = $conf->sponsorshipNb;
+        if(isset($conf->recommandationNb) === true) $this->htmlRecommandationNb = $conf->recommandationNb;
+        
+        if(isset($conf->default) === true) {
+            
+            $this->htmlAttributList[self::$htmlAttributValue] = $conf->default;
+            $this->htmlText                                   = $conf->default;
+        }                 
+        if(isset($conf->value) === true) {
+            
+            $this->htmlAttributList[self::$htmlAttributValue] = $conf->value;
+            $this->htmlText                                   = $conf->value;
+        }        
+        if(isset($conf->titleDefault) === true) $this->htmlAttributList[self::$htmlAttributTitle] = $conf->titleDefault;        
+        if(isset($conf->title) === true)        $this->htmlAttributList[self::$htmlAttributTitle] = $conf->title;
+        if(isset($conf->urlDefault) === true)   $this->htmlAttributList[self::$htmlAttributUrl]   = $conf->urlDefault;        
+        if(isset($conf->url) === true)          $this->htmlAttributList[self::$htmlAttributUrl]   = $conf->url;
+        
+        if(isset($conf->cssContent) === true) {
+            
+            foreach($conf->cssContent->idList as $k => $detailList) {
+                
+                $id          = '#'.$k;
+                $attributCss = '';
+                
+                foreach($detailList as $kCss => $vCss) {
+                 
+                    $attributCss .= "\n".$kCss.' = '.$vCss.';';
+                }
+                if(isset(UxComponent::$cssContent[$id]) === false) {
+                    
+                    UxComponent::$cssContent[$id] = '
+'.$id.' {
+   '.$attributCss.'
+}
+';              }
+            }
+            foreach($conf->cssContent->classList as $k => $detailList) {
+                
+                    $id          = '.'.$k;
+                    $attributCss = '';
+                    
+                    foreach($detailList as $kCss => $vCss) {
+                     
+                        $attributCss .= "\n".$kCss.' = '.$vCss.';';
+                    }
+                    if(isset(UxComponent::$cssContent[$id]) === false) {
+                        
+                        UxComponent::$cssContent[$id] = '
+'.$id.' {
+   '.$attributCss.'
+}
+';
+                }
+            }
+        }
+        if(isset($conf->fieldList) === true) {
+            
+            foreach($conf->fieldList as $confField) {
+                
+                $field = new UxComponent();
+                $field->htmlFromConf($confField);
+                $field->HtmlField();
+            }
+        } 
+        return true;
+    }
+    
+    public function htmlContentSet($content, $templateUrl = true) {
+    
+        if($templateUrl === true) {
+             
+            $content = file_get_contents($content);
+        }
+        if($content === false) return '';
+        
+        foreach($this as $k => $v) {
+            
+            if(strstr($k, 'html') === false) {
+                
+                continue;   
+            }
+            $k       = str_replace('html', '', $k);
+            $k       = lcfirst($k);             
+            $content = str_replace('{'.$k.'}', $v, $content);
+        }
+        $this->htmlInject($content);
+        
+        return true;
+    }    
+    public function htmlElement($type) {
+        
+        $this->htmlId                                     = $this->labelName.'['.$this->htmlLNodeName.']';
+        $this->htmlTemplateUrl                            = "http://{domain}/{site}/template/html/'.$this->htmlId.'.html";
+        $this->htmlTemplateScriptUrl                      = "http://{domain}/{site}/template/js/'.$this->htmlId.'.js";
+        $this->htmlAttributList[self::$htmlAttributId]    = $this->htmlId;
+        $this->htmlAttributList[self::$htmlAttributName]  = $this->labelName.'_'.$this->htmlLabelName;
+        $this->htmlAttributList[self::$htmlAttributClass] = array();
+        $this->htmType                                    = strtolower($type);
+        
+        $this->htmlContentSet($this->templateHtmlUrl,       true);
+        $this->htmlContentSet($this->htmlTemplateScriptUrl, true);
+        
+        return true;
+    }
+     
+    public function htmlElementClassAdd($class) {
+        
+        $this->htmlAttributList[self::$htmlAttributClass][] = $class;
+        
+        return true;
+    }
+    
+    public function htmlGet($attribute) {
+        
+        if(isset($this->htmlAttributList[$attribute]) === false) {
+            
+            return '';
+        }        
+        return $this->htmlAttributList[$attribute];
+    }
+
+    public function htmlSet($attribute, $value = '') {
+        
+        if(is_array($attribute) === false) {
+            
+            $this->htmlAttributList[$attribute] = $value;
+        }
+        else {
+            
+            $this->htmlAttributList = array_merge($this->htmlAttributList, $attribute);
+        }
+        
+        return true;
+    }
+
+    public function htmlRemove($att) {
+        
+        if(isset($this->htmlAttributList[$att])) {
+            
+            unset($this->htmlAttributList[$att]);
+        }
+        return true;
+    }
+
+    public function htmlClear() {
+        
+        $this->htmlAttributList = array();
+        
+        return true;
+    }
+
+    public function htmlInject($content) {
+        
+        if(is_object($content) === true) {
+            
+            $this->htmlText.= $content->htmlBuild();
+        }
+        else {
+            
+            $this->htmlText .= $content;
+        }        
+        return true;
+    }
+
+    public function htmlBuild() {
+        
+        if(in_array($this->type, self::$htmlTitleGetList) === false) {
+            
+            if(isset($this->htmlAttributList[self::$htmlAttributUrl]) === true) {
+                
+                unset($this->htmlAttributList[self::$htmlAttributUrl]);
+            }
+        }
+        if(in_array($this->type, self::$htmlUrlGetList) === false) {
+            
+            if(isset($this->htmlAttributList[self::$htmlAttributUrl]) === true) {
+                
+                unset($this->htmlAttributList[self::$htmlAttributTitle]);
+            }
+        }
+        if(in_array($this->type, self::$htmlValueGetList) === false) {
+            
+            if(isset($this->htmlAttributList[self::$htmlAttributValue]) === true) {
+                
+                unset($this->htmlAttributList[self::$htmlAttributValue]);
+            }
+        }
+        $this->htmlAttributList[self::$htmlAttributClass][self::$htmlAttributClassLabelName]  = $this->htmlLlabelName;
+        $this->htmlAttributList[self::$htmlAttributClass][self::$htmlAttributClassNodeName]   = $this->htmlNodeName;
+        $this->htmlAttributList[self::$htmlAttributClass][self::$htmlAttributClassAccessMode] = $this->htmlAccessMode;
+        $this->htmlAttributList[self::$htmlAttributClass][self::$htmlAttributClassShow]       = $this->htmlShowState;
+        $this->htmlAttributList[self::$htmlAttributClass][self::$htmlAttributClassAvantage]   = $this->htmlAvantage;
+        
+        if(in_array($this->type, self::$htmlClassGetList) === false) {
+                
+            $this->htmlAttributList[self::$htmlAttributClass] = array();
+        }
+        if(in_array($this->type, self::$htmlIdGetList) === false) {
+                
+            unset($this->htmlAttributList[self::$htmlAttributId]);
+        }
+        if(in_array($this->type, self::$htmlNameGetList) === false) {
+                
+            unset($this->htmlAttributList[self::$htmlAttributNamed]);
+        }
+        $build = '<'.$this->htmlType;
+
+        if(count($this->htmlAttributList)) {
+            
+            foreach($this->htmlAttributList as $key => $value) {
+                
+                if(is_array($value) === true) {
+                    
+                    $value = implode(' ', $value);
+                }
+                if($value === false) continue;
+                
+                $build.= ' '.$key.'="'.$value.'"';
+            }
+        }
+        if(in_array($this->type, self::$htmlSelfCloserList) === false) {
+            
+            $build.= '>'.$this->htmlText.'</'.$this->htmlType.'>';
+        }
+        else {
+            
+            $build.= ' >';
+        }
+        foreach($this->htmlAttributList[self::$htmlAttributClass] as $className){
+            
+            if(isset(UxComponent::$cssContent['.'.$className]) === false) {
+           
+                UxComponent::$cssContent['.'.$className] = '
+            
+.'.$className.' {
+                
+}
+';
+           }
+        }
+        if(isset($this->htmlAttributList[self::$htmlAttributName]) === true) {
+
+            if(isset(UxComponent::$cssContent['#'.$this->htmlAttributList[self::$htmlAttributName]]) === false) {
+                
+                UxComponent::$cssContent['#'.$this->htmlAttributList[self::$htmlAttributName]]= '
+#'.$this->htmlAttributList[self::$htmlAttributName].' {
+
+}
+';
+            }
+        }
+        if(isset(UxComponent::$cssContent[$this->type]) === false) {
+            
+            UxComponent::$cssContent[$this->type]= '
+            
+'.$this->type.' {
+
+}
+';
+        }
+        return $build;
+    }
+
+    public function htmlOutput() {
+        
+        echo $this->htmlBuild();
+    }
+}
+
+class UxComponent {
+    
+    use TraitHtml;
+    
+    public static $lang             = array();
+    public static $templateHtmlUrl  = array();
+    public static $name             = array();
+    public static $descriptionLong  = array();
+    public static $descriptionShort = array();
+    public static $keyWordList      = array();    
+    public static $cssContent       = '';
+}
+
 ?>
 <!doctype html>
 <html class="no-js" lang="fr">
