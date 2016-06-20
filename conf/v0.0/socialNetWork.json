@@ -1,10 +1,9 @@
 {
-    "templateHtmlUrl":"http://{domain}/{site}/template/html/index.html", 
-    "fr":{
-        "lang": "fr",
-        "templateHtmlUrl":"http://{domain}/{site}/template/html/langFr.html",
+        "text": "fr",
+        "theme": "default",
+        "dataIntegration": "v0.0",
         "domain": "jerecommande.fr",
-        "name": "JE RECOMMANDE",
+        "siteName": "JE RECOMMANDE",
         "descriptionLong": "JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.",
         "descriptionShort": "JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.",
         "keyWordList": ["parrainage", "recommandation", "professionnel", "confiance", "réseaux", "proches", "amis", "entourage", "artisans", "services", "entretien", "dépannage", "travaux", "maison", "santé", "bricolage", 
@@ -21,222 +20,287 @@
             "classList": {
             }
         },
-        "menuList": {    
-            "templateHtmlUrl":"http://{domain}/{site}/template/html/menuList.html",
-            "profilListMy": {
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=profilListMy",
-                "cssClass": "profil listButton my",
-                "label": "Profil"                   
-            },
-            "notificationList": { 
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=notificationList",
-                "cssClass": "notification listButton",
-                "label": "Notification"                   
-            },
-            "contactList": {
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=contactList",
-                "cssClass": "contact listButton",
-                "label": "Mes contacts"                   
-            },
-            "portfolioListMy": {
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=portfolioListMy",
-                "cssClass": "portfolio listButton my",
-                "label": "Mon Portfolio"                   
-            },
-            "contactAdd": {
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=contactAdd",
-                "cssClass": "contact addButton",
-                "label": "Ajouter un contact"                   
-            },
-            "recommandationAdd": {
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=recommandationAdd",
-                "cssClass": "recommandation addButton",
-                "label": "Ajouter une recommandation"                   
-            },
-            "recommandationList": {
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=recommandationList",
-                "cssClass": "recommandation listButton",
-                "label": "Prestataires recommandés"                   
-            },
-            "recommandationListMe": {
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=recommandationListMe",
-                "cssClass": "recommandation listButton me",
-                "label": "Personnes qui me recommandent"                   
-            },
-            "recommandationListMy": {
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=recommandationListMy",
-                "cssClass": "recommandation listButton my",
-                "label": "Mes recommandations"                   
-            },
-            "categoryList": {
-                "templatHtmleUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=categoryList",
-                "cssClass": "recommandation listButton category",
-                "label": "Catérogies"                   
-            },
-            "avantageList": {
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/menuItem.html",   
-                "url": "index.php?menu=avantageList",
-                "cssClass": "avantage listButton avantage",
-                "label": "Avantages premium"                   
-            }
+        "nodeName": "fr",
+        "labelName": "index",
+        "accessMode": "read",
+        "show": "showVisible",
+        "menuList": {
+            "nodeName": "siteMenu",
+            "labelName": "menuList",
+            "accessMode": "read",
+            "show": "showVisible",
+            "menuItemList": {
+                "profilListMy": {
+                    "url": "index.php?menu=profilListMy",
+                    "label": "Profil",
+                    "nodeName": "profilListMy",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible"  
+                },
+                "notificationList": {   
+                    "url": "index.php?menu=notificationList",                
+                    "nodeName": "notificationList",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible",
+                    "label": "Notification"                   
+                },
+                "contactList": { 
+                    "url": "index.php?menu=contactList",              
+                    "nodeName": "contactList",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible",
+                    "label": "Mes contacts"                   
+                },
+                "portfolioListMy": {
+                    "url": "index.php?menu=portfolioListMy",             
+                    "nodeName": "portfolioListMy",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible",
+                    "label": "Mon Portfolio"                   
+                },
+                "contactAdd": {
+                    "url": "index.php?menu=contactAdd",            
+                    "nodeName": "contactAdd",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible",
+                    "label": "Ajouter un contact"                   
+                },
+                "recommandationAdd": {
+                    "url": "index.php?menu=recommandationAdd",          
+                    "nodeName": "recommandationAdd",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible",
+                    "label": "Ajouter une recommandation"                   
+                },
+                "recommandationList": {
+                    "url": "index.php?menu=recommandationList",         
+                    "nodeName": "recommandationList",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible",
+                    "label": "Prestataires recommandés"                   
+                },
+                "recommandationListMe": {  
+                    "url": "index.php?menu=recommandationListMe",        
+                    "nodeName": "recommandationListMe",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible",
+                    "label": "Personnes qui me recommandent"                   
+                },
+                "recommandationListMy": {  
+                    "url": "index.php?menu=recommandationListMy",       
+                    "nodeName": "recommandationListMy",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible",
+                    "label": "Mes recommandations"
+                },
+                "categoryList": {  
+                    "url": "index.php?menu=categoryList",      
+                    "nodeName": "categoryList",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible",
+                    "label": "Catérogies"                   
+                },
+                "avantageList": {  
+                    "url": "index.php?menu=avantageList",    
+                    "nodeName": "avantageList",
+                    "labelName": "link",
+                    "accessMode": "read",
+                    "show": "showVisible",
+                    "label": "Avantages premium"                   
+                }
+           }
         },
-        "profilList":{
-            "templateHtmlUrl":"http://{domain}/{site}/template/html/profilList.html",
-            "nodeName": "user1",
-            "labelName": "profilList",
-            "accessMode": "update"
-            "fieldList": {
+        "fieldList":{
+        "user1":{
+           "nodeName": "user1",
+           "labelName": "profilList",
+           "accessMode": "update",
+           "show": "showVisible",
+           "fieldList": {
                 "createItem":{
-                    "templateHtmlUrl":"http://{domain}/{site}/template/html/profilItem.html",
                     "nodeName": "createItem",
                     "labelName": "profil",
                     "accessMode": "create",
+                    "show": "showVisible",
                     "recommandState": false,
                     "contactState": false,
                     "avantage": false,
                     "sponsorshipNb": 3,
                     "recommandationNb": 0,
+                    "menuList": {
+                        "nodeName": "createProfilItem",
+                        "labelName": "menuList",
+                        "accessMode": "create",
+                        "show": "showVisible",
+                        "menuItemList": {
+                            "avantageList": {
+                                "url": "index.php?menu=avantageList",
+                                "nodeName": "avantageList",
+                                "labelName": "link",
+                                "accessMode": "read",
+                                "show": "showNone",
+                                "label": "Recevez des recommandations" 
+                            },
+                            "portfolioList": {
+                                "url": "index.php?menu=portfolioList",      
+                                "nodeName": "portfolioList",
+                                "labelName": "link",
+                                "accessMode": "read",
+                                "show": "showNone",
+                                "label": "Portfolio" 
+                            },                            
+                            "notificationList": {
+                                "url": "index.php?menu=notificationList",      
+                                "nodeName": "portfolioList",
+                                "labelName": "link",
+                                "accessMode": "read",
+                                "show": "showNone",
+                                "label": "Notifications" 
+                            },                            
+                            "paramList": {
+                                "url": "index.php?menu=paramList",      
+                                "nodeName": "portfolioList",
+                                "labelName": "link",
+                                "accessMode": "read",
+                                "show": "showNone",
+                                "label": "Paramètres" 
+                            }
+                       }
+                    }
+                },
+                "avatar":{
+                    "nodeName": "create",
+                    "labelName": "avatar",
+                    "accessMode": "create",
+                    "default": "",
+                    "title":"",
+                    "titleDefault":"",
+                    "urlDefault": "",
+                    "url": "http://{domain}/media/profilCreate.png",
                     "fieldList": {
-                        "avatar":{
-                            "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
+                        "image": {
                             "nodeName": "create",
                             "labelName": "avatar",
                             "accessMode": "create",
                             "default": "",
-                            "title":"",
-                            "titleDefault":"",
-                            "urlDefault": "",
-                            "url": "http://{domain}/media/profilCreate.png",
-                            "fieldList": {
-                                "image": {
-                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
-                                    "nodeName": "create",
-                                    "labelName": "avatar",
-                                    "accessMode": "create",
-                                    "default": "",
-                                    "value":"",
-                                    "show": "none"
-                                },
-                                "script": {
-                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldScript.html",
-                                    "nodeName": "avatar",
-                                    "labelName": "upload",
-                                    "accessMode": "read",
-                                    "show": "show"
-                                }                      
-                            },
-                            "show": "show"
-                        }, 
-                        "name":{
-                            "templateHtmlUrl":"http://{domain}/{site}/template/html/name.html",
-                            "nodeName": "create",
-                            "labelName": "name",
-                            "accessMode": "create",
-                            "default": "Name",
                             "value":"",
-                            "show": "show"
-                        },   
-                        "surname":{
-                            "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldSurname.html",
-                            "nodeName": "create",
-                            "labelName": "surname",
-                            "accessMode": "create",
-                            "default": "Surname",
-                            "value":"",
-                            "show": "show"
-                        },   
-                        "title":{
-                            "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldTitle.html",
-                            "nodeName": "create",
-                            "labelName": "title",
-                            "accessMode": "create",
-                            "default": "Title",
-                            "value":"",
-                            "show": "show"
-                        },   
-                        "recommandationOnActionButton":{
-                            "nodeName": "create",
-                            "labelName": "recommandationOnActionButton",
-                            "accessMode": "create",
-                            "value":"RECOMMANDER",
-                            "show": "none"
-                        },     
-                        "recommandationOffActionButton":{
-                            "nodeName": "create",
-                            "labelName": "recommandationOffActionButton",
-                            "accessMode": "create",
-                            "value":"DERECOMMANDER",
-                            "show": "none",
-                            "fieldList": {
-                                "confirm":{
-                                    "nodeName": "create",
-                                    "labelName": "confirm",
-                                    "accessMode": "create",
-                                    "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
-                                    "show": "none"
-                                } 
-                            }
+                            "show": "showNone"
                         },
-                        "contactAddActionButton":{
+                        "script": {
+                            "nodeName": "avatar",
+                            "labelName": "upload",
+                            "accessMode": "read",
+                            "show": "showVisible"
+                        }                      
+                    },
+                    "show": "showVisible"
+                }, 
+                "name":{
+                    "nodeName": "create",
+                    "labelName": "name",
+                    "accessMode": "create",
+                    "default": "Name",
+                    "value":"",
+                    "show": "showVisible"
+                },   
+                "surname":{
+                    "nodeName": "create",
+                    "labelName": "surname",
+                    "accessMode": "create",
+                    "default": "Surname",
+                    "value":"",
+                    "show": "showVisible"
+                },   
+                "title":{
+                    "nodeName": "create",
+                    "labelName": "title",
+                    "accessMode": "create",
+                    "default": "Title",
+                    "value":"",
+                    "show": "showVisible"
+                },   
+                "recommandationOnActionButton":{
+                    "nodeName": "create",
+                    "labelName": "recommandationOnActionButton",
+                    "accessMode": "create",
+                    "value":"RECOMMANDER",
+                    "show": "showNone"
+                },     
+                "recommandationOffActionButton":{
+                    "nodeName": "create",
+                    "labelName": "recommandationOffActionButton",
+                    "accessMode": "create",
+                    "value":"DERECOMMANDER",
+                    "show": "showNone",
+                    "fieldList": {
+                        "confirm":{
                             "nodeName": "create",
-                            "labelName": "contactAddActionButton",
+                            "labelName": "confirm",
                             "accessMode": "create",
-                            "value":"AJOUTER AUX CONTACTS",
-                            "show": "none"
-                        },
-                        "contactRemoveActionButton":{
-                            "nodeName": "create",
-                            "labelName": "contactRemoveActionButton",
-                            "accessMode": "create",
-                            "value":"SUPPRIMER DES CONTACTS",
-                            "show": "none"
-                        },
-                        "contactRemoveActionButtonConfirm":{
-                            "nodeName": "create",
-                            "labelName": "contactRemoveActionButtonConfirm",
-                            "accessMode": "create",
-                            "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
-                            "show": "none",
-                            "confirm":{
-                                "nodeName": "create",
-                                "labelName": "confirm",
-                                "accessMode": "create",
-                                "value":"ACCEPTER LA RECOMMANDATION",
-                                "show": "none"
-                            } 
-                        },
-                        "recommandationAcceptActionButton":{
-                            "nodeName": "create",
-                            "labelName": "recommandationAcceptActionButton",
-                            "accessMode": "create",
-                            "value":"ACCEPTER LA RECOMMANDATION",
-                            "show": "none"
-                        },
-                        "contactAskAcceptActionButton":{
-                            "nodeName": "create",
-                            "labelName": "contactAskAcceptActionButton",
-                            "accessMode": "create",
-                            "value":"ACCEPTER LA MISE EN CONTACT",
-                            "show": "none"
-                        },
-                        "saveActionButton":{
-                            "nodeName": "create",
-                            "labelName": "saveActionButton",
-                            "accessMode": "create",
-                            "value":"CREER UN COMPTE",
-                            "show": "show"
-                        }
-                   }
+                            "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
+                            "show": "showNone"
+                        } 
+                    }
+                },
+                "contactAddActionButton":{
+                    "nodeName": "create",
+                    "labelName": "contactAddActionButton",
+                    "accessMode": "create",
+                    "value":"AJOUTER AUX CONTACTS",
+                    "show": "showNone"
+                },
+                "contactRemoveActionButton":{
+                    "nodeName": "create",
+                    "labelName": "contactRemoveActionButton",
+                    "accessMode": "create",
+                    "value":"SUPPRIMER DES CONTACTS",
+                    "show": "showNone"
+                },
+                "contactRemoveActionButtonConfirm":{
+                    "nodeName": "create",
+                    "labelName": "contactRemoveActionButtonConfirm",
+                    "accessMode": "create",
+                    "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
+                    "show": "showNone",
+                    "confirm":{
+                        "nodeName": "create",
+                        "labelName": "confirm",
+                        "accessMode": "create",
+                        "value":"ACCEPTER LA RECOMMANDATION",
+                        "show": "showNone"
+                    } 
+                },
+                "recommandationAcceptActionButton":{
+                    "nodeName": "create",
+                    "labelName": "recommandationAcceptActionButton",
+                    "accessMode": "create",
+                    "value":"ACCEPTER LA RECOMMANDATION",
+                    "show": "showNone"
+                },
+                "contactAskAcceptActionButton":{
+                    "nodeName": "create",
+                    "labelName": "contactAskAcceptActionButton",
+                    "accessMode": "create",
+                    "value":"ACCEPTER LA MISE EN CONTACT",
+                    "show": "showNone"
+                },
+                "saveActionButton":{
+                    "nodeName": "create",
+                    "labelName": "saveActionButton",
+                    "accessMode": "create",
+                    "value":"CREER UN COMPTE",
+                    "show": "showVisible"
+                }
                }
             },               
             "connected1Item":{
@@ -244,14 +308,13 @@
                 "labelName": "profil",
                 "accessMode": "update",
                 "recommandState": false,
+                "show": "showVisible",
                 "contactState": false,
                 "avantage": "personnConnected",
-                "templateHtmlUrl":"http://{domain}/{site}/template/html/profilItem.html",
                 "sponsorshipNb": 3,
                 "recommandationNb": 0,
                 "fieldList":{
                     "avatar": {
-                        "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
                         "nodeName": "connected1",
                         "labelName": "avatar",
                         "accessMode": "update",
@@ -259,6 +322,7 @@
                         "title":"connected1",
                         "titleDefault":"",
                         "urlDefault": "",
+                        "show": "showVisible", 
                         "url": "http://{domain}/media/connected1.png",
                         "fieldList": {
                             "image": {
@@ -267,64 +331,59 @@
                                 "accessMode": "update",
                                 "default": "",
                                 "value":"",
-                                "show": "none"
+                                "show": "showNone"
                             },
                             "script": {
-                                "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldScript.html",
                                 "nodeName": "avatar",
                                 "labelName": "upload",
                                 "accessMode": "read",
-                                "show": "show"
+                                "show": "showVisible"
                             }     
-                         },
-                         show": true
+                         }
                     },
                     "name":{
-                        "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldName.html",
                         "nodeName": "connected1",
                         "labelName": "name",
                         "accessMode": "update",
                         "default": "Name",
                         "value":"",
-                        "show": "show"
+                        "show": "showVisible"
                     },   
                     "surname":{
-                        "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldSurname.html",
                         "nodeName": "connected1",
                         "labelName": "surname",
                         "accessMode": "update",
                         "default": "Surname",
                         "value":"",
-                            "show": "show"
+                            "show": "showVisible"
                     },   
                     "title":{
-                        "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldTitle.html",
                         "nodeName": "connected1",
                         "labelName": "title",
                         "accessMode": "update",
                         "default": "Title",
                         "value":"",
-                            "show": "show"
+                            "show": "showVisible"
                     },   
                     "recommandationOnActionButton":{
                         "nodeName": "connected1",
                         "labelName": "recommandationOnActionButton",
                         "accessMode": "update",
                         "value":"RECOMMANDER",
-                        "show": "none"
+                        "show": "showNone"
                     },     
                     "recommandationOffActionButton":{
                         "nodeName": "connected1",
                         "labelName": "recommandationOffActionButton",
                         "accessMode": "update",
                         "value":"DERECOMMANDER",
-                        "show": "none",
+                        "show": "showNone",
                         "confirm":{
                             "nodeName": "connected1",
                             "labelName": "confirm",
                             "accessMode": "update",
                             "value":"CONFIRMER SUPPRESSION DE LA RECOMMANDATION",
-                            "show": "none"
+                            "show": "showNone"
                         } 
                     },  
                     "contactAddActionButton":{
@@ -332,20 +391,20 @@
                         "labelName": "contactAddActionButton",
                             "accessMode": "update",
                         "value":"AJOUTER AUX CONTACTS",
-                        "show": "none"
+                        "show": "showNone"
                     },
                     "contactRemoveActionButton":{
                         "nodeName": "connected1",
                         "labelName": "contactRemoveActionButton",
                         "accessMode": "update",
                         "value":"SUPPRIMER DES CONTACTS",
-                        "show": "none",
+                        "show": "showNone",
                         "confirm":{
                             "nodeName": "connected1",
                             "labelName": "confirm",
                             "accessMode": "update",
                             "value":"CONFIRMER LA SUPPRESSION DU CONTACT",
-                            "show": "none"
+                            "show": "showNone"
                         } 
                     },
                     "recommandationAcceptActionButton":{
@@ -353,28 +412,28 @@
                         "labelName": "recommandationAcceptActionButton",
                             "accessMode": "update",
                         "value":"ACCEPTER LA RECOMMANDATION",
-                        "show": "none"
+                        "show": "showNone"
                     },
                     "contactAskAcceptActionButton":{
                         "nodeName": "connected1",
                         "labelName": "contactAskAcceptActionButton",
                             "accessMode": "update",
                         "value":"ACCEPTER LA MISE EN CONTACT",
-                        "show": "none"
+                        "show": "showNone"
                     },
                     "saveActionButton":{
                         "nodeName": "connected1",
                         "labelName": "saveActionButton",
                             "accessMode": "update",
                         "value":"CREER UN COMPTE",
-                        "show": "none"
+                        "show": "showNone"
                     },
                     "detail":{
-                       "templateHtmlUrl":"http://{domain}/{site}/template/html/profilDetail.html",
                        "nodeName": "connected1",
                        "labelName": "profil",
                        "accessMode": "update",
-                       "recommandState": false,
+                       "recommandState": false,,
+                       "show": "showVisible",
                        "contactState": false,
                        "avantage": "personnConnected",
                        "sponsorshipNb": 3,
@@ -383,31 +442,68 @@
                            "nodeName": "connected1",
                             "labelName": "profil",
                             "accessMode": "update",
-                            "recommandState": false,
+                            "recommandState": false,,
+                            "show": "showVisible",
                             "contactState": false,
                             "avantage": "personnConnected",
-                            "templateHtmlUrl":"http://{domain}/{site}/template/html/profilItem.html",
                             "sponsorshipNb": 3,
                             "recommandationNb": 0
-                       },
+                        },                       
+                        "menuList": {
+                            "nodeName": "createProfilItem",
+                            "labelName": "menuList",
+                            "accessMode": "create",
+                            "show": "showVisible",
+                            "menuItemList": {
+                                "avantageList": {
+                                    "url": "index.php?menu=avantageList",
+                                    "nodeName": "avantageList",
+                                    "labelName": "link",
+                                    "accessMode": "read",
+                                    "show": "showVisible",
+                                    "label": "Recevez des recommandations" 
+                                },
+                                "portfolioList": {
+                                    "url": "index.php?menu=portfolioList",      
+                                    "nodeName": "portfolioList",
+                                    "labelName": "link",
+                                    "accessMode": "read",
+                                    "show": "showVisible",
+                                    "label": "Portfolio" 
+                                },                            
+                                "notificationList": {
+                                    "url": "index.php?menu=notificationList",      
+                                    "nodeName": "portfolioList",
+                                    "labelName": "link",
+                                    "accessMode": "read",
+                                    "show": "showVisible",
+                                    "label": "Notifications" 
+                                },                            
+                                "paramList": {
+                                    "url": "index.php?menu=paramList",      
+                                    "nodeName": "portfolioList",
+                                    "labelName": "link",
+                                    "accessMode": "read",
+                                    "show": "showVisible",
+                                    "label": "Paramètres" 
+                                }
+                           }
                         "portFolioList":{
                             "create": {                            
                                 "nodeName": "create",
                                 "labelName": "portfolio",
                                 "accessMode": "create",
                                 "value":"CREER UN COMPTE",
-                                "show": "show",
+                                "show": "showVisible",
                                 "title":{
-                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldTitle.html",
                                     "nodeName": "create",
                                     "labelName": "title",
                                     "accessMode": "create",
                                     "default": "Title",
                                     "value":"",
-                                    "show": "show",
+                                    "show": "showVisible",
                                 },  
                                 "image":{
-                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
                                     "nodeName": "create",
                                     "labelName": "image",
                                     "accessMode": "create",
@@ -415,6 +511,7 @@
                                     "title":"",
                                     "titleDefault":"",
                                     "urlDefault": "",
+                                    "show": "showVisible",
                                     "url": "http://{domain}/media/portFolioCreate.png",
                                     "fieldList": {
                                         "nodeName": "create",
@@ -422,9 +519,8 @@
                                         "accessMode": "create",
                                         "default": "",
                                         "value":"",
-                                        "show": "none"
-                                    },
-                                    "show": "show"
+                                        "show": "showNone"
+                                    }
                                 },   
                                 "description":{
                                     "nodeName": "create",
@@ -432,7 +528,7 @@
                                     "accessMode": "create",
                                     "default": "description",
                                     "value":"",
-                                    "show": "show"
+                                    "show": "showVisible"
                                 }
                             },
                             "sample1": {
@@ -440,35 +536,33 @@
                                 "labelName": "portfolio",
                                 "accessMode": "create",
                                 "value":"CREER UN COMPTE",
-                                "show": "show",
+                                "show": "showVisible",
                                 "title":{
-                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldTitle.html",
                                     "nodeName": "sample1",
                                     "labelName": "title",
                                     "accessMode": "create",
                                     "default": "Title",
                                     "value":"sample1",
-                                    "show": "show"
+                                    "show": "showVisible"
                                 },  
                                 "image":{
                                     "nodeName": "sample1",
                                     "labelName": "image",
                                     "accessMode": "create",
+                                    "show": "showVisible",
                                     "default": "",
                                     "title":"sample1",
                                     "titleDefault":"",
                                     "urlDefault": "",
                                     "url": "http://{domain}/media/portFolioSample1.png",
-                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
                                     "fieldList": {
                                         "nodeName": "sample1",
                                         "labelName": "image",
                                         "accessMode": "create",
                                         "default": "",
                                         "value":"",
-                                        "show": "none"
-                                    },
-                                    "show": "show"
+                                        "show": "showNone"
+                                    }
                                 },   
                                 "description":{
                                     "nodeName": "sample1",
@@ -476,7 +570,7 @@
                                     "accessMode": "create",
                                     "default": "description",
                                     "value":"sample1",
-                                    "show": "show"
+                                    "show": "showVisible"
                                 }
                             },
                             "sample2": {
@@ -484,25 +578,24 @@
                                 "labelName": "portfolio",
                                 "accessMode": "create",
                                 "value":"CREER UN COMPTE",
-                                "show": "show",
+                                "show": "showVisible",
                                 "title":{
-                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldTitle.html",
                                     "nodeName": "sample2",
                                     "labelName": "title",
                                     "accessMode": "create",
                                     "default": "Title",
                                     "value":"sample2",
-                                    "show": "show"
+                                    "show": "showVisible"
                                 },  
                                 "image":{
                                     "nodeName": "sample2",
                                     "labelName": "image",
-                                    "accessMode": "create",
+                                    "accessMode": "create",,
+                                    "show": "showVisible",
                                     "default": "",
                                     "title":"sample2",
                                     "titleDefault":"",
                                     "urlDefault": "",
-                                    "templateHtmlUrl":"http://{domain}/{site}/template/html/fieldImage.html",
                                     "url": "http://{domain}/media/portFolioSample2.png",
                                     "fieldList": {
                                         "nodeName": "sample2",
@@ -510,9 +603,8 @@
                                         "accessMode": "create",
                                         "default": "",
                                         "value":"",
-                                        "show": "none"
-                                    },
-                                    "show": "show"
+                                        "show": "showNone"
+                                    }
                                 },   
                                 "description":{
                                     "nodeName": "sample2",
@@ -520,10 +612,9 @@
                                     "accessMode": "create",
                                     "default": "description",
                                     "value":"sample2",
-                                    "show": "show"
+                                    "show": "showVisible"
                                 }
                             }
-                        }
                     }
                 }
             },

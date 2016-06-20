@@ -11,28 +11,20 @@ if (isset($_FILES['uploaded_file'])) {
     }
 }
 
-trait  TraitHtmlField {
-    
-    public static $htmlFieldNamePrefix  = 'field_';
-    public static $htmlFieldClassPrefix = 'field';
-    public static $htmlFieldContener    = 'p';
-
-    public function HtmlField($content, $templateUrl = true) {
-        
-        $this->htmlNodeName  = self::$htmlFieldNamePrefix.$this->htmlNodeName;
-        $this->htmlLabelName = self::$htmlFieldNamePrefix.$this->htmlLabelName;
-        
-        $this->htmlElement(self::$htmlFieldContener);        
-        $this->htmlElementClassAdd(self::$htmlFieldClassPrefix);
-        $this->htmlInject($content, $templateUrl);
-        
-        return true;
-    }
-}
 trait TraitHtml {
 
-    use TraitHtmlField;
-    
+    public static $htmlMenuNamePrefix          = 'menu_';
+    public static $htmlMenuClassPrefix         = 'menu';
+    public static $htmlMenuContener            = 'nav';    
+    public static $htmlMenuListNamePrefix      = 'menuList_';
+    public static $htmlMenuListClassPrefix     = 'menuList pam unstyled';
+    public static $htmlMenuListContener        = 'ul';
+    public static $htmlMenuItemNamePrefix      = 'menuItem_';
+    public static $htmlMenuItemClassPrefix     = 'menuItem';
+    public static $htmlMenuItemContener        = 'li';
+    public static $htmlFieldNamePrefix         = 'field_';
+    public static $htmlFieldClassPrefix        = 'field';
+    public static $htmlFieldContener           = 'p';    
     public static $htmlAttributId              = 'id';
     public static $htmlAttributName            = 'name';
     
@@ -159,14 +151,22 @@ trait TraitHtml {
             }
         }
         if(isset($conf->fieldList) === true) {
-            
+                        
             foreach($conf->fieldList as $confField) {
                 
                 $field = new UxComponent();
-                $field->htmlFromConf($confField);
-                $field->HtmlField();
+                $build = $field->HtmlField($confField);
+                
+                 $this->htmlContentSet($build);
             }
-        } 
+        }        
+        if(isset($conf->menuList) === true) {
+
+            $field = new UxComponent();            
+            $build = $field->htmlMenu($conf->menuList);
+            
+            $this->htmlContentSet($build);
+        }        
         return true;
     }
     
@@ -192,11 +192,12 @@ trait TraitHtml {
         
         return true;
     }    
-    public function htmlElement($type) {
+    
+    public function htmlElement($type, $prefix = '') {
         
-        $this->htmlId                                     = $this->labelName.'['.$this->htmlLNodeName.']';
-        $this->htmlTemplateUrl                            = "http://{domain}/{site}/template/html/'.$this->htmlId.'.html";
-        $this->htmlTemplateScriptUrl                      = "http://{domain}/{site}/template/js/'.$this->htmlId.'.js";
+        $this->htmlId                                     = $prefix.$this->labelName.'['.$this->nodeName.']';
+        $this->htmlTemplateUrl                            = 'http://'.UxComponent::$domain.'/'.UxComponent::$siteName.'/template/html/'.$this->labelName.'.html';
+        $this->htmlTemplateScriptUrl                      = 'http://'.UxComponent::$domain.'/'.UxComponent::$siteName.'/template/js/'.$this->labelName.'.js';
         $this->htmlAttributList[self::$htmlAttributId]    = $this->htmlId;
         $this->htmlAttributList[self::$htmlAttributName]  = $this->labelName.'_'.$this->htmlLabelName;
         $this->htmlAttributList[self::$htmlAttributClass] = array();
@@ -370,15 +371,65 @@ trait TraitHtml {
         
         echo $this->htmlBuild();
     }
+    
+    public function HtmlField($conf) {
+        
+        $this->htmlFromConf($conf);        
+        $this->htmlElement(self::$htmlFieldContener, self::$htmlFieldNamePrefix);
+        $this->htmlElementClassAdd(self::$htmlFieldClassPrefix);
+        
+        $build = $this->htmlBuild();
+    
+        return $build;
+    }
+    
+    public function htmlMenuItem($conf) {
+                
+        $this->htmlFromConf($conf);
+        $this->htmlElement(self::$htmlMenuItemContener, self::$htmlMenuItemNamePrefix);
+        $this->htmlElementClassAdd(self::$htmlMenuItemClassPrefix);
+        
+        $build = $this->htmlBuild();
+    
+        return $build;
+    }
+    
+    public function htmlMenu($conf, $inner = '') {
+        
+        $this->htmlFromConf($conf);        
+        $this->htmlElement(self::$htmlMenuContener, self::$htmlMenuNamePrefix);
+        $this->htmlSet('role', 'navigation');        
+        $this->htmlElementClassAdd(self::$htmlMenuClassPrefix);
+        
+        $uxComponentList = new UxComponent();         
+        $uxComponentList->htmlFromConf($conf);
+        $uxComponentList->htmlElement(self::$htmlMenuListContener, self::$htmlMenuListNamePrefix);
+        $uxComponentList->htmlElementClassAdd(self::$htmlMenuListClassPrefix);
+        
+        foreach($conf->menuItemList as $menuItemConf){
+            
+            $uxComponent = new UxComponent();            
+            $build       =  $uxComponent->htmlMenuItem($menuItemConf);
+
+            $uxComponentList->htmlContentSet($inner);
+        }
+        $uxComponentListBuild = $this->htmlBuild();
+        
+        $this->htmlContentSet($uxComponentListBuild);
+        
+        $build = $this->htmlBuild();
+        
+        return $build;
+    }
 }
 
 class UxComponent {
     
     use TraitHtml;
     
-    public static $lang             = array();
-    public static $templateHtmlUrl  = array();
-    public static $name             = array();
+    public static $dataIntegration  = array();
+    public static $domain           = array();
+    public static $siteName         = array();
     public static $descriptionLong  = array();
     public static $descriptionShort = array();
     public static $keyWordList      = array();    
