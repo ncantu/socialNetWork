@@ -32,6 +32,7 @@ trait TraitHtml {
     public static $htmlAttributUrl             = 'src';
     public static $htmlAttributValue           = 'value';
     public static $htmlAttributTitle           = 'title';
+    public static $htmlAttributPlaceholder     = 'placeholder';
     public static $htmlAttributClassLabelName  = 'labelName';
     public static $htmlAttributClassNodeName   = 'nodeName';
     public static $htmlAttributClassAccessMode = 'accessMode';
@@ -50,6 +51,7 @@ trait TraitHtml {
     public static $htmlTitleGetList            = array('img', 'a');
     public static $htmlUrlGetList              = array('img', 'script', 'link');
     public static $htmlValueGetList            = array('input', 'select', 'textara', 'option', 'button');
+    public static $htmlPlaceholderGetList      = array('input', 'textara', 'button');
     public static $htmlClassGetList            = array('p', 'a', 'div', 'input', 'select', 'textara', 'option', 'button', 'img', 'br');
     public static $htmlIdGetList               = array('p', 'a', 'div', 'input', 'select', 'textara', 'option', 'button', 'img', 'br');
     public static $htmlNameGetList             = array('p', 'a', 'div', 'input', 'select', 'textara', 'option', 'button', 'img', 'br');
@@ -99,8 +101,9 @@ trait TraitHtml {
         
         if(isset($conf->default) === true) {
             
-            $this->htmlAttributList[self::$htmlAttributValue] = $conf->default;
-            $this->htmlText                                   = $conf->default;
+            $this->htmlAttributList[self::$htmlAttributValue]       = $conf->default;
+            $this->htmlAttributList[self::$htmlAttributPlaceholder] = $conf->default;
+            $this->htmlText                                         = $conf->default;
         }                 
         if(isset($conf->value) === true) {
             
@@ -308,6 +311,10 @@ trait TraitHtml {
         if(in_array($this->type, self::$htmlNameGetList) === false) {
                 
             unset($this->htmlAttributList[self::$htmlAttributNamed]);
+        }
+        if(in_array($this->type, self::$htmlPlaceholderGetList) === false) {
+                
+            unset($this->htmlAttributList[self::$htmlPlaceholderGetList]);
         }
         $build = '<'.$this->htmlType;
 
