@@ -59,6 +59,11 @@ class Field {
     public $ptQuantity;
     public $idList;
     public $microservice;
+    public $actionButtonRemove = false;
+    public $actionButtonEdit   = false;
+    public $actionButtonDetail = false;
+    public $ctionButtonUpdate  = false;
+    public $fake               = false;
     
     public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
 
@@ -130,7 +135,7 @@ class Field {
         
         return true;        
     }
-    public function actionButtonItemToolsAdd($labelName, $microserviceTemplate, $show) {
+    public function actionButtonItemToolsAdd() {
         
         $this->actionButtonRemoveAdd();
         $this->actionButtonEditAdd();
@@ -138,6 +143,20 @@ class Field {
         
         return true;
     }  
+    public function actionButtonItemToolsEditAdd() {
+        
+        $this->actionButtonUpdateAdd();
+        $this->actionButtonDetailAdd();
+        
+        return true;
+    } 
+    public function actionButtonItemToolsEditRemove() {
+        
+        $this->actionButtonUpdateRemove();
+        $this->actionButtonDetailRemove();
+        
+        return true;
+    } 
     public function actionButtonRemoveRemove() {
 
         $this->actionButtonRemove = false;
@@ -156,6 +175,12 @@ class Field {
         
         return true;
     }   
+    public function actionButtonUpdateRemove() {
+
+        $this->actionButtonUpdate = false;
+        
+        return true;
+    }   
     public function actionButtonRemoveAdd() {
         
         $this->actionButtonRemove = new ActionButtonRemove($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
@@ -170,7 +195,13 @@ class Field {
     }
     public function actionButtonDetailAdd() {
         
-        $this->actionButtonetail = new ActionButtonDetail($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
+        $this->actionButtonDetail = new ActionButtonDetail($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
+        
+        return true;       
+    }
+    public function actionButtonUpdateAdd() {
+        
+        $this->actionButtonUpdate = new ActionButtonUpdate($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
         
         return true;       
     }
@@ -420,6 +451,7 @@ class ActionButton extends FieldList {
 }
 class ActionButtonConfirm extends ActionButton {
     
+    public $value   = 'CONFIRMER';
     public $confirm = false;
 }
 class ActionButtonItemTool extends ActionButton {
@@ -445,20 +477,28 @@ class ActionButtonItemToolCrud extends ActionButtonItemTool {
 }
 
 class ActionButtonAdd extends ActionButtonItemToolCrud {
-
+    
+    public $value                  = 'AJOUTER';
     public $microserviceAccessMode = 'create';
 }
 class ActionButtonEdit extends ActionButtonItemToolCrud {
 
+    public $value                  = 'METTRE A JOUR';
     public $microserviceAccessMode = 'update';
 }
+class ActionButtonUpdate extends ActionButtonEdit {
+    
+    public $value                  = 'METTRE A JOUR';
+}
 class ActionButtonDetail extends ActionButtonItemToolCrud {
-
+    
+    public $value                  = 'LIRE';
     public $microserviceAccessMode = 'read';
 }
 class ActionButtonRemove extends ActionButtonItemToolCrud {
 
-    public $microserviceAccessMode = 'delete';
+    public $value                  = 'REFUSER';
+    public $microserviceAccessMode = 'stateFalse';
 }
 class ActionButtonPagination extends ActionButtonItemTool {
 
@@ -483,10 +523,12 @@ class ActionButtonPagination extends ActionButtonItemTool {
 }
 class ActionButtonNext extends ActionButtonPagination {
     
+    public $value              = 'SUIVANT';
     public $microservicelenght = 20;
 }
 class ActionButtonPrec extends ActionButtonPagination {
     
+    public $value              = 'PRECEDENT';
     public $microservicelenght = -20;
 }
 class ActionButtonMenuItem extends ActionButton {
@@ -537,24 +579,18 @@ class KeywordList extends FieldList {
         return $this->attributSet($attributName, $value);
     }
 }
-
 class Lang extends Text {
 }
 class LangList extends FieldList {
 }
-
 class AccessMode extends Field {
 }
-
 class AccessModeList extends FieldList {
 }
-
 class Show extends Field {
 }
-
 class ShowList extends FieldList {
 }
-
 class MainDescription extends FieldList {
     
     public $showValueDefault        = 'showVisible';
@@ -609,7 +645,6 @@ class MainDescription extends FieldList {
         $this->keywordList->keywordListToImport();
     }
 }
-
 class ActionButtonMenuItemProfilListMy extends ActionButtonMenuItem {
     
     public $microserviceLabelName  = 'Profil';
@@ -626,9 +661,10 @@ class ActionButtonMenuItemProfilListMy extends ActionButtonMenuItem {
         return $filter;
     }
 }
-
 class Notification extends FieldList {
 
+    public $title = '';
+    public $text  = '';
 }
 class ActionButtonMenuItemNotificationList extends ActionButtonMenuItem {
     
@@ -666,11 +702,9 @@ class ActionButtonMenuItemContactList extends ActionButtonMenuItem {
         return $filter;
     }
 }
-
-class PortFolio extends Field {
-}
 class ActionButtonMenuItemPortfolioListMy extends ActionButtonMenuItem {
-    
+
+    public $value                  = 'VOIR LE PORTFOLIO';
     public $microserviceLabelName  = 'Portfolio';
     public $microserviceAccessMode = 'update';
     public $microserviceShow       = 'showVisible';
@@ -686,9 +720,9 @@ class ActionButtonMenuItemPortfolioListMy extends ActionButtonMenuItem {
         return $filter;
     }
 }
-
 class ActionButtonMenuItemRecommandationListMe extends ActionButtonMenuItem {
     
+    public $value                  = 'VOIR LES RECOMMANDATIONS';
     public $microserviceLabelName  = 'Recommandation';
     public $microserviceAccessMode = 'read';
     public $microserviceShow       = 'showVisible';
@@ -704,13 +738,9 @@ class ActionButtonMenuItemRecommandationListMe extends ActionButtonMenuItem {
         return $filter;
     }
 }
-
-class Recommandation extends Field {
-    
-}
-
 class ActionButtonMenuItemRecommandationListMy extends ActionButtonMenuItem {
     
+    public $value                  = 'VOIR MES RECOMMANDATIONS';
     public $microserviceLabelName  = 'Recommandation';
     public $microserviceAccessMode = 'update';
     public $microserviceShow       = 'showVisible';
@@ -726,12 +756,13 @@ class ActionButtonMenuItemRecommandationListMy extends ActionButtonMenuItem {
         return $filter;
     }
 }
-
 class Category extends Text {
 }
-
+class ProfilCategory extends Category {
+}
 class ActionButtonMenuItemCategoryList extends ActionButtonMenuItem {
     
+    public $value                  = 'VOIR LES CATEGORIES';
     public $microserviceLabelName  = 'Caterory';
     public $microserviceAccessMode = 'read';
     public $microserviceShow       = 'showVisible';
@@ -746,9 +777,9 @@ class ActionButtonMenuItemCategoryList extends ActionButtonMenuItem {
         return $filter;
     }
 }
-
 class ActionButtonMenuItemAvantageList extends ActionButtonMenuItem {
     
+    public $value                  = 'AVANTAGES';
     public $microserviceLabelName  = 'Avantage';
     public $microserviceAccessMode = 'read';
     public $microserviceShow       = 'showVisible';
@@ -763,22 +794,82 @@ class ActionButtonMenuItemAvantageList extends ActionButtonMenuItem {
         return $filter;
     }
 }
-
 class ActionButtonAddContact extends ActionButtonAdd {
-
+    
     public $microserviceLabelName  = 'Contact';
     public $microserviceAccessMode = 'create';
     public $microserviceShow       = 'showVisible';
-    public $defaultValue           = 'Ajouter un contact';
+    public $value                  = 'Ajouter un contact';
+}
+class ActionButtonRemoveContact extends ActionButtonAdd {
+
+    public $microserviceLabelName  = 'Contact';
+    public $microserviceAccessMode = 'stateFalse';
+    public $microserviceShow       = 'showVisible';
+    public $value                  = 'Retirer un contact';
+    public $confirm                = 'CONFIRMER LE RETRAIT DU CONTACT';
+}
+class ActionButtonAcceptContact extends ActionButtonAdd {
+
+    public $microserviceLabelName  = 'Contact';
+    public $microserviceAccessMode = 'stateTrue';
+    public $microserviceShow       = 'showVisible';
+    public $value                  = 'Retirer un contact';
+    public $confirm                = 'CONFIRMER LE RETRAIT DU CONTACT';
+}
+class ActionButtonRefuseContact extends ActionButtonAdd {
+
+    public $microserviceLabelName  = 'Contact';
+    public $microserviceAccessMode = 'stateFalse';
+    public $microserviceShow       = 'showVisible';
+    public $value                  = 'Retirer un contact';
+    public $confirm                = 'CONFIRMER LE RETRAIT DU CONTACT';
 }
 class ActionButtonAddRecommandation extends ActionButtonAdd {
 
     public $microserviceLabelName  = 'Recommandation';
     public $microserviceAccessMode = 'create';
     public $microserviceShow       = 'showVisible';
-    public $defaultValue           = 'Recommander';
+    public $value                  = 'Recommander';
 }
+class ActionButtonRemoveRecommandation extends ActionButtonAdd {
 
+    public $microserviceLabelName  = 'Recommandation';
+    public $microserviceAccessMode = 'stateFalse';
+    public $microserviceShow       = 'showVisible';
+    public $value                  = 'Retirer la recommandation';
+    public $confirm                = 'CONFIRMER LE RETRAIT DE LA RECOMMANDATION';
+}
+class ActionButtonAcceptRecommandation extends ActionButtonAdd {
+
+    public $microserviceLabelName  = 'Recommandation';
+    public $microserviceAccessMode = 'stateTrue';
+    public $microserviceShow       = 'showVisible';
+    public $value                  = 'Accepter la recommandation';
+}
+class ActionButtonRefuseRecommandation extends ActionButtonAdd {
+
+    public $microserviceLabelName  = 'Recommandation';
+    public $microserviceAccessMode = 'stateFalse';
+    public $microserviceShow       = 'showVisible';
+    public $value                  = 'Accepter la recommandation';
+    public $confirm                = 'CONFIRMER LE REFUS DE LA RECOMMANDATION';
+}
+class ProfilSaveActionButton extends ActionButtonUpdate {
+    
+    public $microserviceLabelName  = 'Profil';
+    public $microserviceAccessMode = 'update';
+    public $microserviceShow       = 'showVisible';
+    public $value                  = 'CREER UN COMPTE';
+}
+class ProfilSeparateActionButton extends ActionButtonRemove {
+    
+    public $microserviceLabelName  = 'Profil';
+    public $microserviceAccessMode = 'stateFalse';
+    public $microserviceShow       = 'showVisible';
+    public $value                  = 'DISSOCIER LE COMPTE';
+    public $confirm                = 'CONFIRMER LA DISSOCIATION DU COMPTE';
+}
 class MainMenu extends FieldList {
     
     public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
@@ -819,247 +910,800 @@ class MainMenu extends FieldList {
         return $this;
     }
 }
-
 class Url extends Field {
 
-    public function get($parent, $accessMode, $show, $url) {
+    public function __construct($labelName, $show, $url) {
         
-        parent::__construct($parent.get_class($this), get_class($this), $accessMode, $show);        
+        parent::__construct($labelName, 'read', $show);        
         
         $this->url = $url;
-        
-        return $this;
     }
 }
-
+trait TraitMedia {
+    
+    public function mediaJsUrlGet (){
+        
+        return 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/js/'.$this->nodeName.'.js';
+    }
+    public function mediaImageUrlGet (){
+        
+        return 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/image/'.$this->nodeName.'.png';
+    }
+    public function mediaCssUrlGet (){
+        
+        return 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/css/'.$this->nodeName.'.png';
+    }
+}
 class ScriptUpload extends Field {
+    
+    use TraitMedia;
 
-    public function get($parent, $accessMode, $show) {
+    public function __construct($labelName, $show) {
     
-        parent::get($parent, $accessMode, $show);
+        parent::__construct($labelName, 'read', $show);
         
-        $urlScript = 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/js/'.$parent.get_class($this).'.js';
-        $this->url = $urlScript;
-    
-        return $this;
+        $this->url = $this->mediaJsUrlGet();
     }
 }
-
 class Image extends Field {
     
-    public $urlId;
-    public $scriptUploadId;
+    public $url;
+    public $scriptUpload;
     
-    public function get($parent, $accessMode, $show, $url) {
+    public function __construct($labelName, $accessMode, $show, $url) {
         
-        parent::get($parent, $accessMode, $show);
+        parent::__construct($labelName, $accessMode, $show);
         
-        $url = new Url();
+        $this->url          = new Url($this->nodeName, $show, $url);        
+        $this->scriptUpload = new ScriptUpload($this->nodeName, 'showVisible');
+    }
+}
+class SeparateActionButton extends ActionButton {
+}
+class ProfilText extends Text {
+}
+class ProfilUrl extends Url {
+}
+class ProfilScriptUpload extends ScriptUpload {
+}
+class NotificationImage extends Image {
+}
+class Title extends Text {
+}
+class NotificationTitle extends Title {
+}
+class NotificationIcon extends Image {
+}
+class NotificationText extends Text {
+}
+class ProfilImage extends Image {
+}
+class Name extends Text {
+}
+class ProfilName extends Name {
+}
+class Surname extends Text {
+}
+class ProfilSurname extends Surname {
+}
+class ProfilTitle extends Title {
+}
+class Email extends Field {
+}
+class ProfilEmail extends Email {
+}
+class Mdp extends Field {
+}
+class ProfilMdp extends Mdp {
+}
+class MdpConfirm extends Mdp {
+}
+class ProfilMdpConfirm extends MdpConfirm {
+}
+class ContactList extends FieldList {
+}
+class PortFolioTitle extends Title {
+}
+class PortFolioImage extends Image {
+}
+class PortFolio extends FieldList { 
+    
+    use TraitMedia;
+    
+    public $titleId;
+    public $ImageId;
+    
+    public static function __construct($labelName, $accessMode, $show, $title) {
+
+        parent::__construct($labelName, $accessMode, $show);
         
-        $url->get(get_class($this), $accessMode, $show, $url);
+        $url           = $this->mediaImageUrlGet();
+        $title         = new PortFolioTitle($this->nodeName, $this->accessMode, $this->show, $title);        
+        $this->titleId = $title->id;
+        $image         = new PortFolioImage($this->nodeName, $this->accessMode, $this->show, $url);
+        $this->imageId = $image->id;
         
-        $scriptUpload = new ScriptUpload();
+        $this->add($title);
+        $this->add($image);
+    }    
+    public function itemTitleSet($value, $attributName = 'value') {
+
+        $obj = $this->itemList[$this->tileId];
         
-        $scriptUpload->get(get_class($this), 'read', 'showVisible');
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }    
+    public function itemImageSet($title, $url) {
+
+        $obj = $this->itemList[$this->ImageId];
         
-        $this->urlId          = $field->fieldItemListAddObj($url);
-        $this->scriptUploadId = $field->fieldItemListAddObj($scriptUpload);
+        $this->itemAttributSet($obj, 'title', $title);        
+        $this->itemAttributSet($obj, 'url', $url);
         
+        return true;
+    }
+}
+class PortFolioFake extends PortFolio {
+    
+    public $fake = true;
+
+    public static function __construct($labelName, $accessMode, $show, $title) {
+    
+        parent::__construct($labelName, $accessMode, $show, $title);
+    
+        $id    = 'fake'.self::$fakeId;
+        $title = $id.' title';
+        
+        $this->itemTitleSet($title);
+        $this->itemImageSet($title, $this->url);
+    }
+}
+class PortFolioFake1 extends PortFolioFake {
+    
+    public static $fakeId = 1;
+}
+class PortFolioFake2 extends PortFolioFake {
+    
+    public static $fakeId = 2;
+}
+class PortFolioFake3 extends PortFolioFake {
+    
+    public static $fakeId = 3;
+}
+class PortFolioFake4 extends PortFolioFake {
+    
+    public static $fakeId = 4;
+}
+class PortfolioList extends FieldList {
+}
+class PortfolioListMy extends PortfolioList { 
+}
+class Recommandation extends Field {
+
+    public static function __construct($labelName, $accessMode, $show) {
+    
+        parent::__construct($labelName, $accessMode, $show);
+        
+        // @todo
+    }    
+}
+class RecommandationFake extends Recommandation {
+
+    public $fake = true;
+
+    public static function __construct($labelName, $accessMode, $show, $title) {
+
+        parent::__construct($labelName, $accessMode, $show, $title);
+
+        $id = 'fake'.self::$fakeId;
+        
+        // @todo
+    }
+}
+class RecommandationFake1 extends RecommandationFake {
+
+    public static $fakeId = 1;
+}
+class RecommandationFake2 extends RecommandationFake {
+
+    public static $fakeId = 2;
+}
+class RecommandationFake3 extends RecommandationFake {
+
+    public static $fakeId = 3;
+}
+class RecommandationFake4 extends RecommandationFake {
+
+    public static $fakeId = 4;
+}
+class RecommandationList extends FieldList {
+}
+class RecommandationListMe extends RecommandationList {
+}
+class Profil extends FieldList  {
+    
+    use TraitMedia;
+
+    public $saveActionButtonShow             = 'showNone';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE RESEAU SOCIAL';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE';
+    public $imageId;
+    public $nameId;
+    public $surnameId;
+    public $titleId;
+    public $emailId;
+    public $mdpId;
+    public $mdpConfirmId;
+    public $categoryId;
+    public $recommandationOnActionButtonId;
+    public $recommandationOffActionButtonId;
+    public $contactAddActionButtonId;
+    public $contactRemoveActionButtonId;
+    public $recommandationAcceptActionButtonId;
+    public $contactAskAcceptActionButtonId;
+    public $saveActionButtonId;
+    public $separateActionButtonId;
+    public $notificationListId;
+    public $contactListId;
+    public $portfolioListMyId;
+    public $contactAddId;
+    public $recommandationAddId;
+    public $recommandationListMeId;
+    public $recommandationListMyId;
+    public $categoryListId;
+    public $avantageListId;
+
+    public static function __construct($labelName, $accessMode, $show, $notificationList = true) {
+         
+        $profil                                   = parent::__construct($labelName, $accessMode, $show);
+        $urlAvatar                                = $this->mediaCssUrlGet();
+        $image                                    = new ProfilImage($this->nodeName, $accessMode, $show, $urlAvatar);
+        $this->imageId                            = $image->id;
+        $name                                     = new ProfilName($this->nodeName, $accessMode, $show);
+        $this->nameId                             = $name->id;
+        $surname                                  = new ProfilSurname($this->nodeName, $accessMode, $show);
+        $this->accessModeId                       = $surname->id;
+        $title                                    = new ProfilTitle($this->nodeName, $accessMode, $show);
+        $this->titleId                            = $title->id;
+        $email                                    = new ProfilEmail($this->nodeName, $accessMode, $show);
+        $this->emailId                            = $email->id;
+        $mdp                                      = new ProfilMdp($this->nodeName, $accessMode, $show);
+        $this->mdpId                              = $mdp->id;
+        $mdpConfirm                               = new ProfilMdpConfirm($this->nodeName, $accessMode, $show);
+        $this->mdpConfirmId                       = $mdpConfirm->id;
+        $recommandationOnActionButton             = new ActionButtonAddRecommandation($this->nodeName);
+        $this->recommandationOnActionButtonId     = $recommandationOnActionButton->id;
+        $recommandationOffActionButton            = new ActionButtonRemoveRecommandation($this->nodeName);
+        $this->recommandationOffActionButtonId    = $recommandationOffActionButton->id;
+        $contactAddActionButton                   = new ActionButtonAddContact($this->nodeName);
+        $this->nameId                             = $contactAddActionButton->id;
+        $contactRemoveActionButton                = new ActionButtonRemoveContact($this->nodeName);
+        $this->contactRemoveActionButtonId        = $contactRemoveActionButton->id;
+        $recommandationAcceptActionButton         = new ActionButtonAcceptRecommandation($this->nodeName);
+        $this->recommandationAcceptActionButtonId = $recommandationAcceptActionButton->id;
+        $recommandationRefuseActionButton         = new ActionButtonRefuseRecommandation($this->nodeName);
+        $this->recommandationRefuseActionButtonId = $recommandationRefuseActionButton->id;
+        $contactAskAcceptActionButton             = new ActionButtonAcceptContact($this->nodeName);
+        $this->contactAskAcceptActionButtonId     = $contactAskAcceptActionButton->id;
+        $contactAskRefuseActionButton             = new ActionButtonRefuseContact($this->nodeName);
+        $this->contactAskRefuseActionButtonId     = $contactAskRefuseActionButton->id;
+        $saveActionButton                         = new ProfilSaveActionButton($this->nodeName);
+        
+        $saveActionButton->valueSet($this->saveActionButtonValue);
+        $saveActionButton->showSet($this->saveActionButtonValue);
+        
+        $this->saveActionButtonId = $saveActionButton->id;
+        $separateActionButton     = new ProfilSeparateActionButton($this->nodeName);
+        
+        $separateActionButton->valueSet($this->separateActionButtonValue);
+        $separateActionButton->showSet($this->separateActionButtonShow);
+        $separateActionButton->confirmButton->valueSet($this->separateActionButtonConfirmValue);
+        
+        $this->separateActionButtonId = $separateActionButton->id;
+        $category                     = new ProfilCategory($this->nodeName, $accessMode, $show);
+        $this->categoryId             = $category->id;
+        $contactAdd                   = new ActionButtonAddContact($this->nodeName, $accessMode, $show);
+        $this->contactAddId           = $contactAdd->id;
+        $recommandationAdd            = new ActionButtonAddRecommandation($this->nodeName, $accessMode, $show);
+        $this->recommandationAddId    = $recommandationAdd->id;
+        $recommandationListMy         = new RecommandationListMy($this->nodeName, $accessMode, $show);
+        $this->recommandationListMyId = $recommandationListMy->id;
+        $categoryList                 = new CategoryList($this->nodeName, $accessMode, $show);
+        $this->categoryListId         = $categoryList->id;
+        $avantageList                 = new AvantageList($this->nodeName, $accessMode, $show);
+        $this->avantageListId         = $avantageList->id;
+        
+        $this->contactListGet();
+        $this->portfolioListGet();
+        $this->recommandationListMeGet();
+        
+        $this->add($image);
+        $this->add($name);
+        $this->add($surname);
+        $this->add($title);
+        $this->add($email);
+        $this->add($mdp);
+        $this->add($mdpConfirm);
+        $this->add($category);
+        $this->add($recommandationOnActionButton);
+        $this->add($recommandationOffActionButton);
+        $this->add($contactAddActionButton);
+        $this->add($contactRemoveActionButton);
+        $this->add($recommandationAcceptActionButton);
+        $this->add($recommandationRefuseActionButton);
+        $this->add($contactAskAcceptActionButton);
+        $this->add($contactAskRefuseActionButton);
+        $this->add($saveActionButton);
+        $this->add($separateActionButton);
+        $this->add($contactAdd);
+        $this->add($recommandationAdd);
+        $this->add($recommandationListMy);
+        $this->add($categoryList);
+        $this->add($avantageList);
+
+        if($notificationList === true) {
+
+            $notificationList = new NotificationList($this->nodeName, $accessMode, $show);
+            
+            $this->add($notificationList);
+        }
+        return $profil;
+    }
+    public function contactListGet() {
+        
+        $list = new ContactList($this->nodeName, $this->accessMode, $this->show);
+        
+        $list->actionButtonItemToolsPaginationAdd();
+        $list->actionButtonItemToolsAdd();
+        
+        $fake1 = new ProfilFake1($this->nodeName, $this->accessMode, $this->show, false);
+        $fake2 = new ProfilFake2($this->nodeName, $this->accessMode, $this->show, false);
+        $fake3 = new ProfilFake3($this->nodeName, $this->accessMode, $this->show, false);
+        $fake4 = new ProfilFake4($this->nodeName, $this->accessMode, $this->show, false);
+        
+        $list->add($fake1);
+        $list->add($fake2);
+        $list->add($fake3);
+        $list->add($fake4);
+        
+        $this->contactListId = $list->id;
+        
+        $this->add($list);
+        
+        return true;
+    }
+    public function portfolioListGet() {
+
+        $list = new PortfolioListMy($this->nodeName, $this->accessMode, $this->show);
+        
+        $list->actionButtonItemToolsPaginationAdd();
+        $list->actionButtonItemToolsAdd();
+        
+        $fake1 = new PortFolioFake1($this->nodeName, $this->accessMode, $this->show);
+        $fake2 = new PortFolioFake2($this->nodeName, $this->accessMode, $this->show);
+        $fake3 = new PortFolioFake3($this->nodeName, $this->accessMode, $this->show);
+        $fake4 = new PortFolioFake4($this->nodeName, $this->accessMode, $this->show);
+        
+        $list->add($fake1);
+        $list->add($fake2);
+        $list->add($fake3);
+        $list->add($fake4);
+        
+        $this->portfolioListMyId = $list->id;
+
+        $this->add($list);
+        
+        return true;
+    }
+    public function recommandationListMeGet() {
+        
+        $list  = new RecommandationListMe($this->nodeName, $this->accessMode, $this->show);
+
+        $fake1 = new RecommandationFake1($this->nodeName, $this->accessMode, $this->show);
+        $fake2 = new RecommandationFake2($this->nodeName, $this->accessMode, $this->show);
+        $fake3 = new RecommandationFake3($this->nodeName, $this->accessMode, $this->show);
+        $fake4 = new RecommandationFake4($this->nodeName, $this->accessMode, $this->show);
+        
+        $list->add($fake1);
+        $list->add($fake2);
+        $list->add($fake3);
+        $list->add($fake4);        
+        
+        $this->recommandationListMeId = $list->id;
+        
+        $this->add($list);
+        
+        return true;
+        
+    }    
+    public function itemImageSet($value, $attributName = 'value') {
+    
+        $obj = $this->itemList[$this->imageId];
+        
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemNameSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->nameId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemSurnameSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->surnameId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemTitleSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->titleId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemEmailSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->emailId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemCategorySet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->categoryId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemRecommandationOnActionButtonSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->recommandationOnActionButtonId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemRecommandationOffActionButtonSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->recommandationOffActionButtonId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemContactAddActionButtonSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->contactAddActionButtonId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }    
+    public function itemCcontactRemoveActionButtonSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->contactRemoveActionButtonId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemRecommandationAcceptActionButtonSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->recommandationAcceptActionButtonId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemContactAskAcceptActionButtonSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->contactAskAcceptActionButtonId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemSaveActionButtonSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->saveActionButtonId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemSeparateActionButtonSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->separateActionButtonId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function iteNotificationListSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->notificationListId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemContactListSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->contactListId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemPortfolioListMySet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->portfolioListMyId];
+    
+        return $this->itemAttributSet($attributName, $value);
+    }
+    public function itemContactAddSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->contactAddId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemRecommandationAddSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->recommandationAddId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemRecommandationListMeSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->recommandationListMeId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemRecommandationListMySet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->recommandationListMyId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemCategoryListSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->categoryListId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemAvantageListSet($value, $attributName = 'value') {
+        
+        $obj = $this->itemList[$this->avantageListId];
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+}
+class ProfilFake extends Profil {
+    
+    public $fake = true;
+
+    public static function __construct($labelName, $accessMode, $show, $notificationList = true) {
+    
+        parent::__construct($labelName, $accessMode, $show, $notificationList);
+    
+        $id = 'fake'.self::$fakeId;
+        
+        $this->itemNameSet($id.' name');
+        $this->itemSurnameSet($id.' surname');
+        $this->itemTitleSet($id.' title');
+        $this->itemEmailSet($id.'@instriit.com');
+    }
+}
+class ProfilFake1 extends ProfilFake {
+    
+    public static $fakeId = 1;
+}
+class ProfilFake2 extends ProfilFake {
+    
+    public static $fakeId = 2;
+}
+class ProfilFake3 extends ProfilFake {
+    
+    public static $fakeId = 3;
+}
+class ProfilFake4 extends ProfilFake {
+    
+    public static $fakeId = 4;
+}
+class ProfilIntern extends Profil {
+
+    public static function get($parent, $accessMode, $show) {
+
+        $field = parent::get($parent, $accessMode, $show);
+        $field = self::remove($field, $this->separateActionButtonId);
+
+        return $field;
+    }
+}
+class ProfilDisconnected extends ProfilIntern {
+
+    public $saveActionButtonParamShow  = 'showVisible';
+    public $saveActionButtonParamValue = 'CREER UN COMPTE UN COMPTE';
+}
+class ProfilConnected extends ProfilIntern {
+
+    public $saveActionButtonParamShow  = 'showVisible';
+    public $saveActionButtonParamValue = 'METTRE A JOUR LE COMPTE UN COMPTE';
+
+    public static function get($parent, $accessMode, $show) {
+         
+        $field = parent::getFake($parent, $accessMode, $show, 2);
+
+        return $field;
+    }
+}
+class Avantage extends Field {
+
+    public static function get($parent, $accessMode, $show, $ptQuantity = 0) {
+
+        $field             = parent::get($parent, $accessMode, $show, $ptQuantity);
+        $field->ptQuantity = $ptQuantity;
+
+        return $field;
+    }
+}
+class AvantagePersonnal extends Avantage {
+
+}
+class AvantageBusiness extends Avantage {
+
+}
+class AvantageBusinessPack1 extends AvantageBusiness {
+
+}
+class ProfilAvantagePersonnal extends ProfilConnected {
+
+    public $avantagepersonnalId;
+
+    public static function get($parent, $accessMode, $show) {
+
+        $field                     = parent::get($parent, $accessMode, $show);
+        $field                     = self::remove($field, $this->categoryId);
+        $field                     = self::remove($field, $this->recommandationAcceptActionButtonId);
+        $field                     = self::remove($field, $this->portfolioListMyId);
+        $field                     = self::remove($field, $this->recommandationListMeId);
+        $field                     = self::remove($field, $this->avantageListId);
+        $avantagePersonnal         = AvantageBusiness::get(get_class($this), $accessMode, $show, 0);
+        $this->avantagepersonnalId = $field->fieldItemListAddObj($avantagePersonnal);
+
+        return $field;
+    }
+}
+class ProfilAvantageBusiness extends ProfilConnected {
+
+    public $avantageBusinessId;
+
+    public static function get($parent, $accessMode, $show, $ptQuantity) {
+
+        $field                 = parent::get($parent, $accessMode, $show);
+        $avantageBusiness      = AvantageBusiness::get(get_class($this), $accessMode, $show, 0);
+        $avantageBusinessPack1 = AvantageBusiness::get(get_class($this), $accessMode, $show, $ptQuantity);
+
+        $avantageBusiness->fieldItemListAddObj($avantageBusinessPack1);
+
+        $field = self::addTo($field, $this->avantageListId, $avantageBusiness);
+
+        return $field;
+    }
+}
+class ProfilSocial extends Profil {
+
+    public static function get($parent, $accessMode, $show) {
+
+        $field = parent::get($parent, $accessMode, $show);
+        $field = self::remove($field, $this->emailId);
+        $field = self::remove($field, $this->mdpId);
+        $field = self::remove($field, $this->mdpConfirmId);
+        $field = self::remove($field, $this->recommandationOnActionButtonId);
+        $field = self::remove($field, $this->recommandationOffActionButtonId);
+        $field = self::remove($field, $this->contactAddActionButtonId);
+        $field = self::remove($field, $this->contactRemoveActionButtonId);
+        $field = self::remove($field, $this->recommandationAcceptActionButtonId);
+        $field = self::remove($field, $this->contactAskAcceptActionButtonId);
+        $field = self::remove($field, $this->notificationListId);
+        $field = self::remove($field, $this->contactListId);
+        $field = self::remove($field, $this->portfolioListMyId);
+        $field = self::remove($field, $this->contactAddId);
+        $field = self::remove($field, $this->recommandationAddId);
+        $field = self::remove($field, $this->recommandationListMeId);
+        $field = self::remove($field, $this->recommandationListMyId);
+        $field = self::remove($field, $this->categoryListId);
+        $field = self::remove($field, $this->avantageListId);
+
         return $field;
     }
 }
 
-class Name extends Text {
-
+class ProfilGoogle extends ProfilSocial {
+     
+    public $saveActionButtonShow             = 'showNone';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE GOOGLE+';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE GOOGLE+';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE GOOGLE+';
 }
 
-class Surname extends Text {
-    
+class ProfilFacebook extends ProfilSocial {
+
+    public $saveActionButtonShow             = 'showVisible';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE FACEBOOK';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE FACEBOOK';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE FACEBOOK';
 }
 
-class Title extends Text {
-    
+class ProfilLinledIn extends ProfilSocial {
+
+    public $saveActionButtonShow             = 'showVisible';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE LINKEDIN';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE LINKEDIN';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE LINKEDIN';
 }
 
-class Email extends Field {
-    
+class ProfilTwitter extends ProfilSocial {
+
+    public $saveActionButtonShow             = 'showVisible';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE TWITTER';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE TWITTER';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE TWITTER';
 }
 
+class ProfilPinterest extends ProfilSocial {
 
-class Mdp extends Field {
-
+    public $saveActionButtonShow             = 'showVisible';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE PINTEREST';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE PINTEREST';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE PINTEREST';
 }
 
+class ProfilInstagram extends ProfilSocial {
 
-class MdpConfirm extends Field {
-
+    public $saveActionButtonShow             = 'showVisible';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE INSTAGRAMM';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE INSTAGRAMM';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE INSTAGRAMM';
 }
 
-class RecommandationOnActionButton extends ActionButton {
-    
-}
+class ProfilListMy extends FieldList {
 
-class RecommandationOffActionButton extends ActionButton {
-    
-}
+    public $disconnectedId;
+    public $avantagePersonnalId;
+    public $avantageBusinessId;
+    public $googleId;
+    public $facebookId;
+    public $linkedInId;
+    public $twitterId;
+    public $pinterestId;
+    public $instagramId;
 
-class ContactAddActionButton extends ActionButton {
-    
-}
+    public static function get($parent, $accessMode, $show) {
 
-class ContactRemoveActionButton extends ActionButton {
-    
-}
+        $fieldItem                 = parent::get($parent, $accessMode, $show);
+        $disconnected              = ProfilDisconnected::get(get_class($this), 'create', 'showVisible');
+        $avantagePersonnal         = ProfilAvantagePersonnal::get(get_class($this), 'read', 'showVisible');
+        $avantageBusiness          = ProfilAvantageBusiness::get(get_class($this), 'update', 'showVisible', 1000);
+        $google                    = ProfilGoogle::get(get_class($this), 'create', 'showVisible');
+        $facebook                  = ProfilFacebook::get(get_class($this), 'create', 'showVisible');
+        $linkedIn                  = ProfilLinledIn::get(get_class($this), 'create', 'showVisible');
+        $twitter                   = ProfilTwitter::get(get_class($this), 'create', 'showVisible');
+        $pinterest                 = ProfilPinterest::get(get_class($this), 'create', 'showVisible');
+        $instagram                 = ProfilInstagram::get(get_class($this), 'create', 'showVisible');
+        $this->disconnectedId      = $fieldItem->fieldItemListAddObj($disconnected);
+        $this->AvantagePersonnalId = $fieldItem->fieldItemListAddObj($avantagePersonnal);
+        $this->AvantagePersonnalId = $fieldItem->fieldItemListAddObj($avantageBusiness);
+        $this->googleId            = $fieldItem->fieldItemListAddObj($google);
+        $this->facebookId          = $fieldItem->fieldItemListAddObj($facebook);
+        $this->linkedInId          = $fieldItem->fieldItemListAddObj($linkedIn);
+        $this->twitterId           = $fieldItem->fieldItemListAddObj($twitter);
+        $this->pinterestId         = $fieldItem->fieldItemListAddObj($pinterest);
+        $this->instagramId         = $fieldItem->fieldItemListAddObj($instagram);
 
-class RecommandationAcceptActionButton extends ActionButton {
-    
-}
-
-class ContactAskAcceptActionButton extends ActionButton {
-    
-}
-
-class SaveActionButton extends ActionButton {
-    
-}
-
-class SeparateActionButton extends ActionButton {
-    
-}
-
-class ProfilText extends Text {
-
-}
-
-class ProfilUrl extends Url {
-
-}
-
-class ProfilScriptUpload extends ScriptUpload {
-
-}
-
-class ProfilImage extends Image {
-
-}
-
-class ProfilName extends Name {
-
-}
-
-class ProfilSurname extends Surname {
-
-}
-
-class ProfilTitle extends Title {
-
-}
-
-class ProfilEmail extends Email {
-
-}
-
-class ProfilCategory extends Category {
-
-}
-
-class ProfilMdp extends Mdp {
-
-}
-
-class ProfilMdpConfirm extends MdpConfirm {
-
-}
-
-class ProfilActionButton extends ActionButton {
-
-}
-
-class ProfilActionButtonConfirm extends ActionButtonConfirm {
-
-}
-
-class ProfilRecommandationOnActionButton extends RecommandationOnActionButton {
-    
-    public $value = 'RECOMMANDER';
-}
-
-class ProfilRecommandationOffActionButton extends RecommandationOffActionButton {
-
-    public $value   = 'DERECOMMANDER';
-    public $confirm = 'CONFIRMER SUPPRESSION DE LA RECOMMANDATION';    
-}
-
-class ProfilContactAddActionButton extends ContactAddActionButton {
-
-    public $value = 'AJOUTER AUX CONTACTS';
-}
-
-class ProfilContactRemoveActionButton extends ContactRemoveActionButton {
-
-    public $value   = 'SUPPRIMER DES CONTACTS';
-    public $confirm = 'CONFIRMER LA SUPPRESSION DU CONTACT';
-}
-
-class ProfilRecommandationAcceptActionButton extends RecommandationAcceptActionButton {
-
-    public $value = 'ACCEPTER LA RECOMMANDATION';
-}
-
-class ProfilContactAskAcceptActionButton extends ContactAskAcceptActionButton {
-
-    public $value = 'ACCEPTER LA MISE EN CONTACT';
-}
-
-class ProfilSaveActionButton extends SaveActionButton {
-
-    public $value = 'CREER UN COMPTE';
-}
-
-class ProfilSeparateActionButton extends SeparateActionButton {
-    
-    public $value   = 'DISSOCIER LE COMPTE';
-    public $confirm = 'CONFIRMER LA DISSOCIATION DU COMPTE';
-}
-
-class NotificationImage extends Image {
-    
-}
-
-class NotificationTitle extends Title {
-    
-}
-
-class NotificationIcon extends Image {
-
-}
-
-class NotificationText extends Text {
-
-}
-
-
-class NotificationRecommandationOnActionButton extends RecommandationOnActionButton {
-    
+        return $fieldItem;
+    }
 }
 
 class NotificationRecommandationNew extends Notification {
     
+    use TraitMedia;
+    
     public $title = 'Demande de recommandation';
     public $text  = 'Demande de recommandation';
     
-    public static function get($parent, $accessMode, $show) {
+    public function __construct($labelName, $accessMode, $show) {
         
-        $urlIcon                                  = 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/media/'.get_class($this).'.png';
-        $field                                    = parent::get($parent, 'read', $show);        
-        $notificationTitle                        = NotificationTitle::get($parent, 'read', $show, $this->title);
-        $notificationIcon                         = NotificationImage::get($parent, 'read', $show, $urlIcon);
-        $notificationProfil                       = ProfilAvantagePersonnal::getFake($parent, 'read', $show, 1, false);
-        $notificationTexte                        = NotificationText::get($parent, 'read', $show, $this->text);
-        $notificationRecommandationOnActionButton = NotificationRecommandationOnActionButton::get($parent, $accessMode);
-        
-                
-        return $field;
+        $urlIcon                                  = $this->mediaImageUrlGet();        
+        $notificationTitle                        = new NotificationTitle($this->nodeName, 'read', $show, $this->title);
+        $notificationIcon                         = new NotificationImage($this->nodeName, 'read', $show, $urlIcon);
+        $notificationProfil                       = new ProfilAvantagePersonnal($this->nodeName, 'read', $show, 1, false); // fake
+        $notificationTexte                        = new NotificationText($this->nodeName, 'read', $show, $this->text);
+        $notificationRecommandationOnActionButton = new NotificationRecommandationOnActionButton($this->nodeName, $accessMode);
         
         $toto = '<div class="item notification my">
         <p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
@@ -1129,517 +1773,24 @@ class NotificationList extends FieldList {
        return $list;
     }
 }
-
-class ContactList extends FieldList {
-
-    public static function get($parent, $accessMode, $show) {
-
-        // list profils (3)
-    }
-}
-
-class PortfolioListMy extends FieldList {
-
-    public static function get($parent, $accessMode, $show) {
-
-
-        $todo = '"portFolioList":{
-            "create": {
-            "nodeName": "create",
-            "labelName": "portfolio",
-            "accessMode": "create",
-            "value":"CREER UN COMPTE",
-            "show": "showVisible",
-            "title":{
-            "nodeName": "create",
-            "labelName": "title",
-            "accessMode": "create",
-            "default": "Title",
-            "value":"",
-            "show": "showVisible",
-        },
-        "image":{
-        "nodeName": "create",
-        "labelName": "image",
-        "accessMode": "create",
-        "default": "",
-        "title":"",
-        "titleDefault":"",
-        "urlDefault": "",
-        "show": "showVisible",
-        "url": "http://{domain}/media/portFolioCreate.png",
-        "fieldList": {
-        "nodeName": "create",
-        "labelName": "image",
-        "accessMode": "create",
-        "default": "",
-        "value":"",
-        "show": "showNone"
-        }
-        },
-        "description":{
-        "nodeName": "create",
-        "labelName": "description",
-        "accessMode": "create",
-        "default": "description",
-        "value":"",
-        "show": "showVisible"
-        }
-        },
-        "sample1": {
-        "nodeName": "sample1",
-        "labelName": "portfolio",
-        "accessMode": "create",
-        "value":"CREER UN COMPTE",
-        "show": "showVisible",
-        "title":{
-        "nodeName": "sample1",
-        "labelName": "title",
-        "accessMode": "create",
-        "default": "Title",
-        "value":"sample1",
-        "show": "showVisible"
-        },
-        "image":{
-        "nodeName": "sample1",
-        "labelName": "image",
-        "accessMode": "create",
-        "show": "showVisible",
-        "default": "",
-        "title":"sample1",
-        "titleDefault":"",
-        "urlDefault": "",
-        "url": "http://{domain}/media/portFolioSample1.png",
-        "fieldList": {
-        "nodeName": "sample1",
-        "labelName": "image",
-        "accessMode": "create",
-        "default": "",
-        "value":"",
-        "show": "showNone"
-        }
-        },
-        "description":{
-        "nodeName": "sample1",
-        "labelName": "description",
-        "accessMode": "create",
-        "default": "description",
-        "value":"sample1",
-        "show": "showVisible"
-        }
-        },
-        "sample2": {
-        "nodeName": "sample2",
-        "labelName": "portfolio",
-        "accessMode": "create",
-        "value":"CREER UN COMPTE",
-        "show": "showVisible",
-        "title":{
-        "nodeName": "sample2",
-        "labelName": "title",
-        "accessMode": "create",
-        "default": "Title",
-        "value":"sample2",
-        "show": "showVisible"
-        },
-        "image":{
-        "nodeName": "sample2",
-        "labelName": "image",
-        "accessMode": "create",,
-        "show": "showVisible",
-        "default": "",
-        "title":"sample2",
-        "titleDefault":"",
-        "urlDefault": "",
-        "url": "http://{domain}/media/portFolioSample2.png",
-        "fieldList": {
-        "nodeName": "sample2",
-        "labelName": "image",
-        "accessMode": "create",
-        "default": "",
-        "value":"",
-        "show": "showNone"
-        }
-        },
-        "description":{
-        "nodeName": "sample2",
-        "labelName": "description",
-        "accessMode": "create",
-        "default": "description",
-        "value":"sample2",
-        "show": "showVisible"
-        }
-        }"';
-    }
-}
-
-class ContactAdd {
-
-    public static function get($parent, $accessMode, $show) {
-
-    }
-}
-
-class RecommandationAdd {
-
-    public static function get($parent, $accessMode, $show) {
-
-    }
-}
-
-class RecommandationListMe extends FieldList {
-
-    public static function get($parent, $accessMode, $show) {
-
-    }
-}
-
 class RecommandationListMy extends FieldList {
 
     public static function get($parent, $accessMode, $show) {
 
     }
 }
-
 class CategoryList extends FieldList {
 
     public static function get($parent, $accessMode, $show) {
 
     }
 }
-
 class AvantageList extends FieldList {
 
     public static function get($parent, $accessMode, $show) {
 
     }
 }
-
-class Profil extends FieldList  {
-    
-    public $saveActionButtonShow             = 'showNone';
-    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE RESEAU SOCIAL';
-    public $separateActionButtonShow         = 'showNone';
-    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE';
-    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE';
-    public $imageId;
-    public $nameId;
-    public $surnameId;
-    public $titleId;
-    public $emailId;
-    public $mdpId;
-    public $mdpConfirmId;
-    public $categoryId;
-    public $recommandationOnActionButtonId;
-    public $recommandationOffActionButtonId;
-    public $contactAddActionButtonId;
-    public $contactRemoveActionButtonId;
-    public $recommandationAcceptActionButtonId;
-    public $contactAskAcceptActionButtonId;
-    public $saveActionButtonId;
-    public $separateActionButtonId;
-    public $notificationListId;
-    public $contactListId;
-    public $portfolioListMyId;
-    public $contactAddId;
-    public $recommandationAddId;
-    public $recommandationListMeId;
-    public $recommandationListMyId;
-    public $categoryListId;
-    public $avantageListId;
-
-    public static function get($parent, $accessMode, $show, $notificationList = true) {
-         
-        $profil                                   = parent::get($parent, $accessMode, $show);
-        $urlAvatar                                = 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/media/'.get_class($this).'.png';
-        $image                                    = ProfilImage::get(get_class($this), $accessMode, $show, $urlAvatar);
-        $name                                     = ProfilName::get(get_class($this), $accessMode, $show);
-        $surname                                  = ProfilSurname::get(get_class($this), $accessMode, $show);
-        $title                                    = ProfilTitle::get(get_class($this), $accessMode, $show);
-        $email                                    = ProfilEmail::get(get_class($this), $accessMode, $show);
-        $mdp                                      = ProfilMdp::get(get_class($this), $accessMode, $show);
-        $mdpConfirm                               = ProfilMdpConfirm::get(get_class($this), $accessMode, $show);
-        $recommandationOnActionButton             = ProfilRecommandationOnActionButton::get(get_class($this));
-        $recommandationOffActionButton            = ProfilRecommandationOffActionButton::get(get_class($this));
-        $contactAddActionButton                   = ProfilContactAddActionButton::get(get_class($this));
-        $contactRemoveActionButton                = ProfilContactRemoveActionButton::get(get_class($this));
-        $recommandationAcceptActionButton         = ProfilRecommandationAcceptActionButton::get(get_class($this));
-        $contactAskAcceptActionButton             = ProfilContactAskAcceptActionButton::get(get_class($this));
-        $saveActionButton                         = ProfilSaveActionButton::get(get_class($this));
-        $separateActionButton                     = ProfilSeparateActionButton::get(get_class($this));
-        $category                                 = ProfilCategory::get(get_class($this), $accessMode, $show);
-        $contactList                              = ContactList::get(get_class($this), $accessMode, $show);
-        $portfolioListMy                          = PortfolioListMy::get(get_class($this), $accessMode, $show);
-        $contactAdd                               = ContactAdd::get(get_class($this), $accessMode, $show);
-        $recommandationAdd                        = RecommandationAdd::get(get_class($this), $accessMode, $show);
-        $recommandationListMe                     = RecommandationListMe::get(get_class($this), $accessMode, $show);
-        $recommandationListMy                     = RecommandationListMy::get(get_class($this), $accessMode, $show);
-        $categoryList                             = CategoryList::get(get_class($this), $accessMode, $show);
-        $avantageList                             = AvantageList::get(get_class($this), $accessMode, $show);        
-        $this->imageId                            = $profil->fieldItemListAddObj($image);
-        $this->nameId                             = $profil->fieldItemListAddObj($name);
-        $this->surnameId                          = $profil->fieldItemListAddObj($surname);
-        $this->titleId                            = $profil->fieldItemListAddObj($title);
-        $this->emailId                            = $profil->fieldItemListAddObj($email);
-        $this->mdpId                              = $profil->fieldItemListAddObj($mdp);
-        $this->mdpConfirmId                       = $profil->fieldItemListAddObj($mdpConfirm);
-        $this->categoryId                         = $profil->fieldItemListAddObj($category);
-        $this->recommandationOnActionButtonId     = $profil->fieldItemListAddObj($recommandationOnActionButton);
-        $this->recommandationOffActionButtonId    = $profil->fieldItemListAddObj($recommandationOffActionButton);
-        $this->contactAddActionButtonId           = $profil->fieldItemListAddObj($contactAddActionButton);
-        $this->contactRemoveActionButtonId        = $profil->fieldItemListAddObj($contactRemoveActionButton);
-        $this->recommandationAcceptActionButtonId = $profil->fieldItemListAddObj($recommandationAcceptActionButton);
-        $this->contactAskAcceptActionButtonId     = $profil->fieldItemListAddObj($contactAskAcceptActionButton);
-        $this->saveActionButtonId                 = $profil->fieldItemListAddObj($saveActionButton);
-        $this->separateActionButtonId             = $profil->fieldItemListAddObj($separateActionButton);
-        $this->contactListId                      = $profil->fieldItemListAddObj($contactList);
-        $this->portfolioListMyId                  = $profil->fieldItemListAddObj($portfolioListMy);
-        $this->contactAddId                       = $profil->fieldItemListAddObj($contactAdd);
-        $this->recommandationAddId                = $profil->fieldItemListAddObj($recommandationAdd);
-        $this->recommandationListMeId             = $profil->fieldItemListAddObj($recommandationListMe);
-        $this->recommandationListMyId             = $profil->fieldItemListAddObj($recommandationListMy);
-        $this->categoryListId                     = $profil->fieldItemListAddObj($categoryList);
-        $this->avantageListId                     = $profil->fieldItemListAddObj($avantageList);        
-        $profil                                   = self::showSet($profil, $this->saveActionButtonId, $this->saveActionButtonShow);
-        $profil                                   = self::valueSet($profil, $this->saveActionButtonId, $this->saveActionButtonValue);
-        $profil                                   = self::showSet($profil, $this->separateActionButtonId, $this->separateActionButtonShow);
-        $profil                                   = self::valueSet($profil, $this->separateActionButtonId, $this->separateActionButtonValue);
-        
-        $profil->fieldItemList[$this->separateActionButtonId] = ProfilSeparateActionButton::confirmSet($profil->fieldItemList[$this->separateActionButtonId], $this->separateActionButtonConfirmValue);
-                
-        if($notificationList === true) {
-
-            $notificationList         = NotificationList::get(get_class($this), $accessMode, $show);
-            $this->notificationListId = $profil->fieldItemListAddObj($notificationList);
-        }
-        return $profil;
-    }
-    
-    public static function getFake($parent, $accessMode, $show, $id, $notificationList = true) {
-    
-        $id        = 'fake'.$id;
-        $urlProfil = 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/media/'.$id.'.png';
-        $profil    = self::get($parent, $accessMode, $show, $notificationList);        
-        $profil    = self::valueSet($profil, $profil->imageId, $urlProfil);
-        $profil    = self::valueSet($profil, $profil->nameId, $id.' name');
-        $profil    = self::valueSet($profil, $profil->surnameId, $id.' surname');
-        $profil    = self::valueSet($profil, $profil->titleId, $id.' title');
-        $profil    = self::valueSet($profil, $profil->emailId, $id.'@instriit.com');
-        
-        return $profil;
-    }
-}
-
-class ProfilIntern extends Profil {
- 
-    public static function get($parent, $accessMode, $show) {
-    
-        $field = parent::get($parent, $accessMode, $show);
-        $field = self::remove($field, $this->separateActionButtonId);
-    
-        return $field;
-    }    
-}
-
-class ProfilDisconnected extends ProfilIntern {
-
-    public $saveActionButtonParamShow  = 'showVisible';
-    public $saveActionButtonParamValue = 'CREER UN COMPTE UN COMPTE';
-}
-
-class ProfilConnected extends ProfilIntern {
-    
-    public $saveActionButtonParamShow  = 'showVisible';
-    public $saveActionButtonParamValue = 'METTRE A JOUR LE COMPTE UN COMPTE';
-    
-    public static function get($parent, $accessMode, $show) {
-           
-        $field = parent::getFake($parent, $accessMode, $show, 2);
-    
-        return $field;
-    }    
-}
-
-class Avantage extends Field {
-
-    public static function get($parent, $accessMode, $show, $ptQuantity = 0) {
-    
-        $field             = parent::get($parent, $accessMode, $show, $ptQuantity);
-        $field->ptQuantity = $ptQuantity;
-    
-        return $field;
-    } 
-}
-
-class AvantagePersonnal extends Avantage {
-    
-}
-
-class AvantageBusiness extends Avantage {
-
-}
-
-class AvantageBusinessPack1 extends AvantageBusiness {
-    
-}
-
-class ProfilAvantagePersonnal extends ProfilConnected {
-
-    public $avantagepersonnalId;
-    
-    public static function get($parent, $accessMode, $show) {
-    
-        $field                     = parent::get($parent, $accessMode, $show);     
-        $field                     = self::remove($field, $this->categoryId);   
-        $field                     = self::remove($field, $this->recommandationAcceptActionButtonId);
-        $field                     = self::remove($field, $this->portfolioListMyId);
-        $field                     = self::remove($field, $this->recommandationListMeId);
-        $field                     = self::remove($field, $this->avantageListId);        
-        $avantagePersonnal         = AvantageBusiness::get(get_class($this), $accessMode, $show, 0);
-        $this->avantagepersonnalId = $field->fieldItemListAddObj($avantagePersonnal);
-    
-        return $field;
-    }     
-}
-
-class ProfilAvantageBusiness extends ProfilConnected {
-    
-    public $avantageBusinessId;
-
-    public static function get($parent, $accessMode, $show, $ptQuantity) {
-    
-        $field                 = parent::get($parent, $accessMode, $show);        
-        $avantageBusiness      = AvantageBusiness::get(get_class($this), $accessMode, $show, 0);
-        $avantageBusinessPack1 = AvantageBusiness::get(get_class($this), $accessMode, $show, $ptQuantity);
-        
-        $avantageBusiness->fieldItemListAddObj($avantageBusinessPack1);        
-                
-        $field = self::addTo($field, $this->avantageListId, $avantageBusiness);
-    
-        return $field;
-    }
-}
-
-class ProfilSocial extends Profil {
-
-    public static function get($parent, $accessMode, $show) {
-
-        $field = parent::get($parent, $accessMode, $show);
-        $field = self::remove($field, $this->emailId);
-        $field = self::remove($field, $this->mdpId);
-        $field = self::remove($field, $this->mdpConfirmId);
-        $field = self::remove($field, $this->recommandationOnActionButtonId);
-        $field = self::remove($field, $this->recommandationOffActionButtonId);
-        $field = self::remove($field, $this->contactAddActionButtonId);
-        $field = self::remove($field, $this->contactRemoveActionButtonId);
-        $field = self::remove($field, $this->recommandationAcceptActionButtonId);
-        $field = self::remove($field, $this->contactAskAcceptActionButtonId);
-        $field = self::remove($field, $this->notificationListId);
-        $field = self::remove($field, $this->contactListId);
-        $field = self::remove($field, $this->portfolioListMyId);
-        $field = self::remove($field, $this->contactAddId);
-        $field = self::remove($field, $this->recommandationAddId);
-        $field = self::remove($field, $this->recommandationListMeId);
-        $field = self::remove($field, $this->recommandationListMyId);
-        $field = self::remove($field, $this->categoryListId);
-        $field = self::remove($field, $this->avantageListId);
-
-        return $field;
-    }
-}
-
-class ProfilGoogle extends ProfilSocial {
-       
-    public $saveActionButtonShow             = 'showNone';
-    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE GOOGLE+';    
-    public $separateActionButtonShow         = 'showNone';
-    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE GOOGLE+';
-    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE GOOGLE+';
-}
-
-class ProfilFacebook extends ProfilSocial {
-    
-    public $saveActionButtonShow             = 'showVisible';
-    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE FACEBOOK';
-    public $separateActionButtonShow         = 'showNone';
-    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE FACEBOOK';
-    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE FACEBOOK';
-}
-
-class ProfilLinledIn extends ProfilSocial {
-
-    public $saveActionButtonShow             = 'showVisible';
-    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE LINKEDIN';
-    public $separateActionButtonShow         = 'showNone';
-    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE LINKEDIN';
-    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE LINKEDIN';
-}
-
-class ProfilTwitter extends ProfilSocial {
-
-    public $saveActionButtonShow             = 'showVisible';
-    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE TWITTER';
-    public $separateActionButtonShow         = 'showNone';
-    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE TWITTER';
-    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE TWITTER';
-}
-
-class ProfilPinterest extends ProfilSocial {
-
-    public $saveActionButtonShow             = 'showVisible';
-    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE PINTEREST';
-    public $separateActionButtonShow         = 'showNone';
-    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE PINTEREST';
-    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE PINTEREST';
-}
-
-class ProfilInstagram extends ProfilSocial {
-
-    public $saveActionButtonShow             = 'showVisible';
-    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE INSTAGRAMM';
-    public $separateActionButtonShow         = 'showNone';
-    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE INSTAGRAMM';
-    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE INSTAGRAMM';
-}
-
-class ProfilListMy extends FieldList {
-    
-    public $disconnectedId;
-    public $avantagePersonnalId;
-    public $avantageBusinessId;
-    public $googleId;
-    public $facebookId;
-    public $linkedInId;
-    public $twitterId;
-    public $pinterestId;
-    public $instagramId;
-    
-    public static function get($parent, $accessMode, $show) {
-
-        $fieldItem                 = parent::get($parent, $accessMode, $show);
-        $disconnected              = ProfilDisconnected::get(get_class($this), 'create', 'showVisible');
-        $avantagePersonnal         = ProfilAvantagePersonnal::get(get_class($this), 'read', 'showVisible');
-        $avantageBusiness          = ProfilAvantageBusiness::get(get_class($this), 'update', 'showVisible', 1000);
-        $google                    = ProfilGoogle::get(get_class($this), 'create', 'showVisible');
-        $facebook                  = ProfilFacebook::get(get_class($this), 'create', 'showVisible');
-        $linkedIn                  = ProfilLinledIn::get(get_class($this), 'create', 'showVisible');
-        $twitter                   = ProfilTwitter::get(get_class($this), 'create', 'showVisible');
-        $pinterest                 = ProfilPinterest::get(get_class($this), 'create', 'showVisible');
-        $instagram                 = ProfilInstagram::get(get_class($this), 'create', 'showVisible');        
-        $this->disconnectedId      = $fieldItem->fieldItemListAddObj($disconnected);
-        $this->AvantagePersonnalId = $fieldItem->fieldItemListAddObj($avantagePersonnal);
-        $this->AvantagePersonnalId = $fieldItem->fieldItemListAddObj($avantageBusiness);
-        $this->googleId            = $fieldItem->fieldItemListAddObj($google);
-        $this->facebookId          = $fieldItem->fieldItemListAddObj($facebook);
-        $this->linkedInId          = $fieldItem->fieldItemListAddObj($linkedIn);
-        $this->twitterId           = $fieldItem->fieldItemListAddObj($twitter);
-        $this->pinterestId         = $fieldItem->fieldItemListAddObj($pinterest);
-        $this->instagramId         = $fieldItem->fieldItemListAddObj($instagram);
-        
-        return $fieldItem;
-    }
-}
-
 class MainContent {
     
     public $profilListMyId;
@@ -1687,17 +1838,7 @@ class ApiBack extends ApiBackFieldItem {
         echo json_encode($ApiBack);
 
 $todo ="
-},
-'fieldList':{
-'
-'portfolioList': {
-'url': 'index.php?menu=portfolioList',
-'nodeName': 'portfolioList',
-'labelName': 'link',
-'accessMode': 'read',
-'show': 'showNone',
-'label': 'Portfolio'
-},
+
 'notificationList': {
 'url': 'index.php?menu=notificationList',
 'nodeName': 'portfolioList',
