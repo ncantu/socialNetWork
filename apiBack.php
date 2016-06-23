@@ -35,6 +35,13 @@ class Microservice {
         $this->filter           = $filer;
         $this->token            = $token;
     }
+    public function templateSet() {
+   
+        $labelName                  = $this->labelName;
+        $this->microserviceTemplate = new $labelName($this->labelName, $this->accessMode, $this->show);
+        
+        return true;
+    }
 }
 
 class Field {
@@ -51,7 +58,8 @@ class Field {
     public $url;
     public $ptQuantity;
     public $idList;
-
+    public $microservice;
+    
     public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
 
         $nodeName           = get_class($this);
@@ -114,11 +122,78 @@ class Field {
     
         return true;
     }
+    public function actionButtonItemToolsRemove() {
+        
+        $this->actionButtonRemoveRemove();
+        $this->actionButtonEditRemove();
+        $this->actionButtonDetailRemove();
+        
+        return true;        
+    }
+    public function actionButtonItemToolsAdd($labelName, $microserviceTemplate, $show) {
+        
+        $this->actionButtonRemoveAdd();
+        $this->actionButtonEditAdd();
+        $this->actionButtonDetailAdd();
+        
+        return true;
+    }  
+    public function actionButtonRemoveRemove() {
+
+        $this->actionButtonRemove = false;
+        
+        return true;
+    }   
+    public function actionButtonEditRemove() {
+
+        $this->actionButtonEdit = false;
+        
+        return true;
+    } 
+    public function actionButtonDetailRemove() {
+
+        $this->actionButtonDetail = false;
+        
+        return true;
+    }   
+    public function actionButtonRemoveAdd() {
+        
+        $this->actionButtonRemove = new ActionButtonRemove($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
+        
+        return true;       
+    }
+    public function actionButtonEditAdd() {
+        
+        $this->actionButtonEdit = new ActionButtonEdit($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
+        
+        return true;       
+    }
+    public function actionButtonDetailAdd() {
+        
+        $this->actionButtonetail = new ActionButtonDetail($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
+        
+        return true;       
+    }
+    public function microserviceSet($microserviceLabelName, $microserviceAccessMode, $microserviceShow) {
+        
+        $token              = new Token();
+        $filter             = $this->filterSet($token);        
+        $this->microservice = new Microservice($microserviceLabelName, $microserviceAccessMode, $microserviceShow, $filter, $token);
+        
+        return true;
+    }   
+    public function filterSet() {
+        
+        return new Filter();
+    }
 }
 class FieldList extends Field {
 
-    public $itemList = array();
-    
+    public $itemList           = array();    
+    public $actionButtonAdd    = false;
+    public $actionButtonNext   = false;
+    public $actionButtonPrec   = false;
+        
     public function add($obj, $attritutList = array()) {
              
         if(isset($obj->id) === false) {
@@ -218,68 +293,207 @@ class FieldList extends Field {
     
         return true;
     }
+    public function actionButtonItemToolsAdd() {
+        
+        $this->actionButtonItemToolsCrudAdd;
+        $this->actionButtonItemToolsPaginationAdd();
+        
+        return true;
+    }
+    public function actionButtonItemToolsPaginationAdd() {
+        
+        $this->actionButtonNextAdd();
+        $this->actionButtonPrecAdd();
+        
+        return true;
+    }
+    public function actionButtonItemToolsCrudAdd() {
+        
+        $this->actionButtonAddAdd();
+        
+        return true;
+    }
+    public function actionButtonItemToolsRemove() {
+        
+        $this->actionButtonAddRemove();
+        $this->actionButtonItemToolspaginationRemove();
+        
+        return true;        
+    }
+    public function actionButtonItemToolspaginationRemove() {
+        
+        $this->actionButtonNextRemove();
+        $this->actionButtonPrecRemove();
+        
+        return true;        
+    }    
+    public function actionButtonAddRemove() {
+        
+        $this->actionButtonAdd = false;
+        
+        return true;
+    }
+    
+    public function actionButtonNextRemove() {
+        
+        $this->actionButtonNext = false;
+
+        return true;
+    }
+    
+    public function actionButtonPrecRemove() {
+        
+
+        $this->actionButtonPrec = false;
+
+        return true;
+    }  
+    
+    public function actionButtonAddAdd() {
+
+        $this->actionButtonAdd = new ActionButtonAdd($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show);
+        
+        return true;
+    }
+    
+    public function actionButtonNextAdd() {
+        
+        $this->actionButtonNext = new ActionButtonNext($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
+        
+        return true;       
+    }
+    
+    public function actionButtonPrecAdd() {
+        
+        $this->actionButtonPrec = new ActionButtonPrec($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
+        
+        return true;
+    }
 }
 class Semantic extends Field {
 }
 class SemanticList extends FieldList {
 }
 class Text extends SemanticList {
-
 }
 class ActionButton extends FieldList {
 
-    public $show    = 'showNone';
-    public $confirm = false;
+    public $show                   = 'showNone';
+    public $confirm                = false;
+    public $microserviceLabelName  = false;
+    public $microserviceAccessMode = 'read';
+    public $microserviceShow       = 'showNone';
+    public $confirmButton          = false;
     public $value;
-    public $microservice;
 
-    public static function __construct($labelName, $show) {
+    public static function __construct($labelName, $show, $microserviceLabelName = false, $microserviceAccessMode = false, $microserviceShow = false) {
 
+        if($microserviceLabelName !== false) {
+            
+            $this->microserviceLabelName = $microserviceLabelName;
+        }        
+        if($microserviceAccessMode !== false) {
+            
+            $this->microserviceAccessMode = $microserviceAccessMode;
+        }        
+        if($microserviceShow !== false) {
+            
+            $this->microserviceShow = $microserviceShow;
+        }        
         $field = parent::__construct($labelName, 'read', $show, $this->value);
 
         if($this->confirm !== false) {
              
-            $actionButtonConfirm         = new ActionButtonConfirm(get_class($this), 'read', 'showNone', $this->confirm);
-            $this->add($actionButtonConfirm);
-        }        
+            $this->confirmUpdate($this->confirm);
+        }
+        $this->microserviceSet($this->microserviceLabelName, $this->microserviceAccessMode, $this->microserviceShow);
+        
         return $field;
     }
-   
-    public function microserviceSet($labelName, $accessMode, $show, $filter, $token) {
-        
-        $this->microservice = new Microservice($labelName, $accessMode, $show, $filter, $token);
-        
-        return true;
-    }   
     
     public function confirmUpdate($confirm) {
         
-        $this->confirm       = $confirm;        
-        $actionButtonConfirm = new ActionButtonConfirm(get_class($this), 'read', 'showNone', $this->confirm);
-        
-        $this->update($actionButtonConfirm);
+        $this->confirmButton = new ActionButtonConfirm(get_class($this), 'read', 'showNone', $confirm);
         
         return true;
     }
 }
 class ActionButtonConfirm extends ActionButton {
+    
+    public $confirm = false;
+}
+class ActionButtonItemTool extends ActionButton {
+    
+    public function __construct($labelName, $microserviceTemplate, $show = 'showVisible') {
+    
+        parent::__construct($labelName, $show);
+    }
+}
+class ActionButtonItemToolCrud extends ActionButtonItemTool {
+        
+    public function filterSet($token) {
+    
+        $userNodeName = $token->getUserNodeName();
+        $filter       = new Filter();
+
+        $filter->set('microservice', $this->microservice);
+        $filter->set('user', $userNodeName);
+        $filter->set('attributList', array());
+    
+        return $filter;
+    }
+}
+
+class ActionButtonAdd extends ActionButtonItemToolCrud {
+
+    public $microserviceAccessMode = 'create';
+}
+class ActionButtonEdit extends ActionButtonItemToolCrud {
+
+    public $microserviceAccessMode = 'update';
+}
+class ActionButtonDetail extends ActionButtonItemToolCrud {
+
+    public $microserviceAccessMode = 'read';
+}
+class ActionButtonRemove extends ActionButtonItemToolCrud {
+
+    public $microserviceAccessMode = 'delete';
+}
+class ActionButtonPagination extends ActionButtonItemTool {
+
+    public $microservicelenghtShow = 10;
+    public $microserviceAccessMode = 'read';
+    public $microserviceShow       = 'showVisible';
+
+    public function filterSet($token) {
+
+        $userNodeName = $token->getUserNodeName();
+        $filter       = new Filter();
+
+        $filter->set('microservice', $this->microservice);
+        $filter->set('user', $userNodeName);
+        $filter->set('start', array());
+        $filter->set('lenghtShow', $this->microservicelenghtShow);
+        $filter->set('lenght', $this->microservicelenght);
+        $filter->set('attributList', array());
+
+        return $filter;
+    }
+}
+class ActionButtonNext extends ActionButtonPagination {
+    
+    public $microservicelenght = 20;
+}
+class ActionButtonPrec extends ActionButtonPagination {
+    
+    public $microservicelenght = -20;
 }
 class ActionButtonMenuItem extends ActionButton {
 
     public $microserviceLabelName  = 'Profil';
-    public $microserviceAccessMode = 'update';
-    public $microserviceShow       = 'showVisible';
-    
-    public function __construct($labelName, $show = 'showVisible') {
-    
-        parent::__construct($labelName, $show);
-    
-        $token        = new Token();
-        $filter       = $this->filterSet($token);
-        $profilListMy = new ActionButtonMenuItem($this->nodeName);
-    
-        $this->microserviceSet($this->microserviceLabelName, $this->microserviceAccessMode, $this->microserviceShow, $filter, $token);
-    }
+    public $microserviceAccessMode = 'read';
+    public $microserviceShow       = 'showVisible';    
 }
 class Theme extends Text {
 }
@@ -354,12 +568,10 @@ class MainDescription extends FieldList {
     public $semanticValueDefault    = 'fr';
     public $themeValueDefault       = 'default';
     public $versionConfValueDefault = 'v0.0';
-
     public $title;
     public $descriptionShort;
     public $descriptionLong;
-    public $versionConf;
-    
+    public $versionConf;    
     public $domainList;
     public $keywordList;
     public $lang;
@@ -415,6 +627,157 @@ class ActionButtonMenuItemProfilListMy extends ActionButtonMenuItem {
     }
 }
 
+class Notification extends FieldList {
+
+}
+class ActionButtonMenuItemNotificationList extends ActionButtonMenuItem {
+    
+    public $microserviceLabelName  = 'Notification';
+    public $microserviceAccessMode = 'read';
+    public $microserviceShow       = 'showVisible';
+    
+    public function filterSet($token) {
+        
+        $userNodeName = $token->getUserNodeName();        
+        $filter       = new Filter();
+        
+        $filter->set('user', $userNodeName);
+        $filter->set('oderFied', 'dateCreated');
+        
+        return $filter;
+    }
+}
+class Contact extends Profil {
+}
+class ActionButtonMenuItemContactList extends ActionButtonMenuItem {
+    
+    public $microserviceLabelName  = 'Contact';
+    public $microserviceAccessMode = 'read';
+    public $microserviceShow       = 'showVisible';
+    
+    public function filterSet($token) {
+        
+        $userNodeName = $token->getUserNodeName();        
+        $filter       = new Filter();
+        
+        $filter->set('user', $userNodeName);
+        $filter->set('oderFied', 'dateCreated');
+        
+        return $filter;
+    }
+}
+
+class PortFolio extends Field {
+}
+class ActionButtonMenuItemPortfolioListMy extends ActionButtonMenuItem {
+    
+    public $microserviceLabelName  = 'Portfolio';
+    public $microserviceAccessMode = 'update';
+    public $microserviceShow       = 'showVisible';
+    
+    public function filterSet($token) {
+        
+        $userNodeName = $token->getUserNodeName();        
+        $filter       = new Filter();
+        
+        $filter->set('user', $userNodeName);
+        $filter->set('oderFied', 'dateCreated');
+        
+        return $filter;
+    }
+}
+
+class ActionButtonMenuItemRecommandationListMe extends ActionButtonMenuItem {
+    
+    public $microserviceLabelName  = 'Recommandation';
+    public $microserviceAccessMode = 'read';
+    public $microserviceShow       = 'showVisible';
+    
+    public function filterSet($token) {
+        
+        $userNodeName = $token->getUserNodeName();        
+        $filter       = new Filter();
+        
+        $filter->set('userRecommanded', $userNodeName);
+        $filter->set('oderFied', 'dateCreated');
+        
+        return $filter;
+    }
+}
+
+class Recommandation extends Field {
+    
+}
+
+class ActionButtonMenuItemRecommandationListMy extends ActionButtonMenuItem {
+    
+    public $microserviceLabelName  = 'Recommandation';
+    public $microserviceAccessMode = 'update';
+    public $microserviceShow       = 'showVisible';
+    
+    public function filterSet($token) {
+        
+        $userNodeName = $token->getUserNodeName();        
+        $filter       = new Filter();
+        
+        $filter->set('user', $userNodeName);
+        $filter->set('oderFied', 'dateCreated');
+        
+        return $filter;
+    }
+}
+
+class Category extends Text {
+}
+
+class ActionButtonMenuItemCategoryList extends ActionButtonMenuItem {
+    
+    public $microserviceLabelName  = 'Caterory';
+    public $microserviceAccessMode = 'read';
+    public $microserviceShow       = 'showVisible';
+    
+    public function filterSet($token) {
+        
+        $userNodeName = $token->getUserNodeName();        
+        $filter       = new Filter();
+        
+        $filter->set('oderFied', 'name');
+        
+        return $filter;
+    }
+}
+
+class ActionButtonMenuItemAvantageList extends ActionButtonMenuItem {
+    
+    public $microserviceLabelName  = 'Avantage';
+    public $microserviceAccessMode = 'read';
+    public $microserviceShow       = 'showVisible';
+    
+    public function filterSet($token) {
+        
+        $userNodeName = $token->getUserNodeName();        
+        $filter       = new Filter();
+        
+        $filter->set('oderFied', 'price');
+        
+        return $filter;
+    }
+}
+
+class ActionButtonAddContact extends ActionButtonAdd {
+
+    public $microserviceLabelName  = 'Contact';
+    public $microserviceAccessMode = 'create';
+    public $microserviceShow       = 'showVisible';
+    public $defaultValue           = 'Ajouter un contact';
+}
+class ActionButtonAddRecommandation extends ActionButtonAdd {
+
+    public $microserviceLabelName  = 'Recommandation';
+    public $microserviceAccessMode = 'create';
+    public $microserviceShow       = 'showVisible';
+    public $defaultValue           = 'Recommander';
+}
 
 class MainMenu extends FieldList {
     
@@ -422,18 +785,36 @@ class MainMenu extends FieldList {
     
         parent::__construct($labelName, $accessMode, $show, $value);
 
-        $profilListMy = new ActionButtonMenuItemProfilListMy($this->nodeName);
+        $actionButtonMenuItemProfilListMy         = new ActionButtonMenuItemProfilListMy($this->nodeName);        
+        $actionButtonMenuItemNotificationList     = new ActionButtonMenuItemNotificationList($this->nodeName);
+        $actionButtonMenuItemContactList          = new ActionButtonMenuItemContactList($this->nodeName);
+        $actionButtonMenuItemPortfolioListMy      = new ActionButtonMenuItemPortfolioListMy($this->nodeName);        
+        $actionButtonAddContact                   = new ActionButtonAddContact($this->nodeName);
+        $actionButtonAddRecommandation            = new ActionButtonAddRecommandation($this->nodeName);        
+        $actionButtonMenuItemRecommandationListMe = new ActionButtonMenuItemRecommandationListMe($this->nodeName);
+        $actionButtonMenuItemRecommandationListMy = new ActionButtonMenuItemRecommandationListMy($this->nodeName);
+        $actionButtonMenuItemCategoryList         = new ActionButtonMenuItemCategoryList($this->nodeName);
+        $actionButtonMenuItemAvantageList         = new ActionButtonMenuItemAvantageList($this->nodeName);
         
-        
-        $this->add('index.php?menu=notificationList', 'Notification', 'notificationList', 'link', 'read', 'showVisible');
-        $this->add('index.php?menu=contactList', 'Mes contacts', 'contactList', 'link', 'read', 'showVisible');
-        $this->add('index.php?menu=portfolioListMy', 'Mon Portfolio', 'portfolioListMy', 'link', 'read', 'showVisible');
-        $this->add('index.php?menu=contactAdd', 'Ajouter un contact', 'contactAdd', 'link', 'read', 'showVisible');
-        $this->add('index.php?menu=recommandationAdd', 'Ajouter une recommandation', 'recommandationAdd', 'link', 'read', 'showVisible');
-        $this->add('index.php?menu=recommandationListMe', 'Personnes qui me recommandent', 'recommandationListMe', 'link', 'read', 'showVisible');
-        $this->add('index.php?menu=recommandationListMy', 'Mes recommandations', 'recommandationListMy', 'link', 'read', 'showVisible');
-        $this->add('index.php?menu=categoryList', 'Catérogies', 'categoryList', 'link', 'read', 'showVisible');
-        $this->add('index.php?menu=avantageList', 'Avantages premium', 'avantageList', 'link', 'read', 'showVisible');
+        $actionButtonMenuItemNotificationList->actionButtonItemToolsPaginationAdd();
+        $actionButtonMenuItemRecommandationListMe->actionButtonItemToolsPaginationAdd();
+        $actionButtonMenuItemCategoryList->actionButtonItemToolsPaginationAdd();
+
+        $actionButtonMenuItemContactList->actionButtonItemToolsAdd();
+        $actionButtonMenuItemPortfolioListMy->actionButtonItemToolsAdd();
+        $actionButtonMenuItemRecommandationListMy->actionButtonItemToolsAdd();
+        $actionButtonMenuItemAvantageList->actionButtonItemToolsAdd();
+                
+        $this->add($actionButtonMenuItemProfilListMy);
+        $this->add($actionButtonMenuItemNotificationList);
+        $this->add($actionButtonMenuItemContactList);
+        $this->add($actionButtonMenuItemPortfolioListMy);
+        $this->add($actionButtonAddContact);
+        $this->add($actionButtonAddRecommandation);        
+        $this->add($actionButtonMenuItemRecommandationListMe);
+        $this->add($actionButtonMenuItemRecommandationListMy);
+        $this->add($actionButtonMenuItemCategoryList);
+        $this->add($actionButtonMenuItemAvantageList);        
         
         return $this;
     }
@@ -473,10 +854,12 @@ class Image extends Field {
         
         parent::get($parent, $accessMode, $show);
         
-        $url                  = new Url();
+        $url = new Url();
+        
         $url->get(get_class($this), $accessMode, $show, $url);
         
-        $scriptUpload         = new ScriptUpload();
+        $scriptUpload = new ScriptUpload();
+        
         $scriptUpload->get(get_class($this), 'read', 'showVisible');
         
         $this->urlId          = $field->fieldItemListAddObj($url);
@@ -502,9 +885,6 @@ class Email extends Field {
     
 }
 
-class Category extends Text {
-    
-}
 
 class Mdp extends Field {
 
@@ -658,10 +1038,6 @@ class NotificationText extends Text {
 
 }
 
-class Notification extends FieldList {
-    
-    
-}
 
 class NotificationRecommandationOnActionButton extends RecommandationOnActionButton {
     
