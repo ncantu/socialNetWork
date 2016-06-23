@@ -1,263 +1,466 @@
 <?php 
 
-class ApiBackClassList {
-
-    public $idList;
-    public $classList;
+class Filter {
+ 
+    public $attributList = array();
     
-    public function __construct(){
-
-        $this->idList    = new stdClass();
-        $this->classList = new stdClass();
+    public function set($attributName, $attributValue){
+        
+        $this->attributList[$attributName] = $attributValue;
     }
 }
 
-class ApiBackMenuItem {
+class Token {
+    
+    public static $idPublic = 'lnsdlfnsdlf';
+    
+    public function getUserNodeName(){
+        
+        return 'toto';
+    }
+}
 
-    public $id;
-    public $url;
-    public $label;
-    public $nodeName;
+class Microservice {
+    
     public $labelName;
     public $accessMode;
-    public $show;
+    public $filter;
+    public $token;
+
+    public function __construct($labelName, $accessMode, $show, $filer = false, $token = false) {
     
-    public function __construct($url, $label, $nodeName, $labelName, $accessMode, $show) {
-
-        $this->id          = $labelName.'-'.$nodeName;
-        $this->url        = $url;
-        $this->label      = $label;
-        $this->nodeName   = $nodeName;
-        $this->labelName  = $labelName;
-        $this->accessMode = $accessMode;
-        $this->show       = $show;
-    }
-}
-
-class ApiBackMenuList {
-
-    public $id;
-    public $nodeName;
-    public $labelName;
-    public $accessMode;
-    public $show;
-    public $menuItemList = array();
-    
-    public function __construct($nodeName, $labelName, $accessMode, $show) {
-
-        $this->id          = $labelName.'-'.$nodeName;
-        $this->nodeName    = $nodeName;
-        $this->labelName   = $labelName;
-        $this->accessMode  = $accessMode;
-        $this->show = $show;
-    }
-
-    public function menuItemListAdd($url, $label, $nodeName, $labelName, $accessMode, $show) {
-         
-        $id                      = $labelName.'-'.$nodeName;
-        $this->menuItemList[$id] = new ApiBackMenuItem($url, $label, $nodeName, $labelName, $accessMode, $show);
-    
-        return $id;
-    }
-
-    public function menuItemListAddObj($obj) {
-        
-        $id                       = $obj->labelName.'-'.$obj->nodeName;
-        $this->fieldItemList[$id] = $obj;
-        
-        return $id;
-    }
-}
-
-class ApiBackFieldItem {
-
-    CONST FIELD_LIST_PREFIX = 'fieldList_';
-    CONST MENU_LIST_PREFIX  = 'menuList_';
-    
-    public $id;
-    public $nodeName;
-    public $labelName;
-    public $accessMode;
-    public $show;
-    public $default;
-    public $title;
-    public $titleDefault;
-    public $urlDefault;
-    public $url;
-    public $fieldList;
-    public $menuList;
-     public $ptQuantity;
-
-    public function __construct($nodeName, $labelName, $accessMode, $show) {
-
-        $this->id         = $labelName.'-'.$nodeName;
-        $this->nodeName   = $nodeName;
-        $this->labelName  = $labelName;
-        $this->accessMode = $accessMode;
-        $this->show       = $show;
-        $this->default    = $labelName;
-        
-        $this->fieldListCreate(self::FIELD_LIST_PREFIX.$nodeName, self::FIELD_LIST_PREFIX.$labelName, $accessMode, $show);
-        $this->menuListCreate(self::MENU_LIST_PREFIX.$nodeName, self::MENU_LIST_PREFIX.$labelName, $accessMode, $show);
-    }
-    
-    public function fieldListCreate($nodeName, $labelName, $accessMode, $show) {
-    
-        $this->fieldList = new ApiBackFieldList($nodeName, $labelName, $accessMode, $show);
-        
-        return true;
-    }
-    
-    public function menuListCreate($nodeName, $labelName, $accessMode, $show) {
-    
-        $this->menuList = new ApiBackMenuList($nodeName, $labelName, $accessMode, $show);
-        
-        return true;
-    }
-
-    public function fieldItemListAdd($nodeName, $labelName, $accessMode, $show) {
-        
-        $id = $this->fieldList->add($nodeName, $labelName, $accessMode, $show);
-    
-        return $id;
-    }
-
-    public function fieldItemListAddObj($obj) {
-        
-        $id = $this->fieldList->fieldItemListAddObj($obj);
-    
-        return $id;
-    }
-
-    public function menuItemListAdd($url, $label, $nodeName, $labelName, $accessMode, $show) {
-                 
-        $id = $this->menuList->add($url, $label, $nodeName, $labelName, $accessMode, $show);
-    
-        return $id;
-    }
-
-    public function menuItemListAddObj($obj) {
-        
-        $id = $this->menuList->menuListAddObj($obj);
-    
-        return $id;
-    }
-}
-
-class ApiBackFieldList {
-
-    public $id;
-    public $nodeName;
-    public $labelName;
-    public $accessMode;
-    public $show;
-    public $fieldItemList = array();
-    
-    public function __construct($nodeName, $labelName, $accessMode, $show) {
-        
-        $this->id          = $labelName.'-'.$nodeName;
-        $this->nodeName    = $nodeName;
-        $this->labelName   = $labelName;
-        $this->accessMode  = $accessMode;
-        $this->show        = $show;
-    }
-
-    public function fieldItemListAdd($nodeName, $labelName, $accessMode, $show) {
-        
-        $id                       = $labelName.'-'.$nodeName;
-        $this->fieldItemList[$id] = new ApiBackFieldItem($nodeName, $labelName, $accessMode, $show);
-    
-        return $id;
-    }
-
-    public function fieldItemListAddObj($obj) {
-        
-        $id                       = $obj->labelName.'-'.$obj->nodeName;
-        $this->fieldItemList[$id] = $obj;
-    
-        return $id;
-    }
-}
-
-class MainDescription {
-
-    public static function get() {
-    
-        $ApiBack = new ApiBack('fr', 'default', 'v0.0', 'jerecommande.fr', 'JE RECOMMANDE', 'JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.',
-'JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.',
-array('parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage',
-'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste',
-'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter',
-'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre',
-'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller',
-'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation',
-'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre'), '', 'fr', 'index', 'read', 'showVisible');
-
-        return $ApiBack;
-    }
-}
-
-class MainMenu {
-    
-    public static function get() {
-    
-        $menuList = new ApiBackMenuList('siteMenu', 'menuList', 'read', 'showVisible');
-        
-        $menuList->menuItemListAdd('index.php?menu=profilListMy', 'Profil', 'profilListMy', 'link', 'read', 'showVisible');
-        $menuList->menuItemListAdd('index.php?menu=notificationList', 'Notification', 'notificationList', 'link', 'read', 'showVisible');
-        $menuList->menuItemListAdd('index.php?menu=contactList', 'Mes contacts', 'contactList', 'link', 'read', 'showVisible');
-        $menuList->menuItemListAdd('index.php?menu=portfolioListMy', 'Mon Portfolio', 'portfolioListMy', 'link', 'read', 'showVisible');
-        $menuList->menuItemListAdd('index.php?menu=contactAdd', 'Ajouter un contact', 'contactAdd', 'link', 'read', 'showVisible');
-        $menuList->menuItemListAdd('index.php?menu=recommandationAdd', 'Ajouter une recommandation', 'recommandationAdd', 'link', 'read', 'showVisible');
-        $menuList->menuItemListAdd('index.php?menu=recommandationListMe', 'Personnes qui me recommandent', 'recommandationListMe', 'link', 'read', 'showVisible');
-        $menuList->menuItemListAdd('index.php?menu=recommandationListMy', 'Mes recommandations', 'recommandationListMy', 'link', 'read', 'showVisible');
-        $menuList->menuItemListAdd('index.php?menu=categoryList', 'Catérogies', 'categoryList', 'link', 'read', 'showVisible');
-        $menuList->menuItemListAdd('index.php?menu=avantageList', 'Avantages premium', 'avantageList', 'link', 'read', 'showVisible');
-        
-        return $menuList;
+        $this->labelName        = $labelName;
+        $this->accessMode       = $accessMode;
+        $this->show             = $show;
+        $this->filter           = $filer;
+        $this->token            = $token;
     }
 }
 
 class Field {
 
-    public static function get($parent, $accessMode, $show, $value = false) {
-    
-        $field = new ApiBackFieldItem($parent.get_class($this), get_class($this), $accessMode, $show);
-        
+    public $id;
+    public $nodeName;
+    public $labelName;
+    public $accessMode;
+    public $show;
+    public $valueDefault;
+    public $title;
+    public $titleDefault;
+    public $urlDefault;
+    public $url;
+    public $ptQuantity;
+    public $idList;
+
+    public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
+
+        $nodeName           = get_class($this);
+        $this->id           = $labelName.'-'.$nodeName;
+        $this->nodeName     = $nodeName;
+        $this->labelName    = $labelName;
+        $this->accessMode   = $accessMode;
+        $this->show         = $show;
+
         if($value !== false) {
-            
-            $field->value = $value;
+
+            $this->value = $value;
         }
+    }
+    public function remove($id) {
+
+        unset($this->fieldList->fieldItemList[$id]);
+
+        return $this;
+    }
+    public function valueSet($value, $attributName = 'value') {
+
+        return $this->attributSet($attributName, $value);
+    }
+    public function showSet($value, $attributName = 'show') {
+
+        return $this->attributSet($attributName, $value);
+    }
+    public function accessModeSet($value, $attributName = 'accessMode') {
+
+        return $this->attributSet($attributName, $value);
+    }
+    public function defaultSet($value, $attributName = 'default') {
+
+        return $this->attributSet($attributName, $value);
+    }
+    public function titleSet($value, $attributName = 'title') {
+
+        return $this->attributSet($attributName, $value);
+    }
+    public function titleDefaultSet($value, $attributName = 'titleDefault') {
+
+        return $this->attributSet($attributName, $value);
+    }
+    public function urlDefaultSet($value, $attributName = 'urlDefault') {
+
+        return $this->attributSet($attributName, $value);
+    }
+    public function urlSet($value, $attributName = 'url') {
+
+        return $this->attributSet($attributName, $value);
+    }
+    public function ptQuantitySet($value, $attributName = 'ptQuantity') {
+
+        return $this->attributSet($attributName, $value);
+    }    
+    public function attributSet($attributName, $value) {
+    
+        $this->$attributName = $value;
+    
+        return true;
+    }
+}
+class FieldList extends Field {
+
+    public $itemList = array();
+    
+    public function add($obj, $attritutList = array()) {
+             
+        if(isset($obj->id) === false) {
+
+            if(isset($attritutList->id) === false) {
+                
+                return false;
+            }            
+            $obj->id = $attritutList->id;
+        }        
+        $update = $this->update($obj, $attritutList);
+        
+        if($update === false) {
+            
+            return false;
+        }
+        if(empty($this->itemList) === true) {
+        
+            $this->defaultSet($obj->id);
+        }
+        return true;
+    }
+    
+    public function update($obj, $attritutList = array()) {
+        
+        if(isset($obj->id) === false) {
+        
+            return false;
+        }    
+        foreach($attritutList as $k => $v) {
+            
+            $obj->$k = $v;
+        }
+        $this->itemList[$obj->id] = $obj;
+    
+        return true;
+    }
+    public function remove($obj) {
+        
+        if(isset($obj->id) === false) {
+        
+            return false;
+        }        
+        if(isset($this->itemList[$obj->id]) === false) {
+        
+            return false;
+        }    
+        unset($this->itemList[$obj->id]);
+    
+        return true;
+    }
+    public function itemValueSet($obj, $value, $attributName = 'value') {
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemShowSet($obj, $value, $attributName = 'show') {
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemAccessModeSet($obj, $value, $attributName = 'accessMode') {
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemDefaultSet($obj, $value, $attributName = 'valueDefault') {
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemTitleSet($obj, $value, $attributName = 'title') {
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemTitleDefaultSet($obj, $value, $attributName = 'titleDefault') {
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemUrlDefaultSet($obj, $value, $attributName = 'urlDefault') {
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemUrlSet($obj, $value, $attributName = 'url') {
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemQtQuantitySet($obj, $value, $attributName = 'ptQuantity') {
+    
+        return $this->itemAttributSet($obj, $attributName, $value);
+    }
+    public function itemAttributSet($obj, $attributName, $value) {
+    
+        $function = $attributName.'Set';
+        
+        if(isset($obj->id) === false) {
+        
+            return false;
+        }        
+        $this->itemList[$obj->id]->$function($value);
+    
+        return true;
+    }
+}
+class Semantic extends Field {
+}
+class SemanticList extends FieldList {
+}
+class Text extends SemanticList {
+
+}
+class ActionButton extends FieldList {
+
+    public $show    = 'showNone';
+    public $confirm = false;
+    public $value;
+    public $microservice;
+
+    public static function __construct($labelName, $show) {
+
+        $field = parent::__construct($labelName, 'read', $show, $this->value);
+
+        if($this->confirm !== false) {
+             
+            $actionButtonConfirm         = new ActionButtonConfirm(get_class($this), 'read', 'showNone', $this->confirm);
+            $this->add($actionButtonConfirm);
+        }        
         return $field;
     }
-    public static function remove($obj, $id) {
+   
+    public function microserviceSet($labelName, $accessMode, $show, $filter, $token) {
         
-        unset($obj->fieldList->fieldItemList[$id]);
+        $this->microservice = new Microservice($labelName, $accessMode, $show, $filter, $token);
         
-        return $obj;
+        return true;
+    }   
+    
+    public function confirmUpdate($confirm) {
+        
+        $this->confirm       = $confirm;        
+        $actionButtonConfirm = new ActionButtonConfirm(get_class($this), 'read', 'showNone', $this->confirm);
+        
+        $this->update($actionButtonConfirm);
+        
+        return true;
+    }
+}
+class ActionButtonConfirm extends ActionButton {
+}
+class ActionButtonMenuItem extends ActionButton {
+
+    public $microserviceLabelName  = 'Profil';
+    public $microserviceAccessMode = 'update';
+    public $microserviceShow       = 'showVisible';
+    
+    public function __construct($labelName, $show = 'showVisible') {
+    
+        parent::__construct($labelName, $show);
+    
+        $token        = new Token();
+        $filter       = $this->filterSet($token);
+        $profilListMy = new ActionButtonMenuItem($this->nodeName);
+    
+        $this->microserviceSet($this->microserviceLabelName, $this->microserviceAccessMode, $this->microserviceShow, $filter, $token);
+    }
+}
+class Theme extends Text {
+}
+class ThemeList extends FieldList {
+}
+class VersionConf extends Field {
+}
+class VersionConfList extends FieldList {
+}
+class Domain extends Text {
+}
+class DomainList extends FieldList {
+}
+class SiteTitle extends Text {
+}
+class DescriptionShort extends Text {
+}
+class SiteDescriptionShort extends DescriptionShort {
+}
+class DescriptionLong extends Text {
+}
+class SiteDescriptionLong extends DescriptionLong {
+}
+class Keyword extends Text {
+}
+class KeywordList extends FieldList {
+
+    public $keywordListToImport;
+    
+    public function keywordListToImport() {
+        
+        foreach($$this->keywordListToImport as $v) {
+            
+            $obj = new Keyword($this->nodeName, $this->accessMode, $this->show, $v);
+            $this->add($obj);
+        }
+        return true;
+    }
+    public function keywordListToImportSet($value, $attributName = 'keywordListToImport') {
+    
+        return $this->attributSet($attributName, $value);
+    }
+}
+
+class Lang extends Text {
+}
+class LangList extends FieldList {
+}
+
+class AccessMode extends Field {
+}
+
+class AccessModeList extends FieldList {
+}
+
+class Show extends Field {
+}
+
+class ShowList extends FieldList {
+}
+
+class MainDescription extends FieldList {
+    
+    public $showValueDefault        = 'showVisible';
+    public $accessModeValueDefault  = 'read';
+    public $langValueDefault        = 'fr';
+    public $keywordListValue        = array('parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage', 'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste', 'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter', 'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre', 'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller', 'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation', 'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre');
+    public $descriptionLongValue    = 'JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.';
+    public $descriptionShortValue   = 'JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.';
+    public $titleValue              = 'JE RECOMMANDE';
+    public $domainValueDefault      = 'jerecommande.fr';
+    public $semanticValueDefault    = 'fr';
+    public $themeValueDefault       = 'default';
+    public $versionConfValueDefault = 'v0.0';
+
+    public $title;
+    public $descriptionShort;
+    public $descriptionLong;
+    public $versionConf;
+    
+    public $domainList;
+    public $keywordList;
+    public $lang;
+    public $accessModeList;
+    public $showList;
+        
+    public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
+    
+        parent::__construct($labelName, $accessMode, $show, $value);
+        
+        $this->title            = new SiteTitle($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->titleValue);
+        $this->lang             = new Lang($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->langValueDefault);
+        $this->descriptionShort = new SiteDescriptionShort($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->descriptionShortValue);
+        $this->descriptionLong  = new SiteDescriptionLong($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->descriptionLongValue);
+        $this->versionConf      = new VersionConfList($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->versionConfValueDefault);        
+        $this->semanticList     = new SemanticList($this->nodeName, $this->accessModeDefault, $this->showDefault);
+        $this->themeList        = new ThemeList($this->nodeName, $this->accessModeDefault, $this->showDefault);
+        $this->domainList       = new DomainList($this->nodeName, $this->accessModeDefault, $this->showDefault);
+        $this->keywordList      = new KeywordList($this->nodeName, $this->accessModeDefault, $this->showDefault);
+        $this->langList         = new LangList($this->nodeName, $this->accessModeDefault, $this->showDefault);
+        $this->accessModeList   = new AccessModeList($this->nodeName, $this->accessModeDefault, $this->showDefault);
+        $this->showList         = new ShowList($this->nodeName, $this->accessModeDefault, $this->showDefault);
+        $semantic               = New Semantic($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->semanticValueDefault);
+        $theme                  = New Theme($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->themeValueDefault);
+        $domain                 = New Domain($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->domainValueDefault);
+        $accessMode             = New AccessMode($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->accessModeValueDefault);
+        $show                   = New Domain($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->showValueDefault);     
+        
+        $this->semanticList->add($semantic);
+        $this->themeList->add($theme);
+        $this->domainList->add($domain);
+        $this->accessModeList->add($accessMode);
+        $this->showList->add($show);        
+        $this->keywordList->keywordListToImportSet($this->keywordListValue);
+        $this->keywordList->keywordListToImport();
+    }
+}
+
+class ActionButtonMenuItemProfilListMy extends ActionButtonMenuItem {
+    
+    public $microserviceLabelName  = 'Profil';
+    public $microserviceAccessMode = 'update';
+    public $microserviceShow       = 'showVisible';
+    
+    public function filterSet($token) {
+        
+        $userNodeName = $token->getUserNodeName();        
+        $filter       = new Filter();
+        
+        $filter->set('user', $userNodeName);
+        
+        return $filter;
+    }
+}
+
+
+class MainMenu extends FieldList {
+    
+    public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
+    
+        parent::__construct($labelName, $accessMode, $show, $value);
+
+        $profilListMy = new ActionButtonMenuItemProfilListMy($this->nodeName);
+        
+        
+        $this->add('index.php?menu=notificationList', 'Notification', 'notificationList', 'link', 'read', 'showVisible');
+        $this->add('index.php?menu=contactList', 'Mes contacts', 'contactList', 'link', 'read', 'showVisible');
+        $this->add('index.php?menu=portfolioListMy', 'Mon Portfolio', 'portfolioListMy', 'link', 'read', 'showVisible');
+        $this->add('index.php?menu=contactAdd', 'Ajouter un contact', 'contactAdd', 'link', 'read', 'showVisible');
+        $this->add('index.php?menu=recommandationAdd', 'Ajouter une recommandation', 'recommandationAdd', 'link', 'read', 'showVisible');
+        $this->add('index.php?menu=recommandationListMe', 'Personnes qui me recommandent', 'recommandationListMe', 'link', 'read', 'showVisible');
+        $this->add('index.php?menu=recommandationListMy', 'Mes recommandations', 'recommandationListMy', 'link', 'read', 'showVisible');
+        $this->add('index.php?menu=categoryList', 'Catérogies', 'categoryList', 'link', 'read', 'showVisible');
+        $this->add('index.php?menu=avantageList', 'Avantages premium', 'avantageList', 'link', 'read', 'showVisible');
+        
+        return $this;
     }
 }
 
 class Url extends Field {
 
-    public static function get($parent, $accessMode, $show, $url) {
+    public function get($parent, $accessMode, $show, $url) {
         
-        $field      = new ApiBackFieldItem($parent.get_class($this), get_class($this), $accessMode, $show);        
-        $field->url = $url;
+        parent::__construct($parent.get_class($this), get_class($this), $accessMode, $show);        
         
-        return $field;
+        $this->url = $url;
+        
+        return $this;
     }
 }
 
 class ScriptUpload extends Field {
 
-    public static function get($parent, $accessMode, $show) {
+    public function get($parent, $accessMode, $show) {
     
-        $field      = parent::get($parent, $accessMode, $show);
-        $urlScript  = 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/js/'.$parent.get_class($this).'.js';
-        $field->url = $urlScript;
+        parent::get($parent, $accessMode, $show);
+        
+        $urlScript = 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/js/'.$parent.get_class($this).'.js';
+        $this->url = $urlScript;
     
-        return $field;
+        return $this;
     }
 }
 
@@ -266,11 +469,16 @@ class Image extends Field {
     public $urlId;
     public $scriptUploadId;
     
-    public static function get($parent, $accessMode, $show, $url) {
+    public function get($parent, $accessMode, $show, $url) {
         
-        $field                = parent::get($parent, $accessMode, $show);
-        $url                  = Url::get(get_class($this), $accessMode, $show, $url);
-        $scriptUpload         = ScriptUpload::get(get_class($this), 'read', 'showVisible');                              
+        parent::get($parent, $accessMode, $show);
+        
+        $url                  = new Url();
+        $url->get(get_class($this), $accessMode, $show, $url);
+        
+        $scriptUpload         = new ScriptUpload();
+        $scriptUpload->get(get_class($this), 'read', 'showVisible');
+        
         $this->urlId          = $field->fieldItemListAddObj($url);
         $this->scriptUploadId = $field->fieldItemListAddObj($scriptUpload);
         
@@ -278,15 +486,15 @@ class Image extends Field {
     }
 }
 
-class Name extends Field {
+class Name extends Text {
 
 }
 
-class Surname extends Field {
+class Surname extends Text {
     
 }
 
-class Title extends Field {
+class Title extends Text {
     
 }
 
@@ -294,7 +502,7 @@ class Email extends Field {
     
 }
 
-class Category extends Field {
+class Category extends Text {
     
 }
 
@@ -304,27 +512,6 @@ class Mdp extends Field {
 
 
 class MdpConfirm extends Field {
-
-}
-
-class ActionButton extends Field {
-    
-    public $actionButtonConfirmId;
-    
-    public static function get($parent, $accessMode, $show, $value, $confirm = false) {
-    
-        $field = parent::get($parent, $accessMode, $show, $value);
-        
-        if($confirm !== false) {
-         
-            $actionButtonConfirm         = ActionButtonConfirm::get(get_class($this), $accessMode, 'showNone', $confirm);            
-            $this->actionButtonConfirmId = $field->fieldItemListAddObj($actionButtonConfirm);
-        }        
-        return $field;
-    }
-}
-
-class ActionButtonConfirm extends ActionButton {
 
 }
 
@@ -360,105 +547,214 @@ class SeparateActionButton extends ActionButton {
     
 }
 
-class FieldList {
+class ProfilText extends Text {
+
+}
+
+class ProfilUrl extends Url {
+
+}
+
+class ProfilScriptUpload extends ScriptUpload {
+
+}
+
+class ProfilImage extends Image {
+
+}
+
+class ProfilName extends Name {
+
+}
+
+class ProfilSurname extends Surname {
+
+}
+
+class ProfilTitle extends Title {
+
+}
+
+class ProfilEmail extends Email {
+
+}
+
+class ProfilCategory extends Category {
+
+}
+
+class ProfilMdp extends Mdp {
+
+}
+
+class ProfilMdpConfirm extends MdpConfirm {
+
+}
+
+class ProfilActionButton extends ActionButton {
+
+}
+
+class ProfilActionButtonConfirm extends ActionButtonConfirm {
+
+}
+
+class ProfilRecommandationOnActionButton extends RecommandationOnActionButton {
+    
+    public $value = 'RECOMMANDER';
+}
+
+class ProfilRecommandationOffActionButton extends RecommandationOffActionButton {
+
+    public $value   = 'DERECOMMANDER';
+    public $confirm = 'CONFIRMER SUPPRESSION DE LA RECOMMANDATION';    
+}
+
+class ProfilContactAddActionButton extends ContactAddActionButton {
+
+    public $value = 'AJOUTER AUX CONTACTS';
+}
+
+class ProfilContactRemoveActionButton extends ContactRemoveActionButton {
+
+    public $value   = 'SUPPRIMER DES CONTACTS';
+    public $confirm = 'CONFIRMER LA SUPPRESSION DU CONTACT';
+}
+
+class ProfilRecommandationAcceptActionButton extends RecommandationAcceptActionButton {
+
+    public $value = 'ACCEPTER LA RECOMMANDATION';
+}
+
+class ProfilContactAskAcceptActionButton extends ContactAskAcceptActionButton {
+
+    public $value = 'ACCEPTER LA MISE EN CONTACT';
+}
+
+class ProfilSaveActionButton extends SaveActionButton {
+
+    public $value = 'CREER UN COMPTE';
+}
+
+class ProfilSeparateActionButton extends SeparateActionButton {
+    
+    public $value   = 'DISSOCIER LE COMPTE';
+    public $confirm = 'CONFIRMER LA DISSOCIATION DU COMPTE';
+}
+
+class NotificationImage extends Image {
+    
+}
+
+class NotificationTitle extends Title {
+    
+}
+
+class NotificationIcon extends Image {
+
+}
+
+class NotificationText extends Text {
+
+}
+
+class Notification extends FieldList {
+    
+    
+}
+
+class NotificationRecommandationOnActionButton extends RecommandationOnActionButton {
+    
+}
+
+class NotificationRecommandationNew extends Notification {
+    
+    public $title = 'Demande de recommandation';
+    public $text  = 'Demande de recommandation';
     
     public static function get($parent, $accessMode, $show) {
-         
-        $list = new ApiBackFieldList($parent.get_class($this), get_class($this), $accessMode, $show);
         
-        return $list;
-    }
-    public static function remove($obj, $id) {
+        $urlIcon                                  = 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/media/'.get_class($this).'.png';
+        $field                                    = parent::get($parent, 'read', $show);        
+        $notificationTitle                        = NotificationTitle::get($parent, 'read', $show, $this->title);
+        $notificationIcon                         = NotificationImage::get($parent, 'read', $show, $urlIcon);
+        $notificationProfil                       = ProfilAvantagePersonnal::getFake($parent, 'read', $show, 1, false);
+        $notificationTexte                        = NotificationText::get($parent, 'read', $show, $this->text);
+        $notificationRecommandationOnActionButton = NotificationRecommandationOnActionButton::get($parent, $accessMode);
         
-        unset($obj->fieldItemList[$id]);
+                
+        return $field;
         
-        return $obj;
-    }
-    public static function valueSet($obj, $id, $value) {
+        $toto = '<div class="item notification my">
+        <p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
+        <p class="field recommandationOffActionButton my edit hidden">DERECOMMANDER
         
-        $obj->fieldItemList[$id]->value = $value;
         
-        return $obj;
-    }
-    public static function addTo($obj, $id, $objToAdd) {
+        <div
+        class="field confirmation recommandationOffActionButtonConfirm hidden">Etes
+        vous sur de vouloir dérecommander le profil?</div>
+        </p>
+        <p class="field contactAddActionButton my edit hidden">AJOUTER
+        AUX CONTACTS</p>
+        <p class="field contactRemoveActionButton my edit hidden">SUPPRIMER
+        DES CONTACTS
+        <div
+        class="field confirmation contactRemoveActionButtonConfirm hidden">Etes
+        vous sur de vouloir supprimer le profil?</div>
+        </p>
         
-        $obj->fieldItemList[$id]->fieldItemListAddObj($objToAdd);
+        <p class="field recommandationAcceptActionButton my edit">ACCEPTER</p>
+        <p class="field contactAskAcceptActionButton my edit hidden">ACCEPTER</p>
+        <div class="detail profil"></div>
+        </div>
+        </div>
+        <div class="item notification hidden">
+        <p class="field type recommandationAccepted my hidden">Recommandation
+        acceptée</p>
+        <p class="field avatar my hidden">Avatar</p>
+        <p class="field name hidden">Nom</p>
+        <p class="field surname my hidden">Prénom</p>
+        <p class="field title my hidden">Titre du profil</p>
+        <p class="field notificationContent my hidden">Recommandation
+        acceptée</p>
+        <p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
+        <p class="field recommandationOffActionButton my edit hidden">DERECOMMANDER
         
-        return $obj;
+        
+        <div
+        class="field confirmation recommandationOffActionButtonConfirm hidden">Etes
+        vous sur de vouloir dérecommander le profil?</div>
+        </p>
+        <p class="field contactAddActionButton my edit hidden">AJOUTER
+        AUX CONTACTS</p>
+        <p class="field contactRemoveActionButton my edit hidden">SUPPRIMER
+        DES CONTACTS
+        <div
+        class="field confirmation contactRemoveActionButtonConfirm hidden">Etes
+        vous sur de vouloir supprimer le profil?</div>
+        </p>
+        
+        <p
+        class="field recommandationAcceptActionButton my edit hidden">ACCEPTER</p>
+        <p class="field contactAskAcceptActionButton my edit hidden">ACCEPTER</p>
+        <div class="detail profil"></div>
+        </div>';
     }
 }
 
-class NotificationList {
+class NotificationList extends FieldList {
 
     public static function get($parent, $accessMode, $show) {
-
-       $todo = '<div class="list notification">
-                                    <div class="item notification my">
-                                        <p class="field type recommandationNew my">Nouvelle
-                                            recommandation</p>
-                                        <p class="field avatar my">Avatar</p>
-                                        <p class="field name">Nom</p>
-                                        <p class="field surname my">Prénom</p>
-                                        <p class="field title my">Titre du profil</p>
-                                        <p class="field notificationContent my">Demande de
-                                            recommandation</p>
-                                        <p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
-                                        <p class="field recommandationOffActionButton my edit hidden">DERECOMMANDER
-
-                                        
-                                        <div
-                                            class="field confirmation recommandationOffActionButtonConfirm hidden">Etes
-                                            vous sur de vouloir dérecommander le profil?</div>
-                                        </p>
-                                        <p class="field contactAddActionButton my edit hidden">AJOUTER
-                                            AUX CONTACTS</p>
-                                        <p class="field contactRemoveActionButton my edit hidden">SUPPRIMER
-                                            DES CONTACTS
-                                        <div
-                                            class="field confirmation contactRemoveActionButtonConfirm hidden">Etes
-                                            vous sur de vouloir supprimer le profil?</div>
-                                        </p>
-
-                                        <p class="field recommandationAcceptActionButton my edit">ACCEPTER</p>
-                                        <p class="field contactAskAcceptActionButton my edit hidden">ACCEPTER</p>
-                                        <div class="detail profil"></div>
-                                    </div>
-                                </div>
-                                <div class="item notification hidden">
-                                    <p class="field type recommandationAccepted my hidden">Recommandation
-                                        acceptée</p>
-                                    <p class="field avatar my hidden">Avatar</p>
-                                    <p class="field name hidden">Nom</p>
-                                    <p class="field surname my hidden">Prénom</p>
-                                    <p class="field title my hidden">Titre du profil</p>
-                                    <p class="field notificationContent my hidden">Recommandation
-                                        acceptée</p>
-                                    <p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
-                                    <p class="field recommandationOffActionButton my edit hidden">DERECOMMANDER
-
-                                    
-                                    <div
-                                        class="field confirmation recommandationOffActionButtonConfirm hidden">Etes
-                                        vous sur de vouloir dérecommander le profil?</div>
-                                    </p>
-                                    <p class="field contactAddActionButton my edit hidden">AJOUTER
-                                        AUX CONTACTS</p>
-                                    <p class="field contactRemoveActionButton my edit hidden">SUPPRIMER
-                                        DES CONTACTS
-                                    <div
-                                        class="field confirmation contactRemoveActionButtonConfirm hidden">Etes
-                                        vous sur de vouloir supprimer le profil?</div>
-                                    </p>
-
-                                    <p
-                                        class="field recommandationAcceptActionButton my edit hidden">ACCEPTER</p>
-                                    <p class="field contactAskAcceptActionButton my edit hidden">ACCEPTER</p>
-                                    <div class="detail profil"></div>
-                                </div>';
+        
+       $list                  = parent::get($parent, $accessMode, $show);       
+       $notification1         = NotificationRecommandationNew::get(get_class($this), $accessMode, $show);
+       $this->notification1Id = $list->fieldItemListAddObj($notification1);
+       
+       return $list;
     }
 }
 
-class ContactList {
+class ContactList extends FieldList {
 
     public static function get($parent, $accessMode, $show) {
 
@@ -466,7 +762,7 @@ class ContactList {
     }
 }
 
-class PortfolioListMy {
+class PortfolioListMy extends FieldList {
 
     public static function get($parent, $accessMode, $show) {
 
@@ -615,44 +911,41 @@ class RecommandationAdd {
     }
 }
 
-class RecommandationListMe {
+class RecommandationListMe extends FieldList {
 
     public static function get($parent, $accessMode, $show) {
 
     }
 }
 
-class RecommandationListMy {
+class RecommandationListMy extends FieldList {
 
     public static function get($parent, $accessMode, $show) {
 
     }
 }
 
-class CategoryList {
+class CategoryList extends FieldList {
 
     public static function get($parent, $accessMode, $show) {
 
     }
 }
 
-class AvantageList {
+class AvantageList extends FieldList {
 
     public static function get($parent, $accessMode, $show) {
 
     }
 }
 
-class Profil extends FieldList {
+class Profil extends FieldList  {
     
-    public $recommandationOnActionButtonParamList     = array('showNone', 'RECOMMANDER');
-    public $recommandationOffActionButtonParamList    = array('showNone', 'DERECOMMANDER', 'CONFIRMER SUPPRESSION DE LA RECOMMANDATION');
-    public $contactAddActionButtonParamList           = array('showNone', 'AJOUTER AUX CONTACTS');
-    public $contactRemoveActionButtonParamList        = array('showNone', 'SUPPRIMER DES CONTACTS', 'CONFIRMER LA SUPPRESSION DU CONTACT');
-    public $recommandationAcceptActionButtonParamList = array('showNone', 'ACCEPTER LA RECOMMANDATION');
-    public $contactAskAcceptActionButtonParamList     = array('showNone', 'ACCEPTER LA MISE EN CONTACT');
-    public $saveActionButtonParamList                 = array('showVisible', 'CREER UN COMPTE');
-    public $separateActionButtonParamList             = array('showNone', 'DISSOCIER LE COMPTE', 'CONFIRMER LA DISSOCIATION DU COMPTE');    
+    public $saveActionButtonShow             = 'showNone';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE RESEAU SOCIAL';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE';
     public $imageId;
     public $nameId;
     public $surnameId;
@@ -679,27 +972,26 @@ class Profil extends FieldList {
     public $categoryListId;
     public $avantageListId;
 
-    public static function get($parent, $accessMode, $show) {
+    public static function get($parent, $accessMode, $show, $notificationList = true) {
          
         $profil                                   = parent::get($parent, $accessMode, $show);
         $urlAvatar                                = 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/media/'.get_class($this).'.png';
-        $image                                    = Image::get(get_class($this), $accessMode, $show, $urlAvatar);
-        $name                                     = Name::get(get_class($this), $accessMode, $show);
-        $surname                                  = Surname::get(get_class($this), $accessMode, $show);
-        $title                                    = Title::get(get_class($this), $accessMode, $show);
-        $email                                    = Email::get(get_class($this), $accessMode, $show);
-        $mdp                                      = Mdp::get(get_class($this), $accessMode, $show);
-        $mdpConfirm                               = MdpConfirm::get(get_class($this), $accessMode, $show);
-        $recommandationOnActionButton             = RecommandationOnActionButton::get(get_class($this), $accessMode, $this->recommandationOnActionButtonParamList[0], $this->recommandationOnActionButtonParamList[1]);
-        $recommandationOffActionButton            = RecommandationOffActionButton::get(get_class($this), $accessMode, $this->recommandationOffActionButtonParamList[0], $this->recommandationOffActionButtonParamList[1], $this->recommandationOffActionButtonParamList[2]);
-        $contactAddActionButton                   = ContactAddActionButton::get(get_class($this), $accessMode, $this->contactAddActionButtonParamList[0], $this->contactAddActionButtonParamList[1]);
-        $contactRemoveActionButton                = ContactRemoveActionButton::get(get_class($this), $accessMode, $this->contactRemoveActionButtonParamList[0], $this->contactRemoveActionButtonParamList[1], $this->contactRemoveActionButtonParamList[2]);
-        $recommandationAcceptActionButton         = RecommandationAcceptActionButton::get(get_class($this), $accessMode, $this->recommandationAcceptActionButtonParamList[0], $this->recommandationAcceptActionButtonParamList[1]);
-        $contactAskAcceptActionButton             = ContactAskAcceptActionButton::get(get_class($this), $accessMode, $this->contactAskAcceptActionButtonParamList[0], $this->contactAskAcceptActionButtonParamList[1]);
-        $saveActionButton                         = SaveActionButton::get(get_class($this), $accessMode, $this->saveActionButtonParamList[0], $this->saveActionButtonParamList[1]);
-        $separateActionButton                     = SeparateActionButton::get(get_class($this), $accessMode, $this->separateActionButtonParamList[0], $this->separateActionButtonParamList[1], $this->separateActionButtonParamList[2]);
-        $category                                 = Category::get(get_class($this), $accessMode, $show);
-        $notificationList                         = NotificationList::get(get_class($this), $accessMode, $show);
+        $image                                    = ProfilImage::get(get_class($this), $accessMode, $show, $urlAvatar);
+        $name                                     = ProfilName::get(get_class($this), $accessMode, $show);
+        $surname                                  = ProfilSurname::get(get_class($this), $accessMode, $show);
+        $title                                    = ProfilTitle::get(get_class($this), $accessMode, $show);
+        $email                                    = ProfilEmail::get(get_class($this), $accessMode, $show);
+        $mdp                                      = ProfilMdp::get(get_class($this), $accessMode, $show);
+        $mdpConfirm                               = ProfilMdpConfirm::get(get_class($this), $accessMode, $show);
+        $recommandationOnActionButton             = ProfilRecommandationOnActionButton::get(get_class($this));
+        $recommandationOffActionButton            = ProfilRecommandationOffActionButton::get(get_class($this));
+        $contactAddActionButton                   = ProfilContactAddActionButton::get(get_class($this));
+        $contactRemoveActionButton                = ProfilContactRemoveActionButton::get(get_class($this));
+        $recommandationAcceptActionButton         = ProfilRecommandationAcceptActionButton::get(get_class($this));
+        $contactAskAcceptActionButton             = ProfilContactAskAcceptActionButton::get(get_class($this));
+        $saveActionButton                         = ProfilSaveActionButton::get(get_class($this));
+        $separateActionButton                     = ProfilSeparateActionButton::get(get_class($this));
+        $category                                 = ProfilCategory::get(get_class($this), $accessMode, $show);
         $contactList                              = ContactList::get(get_class($this), $accessMode, $show);
         $portfolioListMy                          = PortfolioListMy::get(get_class($this), $accessMode, $show);
         $contactAdd                               = ContactAdd::get(get_class($this), $accessMode, $show);
@@ -724,7 +1016,6 @@ class Profil extends FieldList {
         $this->contactAskAcceptActionButtonId     = $profil->fieldItemListAddObj($contactAskAcceptActionButton);
         $this->saveActionButtonId                 = $profil->fieldItemListAddObj($saveActionButton);
         $this->separateActionButtonId             = $profil->fieldItemListAddObj($separateActionButton);
-        $this->notificationListId                 = $profil->fieldItemListAddObj($notificationList);
         $this->contactListId                      = $profil->fieldItemListAddObj($contactList);
         $this->portfolioListMyId                  = $profil->fieldItemListAddObj($portfolioListMy);
         $this->contactAddId                       = $profil->fieldItemListAddObj($contactAdd);
@@ -732,8 +1023,33 @@ class Profil extends FieldList {
         $this->recommandationListMeId             = $profil->fieldItemListAddObj($recommandationListMe);
         $this->recommandationListMyId             = $profil->fieldItemListAddObj($recommandationListMy);
         $this->categoryListId                     = $profil->fieldItemListAddObj($categoryList);
-        $this->avantageListId                     = $profil->fieldItemListAddObj($avantageList);
+        $this->avantageListId                     = $profil->fieldItemListAddObj($avantageList);        
+        $profil                                   = self::showSet($profil, $this->saveActionButtonId, $this->saveActionButtonShow);
+        $profil                                   = self::valueSet($profil, $this->saveActionButtonId, $this->saveActionButtonValue);
+        $profil                                   = self::showSet($profil, $this->separateActionButtonId, $this->separateActionButtonShow);
+        $profil                                   = self::valueSet($profil, $this->separateActionButtonId, $this->separateActionButtonValue);
+        
+        $profil->fieldItemList[$this->separateActionButtonId] = ProfilSeparateActionButton::confirmSet($profil->fieldItemList[$this->separateActionButtonId], $this->separateActionButtonConfirmValue);
+                
+        if($notificationList === true) {
 
+            $notificationList         = NotificationList::get(get_class($this), $accessMode, $show);
+            $this->notificationListId = $profil->fieldItemListAddObj($notificationList);
+        }
+        return $profil;
+    }
+    
+    public static function getFake($parent, $accessMode, $show, $id, $notificationList = true) {
+    
+        $id        = 'fake'.$id;
+        $urlProfil = 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/media/'.$id.'.png';
+        $profil    = self::get($parent, $accessMode, $show, $notificationList);        
+        $profil    = self::valueSet($profil, $profil->imageId, $urlProfil);
+        $profil    = self::valueSet($profil, $profil->nameId, $id.' name');
+        $profil    = self::valueSet($profil, $profil->surnameId, $id.' surname');
+        $profil    = self::valueSet($profil, $profil->titleId, $id.' title');
+        $profil    = self::valueSet($profil, $profil->emailId, $id.'@instriit.com');
+        
         return $profil;
     }
 }
@@ -751,19 +1067,18 @@ class ProfilIntern extends Profil {
 
 class ProfilDisconnected extends ProfilIntern {
 
+    public $saveActionButtonParamShow  = 'showVisible';
+    public $saveActionButtonParamValue = 'CREER UN COMPTE UN COMPTE';
 }
 
 class ProfilConnected extends ProfilIntern {
     
-    public $saveActionButtonParamList = array('showVisible', 'METTRE A JOUR LE COMPTE UN COMPTE');
+    public $saveActionButtonParamShow  = 'showVisible';
+    public $saveActionButtonParamValue = 'METTRE A JOUR LE COMPTE UN COMPTE';
     
     public static function get($parent, $accessMode, $show) {
            
-        $field = parent::get($parent, $accessMode, $show);
-        $field = self::valueSet($field, $this->nameId, 'Nicolas');
-        $field = self::valueSet($field, $this->surnameId, 'Cantu');
-        $field = self::valueSet($field, $this->titleId, 'Particulier à la recherche d\'un peintre');
-        $field = self::valueSet($field, $this->emailId, 'nicolas.cantu@instriit.com');
+        $field = parent::getFake($parent, $accessMode, $show, 2);
     
         return $field;
     }    
@@ -808,7 +1123,7 @@ class ProfilAvantagePersonnal extends ProfilConnected {
         $this->avantagepersonnalId = $field->fieldItemListAddObj($avantagePersonnal);
     
         return $field;
-    }  
+    }     
 }
 
 class ProfilAvantageBusiness extends ProfilConnected {
@@ -857,43 +1172,61 @@ class ProfilSocial extends Profil {
     }
 }
 
-class ProfilGoogle extends Profil {
-
-    public $saveActionButtonParamList     = array('showNone', 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE GOOGLE+');
-    public $separateActionButtonParamList = array('showVisible', 'DISSOCIER LE COMPTE GOOGLE+', 'CONFIRMER LA DISSOCIATION DU COMPTE GOOGLE+');
+class ProfilGoogle extends ProfilSocial {
+       
+    public $saveActionButtonShow             = 'showNone';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE GOOGLE+';    
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE GOOGLE+';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE GOOGLE+';
 }
 
-class ProfilFacebook extends Profil {
-
-    public $saveActionButtonParamList     = array('showVisible', 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE FACEBOOK');
-    public $separateActionButtonParamList = array('showNone', 'DISSOCIER LE COMPTE FACEBOOK', 'CONFIRMER LA DISSOCIATION DU COMPTE FACEBOOK');
+class ProfilFacebook extends ProfilSocial {
+    
+    public $saveActionButtonShow             = 'showVisible';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE FACEBOOK';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE FACEBOOK';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE FACEBOOK';
 }
 
-class ProfilLinledIn extends Profil {
+class ProfilLinledIn extends ProfilSocial {
 
-    public $saveActionButtonParamList     = array('showVisible', 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE LINKEDIN');
-    public $separateActionButtonParamList = array('showNone', 'DISSOCIER LE COMPTE LINKEDIN', 'CONFIRMER LA DISSOCIATION DU COMPTE LINKEDIN');
+    public $saveActionButtonShow             = 'showVisible';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE LINKEDIN';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE LINKEDIN';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE LINKEDIN';
 }
 
-class ProfilTwitter extends Profil {
+class ProfilTwitter extends ProfilSocial {
 
-    public $saveActionButtonParamList     = array('showVisible', 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE TWITTER');
-    public $separateActionButtonParamList = array('showNone', 'DISSOCIER LE COMPTE TWITTER', 'CONFIRMER LA DISSOCIATION DU COMPTE TWITTER');
+    public $saveActionButtonShow             = 'showVisible';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE TWITTER';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE TWITTER';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE TWITTER';
 }
 
-class ProfilPinterest extends Profil {
+class ProfilPinterest extends ProfilSocial {
 
-    public $saveActionButtonParamList     = array('showVisible', 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE PINTEREST');
-    public $separateActionButtonParamList = array('showNone', 'DISSOCIER LE COMPTE PINTEREST', 'CONFIRMER LA DISSOCIATION DU COMPTE PINTEREST');
+    public $saveActionButtonShow             = 'showVisible';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE PINTEREST';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE PINTEREST';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE PINTEREST';
 }
 
-class ProfilInstagram extends Profil {
+class ProfilInstagram extends ProfilSocial {
 
-    public $saveActionButtonParamList     = array('showVisible', 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE INSTAGRAM');
-    public $separateActionButtonParamList = array('showNone', 'DISSOCIER LE COMPTE INSTAGRAM', 'CONFIRMER LA DISSOCIATION DU COMPTE INSTAGRAM');
+    public $saveActionButtonShow             = 'showVisible';
+    public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE COMPTE INSTAGRAMM';
+    public $separateActionButtonShow         = 'showNone';
+    public $separateActionButtonValue        = 'DISSOCIER LE COMPTE INSTAGRAMM';
+    public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE INSTAGRAMM';
 }
 
-class ProfilListMy {
+class ProfilListMy extends FieldList {
     
     public $disconnectedId;
     public $avantagePersonnalId;
@@ -907,7 +1240,7 @@ class ProfilListMy {
     
     public static function get($parent, $accessMode, $show) {
 
-        $fieldItem                 = new ApiBackFieldItem($parent.get_class($this), get_class($this), $accessMode, $show);    
+        $fieldItem                 = parent::get($parent, $accessMode, $show);
         $disconnected              = ProfilDisconnected::get(get_class($this), 'create', 'showVisible');
         $avantagePersonnal         = ProfilAvantagePersonnal::get(get_class($this), 'read', 'showVisible');
         $avantageBusiness          = ProfilAvantageBusiness::get(get_class($this), 'update', 'showVisible', 1000);
