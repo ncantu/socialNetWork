@@ -1,5 +1,15 @@
 <?php 
 
+trait TraitFake {
+    
+    public $fake = true;
+    
+    public function fakeGetId($prefix = 'fake') {
+
+        return $prefix.$this->fakeId;
+    }
+}
+
 class Filter {
  
     public $attributList = array();
@@ -1044,13 +1054,13 @@ class PortFolio extends FieldList {
 }
 class PortFolioFake extends PortFolio {
     
-    public $fake = true;
+    use TraitFake;
 
     public static function __construct($labelName, $accessMode, $show, $title) {
     
         parent::__construct($labelName, $accessMode, $show, $title);
     
-        $id    = 'fake'.self::$fakeId;
+        $id    = $this->fakeGetId();
         $title = $id.' title';
         
         $this->itemTitleSet($title);
@@ -1059,19 +1069,19 @@ class PortFolioFake extends PortFolio {
 }
 class PortFolioFake1 extends PortFolioFake {
     
-    public static $fakeId = 1;
+    public $fakeId = 1;
 }
 class PortFolioFake2 extends PortFolioFake {
     
-    public static $fakeId = 2;
+    public $fakeId = 2;
 }
 class PortFolioFake3 extends PortFolioFake {
     
-    public static $fakeId = 3;
+    public $fakeId = 3;
 }
 class PortFolioFake4 extends PortFolioFake {
     
-    public static $fakeId = 4;
+    public $fakeId = 4;
 }
 class PortfolioList extends FieldList {
 }
@@ -1088,32 +1098,32 @@ class Recommandation extends Field {
 }
 class RecommandationFake extends Recommandation {
 
-    public $fake = true;
+    use TraitFake;
 
     public static function __construct($labelName, $accessMode, $show, $title) {
 
         parent::__construct($labelName, $accessMode, $show, $title);
 
-        $id = 'fake'.self::$fakeId;
+        $id = $this->fakeGetId();
         
         // @todo
     }
 }
 class RecommandationFake1 extends RecommandationFake {
 
-    public static $fakeId = 1;
+    public $fakeId = 1;
 }
 class RecommandationFake2 extends RecommandationFake {
 
-    public static $fakeId = 2;
+    public $fakeId = 2;
 }
 class RecommandationFake3 extends RecommandationFake {
 
-    public static $fakeId = 3;
+    public $fakeId = 3;
 }
 class RecommandationFake4 extends RecommandationFake {
 
-    public static $fakeId = 4;
+    public $fakeId = 4;
 }
 class RecommandationList extends FieldList {
 }
@@ -1458,13 +1468,13 @@ class Profil extends FieldList  {
 }
 class ProfilFake extends Profil {
     
-    public $fake = true;
+    use TraitFake;
 
     public static function __construct($labelName, $accessMode, $show, $notificationList = true) {
     
         parent::__construct($labelName, $accessMode, $show, $notificationList);
     
-        $id = 'fake'.self::$fakeId;
+        $id = $this->fakeGetId();
         
         $this->itemNameSet($id.' name');
         $this->itemSurnameSet($id.' surname');
@@ -1474,19 +1484,19 @@ class ProfilFake extends Profil {
 }
 class ProfilFake1 extends ProfilFake {
     
-    public static $fakeId = 1;
+    public $fakeId = 1;
 }
 class ProfilFake2 extends ProfilFake {
     
-    public static $fakeId = 2;
+    public $fakeId = 2;
 }
 class ProfilFake3 extends ProfilFake {
     
-    public static $fakeId = 3;
+    public $fakeId = 3;
 }
 class ProfilFake4 extends ProfilFake {
     
-    public static $fakeId = 4;
+    public $fakeId = 4;
 }
 class ProfilIntern extends Profil {
 
