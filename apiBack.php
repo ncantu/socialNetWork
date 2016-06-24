@@ -1,32 +1,520 @@
 <?php 
 
 trait TraitFake {
-    
+
     public $fake = true;
-    
+
     public function fakeGetId($prefix = 'fake') {
 
         return $prefix.$this->fakeId;
     }
 }
+class ResSiteFake {
 
+    use TraitFake;
+    
+    public $id;
+    public $userLoginPublic;
+    public $avantageMax;
+    public $show;
+    public $accessMode;
+    public $langValueDefault;
+    public $keywordListValue;
+    public $descriptionLongValue;
+    public $descriptionShortValue;
+    public $titleValue;
+    public $domainValueDefault;
+    public $semanticValueDefault;
+    public $themeValueDefault;
+    public $versionConfValueDefault;
+    
+    public static function __construct() {
+        
+        $id                            = $this->fakeGetId();    
+        $this->userLoginPublic         = 'ncantu@instriit.com';
+        $this->avantageMax             = 'AvantageBusiness';
+        $this->show                    = 'showVisible';
+        $this->accessMode              = 'read';
+        $this->langValueDefault        = 'fr';
+        $this->keywordListValue        = array('parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage', 'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste', 'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter', 'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre', 'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller', 'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation', 'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre');
+        $this->descriptionLongValue    = 'JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.';
+        $this->descriptionShortValue   = 'JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.';
+        $this->titleValue              = $id;
+        $this->domainValueDefault      = 'jerecommande.fr';
+        $this->semanticValueDefault    = 'fr';
+        $this->themeValueDefault       = 'default';
+        $this->versionConfValueDefault = 'v0.0';
+    }
+}
+class ResSiteFake1 extends ResSiteFake {
+    
+    public $fakeId = 1;
+}
+class ResSiteFake2 extends ResSiteFake {
+    
+    public $fakeId = 2;
+}
+class ResSiteFake3 extends ResSiteFake {
+    
+    public $fakeId = 3;
+}
+class ResSiteFake4 extends ResSiteFake {
+    
+    public $fakeId = 4;
+}
+
+class PortFolioFake extends PortFolio {
+    
+    use TraitFake;
+
+    public static function __construct($labelName, $accessMode, $show, $title) {
+    
+        parent::__construct($labelName, $accessMode, $show, $title);
+    
+        $id    = $this->fakeGetId();
+        $title = $id.' title';
+        
+        $this->itemTitleSet($title);
+        $this->itemImageSet($title, $this->url);
+    }
+}
+class PortFolioFake1 extends PortFolioFake {
+    
+    public $fakeId = 1;
+}
+class PortFolioFake2 extends PortFolioFake {
+    
+    public $fakeId = 2;
+}
+class PortFolioFake3 extends PortFolioFake {
+    
+    public $fakeId = 3;
+}
+class PortFolioFake4 extends PortFolioFake {
+    
+    public $fakeId = 4;
+}
+class ResToken {
+
+    use TraitFake;
+    
+    public $token;
+    
+    public static function __construct() {
+    
+        $this->token = 'sdlmfsmdfs,sd,lfm,s';
+    }
+}
+class ResToken1 extends ResToken {
+    
+    public $fakeId = 1;
+}
+class ResToken2 extends ResToken {
+    
+    public $fakeId = 2;
+}
+class ResToken3 extends ResToken {
+    
+    public $fakeId = 3;
+}
+class ResToken4 extends ResToken {
+    
+    public $fakeId = 4;
+}
+class ResContextFake {
+
+    use TraitFake;
+    
+    public $keywordListValue;
+    public $descriptionLongValue;
+    public $descriptionShortValue;
+    public $titleValue;
+
+    public static function __construct($labelName, $accessMode, $show, $title) {
+
+        $id = $this->fakeGetId();
+        
+        $this->keywordListValue      = array('parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage', 'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste', 'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter', 'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre', 'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller', 'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation', 'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre');
+        $this->descriptionLongValue  = 'JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.';
+        $this->descriptionShortValue = 'JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.';
+        $this->titleValue            = $id;
+    }
+}
+class ResContextFake1 extends ResContextFake {
+
+    public $fakeId = 1;
+}
+class ResContextFake2 extends ResContextFake {
+
+    public $fakeId = 2;
+}
+class ResContextFake3 extends ResContextFake {
+
+    public $fakeId = 3;
+}
+class ResContextFake4 extends ResContextFake {
+
+    public $fakeId = 4;
+}
+class RecommandationFake extends Recommandation {
+
+    use TraitFake;
+    
+    public static function __construct($labelName, $accessMode, $show, $title) {
+    
+        parent::__construct($labelName, $accessMode, $show, $title);
+    
+        $id    = $this->fakeGetId();
+        $title = $id.' title';
+        
+        $this->itemTitleSet($title);
+    }
+}
+class RecommandationFake1 extends RecommandationFake {
+
+    public $fakeId = 1;
+}
+class RecommandationFake2 extends RecommandationFake {
+
+    public $fakeId = 2;
+}
+class RecommandationFake3 extends RecommandationFake {
+
+    public $fakeId = 3;
+}
+class RecommandationFake4 extends RecommandationFake {
+
+    public $fakeId = 4;
+}
+class ProfilFake extends Profil {
+    
+    use TraitFake;
+
+    public static function __construct($labelName, $accessMode, $show, $notificationList = true) {
+    
+        parent::__construct($labelName, $accessMode, $show, $notificationList);
+    
+        $id = $this->fakeGetId();
+        
+        $this->itemNameSet($id.' name');
+        $this->itemSurnameSet($id.' surname');
+        $this->itemTitleSet($id.' title');
+        $this->itemEmailSet($id.'@instriit.com');
+    }
+}
+class ProfilFake1 extends ProfilFake {
+    
+    public $fakeId = 1;
+}
+class ProfilFake2 extends ProfilFake {
+    
+    public $fakeId = 2;
+}
+class ProfilFake3 extends ProfilFake {
+    
+    public $fakeId = 3;
+}
+class ProfilFake4 extends ProfilFake {
+    
+    public $fakeId = 4;
+}
+class TokenFake extends Token {
+
+    use TraitFake;
+    
+    public static function __construct($labelName, $accessMode, $show, $notificationList = true) {
+    
+        parent::__construct($labelName, $accessMode, $show, $notificationList);
+    
+        $id = $this->fakeGetId();
+    
+        $this->itemNameSet($id.' name');
+        $this->itemSurnameSet($id.' surname');
+        $this->itemTitleSet($id.' title');
+        $this->itemEmailSet($id.'@instriit.com');
+    }
+}
+
+Trait TraitGraph {
+    
+    private $graphRequestTagToken                  = '{token}';
+    private $graphRequestTagAvantageMax            = '{avantageMax}';
+    private $graphRequestTagUserLoginPublic        = '{userLoginPublic}';
+    private $graphRequestTagShowValueDefault       = '{showValueDefault}';
+    private $graphRequestTagAccessModeValueDefault = '{accessModeValueDefault}';
+    private $graphRequestTagThemeValueDefault      = '{themeValueDefault}';
+    private $graphRequestTagSemanticValueDefault   = '{semanticValueDefault}';
+    private $graphRequestTagDomainValueDefault     = '{domainValueDefault}';
+    private $graphRequestTagLangValueDefault       = '{langValueDefaul}';
+    private $graphRequestTagNodeName               = '{nodeName}';   
+    private $graphRequestTagAttributName           = '{attributName}';  
+    private $graphRequestTagAvantageMaxFilter      = '{avantageMaxFilter}';
+    private $graphRequestTagUserLoginPublicFilter  = '{userLoginPublicFilter}';
+    private $graphRequestTagSemanticListFiltere    = '{qemanticListFiltere}';
+    private $graphRequestTagThemeListFilter        = '{themeListFilter}';
+    private $graphRequestTagDomainListFilter       = '{domainListFilter}';
+    private $graphRequestTagLangListFilter         = '{langListFilter}';
+    private $graphRequestTagAccessModeListFilter   = '{accessModeListFilter}';
+    private $graphRequestGet                       = ''; // @todo
+    private $graphRequestContext                   = ''; // @todo
+    private $graphRequestTokenCreate               = ''; // @todo
+    private $graphRequestTokenVerif                = ''; // @todo
+    private $graphRequestTokenRenew                = ''; // @todo
+    private $graphRequestTextGet                   = ''; // @todo
+    
+    private function graphRequestGet() { 
+        
+        // @todo
+        $verif = $this->graphRequestTokenVerif($this->graphTokenVerif);
+        
+        if(empty($verif) === true) {
+         
+            return false;
+        }
+        // @todo
+        $fake        = new stdClass();
+        $fake->token = $this->graphRequestTokenRenew();
+        
+        $res = $this->graphRequest($this->graphRequestGet);
+        
+        // @todo
+        $res = new ResSiteFake1();
+                
+        return $res;
+    } 
+    private function graphRequestTokenVerif() {
+
+        $res = $this->graphRequest($this->graphTokenVerif);
+        
+        // @todo
+        $res = new ResToken1();
+        
+        return $res;
+    }
+    private function graphRequestTokenRenew() {
+
+        $res = $this->graphRequest($this->graphTokenRenew);
+        
+        // @todo
+        $res = new ResToken1();
+        
+        return $res;
+    } 
+    private function graphRequestTokenCreate() {
+        
+        $res = $this->graphRequest($this->graphTokenCreate);
+        
+        // @todo
+        $res = new ResToken1();
+        
+        return $res;
+    }    
+    private function graphRequestContext() {
+        
+        // @todo
+        $fake        = new stdClass();
+        $fake->token = $this->graphRequestTokenCreate();
+        
+        $res = $this->graphRequest($this->graphRequestContext);
+        
+        // @todo        
+        $res = new ResContextFake1();
+        
+        return $fake;
+    } 
+    private function graphTextGet() {
+                
+        // @todo
+        $res = $this->graphRequest($this->graphRequestTextGet);
+        
+        // @todo
+        $fake = $this->value;
+        
+        
+        return $fake;
+    }    
+    private function graphRequest($request) {
+        
+        $request = $this->graphRequestTemplace($request);
+        
+        // @todo
+        $res = true;
+        
+        return $res;
+    }    
+    private function graphRequestTemplace($request) {
+        
+        $request = str_replace($this->graphRequestTagToken, Token::$token, $request);
+        $request = str_replace($this->graphRequestTagAvantageMax, Token::$avantageMax, $request);
+        $request = str_replace($this->graphRequestTagUserLoginPublic, Token::$userLoginPublic, $request);
+        $request = str_replace($this->graphRequestTagShowValueDefault, Token::$showValueDefault, $request);
+        $request = str_replace($this->graphRequestTagAccessModeValueDefault, Token::$accessModeValueDefault, $request);
+        $request = str_replace($this->graphRequestTagThemeValueDefault, Token::$themeValueDefault, $request);
+        $request = str_replace($this->graphRequestTagSemanticValueDefault, Token::$semanticValueDefault, $request);
+        $request = str_replace($this->graphRequestTagDomainValueDefault, Token::$domainValueDefault, $request);
+        $request = str_replace($this->graphRequestTagLangValueDefault, Token::$langValueDefault, $request);
+        $request = str_replace($this->graphRequestTagAvantageMaxFilter, $this->filter->avantageMaxFilter, $request);
+        $request = str_replace($this->graphRequestTagUserLoginPublicFilter, $this->filter->userLoginPublicFilter, $request);
+        $request = str_replace($this->graphRequestTagSemanticListFiltere, $this->filter->semanticListFilter, $request);
+        $request = str_replace($this->graphRequestTagThemeListFilter, $this->filter->themeListFilter, $request);
+        $request = str_replace($this->graphRequestTagDomainListFilter, $this->filter->domainListFilter, $request);
+        $request = str_replace($this->graphRequestTagLangListFilter, $this->filter->langListFilter, $request);
+        $request = str_replace($this->graphRequestTagAccessModeListFilter, $this->filter->accessModeListFilter, $request);
+        
+        return $request;
+    }
+}
+class Request {
+    
+    static function requestVal($tag) {
+    
+        if(isset($_REQUEST[$tag]) === true && empty($_REQUEST[$tag]) === false && $_REQUEST[$tag] !== false ) {
+    
+            $val = $_REQUEST[$tag];
+            $val = filter_var($val, FILTER_UNSAFE_RAW, FILTER_FLAG_ENCODE_HIGH);
+            	
+            return $val;
+        }
+        return false;
+    }
+}
 class Filter {
  
-    public $attributList = array();
+    public $attributList              = array();
+    public $avantageMaxFilter         = 'all';
+    public $userLoginPublicFilter     = 'all'; 
+    public $semanticListFilter        = 'all';
+    public $themeListFilter           = 'all';
+    public $domainListFilter          = 'all';
+    public $langListFilter            = 'all';
+    public $accessModeListFilter      = 'all';
     
-    public function set($attributName, $attributValue){
+    public function set($attributName, $attributValue) {
         
         $this->attributList[$attributName] = $attributValue;
     }
 }
-
-class Token {
-    
-    public static $idPublic = 'lnsdlfnsdlf';
-    
-    public function getUserNodeName(){
+class AvantageMax extends Field {
+}
+class UserLoginPublic extends Field {
+}
+class Token extends Field {
         
-        return 'toto';
+    CONST TAG                               = 'PM_token';
+    
+    public static $token                    = false;    
+    public static $avantageMax              = false;
+    public static $userLoginPublic          = 'anonymous';
+    public static $showValueDefault         = 'showNone';
+    public static $accessModeValueDefault   = 'read';
+    public static $themeValueDefault        = 'default';
+    public static $semanticValueDefault     = 'default';
+    public static $domainValueDefault;
+    public static $langValueDefault;
+    public static $keywordListValue;
+    public static $descriptionLongValue;
+    public static $descriptionShortValue;
+    public static $titleValue;
+    public static $versionConfValueDefault;
+    public static $title;
+    public static $descriptionShort;
+    public static $descriptionLong;
+    public static $versionConf;
+    public static $domainList;
+    public static $keywordList;
+    public static $lang;
+    public static $accessModeList;
+    public static $showList;
+    
+    public function __construct(){
+
+        $res = $this->get();
+        
+        if($res === false) {
+            
+            $res = $this->getContext();
+        
+            if($res === false) {
+             
+                return false;
+            }        
+            $this->configure($res);
+        }
+        $this->configure($res);
+    }
+    public function configure($res) {
+        
+        self::$avantageMax      = new AvantageMax($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->avantageMax);
+        self::$userLoginPublic  = new UserLoginPublic($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->userLoginPublic);
+        self::$title            = new SiteTitle($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->titleValue);
+        self::$lang             = new Lang($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->langValueDefault);
+        self::$descriptionShort = new SiteDescriptionShort($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->descriptionShortValue);
+        self::$descriptionLong  = new SiteDescriptionLong($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->descriptionLongValue);
+        self::$versionConf      = new VersionConfList($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->versionConfValueDefault);
+        self::$semanticList     = new SemanticList($res->nodeName, $res->accessModeDefault, $res->showDefault);
+        self::$themeList        = new ThemeList($res->nodeName, $res->accessModeDefault, $res->showDefault);
+        self::$domainList       = new DomainList($res->nodeName, $res->accessModeDefault, $res->showDefault);
+        self::$keywordList      = new KeywordList($res->nodeName, $res->accessModeDefault, $res->showDefault);
+        self::$langList         = new LangList($res->nodeName, $res->accessModeDefault, $res->showDefault);
+        self::$accessModeList   = new AccessModeList($res->nodeName, $res->accessModeDefault, $res->showDefault);
+        self::$showList         = new ShowList($res->nodeName, $res->accessModeDefault, $res->showDefault);
+        $semantic               = New Semantic($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->semanticValueDefault);
+        $theme                  = New Theme($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->themeValueDefault);
+        $domain                 = New Domain($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->domainValueDefault);
+        $accessMode             = New AccessMode($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->accessModeValueDefault);
+        $show                   = New Domain($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->showValueDefault);
+        
+        self::$semanticList->add($semantic);
+        self::$themeList->add($theme);
+        self::$domainList->add($domain);
+        self::$accessModeList->add($accessMode);
+        self::$showList->add($show);
+        self::$keywordList->keywordListToImportSet($res->keywordListValue);
+        self::$keywordList->keywordListToImport();
+        
+        self::$token = $res->token;
+        
+        return true;
+    }    
+    public function getContext(){
+        
+        $this->domainValueDefault = Request::requestVal(Domain::TAG);            
+        
+        if($this->domainValueDefault === false) {
+             
+                return false;
+        }     
+        $this->langValueDefault = Request::requestVal(LANG::TAG);           
+        
+        if($this->langValueDefault === false) {
+             
+                return false;
+        }     
+        $this->versionConfValueDefault = Request::requestVal(VersionConf::TAG);           
+        
+        if($this->versionConfValueDefault === false) {
+             
+                return false;
+        }
+        $res                         = $this->graphRequestContext();
+        $this->keywordListValue      = $res->keywordListValue;
+        $this->descriptionLongValue  = $res->descriptionLongValue;
+        $this->descriptionShortValue = $res->descriptionShortValue;
+        $this->titleValue            = $res->titleValue;        
+        self::$token                 = $res->token;
+        
+        return $this;        
+    }
+    public function get(){
+        
+        $res = Request::requestVal(self::TAG);
+        $res = $this->graphRequestGet();        
+        
+        if($res === false) {
+             
+            return false;
+        }        
+        return $res;   
     }
 }
 
@@ -55,8 +543,11 @@ class Microservice {
 }
 
 class Field {
+    
+    use TraitGraph;
 
     public $id;
+    public $value;
     public $nodeName;
     public $labelName;
     public $accessMode;
@@ -69,11 +560,14 @@ class Field {
     public $ptQuantity;
     public $idList;
     public $microservice;
-    public $actionButtonRemove = false;
-    public $actionButtonEdit   = false;
-    public $actionButtonDetail = false;
-    public $ctionButtonUpdate  = false;
-    public $fake               = false;
+    public $filter;
+    public $actionButtonRemove        = false;
+    public $actionButtonEdit          = false;
+    public $actionButtonDetail        = false;
+    public $ctionButtonUpdate         = false;
+    public $fake                      = false;    
+    public $actionButtonItemTools     = false;
+    public $actionButtonItemToolsEdit = false;
     
     public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
 
@@ -83,10 +577,23 @@ class Field {
         $this->labelName    = $labelName;
         $this->accessMode   = $accessMode;
         $this->show         = $show;
+        
+        $this->filterSet();
 
         if($value !== false) {
-
-            $this->value = $value;
+            
+            $this->valueSet($value);
+        }
+        $this->actionButtonItemToolsRemove();
+        $this->actionButtonItemToolsEditRemove();
+        
+        if($this->actionButtonItemTools  === true) {
+            
+            $this->actionButtonItemToolsAdd();
+        }
+        if($this->actionButtonItemToolsEdit  === true) {
+            
+            $this->actionButtonItemToolsEditAdd();
         }
     }
     public function remove($id) {
@@ -225,15 +732,19 @@ class Field {
     }   
     public function filterSet() {
         
-        return new Filter();
+        $this->filter = new Filter();
+        
+        return true;
     }
 }
 class FieldList extends Field {
 
-    public $itemList           = array();    
-    public $actionButtonAdd    = false;
-    public $actionButtonNext   = false;
-    public $actionButtonPrec   = false;
+    public $itemList                        = array();    
+    public $actionButtonAdd                 = false;
+    public $actionButtonNext                = false;
+    public $actionButtonPrec                = false;
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
         
     public function add($obj, $attritutList = array()) {
              
@@ -254,6 +765,17 @@ class FieldList extends Field {
         if(empty($this->itemList) === true) {
         
             $this->defaultSet($obj->id);
+        }        
+        $this->actionButtonItemToolsCrudRemove();
+        $this->actionButtonItemToolspaginationRemove();
+        
+        if($this->actionButtonItemToolsCrud  === true) {
+            
+            $this->actionButtonItemToolsCrudAdd();
+        }
+        if($this->actionButtonItemToolsPagination  === true) {
+            
+            $this->actionButtonItemToolsPaginationAdd();
         }
         return true;
     }
@@ -354,6 +876,12 @@ class FieldList extends Field {
         
         return true;
     }
+    public function actionButtonItemToolsCrudRemove() {
+        
+        $this->actionButtonAddRemove();
+        
+        return true;
+    }
     public function actionButtonItemToolsRemove() {
         
         $this->actionButtonAddRemove();
@@ -373,37 +901,32 @@ class FieldList extends Field {
         $this->actionButtonAdd = false;
         
         return true;
-    }
-    
+    }    
     public function actionButtonNextRemove() {
         
         $this->actionButtonNext = false;
 
         return true;
-    }
-    
+    }    
     public function actionButtonPrecRemove() {
         
 
         $this->actionButtonPrec = false;
 
         return true;
-    }  
-    
+    }      
     public function actionButtonAddAdd() {
 
         $this->actionButtonAdd = new ActionButtonAdd($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show);
         
         return true;
-    }
-    
+    }    
     public function actionButtonNextAdd() {
         
         $this->actionButtonNext = new ActionButtonNext($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
         
         return true;       
-    }
-    
+    }    
     public function actionButtonPrecAdd() {
         
         $this->actionButtonPrec = new ActionButtonPrec($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
@@ -414,17 +937,59 @@ class FieldList extends Field {
 class Semantic extends Field {
 }
 class SemanticList extends FieldList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
 }
-class Text extends SemanticList {
+class TextList extends FieldList {
+
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
+}
+class Text extends Field {
+    
+    public $valueListState        = false;
+
+    public function __construct($labelName, $accessMode, $show, $value) {
+        
+        parent::__construct($labelName, $accessMode, $show, $value);
+        
+        if(get_class($this) !== __CLASS__) {
+            
+            $textList = new TextList($this->nodeName, $accessMode, $show);
+            $text     = new Text($this->nodeName, $accessMode, $show, $value);
+            
+            $text->translate();
+            $textList->add($text, $this);                    
+            $this->valueSet($textList);
+            
+            $this->valueListState = true;
+        }
+    }  
+    public function translate() {
+                
+        $value = $this->graphTextGet();
+        
+        if($value === false) {
+        
+            return false;
+        }
+        $this->valueSet($value);
+                
+        return true;
+    }
 }
 class ActionButton extends FieldList {
 
-    public $show                   = 'showNone';
-    public $confirm                = false;
-    public $microserviceLabelName  = false;
-    public $microserviceAccessMode = 'read';
-    public $microserviceShow       = 'showNone';
-    public $confirmButton          = false;
+    public $show                            = 'showNone';
+    public $confirm                         = false;
+    public $microserviceLabelName           = false;
+    public $microserviceAccessMode          = 'read';
+    public $microserviceShow                = 'showNone';
+    public $confirmButton                   = false;
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
     public $value;
 
     public static function __construct($labelName, $show, $microserviceLabelName = false, $microserviceAccessMode = false, $microserviceShow = false) {
@@ -550,14 +1115,27 @@ class ActionButtonMenuItem extends ActionButton {
 class Theme extends Text {
 }
 class ThemeList extends FieldList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
 }
 class VersionConf extends Field {
+    
+    CONST TAG = 'PM_versionConf';
 }
 class VersionConfList extends FieldList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
 }
 class Domain extends Text {
+    
+    CONST TAG = 'PM_domain';
 }
 class DomainList extends FieldList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
 }
 class SiteTitle extends Text {
 }
@@ -574,6 +1152,8 @@ class Keyword extends Text {
 class KeywordList extends FieldList {
 
     public $keywordListToImport;
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
     
     public function keywordListToImport() {
         
@@ -590,70 +1170,27 @@ class KeywordList extends FieldList {
     }
 }
 class Lang extends Text {
+    
+    CONST TAG = 'PM_lang';
 }
 class LangList extends FieldList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
 }
 class AccessMode extends Field {
 }
 class AccessModeList extends FieldList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
 }
 class Show extends Field {
 }
 class ShowList extends FieldList {
-}
-class MainDescription extends FieldList {
     
-    public $showValueDefault        = 'showVisible';
-    public $accessModeValueDefault  = 'read';
-    public $langValueDefault        = 'fr';
-    public $keywordListValue        = array('parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage', 'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste', 'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter', 'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre', 'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller', 'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation', 'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre');
-    public $descriptionLongValue    = 'JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.';
-    public $descriptionShortValue   = 'JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.';
-    public $titleValue              = 'JE RECOMMANDE';
-    public $domainValueDefault      = 'jerecommande.fr';
-    public $semanticValueDefault    = 'fr';
-    public $themeValueDefault       = 'default';
-    public $versionConfValueDefault = 'v0.0';
-    public $title;
-    public $descriptionShort;
-    public $descriptionLong;
-    public $versionConf;    
-    public $domainList;
-    public $keywordList;
-    public $lang;
-    public $accessModeList;
-    public $showList;
-        
-    public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
-    
-        parent::__construct($labelName, $accessMode, $show, $value);
-        
-        $this->title            = new SiteTitle($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->titleValue);
-        $this->lang             = new Lang($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->langValueDefault);
-        $this->descriptionShort = new SiteDescriptionShort($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->descriptionShortValue);
-        $this->descriptionLong  = new SiteDescriptionLong($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->descriptionLongValue);
-        $this->versionConf      = new VersionConfList($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->versionConfValueDefault);        
-        $this->semanticList     = new SemanticList($this->nodeName, $this->accessModeDefault, $this->showDefault);
-        $this->themeList        = new ThemeList($this->nodeName, $this->accessModeDefault, $this->showDefault);
-        $this->domainList       = new DomainList($this->nodeName, $this->accessModeDefault, $this->showDefault);
-        $this->keywordList      = new KeywordList($this->nodeName, $this->accessModeDefault, $this->showDefault);
-        $this->langList         = new LangList($this->nodeName, $this->accessModeDefault, $this->showDefault);
-        $this->accessModeList   = new AccessModeList($this->nodeName, $this->accessModeDefault, $this->showDefault);
-        $this->showList         = new ShowList($this->nodeName, $this->accessModeDefault, $this->showDefault);
-        $semantic               = New Semantic($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->semanticValueDefault);
-        $theme                  = New Theme($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->themeValueDefault);
-        $domain                 = New Domain($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->domainValueDefault);
-        $accessMode             = New AccessMode($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->accessModeValueDefault);
-        $show                   = New Domain($this->nodeName, $this->accessModeDefault, $this->showDefault, $this->showValueDefault);     
-        
-        $this->semanticList->add($semantic);
-        $this->themeList->add($theme);
-        $this->domainList->add($domain);
-        $this->accessModeList->add($accessMode);
-        $this->showList->add($show);        
-        $this->keywordList->keywordListToImportSet($this->keywordListValue);
-        $this->keywordList->keywordListToImport();
-    }
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
 }
 class ActionButtonMenuItemProfilListMy extends ActionButtonMenuItem {
     
@@ -673,8 +1210,10 @@ class ActionButtonMenuItemProfilListMy extends ActionButtonMenuItem {
 }
 class Notification extends FieldList {
 
-    public $title = '';
-    public $text  = '';
+    public $title                           = '';
+    public $text                            = '';
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = true;
 }
 class ActionButtonMenuItemNotificationList extends ActionButtonMenuItem {
     
@@ -882,6 +1421,9 @@ class ProfilSeparateActionButton extends ActionButtonRemove {
 }
 class MainMenu extends FieldList {
     
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
+    
     public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
     
         parent::__construct($labelName, $accessMode, $show, $value);
@@ -1011,6 +1553,9 @@ class MdpConfirm extends Mdp {
 class ProfilMdpConfirm extends MdpConfirm {
 }
 class ContactList extends FieldList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = true;
 }
 class PortFolioTitle extends Title {
 }
@@ -1021,7 +1566,9 @@ class PortFolio extends FieldList {
     use TraitMedia;
     
     public $titleId;
-    public $ImageId;
+    public $ImageId;    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = true;
     
     public static function __construct($labelName, $accessMode, $show, $title) {
 
@@ -1052,40 +1599,15 @@ class PortFolio extends FieldList {
         return true;
     }
 }
-class PortFolioFake extends PortFolio {
-    
-    use TraitFake;
-
-    public static function __construct($labelName, $accessMode, $show, $title) {
-    
-        parent::__construct($labelName, $accessMode, $show, $title);
-    
-        $id    = $this->fakeGetId();
-        $title = $id.' title';
-        
-        $this->itemTitleSet($title);
-        $this->itemImageSet($title, $this->url);
-    }
-}
-class PortFolioFake1 extends PortFolioFake {
-    
-    public $fakeId = 1;
-}
-class PortFolioFake2 extends PortFolioFake {
-    
-    public $fakeId = 2;
-}
-class PortFolioFake3 extends PortFolioFake {
-    
-    public $fakeId = 3;
-}
-class PortFolioFake4 extends PortFolioFake {
-    
-    public $fakeId = 4;
-}
 class PortfolioList extends FieldList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = true;
 }
 class PortfolioListMy extends PortfolioList { 
+    
+    public $actionButtonItemToolsCrud       = true;
+    public $actionButtonItemToolsPagination = true;
 }
 class Recommandation extends Field {
 
@@ -1096,42 +1618,21 @@ class Recommandation extends Field {
         // @todo
     }    
 }
-class RecommandationFake extends Recommandation {
-
-    use TraitFake;
-
-    public static function __construct($labelName, $accessMode, $show, $title) {
-
-        parent::__construct($labelName, $accessMode, $show, $title);
-
-        $id = $this->fakeGetId();
-        
-        // @todo
-    }
-}
-class RecommandationFake1 extends RecommandationFake {
-
-    public $fakeId = 1;
-}
-class RecommandationFake2 extends RecommandationFake {
-
-    public $fakeId = 2;
-}
-class RecommandationFake3 extends RecommandationFake {
-
-    public $fakeId = 3;
-}
-class RecommandationFake4 extends RecommandationFake {
-
-    public $fakeId = 4;
-}
 class RecommandationList extends FieldList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
 }
 class RecommandationListMe extends RecommandationList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
 }
 class Profil extends FieldList  {
     
     use TraitMedia;
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = true;
 
     public $saveActionButtonShow             = 'showNone';
     public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE RESEAU SOCIAL';
@@ -1466,38 +1967,6 @@ class Profil extends FieldList  {
         return $this->itemAttributSet($obj, $attributName, $value);
     }
 }
-class ProfilFake extends Profil {
-    
-    use TraitFake;
-
-    public static function __construct($labelName, $accessMode, $show, $notificationList = true) {
-    
-        parent::__construct($labelName, $accessMode, $show, $notificationList);
-    
-        $id = $this->fakeGetId();
-        
-        $this->itemNameSet($id.' name');
-        $this->itemSurnameSet($id.' surname');
-        $this->itemTitleSet($id.' title');
-        $this->itemEmailSet($id.'@instriit.com');
-    }
-}
-class ProfilFake1 extends ProfilFake {
-    
-    public $fakeId = 1;
-}
-class ProfilFake2 extends ProfilFake {
-    
-    public $fakeId = 2;
-}
-class ProfilFake3 extends ProfilFake {
-    
-    public $fakeId = 3;
-}
-class ProfilFake4 extends ProfilFake {
-    
-    public $fakeId = 4;
-}
 class ProfilIntern extends Profil {
 
     public static function get($parent, $accessMode, $show) {
@@ -1663,6 +2132,8 @@ class ProfilInstagram extends ProfilSocial {
 
 class ProfilListMy extends FieldList {
 
+    public $actionButtonItemToolsCrud       = true;
+    public $actionButtonItemToolsPagination = true;
     public $disconnectedId;
     public $avantagePersonnalId;
     public $avantageBusinessId;
@@ -1707,6 +2178,8 @@ class NotificationRecommandationNew extends Notification {
     public $text  = 'Demande de recommandation';
     
     public function __construct($labelName, $accessMode, $show) {
+        
+        parent::__construct($labelName, $accessMode, $show);
         
         $urlIcon                                  = $this->mediaImageUrlGet();        
         $notificationTitle                        = new NotificationTitle($this->nodeName, 'read', $show, $this->title);
@@ -1771,81 +2244,73 @@ class NotificationRecommandationNew extends Notification {
         </div>';
     }
 }
-
 class NotificationList extends FieldList {
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = true;
 
-    public static function get($parent, $accessMode, $show) {
+    public function __construct($labelName, $accessMode, $show) {
+    
+        parent::__construct($labelName, $accessMode, $show);
         
        $list                  = parent::get($parent, $accessMode, $show);       
        $notification1         = NotificationRecommandationNew::get(get_class($this), $accessMode, $show);
-       $this->notification1Id = $list->fieldItemListAddObj($notification1);
+       $this->notification1Id = $list->fieldItemListAddObj($notification1);       
        
-       return $list;
     }
 }
 class RecommandationListMy extends FieldList {
-
-    public static function get($parent, $accessMode, $show) {
-
-    }
+    
+    public $actionButtonItemToolsCrud       = true;
+    public $actionButtonItemToolsPagination = true;
 }
 class CategoryList extends FieldList {
-
-    public static function get($parent, $accessMode, $show) {
-
-    }
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = true;
 }
 class AvantageList extends FieldList {
-
-    public static function get($parent, $accessMode, $show) {
-
-    }
+    
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = true;
 }
 class MainContent {
     
     public $profilListMyId;
+
+    public function __construct($labelName, $accessMode, $show) {
     
-    public static function get($parent, $accessMode, $show) {
+        parent::__construct($labelName, $accessMode, $show);
+              
+        $profilListMy         = new ProfilListMy($this->nodeName, $accessMode, $show);  
+        $this->profilListMyId = $profilListMy->id;
         
-        $fieldItem            = new ApiBackFieldItem($parent.get_class($this), get_class($this), $accessMode, $show);        
-        $profilListMy         = ProfilListMy::get(get_class($this), $accessMode, $show);  
-        $this->profilListMyId = $fieldItem->fieldItemListAddObj($profilListMy);
-        
-        return $fieldItem;
+        $this->add($profilListMy);
     }
 }
 
-class ApiBack extends ApiBackFieldItem {
-
-    public $id;
-    public $text;
-    public $theme;
-    public $dataIntegration;
-    public $domain;
-    public $siteName;
-    public $descriptionLong;
-    public $descriptionShort;
-    public $keyWordList;
-    public $cssContent;
-    public $googleVerify;
-    public $nodeName;
-    public $labelName;
-    public $accessMode;
-    public $show;
-    public $fieldList;
-    public $menuList;
+class Page extends FieldList {
     
-    public static $cloneDescription;
+    public $actionButtonItemToolsCrud       = false;
+    public $actionButtonItemToolsPagination = false;
     
-    public static function genStdSample($accessMode = 'read', $show = 'showVisible') {
+    public function __construct($labelName, $accessMode, $show) {
         
-        $ApiBack                = MainDescription::get(get_class($this), $accessMode, $show);        
-        self::$cloneDescription = $ApiBack;        
-        $ApiBack->menuList      = MainMenu::get(get_class($this), $accessMode, $show);        
-        $ApiBack->fieldList     = MainContent::get(get_class($this), $accessMode, $show);
-       
+        parent::__construct($labelName, $accessMode, $show);     
         
-        echo json_encode($ApiBack);
+        $token = new Token();
+        
+        if($token->value === false) {
+            
+            return  false;
+        }  
+        $mainMenu    = new MainMenu($this->nodeName, $accessMode, $show);
+        $mainContent = new MainContent($this->nodeName, $accessMode, $show);
+        
+        $this->add($mainMenu);
+        $this->add($mainContent);
+        
+        echo json_encode($this);
 
 $todo ="
 
