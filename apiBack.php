@@ -1,5 +1,27 @@
 <?php 
 
+trait TraitMy {
+    
+    public function myGetFilter($myState = true) {
+        
+        if($myState !== true) {
+            
+            $this->myState = $myState;
+        }        
+        $filter = new Filter();
+        
+        if($this->myState === true) {
+            
+            $filter->userCreatedBy = Token::userLoginPrivateGet();
+        }
+        if($this->myState === true) {
+            
+            $filter->userCreatedByNot = Token::userLoginPrivateGet();
+        }
+        return $filter;
+    }
+}
+
 trait TraitFake {
 
     public $fake = true;
@@ -9,60 +31,6 @@ trait TraitFake {
         return $prefix.$this->fakeId;
     }
 }
-class ResSiteFake {
-
-    use TraitFake;
-    
-    public $id;
-    public $userLoginPublic;
-    public $avantageMax;
-    public $show;
-    public $accessMode;
-    public $langValueDefault;
-    public $keywordListValue;
-    public $descriptionLongValue;
-    public $descriptionShortValue;
-    public $titleValue;
-    public $domainValueDefault;
-    public $semanticValueDefault;
-    public $themeValueDefault;
-    public $versionConfValueDefault;
-    
-    public static function __construct() {
-        
-        $id                            = $this->fakeGetId();    
-        $this->userLoginPublic         = 'ncantu@instriit.com';
-        $this->avantageMax             = 'AvantageBusiness';
-        $this->show                    = 'showVisible';
-        $this->accessMode              = 'read';
-        $this->langValueDefault        = 'fr';
-        $this->keywordListValue        = array('parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage', 'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste', 'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter', 'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre', 'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller', 'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation', 'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre');
-        $this->descriptionLongValue    = 'JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.';
-        $this->descriptionShortValue   = 'JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.';
-        $this->titleValue              = $id;
-        $this->domainValueDefault      = 'jerecommande.fr';
-        $this->semanticValueDefault    = 'fr';
-        $this->themeValueDefault       = 'default';
-        $this->versionConfValueDefault = 'v0.0';
-    }
-}
-class ResSiteFake1 extends ResSiteFake {
-    
-    public $fakeId = 1;
-}
-class ResSiteFake2 extends ResSiteFake {
-    
-    public $fakeId = 2;
-}
-class ResSiteFake3 extends ResSiteFake {
-    
-    public $fakeId = 3;
-}
-class ResSiteFake4 extends ResSiteFake {
-    
-    public $fakeId = 4;
-}
-
 class PortFolioFake extends PortFolio {
     
     use TraitFake;
@@ -94,34 +62,47 @@ class PortFolioFake4 extends PortFolioFake {
     
     public $fakeId = 4;
 }
-class ResToken {
+class TokenFake extends Token {
 
     use TraitFake;
+
+    public static function __construct($labelName, $accessMode, $show, $title) {
     
-    public $token;
-    
-    public static function __construct() {
-    
-        $this->token = 'sdlmfsmdfs,sd,lfm,s';
+        parent::__construct($labelName, $accessMode, $show, $title);
+        
+        $id                            = $this->fakeGetId();    
+        $this->userLoginPublic         = 'ncantu@instriit.com';
+        $this->avantageMax             = 'AvantageBusiness';
+        $this->show                    = 'showVisible';
+        $this->accessMode              = 'read';
+        $this->langValueDefault        = 'fr';
+        $this->keywordListValue        = array('parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage', 'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste', 'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter', 'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre', 'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller', 'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation', 'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre');
+        $this->descriptionLongValue    = 'JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.';
+        $this->descriptionShortValue   = 'JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.';
+        $this->titleValue              = $id;
+        $this->domainValueDefault      = 'jerecommande.fr';
+        $this->semanticValueDefault    = 'fr';
+        $this->themeValueDefault       = 'default';
+        $this->versionConfValueDefault = 'v0.0';
     }
 }
-class ResToken1 extends ResToken {
+class TokenFake1 extends TokenFake {
     
     public $fakeId = 1;
 }
-class ResToken2 extends ResToken {
+class TokenFake2 extends TokenFake {
     
     public $fakeId = 2;
 }
-class ResToken3 extends ResToken {
+class TokenFake3 extends TokenFake {
     
     public $fakeId = 3;
 }
-class ResToken4 extends ResToken {
+class TokenFake4 extends TokenFake {
     
     public $fakeId = 4;
 }
-class ResContextFake {
+class Context extends TokenFake {
 
     use TraitFake;
     
@@ -131,28 +112,33 @@ class ResContextFake {
     public $titleValue;
 
     public static function __construct($labelName, $accessMode, $show, $title) {
+    
+        parent::__construct($labelName, $accessMode, $show, $title);
 
-        $id = $this->fakeGetId();
-        
+        $id                          = $this->fakeGetId();        
         $this->keywordListValue      = array('parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage', 'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste', 'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter', 'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre', 'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller', 'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation', 'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre');
         $this->descriptionLongValue  = 'JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.';
         $this->descriptionShortValue = 'JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.';
         $this->titleValue            = $id;
     }
 }
-class ResContextFake1 extends ResContextFake {
+class ContextFake extends Context {
+
+    use TraitFake;
+}
+class ContextFake1 extends ContextFake {
 
     public $fakeId = 1;
 }
-class ResContextFake2 extends ResContextFake {
+class ContextFake2 extends ContextFake {
 
     public $fakeId = 2;
 }
-class ResContextFake3 extends ResContextFake {
+class ContextFake3 extends ContextFake {
 
     public $fakeId = 3;
 }
-class ResContextFake4 extends ResContextFake {
+class ContextFake4 extends ContextFake {
 
     public $fakeId = 4;
 }
@@ -218,23 +204,38 @@ class ProfilFake4 extends ProfilFake {
     
     public $fakeId = 4;
 }
-class TokenFake extends Token {
-
-    use TraitFake;
+class UserLoginPrivate extends Field{
     
+}
+class UserLoginPrivateFake extends UserLoginPrivate {
+    
+    use TraitFake;
+
     public static function __construct($labelName, $accessMode, $show, $notificationList = true) {
     
         parent::__construct($labelName, $accessMode, $show, $notificationList);
     
         $id = $this->fakeGetId();
-    
-        $this->itemNameSet($id.' name');
-        $this->itemSurnameSet($id.' surname');
-        $this->itemTitleSet($id.' title');
-        $this->itemEmailSet($id.'@instriit.com');
-    }
+        
+        $this->valueSet($id.' token');
+    }    
 }
-
+class UserLoginPrivateFake1 extends ProfilFake {
+    
+    public $fakeId = 1;
+}
+class UserLoginPrivateFake2 extends ProfilFake {
+    
+    public $fakeId = 2;
+}
+class UserLoginPrivateFake3 extends ProfilFake {
+    
+    public $fakeId = 3;
+}
+class UserLoginPrivateFake4 extends ProfilFake {
+    
+    public $fakeId = 4;
+}
 Trait TraitGraph {
     
     private $graphRequestTagToken                  = '{token}';
@@ -246,8 +247,8 @@ Trait TraitGraph {
     private $graphRequestTagSemanticValueDefault   = '{semanticValueDefault}';
     private $graphRequestTagDomainValueDefault     = '{domainValueDefault}';
     private $graphRequestTagLangValueDefault       = '{langValueDefaul}';
-    private $graphRequestTagNodeName               = '{nodeName}';   
-    private $graphRequestTagAttributName           = '{attributName}';  
+    private $graphRequestTagNodeName               = '{nodeName}';
+    private $graphRequestTagAttributName           = '{attributName}';
     private $graphRequestTagAvantageMaxFilter      = '{avantageMaxFilter}';
     private $graphRequestTagUserLoginPublicFilter  = '{userLoginPublicFilter}';
     private $graphRequestTagSemanticListFiltere    = '{qemanticListFiltere}';
@@ -255,95 +256,9 @@ Trait TraitGraph {
     private $graphRequestTagDomainListFilter       = '{domainListFilter}';
     private $graphRequestTagLangListFilter         = '{langListFilter}';
     private $graphRequestTagAccessModeListFilter   = '{accessModeListFilter}';
-    private $graphRequestGet                       = ''; // @todo
-    private $graphRequestContext                   = ''; // @todo
-    private $graphRequestTokenCreate               = ''; // @todo
-    private $graphRequestTokenVerif                = ''; // @todo
-    private $graphRequestTokenRenew                = ''; // @todo
-    private $graphRequestTextGet                   = ''; // @todo
-    
-    private function graphRequestGet() { 
-        
-        // @todo
-        $verif = $this->graphRequestTokenVerif($this->graphTokenVerif);
-        
-        if(empty($verif) === true) {
-         
-            return false;
-        }
-        // @todo
-        $fake        = new stdClass();
-        $fake->token = $this->graphRequestTokenRenew();
-        
-        $res = $this->graphRequest($this->graphRequestGet);
-        
-        // @todo
-        $res = new ResSiteFake1();
-                
-        return $res;
-    } 
-    private function graphRequestTokenVerif() {
+   
+    private function graphRequestTemplace($request, $filter) {
 
-        $res = $this->graphRequest($this->graphTokenVerif);
-        
-        // @todo
-        $res = new ResToken1();
-        
-        return $res;
-    }
-    private function graphRequestTokenRenew() {
-
-        $res = $this->graphRequest($this->graphTokenRenew);
-        
-        // @todo
-        $res = new ResToken1();
-        
-        return $res;
-    } 
-    private function graphRequestTokenCreate() {
-        
-        $res = $this->graphRequest($this->graphTokenCreate);
-        
-        // @todo
-        $res = new ResToken1();
-        
-        return $res;
-    }    
-    private function graphRequestContext() {
-        
-        // @todo
-        $fake        = new stdClass();
-        $fake->token = $this->graphRequestTokenCreate();
-        
-        $res = $this->graphRequest($this->graphRequestContext);
-        
-        // @todo        
-        $res = new ResContextFake1();
-        
-        return $fake;
-    } 
-    private function graphTextGet() {
-                
-        // @todo
-        $res = $this->graphRequest($this->graphRequestTextGet);
-        
-        // @todo
-        $fake = $this->value;
-        
-        
-        return $fake;
-    }    
-    private function graphRequest($request) {
-        
-        $request = $this->graphRequestTemplace($request);
-        
-        // @todo
-        $res = true;
-        
-        return $res;
-    }    
-    private function graphRequestTemplace($request) {
-        
         $request = str_replace($this->graphRequestTagToken, Token::$token, $request);
         $request = str_replace($this->graphRequestTagAvantageMax, Token::$avantageMax, $request);
         $request = str_replace($this->graphRequestTagUserLoginPublic, Token::$userLoginPublic, $request);
@@ -353,15 +268,229 @@ Trait TraitGraph {
         $request = str_replace($this->graphRequestTagSemanticValueDefault, Token::$semanticValueDefault, $request);
         $request = str_replace($this->graphRequestTagDomainValueDefault, Token::$domainValueDefault, $request);
         $request = str_replace($this->graphRequestTagLangValueDefault, Token::$langValueDefault, $request);
-        $request = str_replace($this->graphRequestTagAvantageMaxFilter, $this->filter->avantageMaxFilter, $request);
-        $request = str_replace($this->graphRequestTagUserLoginPublicFilter, $this->filter->userLoginPublicFilter, $request);
-        $request = str_replace($this->graphRequestTagSemanticListFiltere, $this->filter->semanticListFilter, $request);
-        $request = str_replace($this->graphRequestTagThemeListFilter, $this->filter->themeListFilter, $request);
-        $request = str_replace($this->graphRequestTagDomainListFilter, $this->filter->domainListFilter, $request);
-        $request = str_replace($this->graphRequestTagLangListFilter, $this->filter->langListFilter, $request);
-        $request = str_replace($this->graphRequestTagAccessModeListFilter, $this->filter->accessModeListFilter, $request);
-        
+        $request = str_replace($this->graphRequestTagAvantageMaxFilter, $filter->avantageMaxFilter, $request);
+        $request = str_replace($this->graphRequestTagUserLoginPublicFilter, $filter->userLoginPublicFilter, $request);
+        $request = str_replace($this->graphRequestTagSemanticListFiltere, $filter->semanticListFilter, $request);
+        $request = str_replace($this->graphRequestTagThemeListFilter, $filter->themeListFilter, $request);
+        $request = str_replace($this->graphRequestTagDomainListFilter, $filter->domainListFilter, $request);
+        $request = str_replace($this->graphRequestTagLangListFilter, $filter->langListFilter, $request);
+        $request = str_replace($this->graphRequestTagAccessModeListFilter, $filter->accessModeListFilter, $request);
+
         return $request;
+    }    
+    public function graphRequest($filter) {
+        
+        $request = $this->graphRequestTemplace($this->request, $filter);
+        $res     = $request;      // @todo
+        
+        if($res === false) {
+            
+            return false;
+        }        
+        $res  = $this->setUp($res);
+        
+        if($res === false) {
+            
+            return false;
+        }
+        return $res;    
+    }
+}
+class GraphRequestContactListGet extends ContactList {
+    
+    use TraitGraph;
+    
+    private $request = ''; // @todo
+    
+    private static function setUp($res, $filter) {
+        
+        // @todo
+        
+        $list  = new ContactList($this->nodeName, $this->accessMode, $this->show);
+        $fake1 = new ProfilFake1($this->nodeName, $this->accessMode, $this->show, false);
+        $fake2 = new ProfilFake2($this->nodeName, $this->accessMode, $this->show, false);
+        $fake3 = new ProfilFake3($this->nodeName, $this->accessMode, $this->show, false);
+        $fake4 = new ProfilFake4($this->nodeName, $this->accessMode, $this->show, false);
+        
+        $list->add($fake1);
+        $list->add($fake2);
+        $list->add($fake3);
+        $list->add($fake4);
+        
+        return $list;
+    }    
+}
+class GraphRequestPortfolioListGet extends PortfolioList {
+    
+    use TraitGraph;
+    
+    private $request = ''; // @todo
+    
+    private static function setUp($res) {
+        
+        // @todo
+        
+        $list  = new PortfolioListMy($this->nodeName, $this->accessMode, $this->show);                
+        $fake1 = new PortFolioFake1($this->nodeName, $this->accessMode, $this->show);
+        $fake2 = new PortFolioFake2($this->nodeName, $this->accessMode, $this->show);
+        $fake3 = new PortFolioFake3($this->nodeName, $this->accessMode, $this->show);
+        $fake4 = new PortFolioFake4($this->nodeName, $this->accessMode, $this->show);
+        
+        $list->add($fake1);
+        $list->add($fake2);
+        $list->add($fake3);
+        $list->add($fake4);
+        
+        return $list;
+    }    
+}
+class GraphRequestRecommandationListGet extends RecommandationList {
+    
+    use TraitGraph;
+
+    private $request = ''; // @todo
+    
+    private static function setUp($res, $filter) {
+        
+        // @todo
+
+        $list  = new RecommandationListMe($this->nodeName, $this->accessMode, $this->show);        
+        $fake1 = new RecommandationFake1($this->nodeName, $this->accessMode, $this->show);
+        $fake2 = new RecommandationFake2($this->nodeName, $this->accessMode, $this->show);
+        $fake3 = new RecommandationFake3($this->nodeName, $this->accessMode, $this->show);
+        $fake4 = new RecommandationFake4($this->nodeName, $this->accessMode, $this->show);
+        
+        $list->add($fake1);
+        $list->add($fake2);
+        $list->add($fake3);
+        $list->add($fake4);
+        
+        return $list;
+    }    
+}
+class GraphRequestContext extends Context {
+    
+    use TraitGraph;
+    
+    private $request = ''; // @todo
+    
+    public function graphRequest($filter) {
+                
+        $tokenCreate = new GraphRequestTokenCreate();        
+        $res         = $tokenCreate->graphRequest($filter);
+        $res         = parent::graphRequest($filter);
+        
+        return $res;        
+    }    
+    private function setUp($res, $filter) {
+        
+        // @todo
+        $res = new ContextFake1($this->nodeName, $this->accessMode, $this->show);
+        
+        return $res;        
+    }    
+}
+class GraphRequestTokenGet extends Token {
+    
+    use TraitGraph;
+    
+    private $request = ''; // @todo
+    
+    public function graphRequest($filter) {
+        
+        $verif = new GraphRequestTokenVerif();
+        $res   = $verif->graphRequest($filter);
+        
+        if($res === false) {
+             
+            return false;
+        }
+        $res = parent::graphRequest($filter);
+                
+        return $res;
+    }
+    private function setUp($res, $filter) {
+        
+        // @todo      
+        
+        $res = new TokenFake2($this->nodeName, $this->accessMode, $this->show);
+        
+        return $res;
+    }    
+}
+class GraphRequestTokenCreate extends Token {
+    
+    use TraitGraph;
+    
+    private $request = ''; // @todo
+    
+    private function setUp($res, $filter) {
+        
+        // @todo
+        
+        $res = new TokenFake3($this->nodeName, $this->accessMode, $this->show);
+        
+        return $res;
+    }
+}
+class GraphRequestTokenVerif extends Token {
+    
+    use TraitGraph;
+    
+    private $request = ''; // @todo
+    
+    public function setUp($res, $filter) {
+        
+        // @todo
+
+        $res = new TokenFake4($this->nodeName, $this->accessMode, $this->show);
+        
+        return $res;
+    }
+}
+class GraphRequestTokenRenew extends Token {
+    
+    use TraitGraph;
+    
+    private $request = ''; // @todo
+    
+    private function setUp($res, $filter) {
+        
+        // @todo
+
+        $res = new TokenFake1($this->nodeName, $this->accessMode, $this->show);
+        
+        return $res;        
+    }
+}
+class GraphRequestTextGet extends Text {
+    
+    use TraitGraph;
+    
+    private $request = ''; // @todo
+    
+    private function setUp($res, $filter) {
+        
+        // @todo
+        
+        $res = $this->value;
+        
+        return $res;
+    }
+}
+class GraphUserLoginPrivateGet extends UserLoginPrivate {
+
+    use TraitGraph;
+    
+    private $request = ''; // @todo
+    
+    private function setUp($res, $filter) {
+        
+        // @todo
+        
+        $res = new UserLoginPrivateFake1($this->nodeName, $this->accessMode, $this->show);
+        
+        return $res;
     }
 }
 class Request {
@@ -383,11 +512,13 @@ class Filter {
     public $attributList              = array();
     public $avantageMaxFilter         = 'all';
     public $userLoginPublicFilter     = 'all'; 
+    public $userCreatedBy             = 'all';
     public $semanticListFilter        = 'all';
     public $themeListFilter           = 'all';
     public $domainListFilter          = 'all';
     public $langListFilter            = 'all';
-    public $accessModeListFilter      = 'all';
+    public $accessModeListFilter      = 'all'; 
+    public $userCreatedNot; 
     
     public function set($attributName, $attributValue) {
         
@@ -442,6 +573,15 @@ class Token extends Field {
         }
         $this->configure($res);
     }
+    public static function userLoginPrivateGet(){
+     
+        $filter                        = new Filter();
+        $filter->userLoginPublicFilter = Token::$userLoginPublic;
+        $request                       = new GraphUserLoginPrivateGet();
+        $res                           = $request->graphRequest($filter);
+        
+        return $res;
+    }    
     public function configure($res) {
         
         self::$avantageMax      = new AvantageMax($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->avantageMax);
@@ -482,19 +622,19 @@ class Token extends Field {
         
         if($this->domainValueDefault === false) {
              
-                return false;
+            return false;
         }     
         $this->langValueDefault = Request::requestVal(LANG::TAG);           
         
         if($this->langValueDefault === false) {
              
-                return false;
+            return false;
         }     
         $this->versionConfValueDefault = Request::requestVal(VersionConf::TAG);           
         
         if($this->versionConfValueDefault === false) {
              
-                return false;
+            return false;
         }
         $res                         = $this->graphRequestContext();
         $this->keywordListValue      = $res->keywordListValue;
@@ -517,7 +657,6 @@ class Token extends Field {
         return $res;   
     }
 }
-
 class Microservice {
     
     public $labelName;
@@ -541,7 +680,6 @@ class Microservice {
         return true;
     }
 }
-
 class Field {
     
     use TraitGraph;
@@ -564,7 +702,7 @@ class Field {
     public $actionButtonRemove        = false;
     public $actionButtonEdit          = false;
     public $actionButtonDetail        = false;
-    public $ctionButtonUpdate         = false;
+    public $actionButtonUpdate        = false;
     public $fake                      = false;    
     public $actionButtonItemTools     = false;
     public $actionButtonItemToolsEdit = false;
@@ -729,7 +867,7 @@ class Field {
         $this->microservice = new Microservice($microserviceLabelName, $microserviceAccessMode, $microserviceShow, $filter, $token);
         
         return true;
-    }   
+    }
     public function filterSet() {
         
         $this->filter = new Filter();
@@ -986,8 +1124,7 @@ class ActionButton extends FieldList {
     public $microserviceLabelName           = false;
     public $microserviceAccessMode          = 'read';
     public $microserviceShow                = 'showNone';
-    public $confirmButton                   = false;
-    
+    public $confirmButton                   = false;    
     public $actionButtonItemToolsCrud       = false;
     public $actionButtonItemToolsPagination = false;
     public $value;
@@ -1050,7 +1187,6 @@ class ActionButtonItemToolCrud extends ActionButtonItemTool {
         return $filter;
     }
 }
-
 class ActionButtonAdd extends ActionButtonItemToolCrud {
     
     public $value                  = 'AJOUTER';
@@ -1473,17 +1609,27 @@ class Url extends Field {
 }
 trait TraitMedia {
     
+    public function mediapathGet() {
+        
+        return Token::$domainValueDefault.'/'.Token::$lang.'/'.Token::$themeValueDefault.'/'.Token::$semanticValueDefault.'/'.Token::$avantageMax.'/';
+    }    
     public function mediaJsUrlGet (){
         
-        return 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/js/'.$this->nodeName.'.js';
-    }
-    public function mediaImageUrlGet (){
+        $path = $this->mediapathGet();
         
-        return 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/image/'.$this->nodeName.'.png';
+        return 'http://'.$path.'/js/'.$this->nodeName.'.js';
+    }
+    public function mediaImageUrlGet (){$path = Token::$domainValueDefault.'/'.Token::$lang.'/'.Token::$themeValueDefault.'/'.Token::$semanticValueDefault.'/'.Token::$avantageMax.'/';
+
+        $path = $this->mediapathGet();
+        
+        return 'http://'.$path.'/image/'.$this->nodeName.'.png';
     }
     public function mediaCssUrlGet (){
         
-        return 'http://'.ApiBack::$cloneDescription->domain.'/'.ApiBack::$cloneDescription->siteName.'/css/'.$this->nodeName.'.png';
+        $path = $this->mediapathGet();
+        
+        return 'http://'.$path.'/css/'.$this->nodeName.'.css';
     }
 }
 class ScriptUpload extends Field {
@@ -1631,14 +1777,16 @@ class RecommandationListMe extends RecommandationList {
 class Profil extends FieldList  {
     
     use TraitMedia;
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = true;
-
+    use TraitMy;
+    
+    public $actionButtonItemToolsCrud        = false;
+    public $actionButtonItemToolsPagination  = true;
     public $saveActionButtonShow             = 'showNone';
     public $saveActionButtonValue            = 'VOUS CONNECTER SANS FORMULAIRE VIA VOTRE RESEAU SOCIAL';
     public $separateActionButtonShow         = 'showNone';
     public $separateActionButtonValue        = 'DISSOCIER LE COMPTE';
     public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE';
+    public $myState                          = true;
     public $imageId;
     public $nameId;
     public $surnameId;
@@ -1725,6 +1873,8 @@ class Profil extends FieldList  {
         $avantageList                 = new AvantageList($this->nodeName, $accessMode, $show);
         $this->avantageListId         = $avantageList->id;
         
+        $filter = $this->myGetFilter($this->myState);
+        
         $this->contactListGet();
         $this->portfolioListGet();
         $this->recommandationListMeGet();
@@ -1761,72 +1911,38 @@ class Profil extends FieldList  {
         }
         return $profil;
     }
-    public function contactListGet() {
+    public function contactListGet($filter) {
         
-        $list = new ContactList($this->nodeName, $this->accessMode, $this->show);
-        
-        $list->actionButtonItemToolsPaginationAdd();
-        $list->actionButtonItemToolsAdd();
-        
-        $fake1 = new ProfilFake1($this->nodeName, $this->accessMode, $this->show, false);
-        $fake2 = new ProfilFake2($this->nodeName, $this->accessMode, $this->show, false);
-        $fake3 = new ProfilFake3($this->nodeName, $this->accessMode, $this->show, false);
-        $fake4 = new ProfilFake4($this->nodeName, $this->accessMode, $this->show, false);
-        
-        $list->add($fake1);
-        $list->add($fake2);
-        $list->add($fake3);
-        $list->add($fake4);
-        
+        $request             = new GraphRequestContactListGet();
+        $list                = $request->graphRequest($filter);     
         $this->contactListId = $list->id;
         
+        $list->actionButtonItemToolsAdd();        
         $this->add($list);
         
         return true;
     }
-    public function portfolioListGet() {
-
-        $list = new PortfolioListMy($this->nodeName, $this->accessMode, $this->show);
+    public function portfolioListGet($filter) {
         
-        $list->actionButtonItemToolsPaginationAdd();
-        $list->actionButtonItemToolsAdd();
+        $request             = new GraphRequestPortfolioListGet();
+        $list                = $request->graphRequest($filter);         
+        $this->contactListId = $list->id;
         
-        $fake1 = new PortFolioFake1($this->nodeName, $this->accessMode, $this->show);
-        $fake2 = new PortFolioFake2($this->nodeName, $this->accessMode, $this->show);
-        $fake3 = new PortFolioFake3($this->nodeName, $this->accessMode, $this->show);
-        $fake4 = new PortFolioFake4($this->nodeName, $this->accessMode, $this->show);
-        
-        $list->add($fake1);
-        $list->add($fake2);
-        $list->add($fake3);
-        $list->add($fake4);
-        
-        $this->portfolioListMyId = $list->id;
-
+        $list->actionButtonItemToolsAdd();        
         $this->add($list);
         
         return true;
     }
-    public function recommandationListMeGet() {
+    public function recommandationListMeGet($filter) {
         
-        $list  = new RecommandationListMe($this->nodeName, $this->accessMode, $this->show);
-
-        $fake1 = new RecommandationFake1($this->nodeName, $this->accessMode, $this->show);
-        $fake2 = new RecommandationFake2($this->nodeName, $this->accessMode, $this->show);
-        $fake3 = new RecommandationFake3($this->nodeName, $this->accessMode, $this->show);
-        $fake4 = new RecommandationFake4($this->nodeName, $this->accessMode, $this->show);
-        
-        $list->add($fake1);
-        $list->add($fake2);
-        $list->add($fake3);
-        $list->add($fake4);        
-        
+        $request                      = new GraphRequestRecommandationListGet();
+        $list                         = $request->graphRequest($filter);  
         $this->recommandationListMeId = $list->id;
         
+        $list->actionButtonItemToolsAdd();
         $this->add($list);
         
-        return true;
-        
+        return true;        
     }    
     public function itemImageSet($value, $attributName = 'value') {
     
@@ -1978,6 +2094,8 @@ class ProfilIntern extends Profil {
     }
 }
 class ProfilDisconnected extends ProfilIntern {
+    
+    public $myState = false;
 
     public $saveActionButtonParamShow  = 'showVisible';
     public $saveActionButtonParamValue = 'CREER UN COMPTE UN COMPTE';
@@ -2049,6 +2167,8 @@ class ProfilAvantageBusiness extends ProfilConnected {
     }
 }
 class ProfilSocial extends Profil {
+    
+    public $myState = false;
 
     public static function get($parent, $accessMode, $show) {
 
@@ -2075,7 +2195,6 @@ class ProfilSocial extends Profil {
         return $field;
     }
 }
-
 class ProfilGoogle extends ProfilSocial {
      
     public $saveActionButtonShow             = 'showNone';
@@ -2084,7 +2203,6 @@ class ProfilGoogle extends ProfilSocial {
     public $separateActionButtonValue        = 'DISSOCIER LE COMPTE GOOGLE+';
     public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE GOOGLE+';
 }
-
 class ProfilFacebook extends ProfilSocial {
 
     public $saveActionButtonShow             = 'showVisible';
@@ -2093,7 +2211,6 @@ class ProfilFacebook extends ProfilSocial {
     public $separateActionButtonValue        = 'DISSOCIER LE COMPTE FACEBOOK';
     public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE FACEBOOK';
 }
-
 class ProfilLinledIn extends ProfilSocial {
 
     public $saveActionButtonShow             = 'showVisible';
@@ -2102,7 +2219,6 @@ class ProfilLinledIn extends ProfilSocial {
     public $separateActionButtonValue        = 'DISSOCIER LE COMPTE LINKEDIN';
     public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE LINKEDIN';
 }
-
 class ProfilTwitter extends ProfilSocial {
 
     public $saveActionButtonShow             = 'showVisible';
@@ -2111,7 +2227,6 @@ class ProfilTwitter extends ProfilSocial {
     public $separateActionButtonValue        = 'DISSOCIER LE COMPTE TWITTER';
     public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE TWITTER';
 }
-
 class ProfilPinterest extends ProfilSocial {
 
     public $saveActionButtonShow             = 'showVisible';
@@ -2120,7 +2235,6 @@ class ProfilPinterest extends ProfilSocial {
     public $separateActionButtonValue        = 'DISSOCIER LE COMPTE PINTEREST';
     public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE PINTEREST';
 }
-
 class ProfilInstagram extends ProfilSocial {
 
     public $saveActionButtonShow             = 'showVisible';
@@ -2129,7 +2243,6 @@ class ProfilInstagram extends ProfilSocial {
     public $separateActionButtonValue        = 'DISSOCIER LE COMPTE INSTAGRAMM';
     public $separateActionButtonConfirmValue = 'CONFIRMER LA DISSOCIATION DU COMPTE INSTAGRAMM';
 }
-
 class ProfilListMy extends FieldList {
 
     public $actionButtonItemToolsCrud       = true;
@@ -2169,7 +2282,6 @@ class ProfilListMy extends FieldList {
         return $fieldItem;
     }
 }
-
 class NotificationRecommandationNew extends Notification {
     
     use TraitMedia;
@@ -2789,15 +2901,6 @@ $todo ="
 }";
 
 
-    }
-    
-    public function __construct($id, $text, $theme, $dataIntegration, $domain, $siteName, 
-        $descriptionLong, $descriptionShort, $keyWordList, $googleVerify, $nodeName, $labelName, $accessMode, $show) {
-
-        $this->id         = $labelName.'-'.$nodeName;
-        $this->cssContent = new ApiBackClassList();
-        
-        
     }
 }
 
