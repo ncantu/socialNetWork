@@ -1,1446 +1,5 @@
 <?php 
 
-trait TraitMy {
-    
-    public function myGetFilter($myState = true) {
-        
-        if($myState !== true) {
-            
-            $this->myState = $myState;
-        }        
-        $filter = new Filter();
-        
-        if($this->myState === true) {
-            
-            $filter->userCreatedBy = Token::userLoginPrivateGet();
-        }
-        if($this->myState === true) {
-            
-            $filter->userCreatedByNot = Token::userLoginPrivateGet();
-        }
-        return $filter;
-    }
-}
-
-trait TraitFake {
-
-    public $fake = true;
-
-    public function fakeGetId($prefix = 'fake') {
-
-        return $prefix.$this->fakeId;
-    }
-}
-class PortFolioFake extends PortFolio {
-    
-    use TraitFake;
-
-    public static function __construct($labelName, $accessMode, $show, $title) {
-    
-        parent::__construct($labelName, $accessMode, $show, $title);
-    
-        $id    = $this->fakeGetId();
-        $title = $id.' title';
-        
-        $this->itemTitleSet($title);
-        $this->itemImageSet($title, $this->url);
-    }
-}
-class PortFolioFake1 extends PortFolioFake {
-    
-    public $fakeId = 1;
-}
-class PortFolioFake2 extends PortFolioFake {
-    
-    public $fakeId = 2;
-}
-class PortFolioFake3 extends PortFolioFake {
-    
-    public $fakeId = 3;
-}
-class PortFolioFake4 extends PortFolioFake {
-    
-    public $fakeId = 4;
-}
-class TokenFake extends Token {
-
-    use TraitFake;
-
-    public static function __construct($labelName, $accessMode, $show, $title) {
-    
-        parent::__construct($labelName, $accessMode, $show, $title);
-        
-        $id                            = $this->fakeGetId();    
-        $this->userLoginPublic         = 'ncantu@instriit.com';
-        $this->avantageMax             = 'AvantageBusiness';
-        $this->show                    = 'showVisible';
-        $this->accessMode              = 'read';
-        $this->langValueDefault        = 'fr';
-        $this->keywordListValue        = array('parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage', 'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste', 'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter', 'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre', 'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller', 'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation', 'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre');
-        $this->descriptionLongValue    = 'JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.';
-        $this->descriptionShortValue   = 'JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.';
-        $this->titleValue              = $id;
-        $this->domainValueDefault      = 'jerecommande.fr';
-        $this->semanticValueDefault    = 'fr';
-        $this->themeValueDefault       = 'default';
-        $this->versionConfValueDefault = 'v0.0';
-    }
-}
-class TokenFake1 extends TokenFake {
-    
-    public $fakeId = 1;
-}
-class TokenFake2 extends TokenFake {
-    
-    public $fakeId = 2;
-}
-class TokenFake3 extends TokenFake {
-    
-    public $fakeId = 3;
-}
-class TokenFake4 extends TokenFake {
-    
-    public $fakeId = 4;
-}
-class Context extends TokenFake {
-
-    use TraitFake;
-    
-    public $keywordListValue;
-    public $descriptionLongValue;
-    public $descriptionShortValue;
-    public $titleValue;
-
-    public static function __construct($labelName, $accessMode, $show, $title) {
-    
-        parent::__construct($labelName, $accessMode, $show, $title);
-
-        $id                          = $this->fakeGetId();        
-        $this->keywordListValue      = array('parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage', 'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste', 'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter', 'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre', 'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller', 'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation', 'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre');
-        $this->descriptionLongValue  = 'JE RECOMMANDE Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.';
-        $this->descriptionShortValue = 'JE RECOMMANDE Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.';
-        $this->titleValue            = $id;
-    }
-}
-class ContextFake extends Context {
-
-    use TraitFake;
-}
-class ContextFake1 extends ContextFake {
-
-    public $fakeId = 1;
-}
-class ContextFake2 extends ContextFake {
-
-    public $fakeId = 2;
-}
-class ContextFake3 extends ContextFake {
-
-    public $fakeId = 3;
-}
-class ContextFake4 extends ContextFake {
-
-    public $fakeId = 4;
-}
-class RecommandationFake extends Recommandation {
-
-    use TraitFake;
-    
-    public static function __construct($labelName, $accessMode, $show, $title) {
-    
-        parent::__construct($labelName, $accessMode, $show, $title);
-    
-        $id    = $this->fakeGetId();
-        $title = $id.' title';
-        
-        $this->itemTitleSet($title);
-    }
-}
-class RecommandationFake1 extends RecommandationFake {
-
-    public $fakeId = 1;
-}
-class RecommandationFake2 extends RecommandationFake {
-
-    public $fakeId = 2;
-}
-class RecommandationFake3 extends RecommandationFake {
-
-    public $fakeId = 3;
-}
-class RecommandationFake4 extends RecommandationFake {
-
-    public $fakeId = 4;
-}
-class ProfilFake extends Profil {
-    
-    use TraitFake;
-
-    public static function __construct($labelName, $accessMode, $show, $notificationList = true) {
-    
-        parent::__construct($labelName, $accessMode, $show, $notificationList);
-    
-        $id = $this->fakeGetId();
-        
-        $this->itemNameSet($id.' name');
-        $this->itemSurnameSet($id.' surname');
-        $this->itemTitleSet($id.' title');
-        $this->itemEmailSet($id.'@instriit.com');
-    }
-}
-class ProfilFake1 extends ProfilFake {
-    
-    public $fakeId = 1;
-}
-class ProfilFake2 extends ProfilFake {
-    
-    public $fakeId = 2;
-}
-class ProfilFake3 extends ProfilFake {
-    
-    public $fakeId = 3;
-}
-class ProfilFake4 extends ProfilFake {
-    
-    public $fakeId = 4;
-}
-class UserLoginPrivate extends Field{
-    
-}
-class UserLoginPrivateFake extends UserLoginPrivate {
-    
-    use TraitFake;
-
-    public static function __construct($labelName, $accessMode, $show, $notificationList = true) {
-    
-        parent::__construct($labelName, $accessMode, $show, $notificationList);
-    
-        $id = $this->fakeGetId();
-        
-        $this->valueSet($id.' token');
-    }    
-}
-class UserLoginPrivateFake1 extends ProfilFake {
-    
-    public $fakeId = 1;
-}
-class UserLoginPrivateFake2 extends ProfilFake {
-    
-    public $fakeId = 2;
-}
-class UserLoginPrivateFake3 extends ProfilFake {
-    
-    public $fakeId = 3;
-}
-class UserLoginPrivateFake4 extends ProfilFake {
-    
-    public $fakeId = 4;
-}
-Trait TraitGraph {
-    
-    private $graphRequestTagToken                  = '{token}';
-    private $graphRequestTagAvantageMax            = '{avantageMax}';
-    private $graphRequestTagUserLoginPublic        = '{userLoginPublic}';
-    private $graphRequestTagShowValueDefault       = '{showValueDefault}';
-    private $graphRequestTagAccessModeValueDefault = '{accessModeValueDefault}';
-    private $graphRequestTagThemeValueDefault      = '{themeValueDefault}';
-    private $graphRequestTagSemanticValueDefault   = '{semanticValueDefault}';
-    private $graphRequestTagDomainValueDefault     = '{domainValueDefault}';
-    private $graphRequestTagLangValueDefault       = '{langValueDefaul}';
-    private $graphRequestTagNodeName               = '{nodeName}';
-    private $graphRequestTagAttributName           = '{attributName}';
-    private $graphRequestTagAvantageMaxFilter      = '{avantageMaxFilter}';
-    private $graphRequestTagUserLoginPublicFilter  = '{userLoginPublicFilter}';
-    private $graphRequestTagSemanticListFiltere    = '{qemanticListFiltere}';
-    private $graphRequestTagThemeListFilter        = '{themeListFilter}';
-    private $graphRequestTagDomainListFilter       = '{domainListFilter}';
-    private $graphRequestTagLangListFilter         = '{langListFilter}';
-    private $graphRequestTagAccessModeListFilter   = '{accessModeListFilter}';
-   
-    private function graphRequestTemplace($request, $filter) {
-
-        $request = str_replace($this->graphRequestTagToken, Token::$token, $request);
-        $request = str_replace($this->graphRequestTagAvantageMax, Token::$avantageMax, $request);
-        $request = str_replace($this->graphRequestTagUserLoginPublic, Token::$userLoginPublic, $request);
-        $request = str_replace($this->graphRequestTagShowValueDefault, Token::$showValueDefault, $request);
-        $request = str_replace($this->graphRequestTagAccessModeValueDefault, Token::$accessModeValueDefault, $request);
-        $request = str_replace($this->graphRequestTagThemeValueDefault, Token::$themeValueDefault, $request);
-        $request = str_replace($this->graphRequestTagSemanticValueDefault, Token::$semanticValueDefault, $request);
-        $request = str_replace($this->graphRequestTagDomainValueDefault, Token::$domainValueDefault, $request);
-        $request = str_replace($this->graphRequestTagLangValueDefault, Token::$langValueDefault, $request);
-        $request = str_replace($this->graphRequestTagAvantageMaxFilter, $filter->avantageMaxFilter, $request);
-        $request = str_replace($this->graphRequestTagUserLoginPublicFilter, $filter->userLoginPublicFilter, $request);
-        $request = str_replace($this->graphRequestTagSemanticListFiltere, $filter->semanticListFilter, $request);
-        $request = str_replace($this->graphRequestTagThemeListFilter, $filter->themeListFilter, $request);
-        $request = str_replace($this->graphRequestTagDomainListFilter, $filter->domainListFilter, $request);
-        $request = str_replace($this->graphRequestTagLangListFilter, $filter->langListFilter, $request);
-        $request = str_replace($this->graphRequestTagAccessModeListFilter, $filter->accessModeListFilter, $request);
-
-        return $request;
-    }    
-    public function graphRequest($filter) {
-        
-        $request = $this->graphRequestTemplace($this->request, $filter);
-        $res     = $request;      // @todo
-        
-        if($res === false) {
-            
-            return false;
-        }        
-        $res  = $this->setUp($res);
-        
-        if($res === false) {
-            
-            return false;
-        }
-        return $res;    
-    }
-}
-class GraphRequestContactListGet extends ContactList {
-    
-    use TraitGraph;
-    
-    private $request = ''; // @todo
-    
-    private static function setUp($res, $filter) {
-        
-        // @todo
-        
-        $list  = new ContactList($this->nodeName, $this->accessMode, $this->show);
-        $fake1 = new ProfilFake1($this->nodeName, $this->accessMode, $this->show, false);
-        $fake2 = new ProfilFake2($this->nodeName, $this->accessMode, $this->show, false);
-        $fake3 = new ProfilFake3($this->nodeName, $this->accessMode, $this->show, false);
-        $fake4 = new ProfilFake4($this->nodeName, $this->accessMode, $this->show, false);
-        
-        $list->add($fake1);
-        $list->add($fake2);
-        $list->add($fake3);
-        $list->add($fake4);
-        
-        return $list;
-    }    
-}
-class GraphRequestPortfolioListGet extends PortfolioList {
-    
-    use TraitGraph;
-    
-    private $request = ''; // @todo
-    
-    private static function setUp($res) {
-        
-        // @todo
-        
-        $list  = new PortfolioListMy($this->nodeName, $this->accessMode, $this->show);                
-        $fake1 = new PortFolioFake1($this->nodeName, $this->accessMode, $this->show);
-        $fake2 = new PortFolioFake2($this->nodeName, $this->accessMode, $this->show);
-        $fake3 = new PortFolioFake3($this->nodeName, $this->accessMode, $this->show);
-        $fake4 = new PortFolioFake4($this->nodeName, $this->accessMode, $this->show);
-        
-        $list->add($fake1);
-        $list->add($fake2);
-        $list->add($fake3);
-        $list->add($fake4);
-        
-        return $list;
-    }    
-}
-class GraphRequestRecommandationListGet extends RecommandationList {
-    
-    use TraitGraph;
-
-    private $request = ''; // @todo
-    
-    private static function setUp($res, $filter) {
-        
-        // @todo
-
-        $list  = new RecommandationListMe($this->nodeName, $this->accessMode, $this->show);        
-        $fake1 = new RecommandationFake1($this->nodeName, $this->accessMode, $this->show);
-        $fake2 = new RecommandationFake2($this->nodeName, $this->accessMode, $this->show);
-        $fake3 = new RecommandationFake3($this->nodeName, $this->accessMode, $this->show);
-        $fake4 = new RecommandationFake4($this->nodeName, $this->accessMode, $this->show);
-        
-        $list->add($fake1);
-        $list->add($fake2);
-        $list->add($fake3);
-        $list->add($fake4);
-        
-        return $list;
-    }    
-}
-class GraphRequestContext extends Context {
-    
-    use TraitGraph;
-    
-    private $request = ''; // @todo
-    
-    public function graphRequest($filter) {
-                
-        $tokenCreate = new GraphRequestTokenCreate();        
-        $res         = $tokenCreate->graphRequest($filter);
-        $res         = parent::graphRequest($filter);
-        
-        return $res;        
-    }    
-    private function setUp($res, $filter) {
-        
-        // @todo
-        $res = new ContextFake1($this->nodeName, $this->accessMode, $this->show);
-        
-        return $res;        
-    }    
-}
-class GraphRequestTokenGet extends Token {
-    
-    use TraitGraph;
-    
-    private $request = ''; // @todo
-    
-    public function graphRequest($filter) {
-        
-        $verif = new GraphRequestTokenVerif();
-        $res   = $verif->graphRequest($filter);
-        
-        if($res === false) {
-             
-            return false;
-        }
-        $res = parent::graphRequest($filter);
-                
-        return $res;
-    }
-    private function setUp($res, $filter) {
-        
-        // @todo      
-        
-        $res = new TokenFake2($this->nodeName, $this->accessMode, $this->show);
-        
-        return $res;
-    }    
-}
-class GraphRequestTokenCreate extends Token {
-    
-    use TraitGraph;
-    
-    private $request = ''; // @todo
-    
-    private function setUp($res, $filter) {
-        
-        // @todo
-        
-        $res = new TokenFake3($this->nodeName, $this->accessMode, $this->show);
-        
-        return $res;
-    }
-}
-class GraphRequestTokenVerif extends Token {
-    
-    use TraitGraph;
-    
-    private $request = ''; // @todo
-    
-    public function setUp($res, $filter) {
-        
-        // @todo
-
-        $res = new TokenFake4($this->nodeName, $this->accessMode, $this->show);
-        
-        return $res;
-    }
-}
-class GraphRequestTokenRenew extends Token {
-    
-    use TraitGraph;
-    
-    private $request = ''; // @todo
-    
-    private function setUp($res, $filter) {
-        
-        // @todo
-
-        $res = new TokenFake1($this->nodeName, $this->accessMode, $this->show);
-        
-        return $res;        
-    }
-}
-class GraphRequestTextGet extends Text {
-    
-    use TraitGraph;
-    
-    private $request = ''; // @todo
-    
-    private function setUp($res, $filter) {
-        
-        // @todo
-        
-        $res = $this->value;
-        
-        return $res;
-    }
-}
-class GraphUserLoginPrivateGet extends UserLoginPrivate {
-
-    use TraitGraph;
-    
-    private $request = ''; // @todo
-    
-    private function setUp($res, $filter) {
-        
-        // @todo
-        
-        $res = new UserLoginPrivateFake1($this->nodeName, $this->accessMode, $this->show);
-        
-        return $res;
-    }
-}
-class Request {
-    
-    static function requestVal($tag) {
-    
-        if(isset($_REQUEST[$tag]) === true && empty($_REQUEST[$tag]) === false && $_REQUEST[$tag] !== false ) {
-    
-            $val = $_REQUEST[$tag];
-            $val = filter_var($val, FILTER_UNSAFE_RAW, FILTER_FLAG_ENCODE_HIGH);
-            	
-            return $val;
-        }
-        return false;
-    }
-}
-class Filter {
- 
-    public $attributList              = array();
-    public $avantageMaxFilter         = 'all';
-    public $userLoginPublicFilter     = 'all'; 
-    public $userCreatedBy             = 'all';
-    public $semanticListFilter        = 'all';
-    public $themeListFilter           = 'all';
-    public $domainListFilter          = 'all';
-    public $langListFilter            = 'all';
-    public $accessModeListFilter      = 'all'; 
-    public $userCreatedNot; 
-    
-    public function set($attributName, $attributValue) {
-        
-        $this->attributList[$attributName] = $attributValue;
-    }
-}
-class AvantageMax extends Field {
-}
-class UserLoginPublic extends Field {
-}
-class Token extends Field {
-        
-    CONST TAG                               = 'PM_token';
-    
-    public static $token                    = false;    
-    public static $avantageMax              = false;
-    public static $userLoginPublic          = 'anonymous';
-    public static $showValueDefault         = 'showNone';
-    public static $accessModeValueDefault   = 'read';
-    public static $themeValueDefault        = 'default';
-    public static $semanticValueDefault     = 'default';
-    public static $domainValueDefault;
-    public static $langValueDefault;
-    public static $keywordListValue;
-    public static $descriptionLongValue;
-    public static $descriptionShortValue;
-    public static $titleValue;
-    public static $versionConfValueDefault;
-    public static $title;
-    public static $descriptionShort;
-    public static $descriptionLong;
-    public static $versionConf;
-    public static $domainList;
-    public static $keywordList;
-    public static $lang;
-    public static $accessModeList;
-    public static $showList;
-    
-    public function __construct(){
-
-        $res = $this->get();
-        
-        if($res === false) {
-            
-            $res = $this->getContext();
-        
-            if($res === false) {
-             
-                return false;
-            }        
-            $this->configure($res);
-        }
-        $this->configure($res);
-    }
-    public static function userLoginPrivateGet(){
-     
-        $filter                        = new Filter();
-        $filter->userLoginPublicFilter = Token::$userLoginPublic;
-        $request                       = new GraphUserLoginPrivateGet();
-        $res                           = $request->graphRequest($filter);
-        
-        return $res;
-    }    
-    public function configure($res) {
-        
-        self::$avantageMax      = new AvantageMax($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->avantageMax);
-        self::$userLoginPublic  = new UserLoginPublic($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->userLoginPublic);
-        self::$title            = new SiteTitle($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->titleValue);
-        self::$lang             = new Lang($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->langValueDefault);
-        self::$descriptionShort = new SiteDescriptionShort($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->descriptionShortValue);
-        self::$descriptionLong  = new SiteDescriptionLong($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->descriptionLongValue);
-        self::$versionConf      = new VersionConfList($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->versionConfValueDefault);
-        self::$semanticList     = new SemanticList($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$themeList        = new ThemeList($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$domainList       = new DomainList($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$keywordList      = new KeywordList($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$langList         = new LangList($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$accessModeList   = new AccessModeList($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$showList         = new ShowList($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        $semantic               = New Semantic($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->semanticValueDefault);
-        $theme                  = New Theme($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->themeValueDefault);
-        $domain                 = New Domain($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->domainValueDefault);
-        $accessMode             = New AccessMode($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->accessModeValueDefault);
-        $show                   = New Domain($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->showValueDefault);
-        
-        self::$semanticList->add($semantic);
-        self::$themeList->add($theme);
-        self::$domainList->add($domain);
-        self::$accessModeList->add($accessMode);
-        self::$showList->add($show);
-        self::$keywordList->keywordListToImportSet($res->keywordListValue);
-        self::$keywordList->keywordListToImport();
-        
-        self::$token = $res->token;
-        
-        return true;
-    }    
-    public function getContext(){
-        
-        $this->domainValueDefault = Request::requestVal(Domain::TAG);            
-        
-        if($this->domainValueDefault === false) {
-             
-            return false;
-        }     
-        $this->langValueDefault = Request::requestVal(LANG::TAG);           
-        
-        if($this->langValueDefault === false) {
-             
-            return false;
-        }     
-        $this->versionConfValueDefault = Request::requestVal(VersionConf::TAG);           
-        
-        if($this->versionConfValueDefault === false) {
-             
-            return false;
-        }
-        $res                         = $this->graphRequestContext();
-        $this->keywordListValue      = $res->keywordListValue;
-        $this->descriptionLongValue  = $res->descriptionLongValue;
-        $this->descriptionShortValue = $res->descriptionShortValue;
-        $this->titleValue            = $res->titleValue;        
-        self::$token                 = $res->token;
-        
-        return $this;        
-    }
-    public function get(){
-        
-        $res = Request::requestVal(self::TAG);
-        $res = $this->graphRequestGet();        
-        
-        if($res === false) {
-             
-            return false;
-        }        
-        return $res;   
-    }
-}
-class Microservice {
-    
-    public $labelName;
-    public $accessMode;
-    public $filter;
-    public $token;
-
-    public function __construct($labelName, $accessMode, $show, $filer = false, $token = false) {
-    
-        $this->labelName        = $labelName;
-        $this->accessMode       = $accessMode;
-        $this->show             = $show;
-        $this->filter           = $filer;
-        $this->token            = $token;
-    }
-    public function templateSet() {
-   
-        $labelName                  = $this->labelName;
-        $this->microserviceTemplate = new $labelName($this->labelName, $this->accessMode, $this->show);
-        
-        return true;
-    }
-}
-class Field {
-    
-    use TraitGraph;
-
-    public $id;
-    public $value;
-    public $nodeName;
-    public $labelName;
-    public $accessMode;
-    public $show;
-    public $valueDefault;
-    public $title;
-    public $titleDefault;
-    public $urlDefault;
-    public $url;
-    public $ptQuantity;
-    public $idList;
-    public $microservice;
-    public $filter;
-    public $actionButtonRemove        = false;
-    public $actionButtonEdit          = false;
-    public $actionButtonDetail        = false;
-    public $actionButtonUpdate        = false;
-    public $fake                      = false;    
-    public $actionButtonItemTools     = false;
-    public $actionButtonItemToolsEdit = false;
-    
-    public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
-
-        $nodeName           = get_class($this);
-        $this->id           = $labelName.'-'.$nodeName;
-        $this->nodeName     = $nodeName;
-        $this->labelName    = $labelName;
-        $this->accessMode   = $accessMode;
-        $this->show         = $show;
-        
-        $this->filterSet();
-
-        if($value !== false) {
-            
-            $this->valueSet($value);
-        }
-        $this->actionButtonItemToolsRemove();
-        $this->actionButtonItemToolsEditRemove();
-        
-        if($this->actionButtonItemTools  === true) {
-            
-            $this->actionButtonItemToolsAdd();
-        }
-        if($this->actionButtonItemToolsEdit  === true) {
-            
-            $this->actionButtonItemToolsEditAdd();
-        }
-    }
-    public function remove($id) {
-
-        unset($this->fieldList->fieldItemList[$id]);
-
-        return $this;
-    }
-    public function valueSet($value, $attributName = 'value') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function showSet($value, $attributName = 'show') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function accessModeSet($value, $attributName = 'accessMode') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function defaultSet($value, $attributName = 'default') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function titleSet($value, $attributName = 'title') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function titleDefaultSet($value, $attributName = 'titleDefault') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function urlDefaultSet($value, $attributName = 'urlDefault') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function urlSet($value, $attributName = 'url') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function ptQuantitySet($value, $attributName = 'ptQuantity') {
-
-        return $this->attributSet($attributName, $value);
-    }    
-    public function attributSet($attributName, $value) {
-    
-        $this->$attributName = $value;
-    
-        return true;
-    }
-    public function actionButtonItemToolsRemove() {
-        
-        $this->actionButtonRemoveRemove();
-        $this->actionButtonEditRemove();
-        $this->actionButtonDetailRemove();
-        
-        return true;        
-    }
-    public function actionButtonItemToolsAdd() {
-        
-        $this->actionButtonRemoveAdd();
-        $this->actionButtonEditAdd();
-        $this->actionButtonDetailAdd();
-        
-        return true;
-    }  
-    public function actionButtonItemToolsEditAdd() {
-        
-        $this->actionButtonUpdateAdd();
-        $this->actionButtonDetailAdd();
-        
-        return true;
-    } 
-    public function actionButtonItemToolsEditRemove() {
-        
-        $this->actionButtonUpdateRemove();
-        $this->actionButtonDetailRemove();
-        
-        return true;
-    } 
-    public function actionButtonRemoveRemove() {
-
-        $this->actionButtonRemove = false;
-        
-        return true;
-    }   
-    public function actionButtonEditRemove() {
-
-        $this->actionButtonEdit = false;
-        
-        return true;
-    } 
-    public function actionButtonDetailRemove() {
-
-        $this->actionButtonDetail = false;
-        
-        return true;
-    }   
-    public function actionButtonUpdateRemove() {
-
-        $this->actionButtonUpdate = false;
-        
-        return true;
-    }   
-    public function actionButtonRemoveAdd() {
-        
-        $this->actionButtonRemove = new ActionButtonRemove($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
-        
-        return true;       
-    }
-    public function actionButtonEditAdd() {
-        
-        $this->actionButtonEdit = new ActionButtonEdit($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
-        
-        return true;       
-    }
-    public function actionButtonDetailAdd() {
-        
-        $this->actionButtonDetail = new ActionButtonDetail($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
-        
-        return true;       
-    }
-    public function actionButtonUpdateAdd() {
-        
-        $this->actionButtonUpdate = new ActionButtonUpdate($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
-        
-        return true;       
-    }
-    public function microserviceSet($microserviceLabelName, $microserviceAccessMode, $microserviceShow) {
-        
-        $token              = new Token();
-        $filter             = $this->filterSet($token);        
-        $this->microservice = new Microservice($microserviceLabelName, $microserviceAccessMode, $microserviceShow, $filter, $token);
-        
-        return true;
-    }
-    public function filterSet() {
-        
-        $this->filter = new Filter();
-        
-        return true;
-    }
-}
-class FieldList extends Field {
-
-    public $itemList                        = array();    
-    public $actionButtonAdd                 = false;
-    public $actionButtonNext                = false;
-    public $actionButtonPrec                = false;
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-        
-    public function add($obj, $attritutList = array()) {
-             
-        if(isset($obj->id) === false) {
-
-            if(isset($attritutList->id) === false) {
-                
-                return false;
-            }            
-            $obj->id = $attritutList->id;
-        }        
-        $update = $this->update($obj, $attritutList);
-        
-        if($update === false) {
-            
-            return false;
-        }
-        if(empty($this->itemList) === true) {
-        
-            $this->defaultSet($obj->id);
-        }        
-        $this->actionButtonItemToolsCrudRemove();
-        $this->actionButtonItemToolspaginationRemove();
-        
-        if($this->actionButtonItemToolsCrud  === true) {
-            
-            $this->actionButtonItemToolsCrudAdd();
-        }
-        if($this->actionButtonItemToolsPagination  === true) {
-            
-            $this->actionButtonItemToolsPaginationAdd();
-        }
-        return true;
-    }
-    
-    public function update($obj, $attritutList = array()) {
-        
-        if(isset($obj->id) === false) {
-        
-            return false;
-        }    
-        foreach($attritutList as $k => $v) {
-            
-            $obj->$k = $v;
-        }
-        $this->itemList[$obj->id] = $obj;
-    
-        return true;
-    }
-    public function remove($obj) {
-        
-        if(isset($obj->id) === false) {
-        
-            return false;
-        }        
-        if(isset($this->itemList[$obj->id]) === false) {
-        
-            return false;
-        }    
-        unset($this->itemList[$obj->id]);
-    
-        return true;
-    }
-    public function itemValueSet($obj, $value, $attributName = 'value') {
-    
-        return $this->itemAttributSet($obj, $attributName, $value);
-    }
-    public function itemShowSet($obj, $value, $attributName = 'show') {
-    
-        return $this->itemAttributSet($obj, $attributName, $value);
-    }
-    public function itemAccessModeSet($obj, $value, $attributName = 'accessMode') {
-    
-        return $this->itemAttributSet($obj, $attributName, $value);
-    }
-    public function itemDefaultSet($obj, $value, $attributName = 'valueDefault') {
-    
-        return $this->itemAttributSet($obj, $attributName, $value);
-    }
-    public function itemTitleSet($obj, $value, $attributName = 'title') {
-    
-        return $this->itemAttributSet($obj, $attributName, $value);
-    }
-    public function itemTitleDefaultSet($obj, $value, $attributName = 'titleDefault') {
-    
-        return $this->itemAttributSet($obj, $attributName, $value);
-    }
-    public function itemUrlDefaultSet($obj, $value, $attributName = 'urlDefault') {
-    
-        return $this->itemAttributSet($obj, $attributName, $value);
-    }
-    public function itemUrlSet($obj, $value, $attributName = 'url') {
-    
-        return $this->itemAttributSet($obj, $attributName, $value);
-    }
-    public function itemQtQuantitySet($obj, $value, $attributName = 'ptQuantity') {
-    
-        return $this->itemAttributSet($obj, $attributName, $value);
-    }
-    public function itemAttributSet($obj, $attributName, $value) {
-    
-        $function = $attributName.'Set';
-        
-        if(isset($obj->id) === false) {
-        
-            return false;
-        }        
-        $this->itemList[$obj->id]->$function($value);
-    
-        return true;
-    }
-    public function actionButtonItemToolsAdd() {
-        
-        $this->actionButtonItemToolsCrudAdd;
-        $this->actionButtonItemToolsPaginationAdd();
-        
-        return true;
-    }
-    public function actionButtonItemToolsPaginationAdd() {
-        
-        $this->actionButtonNextAdd();
-        $this->actionButtonPrecAdd();
-        
-        return true;
-    }
-    public function actionButtonItemToolsCrudAdd() {
-        
-        $this->actionButtonAddAdd();
-        
-        return true;
-    }
-    public function actionButtonItemToolsCrudRemove() {
-        
-        $this->actionButtonAddRemove();
-        
-        return true;
-    }
-    public function actionButtonItemToolsRemove() {
-        
-        $this->actionButtonAddRemove();
-        $this->actionButtonItemToolspaginationRemove();
-        
-        return true;        
-    }
-    public function actionButtonItemToolspaginationRemove() {
-        
-        $this->actionButtonNextRemove();
-        $this->actionButtonPrecRemove();
-        
-        return true;        
-    }    
-    public function actionButtonAddRemove() {
-        
-        $this->actionButtonAdd = false;
-        
-        return true;
-    }    
-    public function actionButtonNextRemove() {
-        
-        $this->actionButtonNext = false;
-
-        return true;
-    }    
-    public function actionButtonPrecRemove() {
-        
-
-        $this->actionButtonPrec = false;
-
-        return true;
-    }      
-    public function actionButtonAddAdd() {
-
-        $this->actionButtonAdd = new ActionButtonAdd($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show);
-        
-        return true;
-    }    
-    public function actionButtonNextAdd() {
-        
-        $this->actionButtonNext = new ActionButtonNext($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
-        
-        return true;       
-    }    
-    public function actionButtonPrecAdd() {
-        
-        $this->actionButtonPrec = new ActionButtonPrec($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show); 
-        
-        return true;
-    }
-}
-class Semantic extends Field {
-}
-class SemanticList extends FieldList {
-    
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-}
-class TextList extends FieldList {
-
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-}
-class Text extends Field {
-    
-    public $valueListState        = false;
-
-    public function __construct($labelName, $accessMode, $show, $value) {
-        
-        parent::__construct($labelName, $accessMode, $show, $value);
-        
-        if(get_class($this) !== __CLASS__) {
-            
-            $textList = new TextList($this->nodeName, $accessMode, $show);
-            $text     = new Text($this->nodeName, $accessMode, $show, $value);
-            
-            $text->translate();
-            $textList->add($text, $this);                    
-            $this->valueSet($textList);
-            
-            $this->valueListState = true;
-        }
-    }  
-    public function translate() {
-                
-        $value = $this->graphTextGet();
-        
-        if($value === false) {
-        
-            return false;
-        }
-        $this->valueSet($value);
-                
-        return true;
-    }
-}
-class ActionButton extends FieldList {
-
-    public $show                            = 'showNone';
-    public $confirm                         = false;
-    public $microserviceLabelName           = false;
-    public $microserviceAccessMode          = 'read';
-    public $microserviceShow                = 'showNone';
-    public $confirmButton                   = false;    
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-    public $value;
-
-    public static function __construct($labelName, $show, $microserviceLabelName = false, $microserviceAccessMode = false, $microserviceShow = false) {
-
-        if($microserviceLabelName !== false) {
-            
-            $this->microserviceLabelName = $microserviceLabelName;
-        }        
-        if($microserviceAccessMode !== false) {
-            
-            $this->microserviceAccessMode = $microserviceAccessMode;
-        }        
-        if($microserviceShow !== false) {
-            
-            $this->microserviceShow = $microserviceShow;
-        }        
-        $field = parent::__construct($labelName, 'read', $show, $this->value);
-
-        if($this->confirm !== false) {
-             
-            $this->confirmUpdate($this->confirm);
-        }
-        $this->microserviceSet($this->microserviceLabelName, $this->microserviceAccessMode, $this->microserviceShow);
-        
-        return $field;
-    }
-    
-    public function confirmUpdate($confirm) {
-        
-        $this->confirmButton = new ActionButtonConfirm(get_class($this), 'read', 'showNone', $confirm);
-        
-        return true;
-    }
-}
-class ActionButtonConfirm extends ActionButton {
-    
-    public $value   = 'CONFIRMER';
-    public $confirm = false;
-}
-class ActionButtonItemTool extends ActionButton {
-    
-    public function __construct($labelName, $microserviceTemplate, $show = 'showVisible') {
-    
-        parent::__construct($labelName, $show);
-    }
-}
-class ActionButtonItemToolCrud extends ActionButtonItemTool {
-        
-    public function filterSet($token) {
-    
-        $userNodeName = $token->getUserNodeName();
-        $filter       = new Filter();
-
-        $filter->set('microservice', $this->microservice);
-        $filter->set('user', $userNodeName);
-        $filter->set('attributList', array());
-    
-        return $filter;
-    }
-}
-class ActionButtonAdd extends ActionButtonItemToolCrud {
-    
-    public $value                  = 'AJOUTER';
-    public $microserviceAccessMode = 'create';
-}
-class ActionButtonEdit extends ActionButtonItemToolCrud {
-
-    public $value                  = 'METTRE A JOUR';
-    public $microserviceAccessMode = 'update';
-}
-class ActionButtonUpdate extends ActionButtonEdit {
-    
-    public $value                  = 'METTRE A JOUR';
-}
-class ActionButtonDetail extends ActionButtonItemToolCrud {
-    
-    public $value                  = 'LIRE';
-    public $microserviceAccessMode = 'read';
-}
-class ActionButtonRemove extends ActionButtonItemToolCrud {
-
-    public $value                  = 'REFUSER';
-    public $microserviceAccessMode = 'stateFalse';
-}
-class ActionButtonPagination extends ActionButtonItemTool {
-
-    public $microservicelenghtShow = 10;
-    public $microserviceAccessMode = 'read';
-    public $microserviceShow       = 'showVisible';
-
-    public function filterSet($token) {
-
-        $userNodeName = $token->getUserNodeName();
-        $filter       = new Filter();
-
-        $filter->set('microservice', $this->microservice);
-        $filter->set('user', $userNodeName);
-        $filter->set('start', array());
-        $filter->set('lenghtShow', $this->microservicelenghtShow);
-        $filter->set('lenght', $this->microservicelenght);
-        $filter->set('attributList', array());
-
-        return $filter;
-    }
-}
-class ActionButtonNext extends ActionButtonPagination {
-    
-    public $value              = 'SUIVANT';
-    public $microservicelenght = 20;
-}
-class ActionButtonPrec extends ActionButtonPagination {
-    
-    public $value              = 'PRECEDENT';
-    public $microservicelenght = -20;
-}
-class ActionButtonMenuItem extends ActionButton {
-
-    public $microserviceLabelName  = 'Profil';
-    public $microserviceAccessMode = 'read';
-    public $microserviceShow       = 'showVisible';    
-}
-class Theme extends Text {
-}
-class ThemeList extends FieldList {
-    
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-}
-class VersionConf extends Field {
-    
-    CONST TAG = 'PM_versionConf';
-}
-class VersionConfList extends FieldList {
-    
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-}
-class Domain extends Text {
-    
-    CONST TAG = 'PM_domain';
-}
-class DomainList extends FieldList {
-    
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-}
-class SiteTitle extends Text {
-}
-class DescriptionShort extends Text {
-}
-class SiteDescriptionShort extends DescriptionShort {
-}
-class DescriptionLong extends Text {
-}
-class SiteDescriptionLong extends DescriptionLong {
-}
-class Keyword extends Text {
-}
-class KeywordList extends FieldList {
-
-    public $keywordListToImport;
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-    
-    public function keywordListToImport() {
-        
-        foreach($$this->keywordListToImport as $v) {
-            
-            $obj = new Keyword($this->nodeName, $this->accessMode, $this->show, $v);
-            $this->add($obj);
-        }
-        return true;
-    }
-    public function keywordListToImportSet($value, $attributName = 'keywordListToImport') {
-    
-        return $this->attributSet($attributName, $value);
-    }
-}
-class Lang extends Text {
-    
-    CONST TAG = 'PM_lang';
-}
-class LangList extends FieldList {
-    
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-}
-class AccessMode extends Field {
-}
-class AccessModeList extends FieldList {
-    
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-}
-class Show extends Field {
-}
-class ShowList extends FieldList {
-    
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = false;
-}
-class ActionButtonMenuItemProfilListMy extends ActionButtonMenuItem {
-    
-    public $microserviceLabelName  = 'Profil';
-    public $microserviceAccessMode = 'update';
-    public $microserviceShow       = 'showVisible';
-    
-    public function filterSet($token) {
-        
-        $userNodeName = $token->getUserNodeName();        
-        $filter       = new Filter();
-        
-        $filter->set('user', $userNodeName);
-        
-        return $filter;
-    }
-}
-class Notification extends FieldList {
-
-    public $title                           = '';
-    public $text                            = '';
-    public $actionButtonItemToolsCrud       = false;
-    public $actionButtonItemToolsPagination = true;
-}
-class ActionButtonMenuItemNotificationList extends ActionButtonMenuItem {
-    
-    public $microserviceLabelName  = 'Notification';
-    public $microserviceAccessMode = 'read';
-    public $microserviceShow       = 'showVisible';
-    
-    public function filterSet($token) {
-        
-        $userNodeName = $token->getUserNodeName();        
-        $filter       = new Filter();
-        
-        $filter->set('user', $userNodeName);
-        $filter->set('oderFied', 'dateCreated');
-        
-        return $filter;
-    }
-}
-class Contact extends Profil {
-}
-class ActionButtonMenuItemContactList extends ActionButtonMenuItem {
-    
-    public $microserviceLabelName  = 'Contact';
-    public $microserviceAccessMode = 'read';
-    public $microserviceShow       = 'showVisible';
-    
-    public function filterSet($token) {
-        
-        $userNodeName = $token->getUserNodeName();        
-        $filter       = new Filter();
-        
-        $filter->set('user', $userNodeName);
-        $filter->set('oderFied', 'dateCreated');
-        
-        return $filter;
-    }
-}
-class ActionButtonMenuItemPortfolioListMy extends ActionButtonMenuItem {
-
-    public $value                  = 'VOIR LE PORTFOLIO';
-    public $microserviceLabelName  = 'Portfolio';
-    public $microserviceAccessMode = 'update';
-    public $microserviceShow       = 'showVisible';
-    
-    public function filterSet($token) {
-        
-        $userNodeName = $token->getUserNodeName();        
-        $filter       = new Filter();
-        
-        $filter->set('user', $userNodeName);
-        $filter->set('oderFied', 'dateCreated');
-        
-        return $filter;
-    }
-}
-class ActionButtonMenuItemRecommandationListMe extends ActionButtonMenuItem {
-    
-    public $value                  = 'VOIR LES RECOMMANDATIONS';
-    public $microserviceLabelName  = 'Recommandation';
-    public $microserviceAccessMode = 'read';
-    public $microserviceShow       = 'showVisible';
-    
-    public function filterSet($token) {
-        
-        $userNodeName = $token->getUserNodeName();        
-        $filter       = new Filter();
-        
-        $filter->set('userRecommanded', $userNodeName);
-        $filter->set('oderFied', 'dateCreated');
-        
-        return $filter;
-    }
-}
-class ActionButtonMenuItemRecommandationListMy extends ActionButtonMenuItem {
-    
-    public $value                  = 'VOIR MES RECOMMANDATIONS';
-    public $microserviceLabelName  = 'Recommandation';
-    public $microserviceAccessMode = 'update';
-    public $microserviceShow       = 'showVisible';
-    
-    public function filterSet($token) {
-        
-        $userNodeName = $token->getUserNodeName();        
-        $filter       = new Filter();
-        
-        $filter->set('user', $userNodeName);
-        $filter->set('oderFied', 'dateCreated');
-        
-        return $filter;
-    }
-}
 class Category extends Text {
 }
 class ProfilCategory extends Category {
@@ -1560,20 +119,31 @@ class MainMenu extends FieldList {
     public $actionButtonItemToolsCrud       = false;
     public $actionButtonItemToolsPagination = false;
     
-    public function __construct($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
+    public function setUp($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
     
-        parent::__construct($labelName, $accessMode, $show, $value);
+        parent::setUp($labelName, $accessMode, $show, $value);
 
-        $actionButtonMenuItemProfilListMy         = new ActionButtonMenuItemProfilListMy($this->nodeName);        
-        $actionButtonMenuItemNotificationList     = new ActionButtonMenuItemNotificationList($this->nodeName);
-        $actionButtonMenuItemContactList          = new ActionButtonMenuItemContactList($this->nodeName);
-        $actionButtonMenuItemPortfolioListMy      = new ActionButtonMenuItemPortfolioListMy($this->nodeName);        
-        $actionButtonAddContact                   = new ActionButtonAddContact($this->nodeName);
-        $actionButtonAddRecommandation            = new ActionButtonAddRecommandation($this->nodeName);        
-        $actionButtonMenuItemRecommandationListMe = new ActionButtonMenuItemRecommandationListMe($this->nodeName);
-        $actionButtonMenuItemRecommandationListMy = new ActionButtonMenuItemRecommandationListMy($this->nodeName);
-        $actionButtonMenuItemCategoryList         = new ActionButtonMenuItemCategoryList($this->nodeName);
-        $actionButtonMenuItemAvantageList         = new ActionButtonMenuItemAvantageList($this->nodeName);
+        $actionButtonMenuItemProfilListMy         = new ActionButtonMenuItemProfilListMy();        
+        $actionButtonMenuItemNotificationList     = new ActionButtonMenuItemNotificationList();
+        $actionButtonMenuItemContactList          = new ActionButtonMenuItemContactList();
+        $actionButtonMenuItemPortfolioListMy      = new ActionButtonMenuItemPortfolioListMy();        
+        $actionButtonAddContact                   = new ActionButtonAddContact();
+        $actionButtonAddRecommandation            = new ActionButtonAddRecommandation();        
+        $actionButtonMenuItemRecommandationListMe = new ActionButtonMenuItemRecommandationListMe();
+        $actionButtonMenuItemRecommandationListMy = new ActionButtonMenuItemRecommandationListMy();
+        $actionButtonMenuItemCategoryList         = new ActionButtonMenuItemCategoryList();
+        $actionButtonMenuItemAvantageList         = new ActionButtonMenuItemAvantageList();
+        
+        $actionButtonMenuItemProfilListMy->setUp($this->nodeName);
+        $actionButtonMenuItemNotificationList->setUp($this->nodeName);
+        $actionButtonMenuItemContactList->setUp($this->nodeName);
+        $actionButtonMenuItemPortfolioListMy->setUp($this->nodeName);
+        $actionButtonAddContact->setUp($this->nodeName);
+        $actionButtonAddRecommandation->setUp($this->nodeName);
+        $actionButtonMenuItemRecommandationListMe->setUp($this->nodeName);
+        $actionButtonMenuItemRecommandationListMy->setUp($this->nodeName);
+        $actionButtonMenuItemCategoryList->setUp($this->nodeName);
+        $actionButtonMenuItemAvantageList->setUp($this->nodeName);
         
         $actionButtonMenuItemNotificationList->actionButtonItemToolsPaginationAdd();
         $actionButtonMenuItemRecommandationListMe->actionButtonItemToolsPaginationAdd();
@@ -1600,9 +170,9 @@ class MainMenu extends FieldList {
 }
 class Url extends Field {
 
-    public function __construct($labelName, $show, $url) {
+    public function setUp($labelName, $show, $url) {
         
-        parent::__construct($labelName, 'read', $show);        
+        parent::setUp($labelName, 'read', $show);        
         
         $this->url = $url;
     }
@@ -1636,9 +206,9 @@ class ScriptUpload extends Field {
     
     use TraitMedia;
 
-    public function __construct($labelName, $show) {
+    public function setUp($labelName, $show) {
     
-        parent::__construct($labelName, 'read', $show);
+        parent::setUp($labelName, 'read', $show);
         
         $this->url = $this->mediaJsUrlGet();
     }
@@ -1648,12 +218,15 @@ class Image extends Field {
     public $url;
     public $scriptUpload;
     
-    public function __construct($labelName, $accessMode, $show, $url) {
+    public function setUp($labelName, $accessMode, $show, $url) {
         
-        parent::__construct($labelName, $accessMode, $show);
+        parent::setUp($labelName, $accessMode, $show);
         
-        $this->url          = new Url($this->nodeName, $show, $url);        
-        $this->scriptUpload = new ScriptUpload($this->nodeName, 'showVisible');
+        $this->url          = new Url();        
+        $this->scriptUpload = new ScriptUpload();
+
+        $this->url->setUp($this->nodeName, $show, $url);
+        $this->scriptUpload->setUp($this->nodeName, 'showVisible');
     }
 }
 class SeparateActionButton extends ActionButton {
@@ -1716,15 +289,19 @@ class PortFolio extends FieldList {
     public $actionButtonItemToolsCrud       = false;
     public $actionButtonItemToolsPagination = true;
     
-    public static function __construct($labelName, $accessMode, $show, $title) {
+    public static function setUp($labelName, $accessMode, $show, $title) {
 
-        parent::__construct($labelName, $accessMode, $show);
+        parent::setUp($labelName, $accessMode, $show);
         
         $url           = $this->mediaImageUrlGet();
-        $title         = new PortFolioTitle($this->nodeName, $this->accessMode, $this->show, $title);        
+        $title         = new PortFolioTitle();        
         $this->titleId = $title->id;
-        $image         = new PortFolioImage($this->nodeName, $this->accessMode, $this->show, $url);
+        $image         = new PortFolioImage();
         $this->imageId = $image->id;
+        
+
+        $title->setUp($this->nodeName, $this->accessMode, $this->show, $title);
+        $image->setUp($this->nodeName, $this->accessMode, $this->show, $url);
         
         $this->add($title);
         $this->add($image);
@@ -1757,9 +334,9 @@ class PortfolioListMy extends PortfolioList {
 }
 class Recommandation extends Field {
 
-    public static function __construct($labelName, $accessMode, $show) {
+    public static function setUp($labelName, $accessMode, $show) {
     
-        parent::__construct($labelName, $accessMode, $show);
+        parent::setUp($labelName, $accessMode, $show);
         
         // @todo
     }    
@@ -1813,65 +390,91 @@ class Profil extends FieldList  {
     public $categoryListId;
     public $avantageListId;
 
-    public static function __construct($labelName, $accessMode, $show, $notificationList = true) {
+    public static function setUp($labelName, $accessMode, $show, $notificationList = true) {
          
-        $profil                                   = parent::__construct($labelName, $accessMode, $show);
+        $profil                                   = parent::setUp($labelName, $accessMode, $show);
         $urlAvatar                                = $this->mediaCssUrlGet();
-        $image                                    = new ProfilImage($this->nodeName, $accessMode, $show, $urlAvatar);
+        $image                                    = new ProfilImage();
         $this->imageId                            = $image->id;
-        $name                                     = new ProfilName($this->nodeName, $accessMode, $show);
+        $name                                     = new ProfilName();
         $this->nameId                             = $name->id;
-        $surname                                  = new ProfilSurname($this->nodeName, $accessMode, $show);
+        $surname                                  = new ProfilSurname();
         $this->accessModeId                       = $surname->id;
-        $title                                    = new ProfilTitle($this->nodeName, $accessMode, $show);
+        $title                                    = new ProfilTitle();
         $this->titleId                            = $title->id;
-        $email                                    = new ProfilEmail($this->nodeName, $accessMode, $show);
+        $email                                    = new ProfilEmail();
         $this->emailId                            = $email->id;
-        $mdp                                      = new ProfilMdp($this->nodeName, $accessMode, $show);
+        $mdp                                      = new ProfilMdp();
         $this->mdpId                              = $mdp->id;
-        $mdpConfirm                               = new ProfilMdpConfirm($this->nodeName, $accessMode, $show);
+        $mdpConfirm                               = new ProfilMdpConfirm();
         $this->mdpConfirmId                       = $mdpConfirm->id;
-        $recommandationOnActionButton             = new ActionButtonAddRecommandation($this->nodeName);
+        $recommandationOnActionButton             = new ActionButtonAddRecommandation();
         $this->recommandationOnActionButtonId     = $recommandationOnActionButton->id;
-        $recommandationOffActionButton            = new ActionButtonRemoveRecommandation($this->nodeName);
+        $recommandationOffActionButton            = new ActionButtonRemoveRecommandation();
         $this->recommandationOffActionButtonId    = $recommandationOffActionButton->id;
-        $contactAddActionButton                   = new ActionButtonAddContact($this->nodeName);
+        $contactAddActionButton                   = new ActionButtonAddContact();
         $this->nameId                             = $contactAddActionButton->id;
-        $contactRemoveActionButton                = new ActionButtonRemoveContact($this->nodeName);
+        $contactRemoveActionButton                = new ActionButtonRemoveContact();
         $this->contactRemoveActionButtonId        = $contactRemoveActionButton->id;
-        $recommandationAcceptActionButton         = new ActionButtonAcceptRecommandation($this->nodeName);
+        $recommandationAcceptActionButton         = new ActionButtonAcceptRecommandation();
         $this->recommandationAcceptActionButtonId = $recommandationAcceptActionButton->id;
-        $recommandationRefuseActionButton         = new ActionButtonRefuseRecommandation($this->nodeName);
+        $recommandationRefuseActionButton         = new ActionButtonRefuseRecommandation();
         $this->recommandationRefuseActionButtonId = $recommandationRefuseActionButton->id;
-        $contactAskAcceptActionButton             = new ActionButtonAcceptContact($this->nodeName);
+        $contactAskAcceptActionButton             = new ActionButtonAcceptContact();
         $this->contactAskAcceptActionButtonId     = $contactAskAcceptActionButton->id;
-        $contactAskRefuseActionButton             = new ActionButtonRefuseContact($this->nodeName);
+        $contactAskRefuseActionButton             = new ActionButtonRefuseContact();
         $this->contactAskRefuseActionButtonId     = $contactAskRefuseActionButton->id;
-        $saveActionButton                         = new ProfilSaveActionButton($this->nodeName);
+        $saveActionButton                         = new ProfilSaveActionButton();
+        
+        $image->setUp($this->nodeName, $accessMode, $show, $urlAvatar);
+        $name->setUp($this->nodeName, $accessMode, $show);
+        $surname->setUp($this->nodeName, $accessMode, $show);
+        $title->setUp($this->nodeName, $accessMode, $show);
+        $email->setUp($this->nodeName, $accessMode, $show);
+        $mdp->setUp($this->nodeName, $accessMode, $show);
+        $mdpConfirm->setUp($this->nodeName, $accessMode, $show);
+        $recommandationOnActionButton->setUp($this->nodeName);
+        $recommandationOffActionButton->setUp($this->nodeName);
+        $contactAddActionButton->setUp($this->nodeName);
+        $contactRemoveActionButton->setUp($this->nodeName);
+        $recommandationAcceptActionButton->setUp($this->nodeName);
+        $recommandationRefuseActionButton->setUp($this->nodeName);
+        $contactAskAcceptActionButton->setUp($this->nodeName);
+        $contactAskRefuseActionButton->setUp($this->nodeName);
+        $saveActionButton ->setUp($this->nodeName);
         
         $saveActionButton->valueSet($this->saveActionButtonValue);
         $saveActionButton->showSet($this->saveActionButtonValue);
         
         $this->saveActionButtonId = $saveActionButton->id;
-        $separateActionButton     = new ProfilSeparateActionButton($this->nodeName);
+        $separateActionButton     = new ProfilSeparateActionButton();
+        
+        $separateActionButton->setUp($this->nodeName);
         
         $separateActionButton->valueSet($this->separateActionButtonValue);
         $separateActionButton->showSet($this->separateActionButtonShow);
         $separateActionButton->confirmButton->valueSet($this->separateActionButtonConfirmValue);
         
         $this->separateActionButtonId = $separateActionButton->id;
-        $category                     = new ProfilCategory($this->nodeName, $accessMode, $show);
+        $category                     = new ProfilCategory();
         $this->categoryId             = $category->id;
-        $contactAdd                   = new ActionButtonAddContact($this->nodeName, $accessMode, $show);
+        $contactAdd                   = new ActionButtonAddContact();
         $this->contactAddId           = $contactAdd->id;
-        $recommandationAdd            = new ActionButtonAddRecommandation($this->nodeName, $accessMode, $show);
+        $recommandationAdd            = new ActionButtonAddRecommandation();
         $this->recommandationAddId    = $recommandationAdd->id;
-        $recommandationListMy         = new RecommandationListMy($this->nodeName, $accessMode, $show);
+        $recommandationListMy         = new RecommandationListMy();
         $this->recommandationListMyId = $recommandationListMy->id;
-        $categoryList                 = new CategoryList($this->nodeName, $accessMode, $show);
+        $categoryList                 = new CategoryList();
         $this->categoryListId         = $categoryList->id;
-        $avantageList                 = new AvantageList($this->nodeName, $accessMode, $show);
+        $avantageList                 = new AvantageList();
         $this->avantageListId         = $avantageList->id;
+        
+        $category->setUp($this->nodeName, $accessMode, $show);
+        $contactAdd->setUp($this->nodeName, $accessMode, $show);
+        $recommandationAdd->setUp($this->nodeName, $accessMode, $show);
+        $recommandationListMy->setUp($this->nodeName, $accessMode, $show);
+        $categoryList->setUp($this->nodeName, $accessMode, $show);
+        $avantageList->setUp($this->nodeName, $accessMode, $show);
         
         $filter = $this->myGetFilter($this->myState);
         
@@ -1905,7 +508,9 @@ class Profil extends FieldList  {
 
         if($notificationList === true) {
 
-            $notificationList = new NotificationList($this->nodeName, $accessMode, $show);
+            $notificationList = new NotificationList();
+            
+            $notificationList->setUp($this->nodeName, $accessMode, $show);
             
             $this->add($notificationList);
         }
@@ -2282,6 +887,8 @@ class ProfilListMy extends FieldList {
         return $fieldItem;
     }
 }
+class RecommandationOnActionButton extends ActionButton {  
+}
 class NotificationRecommandationNew extends Notification {
     
     use TraitMedia;
@@ -2289,16 +896,22 @@ class NotificationRecommandationNew extends Notification {
     public $title = 'Demande de recommandation';
     public $text  = 'Demande de recommandation';
     
-    public function __construct($labelName, $accessMode, $show) {
+    public function setUp($labelName, $accessMode, $show) {
         
-        parent::__construct($labelName, $accessMode, $show);
+        parent::setUp($labelName, $accessMode, $show);
         
         $urlIcon                                  = $this->mediaImageUrlGet();        
-        $notificationTitle                        = new NotificationTitle($this->nodeName, 'read', $show, $this->title);
-        $notificationIcon                         = new NotificationImage($this->nodeName, 'read', $show, $urlIcon);
-        $notificationProfil                       = new ProfilAvantagePersonnal($this->nodeName, 'read', $show, 1, false); // fake
-        $notificationTexte                        = new NotificationText($this->nodeName, 'read', $show, $this->text);
-        $notificationRecommandationOnActionButton = new NotificationRecommandationOnActionButton($this->nodeName, $accessMode);
+        $notificationTitle                        = new NotificationTitle();
+        $notificationIcon                         = new NotificationImage();
+        $notificationProfil                       = new ProfilAvantagePersonnal(); // fake
+        $notificationTexte                        = new NotificationText();
+        $notificationRecommandationOnActionButton = new RecommandationOnActionButton();
+        
+        $notificationTitle->setUp($this->nodeName, 'read', $show, $this->title);
+        $notificationIcon->setUp($this->nodeName, 'read', $show, $urlIcon);
+        $notificationProfil->setUp($this->nodeName, 'read', $show, 1, false); // fake
+        $notificationTexte->setUp($this->nodeName, 'read', $show, $this->text);
+        $notificationRecommandationOnActionButton->setUp($this->nodeName, $accessMode);
         
         $toto = '<div class="item notification my">
         <p class="field recommandationOnActionButton my edit hidden">RECOMMANDER</p>
@@ -2361,14 +974,16 @@ class NotificationList extends FieldList {
     public $actionButtonItemToolsCrud       = false;
     public $actionButtonItemToolsPagination = true;
 
-    public function __construct($labelName, $accessMode, $show) {
+    public function setUp($labelName, $accessMode, $show) {
     
-        parent::__construct($labelName, $accessMode, $show);
+        parent::setUp($labelName, $accessMode, $show);
         
-       $list                  = parent::get($parent, $accessMode, $show);       
-       $notification1         = NotificationRecommandationNew::get(get_class($this), $accessMode, $show);
-       $this->notification1Id = $list->fieldItemListAddObj($notification1);       
+       $list                  = parent::get($labelName, $accessMode, $show);       
+       $notification1         = new NotificationRecommandationNew();
        
+       $notification1->setUp($this->nodeName, $accessMode, $show);
+       
+       $this->notification1Id = $list->fieldItemListAddObj($notification1);       
     }
 }
 class RecommandationListMy extends FieldList {
@@ -2390,11 +1005,14 @@ class MainContent {
     
     public $profilListMyId;
 
-    public function __construct($labelName, $accessMode, $show) {
+    public function setUp($labelName, $accessMode, $show) {
     
-        parent::__construct($labelName, $accessMode, $show);
+        parent::setUp($labelName, $accessMode, $show);
               
-        $profilListMy         = new ProfilListMy($this->nodeName, $accessMode, $show);  
+        $profilListMy = new ProfilListMy();
+        
+        $profilListMy->setUp($this->nodeName, $accessMode, $show);
+        
         $this->profilListMyId = $profilListMy->id;
         
         $this->add($profilListMy);
@@ -2406,9 +1024,9 @@ class Page extends FieldList {
     public $actionButtonItemToolsCrud       = false;
     public $actionButtonItemToolsPagination = false;
     
-    public function __construct($labelName, $accessMode, $show) {
+    public function setUp($labelName, $accessMode, $show) {
         
-        parent::__construct($labelName, $accessMode, $show);     
+        parent::setUp($labelName, $accessMode, $show);     
         
         $token = new Token();
         
@@ -2416,9 +1034,11 @@ class Page extends FieldList {
             
             return  false;
         }  
-        $mainMenu    = new MainMenu($this->nodeName, $accessMode, $show);
-        $mainContent = new MainContent($this->nodeName, $accessMode, $show);
+        $mainMenu    = new MainMenu();
+        $mainContent = new MainContent();
         
+        $mainMenu->setUp($this->nodeName, $accessMode, $show);
+        $mainContent->setUp($this->nodeName, $accessMode, $show);        
         $this->add($mainMenu);
         $this->add($mainContent);
         
