@@ -2,211 +2,353 @@
 
 class Field {
 
-    use TraitGraph;
+    private $toolNameList     = array();
+    private $attributNameList = array(
+        'publicId',
+        'NodeName',
+        'LabelName', 
+        'AccessMode', 
+        'Show', 
+        'Title', 
+        'Url', 
+        'Image',
+        'Microservice', 
+        'Fake', 
+        'show',
+        'accessMode',
+        'state',
+        'theme',
+        'semantic',
+        'domain',
+        'lang',
+        'descriptionLong',
+        'descriptionShort',
+        'versionConf');
 
-    public $id;
-    public $value;
-    public $nodeName;
-    public $labelName;
-    public $accessMode;
-    public $show;
-    public $valueDefault;
-    public $title;
-    public $titleDefault;
-    public $urlDefault;
-    public $url;
-    public $ptQuantity;
-    public $idList;
-    public $microservice;
-    public $filter;
-    public $emotionList;
-    public $actionList;
-    public $actionButtonRemove        = false;
-    public $actionButtonEdit          = false;
-    public $actionButtonDetail        = false;
-    public $actionButtonUpdate        = false;
-    public $fake                      = false;
-    public $actionButtonItemTools     = false;
-    public $actionButtonItemToolsEdit = false;
+    private $auditState           = true;
+    private $editableState        = false;
+    private $detailState          = false;
+    private $childPaginationState = false;
+    private $childEditableState   = false;
+    private $childDetailState     = false;    
+    private $workflowStepList     = array();
+    private $nextButtonId;
+    private $precButtonId;
+    private $detailButtonId;
+    private $updateButtonId;
+    private $deleteButtonId;
+    private $childAddButtonId;
+    private $childRemoveButtonId;
+    private $childDetailButtonId;
 
-    public function setUp($labelName, $accessMode = 'read', $show = 'showVisible', $value = false) {
+    public $keywordList          = array();
+    public $accessModeList       = array();
+    public $showList             = array();
+    public $scoreList            = array();
+    public $workflowList         = array();
+    public $avantageList         = array();
+    public $rightList            = array();
+    public $filterList           = array();
+    public $valueList            = array();
+    public $stateList            = array();
+    public $childList            = array();
+    public $emotionList          = array();
+    public $actionList           = array();
+    public $attributList         = array();
 
-        $nodeName           = get_class($this);
-        $this->id           = $labelName.'-'.$nodeName;
-        $this->nodeName     = $nodeName;
-        $this->labelName    = $labelName;
-        $this->accessMode   = $accessMode;
-        $this->show         = $show;
-        $this->emotionList  = new EmotionList();
-        $this->actionList   = new ActionList();
+    public function __get($name) {
 
-        $this->emotionList->setUp($labelName, $accessMode, $show);
-        $this->actionList->setUp($labelName, $accessMode, $show);
-        $this->filterSet();
+        if($this->__isset($name) === false) {
 
-        if($value !== false) {
-
-            $this->valueSet($value);
+            $this->__set($name, $name::$valueDefault);
         }
-        $this->actionButtonItemToolsRemove();
-        $this->actionButtonItemToolsEditRemove();
+        $value = $this->attributList[$name]->value;
 
-        if($this->actionButtonItemTools  === true) {
+        return $this->attributList[$name];
+    }
+    public function __set($name, $value = null) {
+        
+        if($this->__isset($name) === true) {
 
-            $this->actionButtonItemToolsAdd();
+            $attribut = $this->attributList[$name];
         }
-        if($this->actionButtonItemToolsEdit  === true) {
+        else $attribut = new $name();
 
-            $this->actionButtonItemToolsEditAdd();
+        if($value === null) {
+
+            $value =  $name::$valueDefault;
+        }
+        $attribut->value          = $value;
+        $obj                      = new stdClass();
+        $obj->attributList        = array();
+        $obj->attributList[$name] = $attribut;
+
+        return $this->update($obj);
+    }
+    public function __isset($name) { 
+     
+        return isset($this->attributList[$name]);
+    }
+    public function __unset($name) { 
+        
+        return unset( $this->attributList[$name]);        
+    }
+    private public function listAdd($listName, $obj = null) { 
+
+        if($obj === null) {
+        
+            $objName = str_replace('List', '', $listName);
+            $obj     = new $objName();
+
+            $obj->conf($this);
+        }
+        if($this->__isset($listName) === false) {
+
+            return false;
+        }
+        $id = $obj->publicId->value;
+
+        if(isset($this->$listName[$id]) === true) {
+
+            return false;
+        }
+        $this->$listName[$id] = $obj;
+        
+        return true;        
+    }
+    private public function listRemove($listName, $id) { 
+        
+        if($this->__isset($listName) === false) {
+
+            return false;
+        }
+        if(is_object($id) === true) {
+
+            $id = $obj->publicId->value;
+        }
+        unset($this->$listName[$id]);
+
+        return true;        
+    }
+    private public function listGet($listName, $id) { 
+        
+        if($this->__isset($listName) === false) {
+
+            return false;
+        }
+        if(is_object($id) === true) {
+
+            $id = $obj->publicId->value;
+        }
+        return $this->$listName[$id];
+    }
+    private public function listGetLast($listName, $id = null) { 
+        
+        if($this->__isset($listName) === false) {
+
+            return false;
+        }
+        return end($listName);
+    }
+    private public function listUpdate($listName, $obj, $full = false) { 
+        
+        if($this->__isset($listName) === false) {
+
+            return false;
+        }
+        $id = $obj->publicId->value;
+
+        if(isset($this->$listName[$id]) === false) {
+
+            return $this->listAdd($listName, $obj);
+        }
+        return  $this->$listName[$id]->update($obj, $full);
+    }
+    public function __call($name, $argumentList = array()) { 
+
+        if(strstr($name, 'List') !== false) {
+
+            $funcList   = array();
+            $funcList[] = 'Add';
+            $funcList[] = 'Remove';
+            $funcList[] = 'Update';
+
+            foreach($funcList as $func) {
+
+                $funcBaseName = 'list'.$func;
+                $listName     = str_replace(ucfirst($funcBaseName), '', $name).'List';
+
+                if(strstr($name, $funcBaseName) !== false) {
+
+                    if(isset($argumentList[0]) === false) {
+
+                        $argumentList[0] = null;
+                    }
+                    return $this->$funcBaseName($listName, $argumentList[0]);
+                }
+            }
+        }
+        return false;
+    }
+    public function __construct() {
+
+        $this->conf();
+
+        if($this->auditState === true) {
+ 
+            $time                = time();
+            $audit               = new Audit();
+            $audit->step         = Audit::CREATE_STEP;
+            $audit->user         = Token::userPublicId;
+            $audit->date         = $time;
+            $audit->conf         = $this;
+            $workflowStep        = new WorkflowStep();
+            $workflowStep->audit = $audit;
+
+            $this->workflowStepListAdd($workflowStep);
         }
     }
-    public function remove($id) {
+    public function update($obj, $full = false) {
+    
+        if($this->auditState === false) {
 
-        unset($this->fieldList->fieldItemList[$id]);
+            return false;
+        }
+        if($full === true) {
 
-        return $this;
-    }
-    public function valueSet($value, $attributName = 'value') {
+            $this->$listName[$id] = $obj;
 
-        return $this->attributSet($attributName, $value);
-    }
-    public function showSet($value, $attributName = 'show') {
+            return true;            
+        } 
+        foreach($obj->attributList as $k => $v) {
 
-        return $this->attributSet($attributName, $value);
-    }
-    public function accessModeSet($value, $attributName = 'accessMode') {
+            if(isset($v->value) === false) {
 
-        return $this->attributSet($attributName, $value);
-    }
-    public function defaultSet($value, $attributName = 'default') {
+                return false;
+            }
+            $this->attributList[$k]->value = $v->value;
+        }
+        $this->valueListAdd($obj->value);
+ 
+        $time                = time();
+        $audit               = new Audit();
+        $audit->step         = Audit::UPDATE_STEP;
+        $audit->user         = Token::userPublicId;
+        $audit->date         = $time;
+        $audit->conf         = $obj;
+        $audit->state        = $this->stateDefault;
+        $workflowStep        = new WorkflowStep();
+        $workflowStep->audit = $audit;
 
-        return $this->attributSet($attributName, $value);
-    }
-    public function titleSet($value, $attributName = 'title') {
+        $this->workflowStepListAdd($workflowStep);
 
-        return $this->attributSet($attributName, $value);
-    }
-    public function titleDefaultSet($value, $attributName = 'titleDefault') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function urlDefaultSet($value, $attributName = 'urlDefault') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function urlSet($value, $attributName = 'url') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function ptQuantitySet($value, $attributName = 'ptQuantity') {
-
-        return $this->attributSet($attributName, $value);
-    }
-    public function attributSet($attributName, $value) {
-
-        $this->$attributName = $value;
+        $this->conf();
 
         return true;
     }
-    public function actionButtonItemToolsRemove() {
+    private req($lib){
 
-        $this->actionButtonRemoveRemove();
-        $this->actionButtonEditRemove();
-        $this->actionButtonDetailRemove();
+        $file = 'lib'.DIRECTORY_SEPARATOR.$lib.'.php';if(is_file() === false) {
 
-        return true;
-    }
-    public function actionButtonItemToolsAdd() {
+        if(is_file($file) === true) {
 
-        $this->actionButtonRemoveAdd();
-        $this->actionButtonEditAdd();
-        $this->actionButtonDetailAdd();
+            return false;
+        }
+        require_once $file;
 
         return true;
     }
-    public function actionButtonItemToolsEditAdd() {
+    public function conf() {
 
-        $this->actionButtonUpdateAdd();
-        $this->actionButtonDetailAdd();
+        $this->__set('LabelName', get_class($this);
 
-        return true;
-    }
-    public function actionButtonItemToolsEditRemove() {
+        foreach($this->toolNameList as $toolName) {
 
-        $this->actionButtonUpdateRemove();
-        $this->actionButtonDetailRemove();
+            $this->req($toolName);          
+        }
+        foreach($this->atttibutNameList as $attibutName) {
 
-        return true;
-    }
-    public function actionButtonRemoveRemove() {
+            $this->req($attibutName); 
+            $this->__set($attibutName, null);
+        }
+        if($this->editableState === true) {
 
-        $this->actionButtonRemove = false;
+            $updateButton = new UpdateButton($this);
+            $deleteButton = new DeleteButton($this);
 
-        return true;
-    }
-    public function actionButtonEditRemove() {
+            $this->actionListAdd($updateButton);
+            $this->actionListAdd($deleteButton);
 
-        $this->actionButtonEdit = false;
+            $this->updateButtonId = $updateButton;
+            $this->deleteButtonId = $deleteButton;
+        }
+        else {
 
-        return true;
-    }
-    public function actionButtonDetailRemove() {
+            $this->actionListRemove($this->updateButtonId);
+            $this->actionListRemove($this->deleteButtonId);
+        }
+        if($this->detailState === true) {
 
-        $this->actionButtonDetail = false;
+            $detailButton = new DetailButton($this);
 
-        return true;
-    }
-    public function actionButtonUpdateRemove() {
+           $this->actionListAdd($detailButton);
 
-        $this->actionButtonUpdate = false;
+            $this->detailButtonId = $detailButton;
+        }
+        else {
 
-        return true;
-    }
-    public function actionButtonRemoveAdd() {
+            $this->actionListRemove($this->detailButtonId);            
+        }
+        if($this->childPaginationState === true) {
 
-        $this->actionButtonRemove = new ActionButtonRemove();
+            $nextButton = new NextButton($this);
+            $precButton = new PrecButton($this);
 
-        $this->actionButtonRemove->setUp($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show);
+            $this->actionListAdd($nextButton);
+            $this->actionListAdd($precButton);
+           
+            $this->nextButtonId = $nextButton;           
+            $this->precButtonId = $precButton;
+        }
+        else {
 
-        return true;
-    }
-    public function actionButtonEditAdd() {
+            $this->actionListRemove($this->nextButtonId);  
+            $this->actionListRemove($this->precButtonId);           
+        }
+        if($this->childEditableState === true) {
 
-        $this->actionButtonEdit = new ActionButtonEdit();
+            $childAddButton    = new ChildAddButton($this);
+            $childRemoveButton = new ChildRemoveButton($this);
 
-        $this->actionButtonEdit->setUp($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show);
+            $this->actionListAdd($childAddButton);
+            $this->actionListAdd($childRemoveButton);
 
-        return true;
-    }
-    public function actionButtonDetailAdd() {
+            $this->childAddButtonId    = $childAddButton;   
+            $this->childRemoveButtonId = $childRemoveButton;   
+        }
+        else {
 
-        $this->actionButtonDetail = new ActionButtonDetail();
+            $this->actionListRemove($this->childAddButtonId);  
+            $this->actionListRemove($this->childRemoveButtonId);           
+        }
+        if($this->childDetailState === true) {
 
-        $this->actionButtonEdit->setUp($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show);
+            $childDetailButton = new ChildDetailButton($this);
 
-        return true;
-    }
-    public function actionButtonUpdateAdd() {
+           $this->actionListAdd($childDetailButton);
 
-        $this->actionButtonUpdate = new ActionButtonUpdate();
+            $this->childDetailButtonId = $childDetailButton;   
+        }
+        else {
 
-        $this->actionButtonUpdate->setUp($this->microserviceTemplate->labelName, $this->microserviceTemplate, $this->show);
+            $this->actionListRemove($this->childDetailButtonId);         
+        }
+        $this->accessModeListAdd($this->accessMode);
+        $this->showListAdd($this->show);
 
-        return true;
-    }
-    public function microserviceSet($microserviceLabelName, $microserviceAccessMode, $microserviceShow) {
+        $avantagePersonnal = new avantagePersonnal($this);
 
-        $token              = new Token();
-        $filter             = $this->filterSet($token);
-        $this->microservice = new Microservice();
-
-        $this->microservice->setUp($microserviceLabelName, $microserviceAccessMode, $microserviceShow, $filter, $token);
-
-        return true;
-    }
-    public function filterSet() {
-
-        $this->filter = new Filter();
+        $this->avantageListAdd($avantagePersonnal);
 
         return true;
     }

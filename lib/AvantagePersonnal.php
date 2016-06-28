@@ -1,0 +1,7 @@
+<?
+
+class AvantagePersonnal extends Avantage {
+
+}
+
+?>
