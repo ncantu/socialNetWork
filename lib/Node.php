@@ -1,6 +1,6 @@
 <?php 
 
-class Field {
+class Node {
     
     CONST AUDIT_CREATE_STEP              = 'create';
     CONST AUDIT_UPDATE_STEP              = 'update';    
@@ -145,13 +145,31 @@ class Field {
         
         return true;
     }
+    private function childTorelationship($objName, $obj) {
+     
+        foreach($this->workflowStepList as $this->workflowStep) {
+        
+            foreach($this->workflowStep->childList as $child) {
+        
+                if($child->labelName === 'Audit') {
+        
+                    $relationshipWorkflowStep = $child;
+                }
+            }
+        }
+        $relationshipName      = $this->nodeName.'_'.$obj->nodeName;
+        $relationshipLabelName = strtoupper($objName).'_TO';
+        $relationship          = new Relationship($relationshipName, $relationshipLabelName, $this->nodeName, $obj->nodeName, $relationshipWorkflowStep);
+        
+        return $relationship;
+    }    
     private function listAdd($listName, $obj = null) { 
 
         $objName = str_replace('List', '', $listName);
         
         if($obj === null) {
         
-            $obj = new Field(true, false, $this);
+            $obj = new Node(true, false, $this);
         }
         if($this->__isset($listName) === false) {
 
@@ -164,8 +182,10 @@ class Field {
 
             return false;
         }
-        $obj->labelName        = $objName;
-        $this->$$listName[$id] = $obj;
+        $obj->labelName                              = $objName;
+        $this->$$listName[$id]                       = $obj;                
+        $relationship                                = $this->childTorelationship($objName, $obj);        
+        $this->relationshipList[$relationship->name] = $relationship;
         
         return $obj->publicId;        
     }
@@ -180,8 +200,26 @@ class Field {
             $id = $id->getId();
         }
         unset($this->$$listName[$id]);
+        
+        // @todo update Relationship
+        
+        $relationshipName = $this->nodeName.'_'.$obj->nodeName;
+        
+        unset($this->relationshipList[$relationshipName]);
 
         return true;        
+    }
+    private function listClean($listName) { 
+        
+        if($this->__isset($listName) === false) {
+
+            return false;
+        }
+        foreach($this->$$listName as $id => $obj) {
+         
+            $this->listRemove($listName, $id);
+        }
+        return true;     
     }
     private function listGet($listName, $id) { 
         
@@ -205,6 +243,8 @@ class Field {
     }
     private function listUpdate($listName, $obj, $full = false) { 
         
+        $objName = str_replace('List', '', $listName);
+        
         if($this->__isset($listName) === false) {
 
             return false;
@@ -218,6 +258,9 @@ class Field {
         $obj->publicId = $id;
         
         $this->$$listName[$id]->update($obj, $full);
+                  
+        $relationship                                = $this->childTorelationship($objName, $obj);        
+        $this->relationshipList[$relationship->name] = $relationship;
         
         return $obj->publicId;
     }
@@ -229,6 +272,7 @@ class Field {
             $funcList[] = 'Add';
             $funcList[] = 'Remove';
             $funcList[] = 'Update';
+            $funcList[] = 'Clean';
 
             foreach($funcList as $func) {
 
@@ -268,16 +312,17 @@ class Field {
              
             return true;
         }
-        $time             = time();
-        $conf             = new stdClass();
-        $conf->auditState = false;
-        $auditConf        = $conf;
-        $auditConf->step  = $step;
-        $auditConf->user  = Token::userPublicId;
-        $auditConf->date  = $time;
-        $auditConf->conf  = $this;
-        $audit            = new Field(false, $auditConf);
-        $workflowStep     = new Field(false, $conf);
+        $time                  = time();
+        $conf                  = new stdClass();
+        $conf->auditState      = false;
+        $auditConf             = $conf;
+        $auditConf->step       = $step;
+        $auditConf->user       = Token::userPublicId;
+        $auditConf->date       = $time;
+        $auditConf->conf       = $this;
+        $auditConf->labelName  = 'Audit';
+        $audit                 = new Node(false, $auditConf);
+        $workflowStep          = new Node(false, $conf);
         
         $workflowStep->childListAdd($audit);
         
@@ -350,27 +395,28 @@ class Field {
     private function actionAdd($conf, $filterConf, $confirmConf = false) {
 
         $filterConf->auditState = false;
-        $filter                 = new Field(false, $filterConf);
+        $filter                 = new Node(false, $filterConf);
         $conf->auditState       = false;
-        $action                 = new Field(false, $conf);
+        $action                 = new Node(false, $conf);
 
         $action->filterListAdd($filter);
         
         if($confirmConf !== false) {
          
             $confirmConf->auditState = false;
-            $confirm                 = new Field(false, $confirmConf);
+            $confirm                 = new Node(false, $confirmConf);
         
             $action->childListAdd($confirm);
         }
         $id = $this->actionListAdd($action);
         
         return $id;
-    }    
+    }
     public function accessModeConf($conf) {
         
-        $this->accessModeList = array();        
-        $accessMode           = new Field(false, $conf);
+        $this->accessModeListClean();     
+        
+        $accessMode = new Node(false, $conf);
         
         $this->accessModeListAdd($accessMode);
         
@@ -378,8 +424,9 @@ class Field {
     }
     public function showConf($conf) {
 
-        $this->showList = array();        
-        $show           = new Field(false, $conf);
+        $this->showListClean();           
+        
+        $show = new Node(false, $conf);
                
         $this->showListAdd($show);
         
@@ -387,8 +434,9 @@ class Field {
     }    
     public function avantageConf($conf) {
         
-        $this->avantageList = array();
-        $avantagePersonnal  = new Field(false, $conf);
+        $this->avantageListClean();     
+        
+        $avantagePersonnal = new Node(false, $conf);
         
         $this->avantageListAdd($avantagePersonnal);
         
@@ -408,19 +456,19 @@ class Field {
         }
         if(empty($this->accessModeList) === true) {
             
-            $conf = new stdClass();
+            $conf = new stdClass(); // @todo
             
             $this->accessModeConf($conf);
         }
         if(empty($this->showList) === true) {
             
-            $conf = new stdClass();
+            $conf = new stdClass(); // @todo
         
             $this->showConf($conf);
         }
         if(empty($this->avantageList) === true) {
             
-            $conf = new stdClass();
+            $conf = new stdClass(); // @todo
         
             $this->avantageConf($conf);
         }
