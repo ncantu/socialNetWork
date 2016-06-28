@@ -3,6 +3,7 @@
 class Attribut {
     
     public $name;
+    public $type;
     public $valueList = array();
     
     public function __construct($name, $value = null, $valueId = false) {
@@ -32,6 +33,7 @@ class Attribut {
         
             $id = count($this->valueList)-1;
         }
+        $this->type           = gettype($value);        
         $this->valueList[$id] = $value;
         
         return true;
@@ -70,6 +72,7 @@ class Attribut {
             
             return false;
         }
+        $this->type           = gettype($value); 
         $this->valueList[$id] = $value;
         
         return true;

@@ -10,13 +10,18 @@ class Relationship {
     public $scoreListId  = array();
     public $scoreList    = array();
     
-    public function __construct($name, $labelName, $start, $end, $attributList = array()){
+    public function __construct($name, $labelName, $start, $end, $attributList){
         
         $this->name         = $name;
         $this->labelName    = $labelName;
         $this->start        = $start;
         $this->end          = $end;
-        $this->attributList = $attributList;        
+        
+        foreach($attributList as $k => $v) {
+            
+            $attribut               = new Attribut($k, $v);            
+            $this->attributList[$k] = $attribut;
+        }
     }
     public function scoreAdd($conf, $id) {
         
