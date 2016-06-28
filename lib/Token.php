@@ -1,32 +1,16 @@
 <?php 
 
-class Token extends Field {
+class Token {
 
-    CONST TAG                               = 'PM_token';
-
-    public static $token                    = false;
-    public static $avantageMax              = false;
-    public static $userLoginPublic          = 'anonymous';
-    public static $showValueDefault         = 'showNone';
-    public static $accessModeValueDefault   = 'read';
-    public static $themeValueDefault        = 'default';
-    public static $semanticValueDefault     = 'default';
-    public static $domainValueDefault;
-    public static $langValueDefault;
-    public static $keywordListValue;
-    public static $descriptionLongValue;
-    public static $descriptionShortValue;
-    public static $titleValue;
-    public static $versionConfValueDefault;
-    public static $title;
-    public static $descriptionShort;
-    public static $descriptionLong;
-    public static $versionConf;
-    public static $domainList;
-    public static $keywordList;
-    public static $lang;
-    public static $accessModeList;
-    public static $showList;
+    CONST TAG                   = 'PM_token';
+    CONST TAG_DOMAIN            = 'PM_token_domain';
+    CONST TAG_LANG              = 'PM_token_lang';
+    CONST TAG_VERSION           = 'PM_token_versionConf';
+    
+    public static $token        = false;
+    public static $userPublicId = false;
+    public static $profil;
+    public static $context;
 
     public function setUp(){
 
@@ -42,99 +26,40 @@ class Token extends Field {
             }
             $this->configure($res);
         }
-        $this->configure($res);
-    }
-    public static function userLoginPrivateGet(){
-         
-        $filter                        = new Filter();
-        $filter->userLoginPublicFilter = Token::$userLoginPublic;
-        $request                       = new GraphUserLoginPrivateGet();
-        $res                           = $request->graphRequest($filter);
-
-        return $res;
+        return $this->configure($res);
     }
     public function configure($res) {
 
-        self::$avantageMax      = new AvantageMax();
-        self::$userLoginPublic  = new UserLoginPublic();
-        self::$title            = new SiteTitle();
-        self::$lang             = new Lang();
-        self::$descriptionShort = new SiteDescriptionShort();
-        self::$descriptionLong  = new SiteDescriptionLong();
-        self::$versionConf      = new VersionConfList();
-        self::$semanticList     = new SemanticList();
-        self::$themeList        = new ThemeList();
-        self::$domainList       = new DomainList();
-        self::$keywordList      = new KeywordList();
-        self::$langList         = new LangList();
-        self::$accessModeList   = new AccessModeList();
-        self::$showList         = new ShowList();
-        $semantic               = New Semantic();
-        $theme                  = New Theme();
-        $domain                 = New Domain();
-        $accessMode             = New AccessMode();
-        $show                   = New Domain();
-
-        self::$avantageMax->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->avantageMax);
-        self::$userLoginPublic->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->userLoginPublic);
-        self::$title->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->titleValue);
-        self::$lang->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->langValueDefault);
-        self::$descriptionShort->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->descriptionShortValue);
-        self::$descriptionLong->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->descriptionLongValue);
-        self::$versionConf->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->versionConfValueDefault);
-        self::$semanticList->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$themeList->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$domainList->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$keywordList->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$langList->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$accessModeList->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        self::$showList->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault);
-        $semantic->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->semanticValueDefault);
-        $theme->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->themeValueDefault);
-        $domain->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->domainValueDefault);
-        $accessMode->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->accessModeValueDefault);
-        $show->setUp($res->nodeName, $res->accessModeDefault, $res->showDefault, $res->showValueDefault);
-
-        self::$semanticList->add($semantic);
-        self::$themeList->add($theme);
-        self::$domainList->add($domain);
-        self::$accessModeList->add($accessMode);
-        self::$showList->add($show);
-        self::$keywordList->keywordListToImportSet($res->keywordListValue);
-        self::$keywordList->keywordListToImport();
-
-        self::$token = $res->token;
+        self::$profil       = $res->profil;
+        self::$userPublicId = $res->userPublicId;
+        self::$context      = $res->context;
+        self::$token        = $res->token;
 
         return true;
     }
     public function getContext(){
 
-        $this->domainValueDefault = Request::requestVal(Domain::TAG);
+        $domain = Request::requestVal(self::TAG_DOMAIN);
 
-        if($this->domainValueDefault === false) {
+        if($domain === false) {
              
             return false;
         }
-        $this->langValueDefault = Request::requestVal(LANG::TAG);
+        $lang = Request::requestVal(self::TAG_LANG);
 
-        if($this->langValueDefault === false) {
+        if($lang === false) {
              
             return false;
         }
-        $this->versionConfValueDefault = Request::requestVal(VersionConf::TAG);
+        $versionConf = Request::requestVal(self::TAG_VERSION);
 
-        if($this->versionConfValueDefault === false) {
+        if($versionConf === false) {
              
             return false;
         }
-        $res                         = $this->graphRequestContext();
-        $this->keywordListValue      = $res->keywordListValue;
-        $this->descriptionLongValue  = $res->descriptionLongValue;
-        $this->descriptionShortValue = $res->descriptionShortValue;
-        $this->titleValue            = $res->titleValue;
-        self::$token                 = $res->token;
+        $res = $this->graphRequestContext($domain, $lang, $versionConf);
 
-        return $this;
+        return $res;
     }
     public function get(){
 

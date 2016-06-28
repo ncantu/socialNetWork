@@ -41,10 +41,13 @@ class Node {
     private $attributNameList            = array(
         'publicId',
         'nodeName',
-        'labelName', 
-        'title', 
+        'labelName',
+        'title',
+        'style',
+        'script',
         'url', 
         'image',
+        'icon', 
         'fake', 
         'lang',
         'descriptionLong',
@@ -104,8 +107,8 @@ class Node {
         
         if(empty($id) === true || $id === false) {
             
-            $this->publicId = $this->nodeName;
-        }        
+            $this->publicId = $this->labelName.'_'.$this->nodeName;
+        }
         return $this->publicId;
     }
     public function __get($name) {
@@ -485,19 +488,33 @@ class Node {
         $this->avantageListAdd($avantagePersonnal);
         
         return true;
-    }    
-    private function conf() {
-
+    } 
+    private function reqConf() {
+        
         foreach($this->toolNameList as $toolName) {
-
-            $this->req($toolName);          
+        
+            $this->req($toolName);
         }
         foreach($this->atttibutNameList as $attibutName) {
-
-            $this->req($attibutName); 
-            
+        
+            $this->req($attibutName);
+        
             $this->$attibutName = null;
         }
+        return true;
+    }
+    
+    private function conf() {
+        
+        $this->reqConf();
+        
+        $id           = $this->getId();        
+        $this->url    = 'http://'.Token::$context->domain.'/'.$id.'.php';
+        $this->style  = 'http://cdn.'.Token::$context->domain.'/style/'.$id.'.css';
+        $this->script = 'http://cdn.'.Token::$context->domain.'/script/'.$id.'.js';
+        $this->image  = 'http://cdn.'.Token::$context->domain.'/image/'.$id.'.png';
+        $this->icon   = 'http://cdn.'.Token::$context->domain.'/image/'.$this->labelName.'.png';
+        
         if(empty($this->accessModeList) === true) {
             
             $conf = new stdClass(); // @todo
@@ -517,7 +534,7 @@ class Node {
             $this->avantageConf($conf);
         }
         $this->confActionList();
-    
+                    
         return true;
     }
     private function confActionList() {
