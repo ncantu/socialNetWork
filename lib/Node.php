@@ -3,7 +3,7 @@
 class Node {
     
     CONST AUDIT_CREATE_STEP              = 'create';
-    CONST AUDIT_UPDATE_STEP              = 'update';    
+    CONST AUDIT_UPDATE_STEP              = 'update';     
     CONST ACTION_CONFIRM_NODE_NAME       = 'confirm';
     CONST ACTION_CONFIRM_TITLE           = 'CONFIRM';
     CONST ACTION_UPDATE_NODE_NAME        = 'update';
@@ -36,7 +36,7 @@ class Node {
     CONST ACTION_PRINT_TITLE             = 'PRINT';
     CONST ACTION_CHILD_DETAIL_NODE_NAME  = 'detail';
     CONST ACTION_CHILD_DETAIL_TITLE      = 'DETAIL';    
-
+    
     private $toolNameList                = array();
     private $attributNameList            = array(
         'publicId',
@@ -51,11 +51,11 @@ class Node {
         'fake', 
         'lang',
         'descriptionLong',
-        'descriptionShort');    
+        'descriptionShort');
     private $workflowStepList            = array();
     private $relationshipList            = array();
     private $attributList                = array();
-    private $versionConfList             = array();
+    private $versionConfList             = array();    
     private $nextActionId;
     private $precActionId;
     private $detailActionId;
@@ -72,6 +72,14 @@ class Node {
     private $pdfActionId;
     private $printActionId;
 
+    public $listDefaultList              = array('accessMode', 'showConf', 'versionConf', 'theme', 'semantic', 'domain', 'avantage');    
+    public $accessModeDefault            = 'read';
+    public $showConfDefault              = 'showNone';
+    public $versionConfDefault           = 'all';
+    public $themeDefault                 = 'all';
+    public $semanticDefault              = 'all';
+    public $domainDefault                = 'all';
+    public $avantageConfDefault          = 'all';
     public $auditState                   = true;    
     public $editableState                = false;
     public $detailState                  = false;
@@ -293,6 +301,25 @@ class Node {
         
         return $obj->publicId;
     }
+    public function confClean($labelName, $conf) {
+    
+        $defaultVar      = $labelName.'Default';
+        $defaultVal      = $this->$defaultVar;        
+        $conf->labelName = $labelName;
+    
+        if(isset($conf->nodeName) === false) {
+    
+            $conf->nodeName = $defaultVal;
+        }
+        $funcClean = $labelName.'ListClean';
+        
+        $this->$$funcClean();
+    
+        $obj     = new Node(false, $conf);        
+        $funcAdd = $labelName.'ListAdd';
+    
+        return $this->$$funcAdd($obj);
+    }
     public function __call($name, $argumentList = array()) { 
 
         if(strstr($name, 'List') !== false) {
@@ -315,6 +342,27 @@ class Node {
                         $argumentList[0] = null;
                     }
                     return $this->$funcBaseName($listName, $argumentList[0]);
+                }
+            }
+        }       
+        if(strstr($name, 'Conf') !== false) {
+
+            $conf       = $argumentList[0];
+            $funcList   = array();
+            $funcList[] = 'Clean';
+
+            foreach($funcList as $func) {
+
+                $funcBaseName = 'conf'.$func;
+                $labelName    = str_replace(ucfirst($funcBaseName), '', $name);
+
+                if(strstr($name, $funcBaseName) !== false) {
+
+                    if(isset($argumentList[0]) === false) {
+
+                        $argumentList[0] = null;
+                    }
+                    return $this->$funcBaseName($labelName, $conf);
                 }
             }
         }
@@ -441,54 +489,6 @@ class Node {
         
         return $id;
     }
-    public function accessModeConf($conf) {
-        
-        $conf->labelName = 'accessMode';
-
-        if(isset($conf->nodeName) === false) {
-
-            $conf->nodeName = 'read';
-        }        
-        $this->accessModeListClean();     
-        
-        $accessMode = new Node(false, $conf);
-        
-        $this->accessModeListAdd($accessMode);
-        
-        return true;
-    }
-    public function showConf($conf) {
-        
-        $conf->labelName = 'show';
-        
-        if(isset($conf->nodeName) === false) {
-        
-            $conf->nodeName = 'showNone';
-        }
-        $this->showListClean();           
-        
-        $show = new Node(false, $conf);
-               
-        $this->showListAdd($show);
-        
-        return true;
-    }    
-    public function avantageConf($conf) {
-        
-        $conf->labelName = 'avantage';
-        
-        if(isset($conf->nodeName) === false) {
-        
-            $conf->nodeName = 'avantagePersonnal';
-        }
-        $this->avantageListClean();     
-        
-        $avantagePersonnal = new Node(false, $conf);
-        
-        $this->avantageListAdd($avantagePersonnal);
-        
-        return true;
-    } 
     private function reqConf() {
         
         foreach($this->toolNameList as $toolName) {
@@ -502,8 +502,7 @@ class Node {
             $this->$attibutName = null;
         }
         return true;
-    }
-    
+    }    
     private function conf() {
         
         $this->reqConf();
@@ -513,25 +512,18 @@ class Node {
         $this->style  = 'http://cdn.'.Token::$context->domain.'/style/'.$id.'.css';
         $this->script = 'http://cdn.'.Token::$context->domain.'/script/'.$id.'.js';
         $this->image  = 'http://cdn.'.Token::$context->domain.'/image/'.$id.'.png';
-        $this->icon   = 'http://cdn.'.Token::$context->domain.'/image/'.$this->labelName.'.png';
+        $this->icon   = 'http://cdn.'.Token::$context->domain.'/image/'.$this->labelName.'_icon.png';
         
-        if(empty($this->accessModeList) === true) {
+        foreach($this->listDefaultList as $listName){
             
-            $conf = new stdClass(); // @todo
-            
-            $this->accessModeConf($conf);
-        }
-        if(empty($this->showList) === true) {
-            
-            $conf = new stdClass(); // @todo
+            $listObj = $listName.'List';
         
-            $this->showConf($conf);
-        }
-        if(empty($this->avantageList) === true) {
-            
-            $conf = new stdClass(); // @todo
-        
-            $this->avantageConf($conf);
+            if(empty($this->$listObj) === true) {
+                
+                $func = $listObj.'ConfClean';
+                
+                $this->$func(new stdClass());
+            }
         }
         $this->confActionList();
                     
