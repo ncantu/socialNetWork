@@ -74,7 +74,7 @@ class Node {
 
     public $listDefaultList              = array('accessMode', 'showConf', 'versionConf', 'theme', 'semantic', 'domain', 'avantage');    
     public $accessModeDefault            = 'read';
-    public $showConfDefault              = 'showNone';
+    public $showDefault                  = 'showNone';
     public $versionConfDefault           = 'all';
     public $themeDefault                 = 'all';
     public $semanticDefault              = 'all';
@@ -303,9 +303,10 @@ class Node {
     }
     public function confClean($labelName, $conf) {
     
-        $defaultVar      = $labelName.'Default';
-        $defaultVal      = $this->$defaultVar;        
-        $conf->labelName = $labelName;
+        $conf->auditState = false;
+        $defaultVar       = $labelName.'Default';
+        $defaultVal       = $this->$defaultVar;        
+        $conf->labelName  = $labelName;
     
         if(isset($conf->nodeName) === false) {
     

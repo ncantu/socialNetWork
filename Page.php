@@ -13,15 +13,6 @@ $token                                  = new Token();
 
 $token->setUp();
 
-// @todo delete
-$token::$context->keywordListValue      = array('MES', 'BONS', 'TUYAUX', 'parrainage', 'recommandation', 'professionnel', 'confiance', 'réseaux', 'proches', 'amis', 'entourage', 'artisans', 'services', 'entretien', 'dépannage', 'travaux', 'maison', 'santé', 'bricolage', 'jardinage', 'plomberie', 'électricité', 'chauffage', 'serrure', 'voiture', 'mécanique', 'conseiller financier', 'juridique', 'avocat', 'droit', 'Santé', 'médecin', 'kiné', 'ostéopathe', 'gastro-entérologue', 'dentiste', 'ophtalmologiste', 'pédiatre', 'podologue', 'diététicien', 'psychiatre', 'psychologue', 'gynécologue', 'acupuncteur', 'ORL', 'Bien-être', 'Esthéticienne', 'Coiffeur', 'Prof de fitness', 'yoga', 'Enfants', 'Pédiatre', 'baby-sitter', 'aide scolaire', 'Animaux', 'Vétérinaire', 'éleveur', 'toilettiste', 'pet-sitter', 'Dépannage', 'plombier', 'serrurier', 'électricien', 'mécanicien', 'chauffagiste', 'garagiste', 'Maisons', 'architecte', 'maçon', 'carreleur', 'peintre', 'plombier', 'serrurier', 'électricien', 'décorateur', 'ramoneur', 'jardinier', 'pépiniériste', 'fenêtres', 'toiture', 'piscine(s)', 'parquets', 'cuisiniste', 'charpentier', 'ébéniste', 'Juridique', 'Notaire', 'avocat', 'conseiller', 'juridique', 'syndic', 'obsèques', 'Finance', 'Agent d’assurance', 'Conseiller en Gestion de Patrimoine', 'Agent immobilier', 'Expert-comptable', 'Expert fiscal', 'Evènements', 'Wedding planner', 'traiteur', 'DJ', 'sonorisation', 'éclairage', 'photographe', 'fleuriste', 'musicien', 'orchestre');
-$token::$context->descriptionLongValue  = 'MES BONS TUYAUX Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage.';
-$token::$context->descriptionShortValue = 'MES BONS TUYAUX Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa.';
-$token::$context->titleValue            = 'MES BONS TUYAUX';
-$token::$context->lang                  = 'fr';
-$token::$context->version               = 'v0.0';
-$token::$context->domain                = 'homeMesBonsTuyaux.fr';
-
 $conf                         = new stdClass();
 $conf->nodeName               = $token::$context->domain;
 $conf->labelName              = 'page';
@@ -45,36 +36,24 @@ $conf->pdfActionIdState       = false;
 $conf->printActionIdState     = false;
 $conf->showDefault            = 'showVisible';
 $conf->accessModeDefault      = 'read';
-$conf->showConfDefault        = 'showNone';
 $conf->versionConfDefault     = 'all';
 $conf->themeDefault           = 'all';
 $conf->semanticDefault        = 'all';
 $conf->domainDefault          = 'all';
 $conf->avantageConfDefault    = 'all';
 $page                         = new Node(false, $conf);
-
 $conf                         = new stdClass();
-$score                        = new Node(false, $conf);
-$conf                         = new stdClass();
-$right                        = new Node(false, $conf);
-$conf                         = new stdClass();
-$filter                       = new Node(false, $conf);
-$conf                         = new stdClass();
+$conf->value                  = true;
 $state                        = new Node(false, $conf);
-$conf                         = new stdClass();
-$child                        = new Node(false, $conf);
-$conf                         = new stdClass();
-$emotion                      = new Node(false, $conf);
-$conf                         = new stdClass();
-$action                       = new Node(false, $conf);
 
-$this->scoreListAdd($score);
-$this->rightListAdd($right);
-$this->filterListAdd($filter);
 $this->stateListAdd($state);
+
+$conf                         = new stdClass();
+// @todo list profils
+// @todo list menu
+$child                        = new Node(false, $conf);
+
 $this->childListAdd($child);
-$this->emotionListAdd($emotion);
-$this->actionListAdd($action);
 
 foreach($token::$context->keywordListValue as $kw) {
 
