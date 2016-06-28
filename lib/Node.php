@@ -20,6 +20,20 @@ class Node {
     CONST ACTION_ADD_TITLE               = 'ADD';
     CONST ACTION_REMOVE_NODE_NAME        = 'remove';
     CONST ACTION_REMOVE_TITLE            = 'REMOVE';
+    CONST ACTION_FAVORITE_NODE_NAME      = 'favorite';
+    CONST ACTION_FAVORITE_TITLE          = 'FAVORITE';
+    CONST ACTION_LOVE_NODE_NAME          = 'love';
+    CONST ACTION_LOVE_TITLE              = 'LOVE';
+    CONST ACTION_FOLLOW_NODE_NAME        = 'follow';
+    CONST ACTION_FOLLOW_TITLE            = 'FOLLOW';
+    CONST ACTION_SHARE_NODE_NAME         = 'share';
+    CONST ACTION_SHARE_TITLE             = 'SHARE';
+    CONST ACTION_SHARE_INTERN_NODE_NAME  = 'shareInter';
+    CONST ACTION_SHARE_INTERN_TITLE      = 'PROMOTE';
+    CONST ACTION_PDF_NODE_NAME           = 'pdf';
+    CONST ACTION_PDF_TITLE               = 'PDF';
+    CONST ACTION_PRINT_NODE_NAME         = 'print';
+    CONST ACTION_PRINT_TITLE             = 'PRINT';
     CONST ACTION_CHILD_DETAIL_NODE_NAME  = 'detail';
     CONST ACTION_CHILD_DETAIL_TITLE      = 'DETAIL';    
 
@@ -34,13 +48,11 @@ class Node {
         'fake', 
         'lang',
         'descriptionLong',
-        'descriptionShort');
-    
-    private $workflowStepList                = array();
-    private $relationshipList                = array();
-    private $attributList                    = array();
-    private $versionConfList                 = array();
-    
+        'descriptionShort');    
+    private $workflowStepList            = array();
+    private $relationshipList            = array();
+    private $attributList                = array();
+    private $versionConfList             = array();
     private $nextActionId;
     private $precActionId;
     private $detailActionId;
@@ -48,29 +60,43 @@ class Node {
     private $deleteActionId;
     private $childAddActionId;
     private $childRemoveActionId;
-    private $childDetailActionId;
+    private $childDetailActionId;        
+    private $favoriteActionId;
+    private $loveActionId;
+    private $followActionId;
+    private $shareActionId;
+    private $shareInternActionId;
+    private $pdfActionId;
+    private $printActionId;
 
-    public $auditState                       = true;    
-    public $editableState                    = false;
-    public $detailState                      = false;
-    public $childPaginationState             = false;
-    public $childEditableState               = false;
-    public $childDetailState                 = false;  
-    public $keywordList                      = array();
-    public $accessModeList                   = array();
-    public $showList                         = array();
-    public $themeList                        = array();
-    public $semanticList                     = array();
-    public $domainList                       = array();
-    public $scoreList                        = array();
-    public $avantageList                     = array();
-    public $rightList                        = array();
-    public $filterList                       = array();
-    public $valueList                        = array();
-    public $stateList                        = array();
-    public $childList                        = array();
-    public $emotionList                      = array();
-    public $actionList                       = array();
+    public $auditState                   = true;    
+    public $editableState                = false;
+    public $detailState                  = false;
+    public $childPaginationState         = false;
+    public $childEditableState           = false;
+    public $childDetailState             = false;      
+    public $favoriteActionState          = false;
+    public $loveActionState              = false;
+    public $followActionState            = false;
+    public $shareActionState             = false;
+    public $shareInternActionState       = false;
+    public $pdfActionIdState             = false;
+    public $printActionIdState           = false;    
+    public $keywordList                  = array();
+    public $accessModeList               = array();
+    public $showList                     = array();
+    public $themeList                    = array();
+    public $semanticList                 = array();
+    public $domainList                   = array();
+    public $scoreList                    = array();
+    public $avantageList                 = array();
+    public $rightList                    = array();
+    public $filterList                   = array();
+    public $valueList                    = array();
+    public $stateList                    = array();
+    public $childList                    = array();
+    public $emotionList                  = array();
+    public $actionList                   = array();
 
     public function getId() {
         
@@ -199,11 +225,11 @@ class Node {
 
             $id = $id->getId();
         }
+        $objNodeName = $this->$$listName[$id]->nodeName;
+        
         unset($this->$$listName[$id]);
         
-        // @todo update Relationship
-        
-        $relationshipName = $this->nodeName.'_'.$obj->nodeName;
+        $relationshipName = $this->nodeName.'_'.$objNodeName;
         
         unset($this->relationshipList[$relationshipName]);
 
@@ -414,6 +440,12 @@ class Node {
     }
     public function accessModeConf($conf) {
         
+        $conf->labelName = 'accessMode';
+
+        if(isset($conf->nodeName) === false) {
+
+            $conf->nodeName = 'read';
+        }        
         $this->accessModeListClean();     
         
         $accessMode = new Node(false, $conf);
@@ -423,7 +455,13 @@ class Node {
         return true;
     }
     public function showConf($conf) {
-
+        
+        $conf->labelName = 'show';
+        
+        if(isset($conf->nodeName) === false) {
+        
+            $conf->nodeName = 'showNone';
+        }
         $this->showListClean();           
         
         $show = new Node(false, $conf);
@@ -434,6 +472,12 @@ class Node {
     }    
     public function avantageConf($conf) {
         
+        $conf->labelName = 'avantage';
+        
+        if(isset($conf->nodeName) === false) {
+        
+            $conf->nodeName = 'avantagePersonnal';
+        }
         $this->avantageListClean();     
         
         $avantagePersonnal = new Node(false, $conf);
@@ -545,10 +589,80 @@ class Node {
             $selfActionConf->nodeName  = self::ACTION_CHILD_DETAIL_NODE_NAME;
             $selfActionConf->title     = self::ACTION_CHILD_DETAIL_TITLE;
             $this->childDetailActionId = $this->actionAdd($selfActionConf, $selfActionFilterConf, false);
-        }
+        }        
         else {
         
             $this->actionListRemove($this->childDetailActionId);
+        }
+        if($this->favoriteActionState === true) {
+        
+            $selfActionConf->nodeName = self::ACTION_FAVORITE_NODE_NAME;
+            $selfActionConf->title    = self::ACTION_FAVORITE_TITLE;
+            $this->favoriteActionId   = $this->actionAdd($selfActionConf, $selfActionFilterConf, false);
+        }        
+        else {
+        
+            $this->actionListRemove($this->favoriteActionId);
+        }
+        if($this->loveActionState === true) {
+        
+            $selfActionConf->nodeName = self::ACTION_LOVE_NODE_NAME;
+            $selfActionConf->title    = self::ACTION_LOVE_TITLE;
+            $this->loveActionId       = $this->actionAdd($selfActionConf, $selfActionFilterConf, false);
+        }
+        else {
+        
+            $this->actionListRemove($this->loveActionId);
+        }
+       if($this->followActionState === true) {
+        
+            $selfActionConf->nodeName = self::ACTION_FOLLOW_NODE_NAME;
+            $selfActionConf->title    = self::ACTION_FOLLOW_TITLE;
+            $this->followActionId     = $this->actionAdd($selfActionConf, $selfActionFilterConf, false);
+        }
+        else {
+        
+            $this->actionListRemove($this->followActionId);
+        }
+        if($this->shareActionState === true) {
+        
+            $selfActionConf->nodeName = self::ACTION_SHARE_NODE_NAME;
+            $selfActionConf->title    = self::ACTION_SHARE_TITLE;
+            $this->shareActionId      = $this->actionAdd($selfActionConf, $selfActionFilterConf, false);
+        }
+        else {
+        
+            $this->actionListRemove($this->shareActionId);
+        }
+       if($this->shareInternActionState === true) {
+        
+            $selfActionConf->nodeName  = self::ACTION_SHARE_INTERN_NODE_NAME;
+            $selfActionConf->title     = self::ACTION_SHARE_INTERN_TITLE;
+            $this->shareInternActionId = $this->actionAdd($selfActionConf, $selfActionFilterConf, false);
+        }
+        else {
+        
+            $this->actionListRemove($this->shareInternActionId);
+        }
+       if($this->pdfActionState === true) {
+        
+            $selfActionConf->nodeName = self::ACTION_PDF_NODE_NAME;
+            $selfActionConf->title    = self::ACTION_PDF_TITLE;
+            $this->pdfActionId        = $this->actionAdd($selfActionConf, $selfActionFilterConf, false);
+        }
+        else {
+        
+            $this->actionListRemove($this->pdfActionId);
+        }
+        if($this->printActionState === true) {
+        
+            $selfActionConf->nodeName = self::ACTION_PRINT_NODE_NAME;
+            $selfActionConf->title    = self::ACTION_PREC_TITLE;
+            $this->printActionId      = $this->actionAdd($selfActionConf, $selfActionFilterConf, false);
+        }
+        else {
+        
+            $this->actionListRemove($this->printActionId);
         }
         return true;
     }
