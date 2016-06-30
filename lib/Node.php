@@ -145,7 +145,7 @@ class Node {
     public $emotionList               = array();
     public $actionList                = array();
     public $filterList                = array();
-
+    
     public function getId() {
         
         $id = $this->publicId;
@@ -237,13 +237,17 @@ class Node {
         
         return $relationship;
     }    
-    private function listAdd($listName, $obj = null) { 
+    private function listAdd($listName, $obj = null, $conf = false) { 
 
         $objName = str_replace('List', '', $listName);
         
         if($obj === null) {
-        
-            $obj = new Node(true, false, $this);
+            
+            if($conf === false) {
+                
+                $conf = $this;
+            }        
+            $obj = new Node(false, $conf);
         }
         if($this->__isset($listName) === false) {
 
@@ -263,7 +267,7 @@ class Node {
         
         return $obj->publicId;        
     }
-    private function listRemove($listName, $id) { 
+    private function listRemove($listName, $id, $opt = false) { 
         
         if($this->__isset($listName) === false) {
 
@@ -283,7 +287,7 @@ class Node {
 
         return true;        
     }
-    private function listClean($listName) { 
+    private function listClean($listName, $opt = false, $optOther = false) { 
         
         if($this->__isset($listName) === false) {
 
@@ -295,7 +299,7 @@ class Node {
         }
         return true;     
     }
-    private function listGet($listName, $id) { 
+    private function listGet($listName, $id, $opt = false) { 
         
         if($this->__isset($listName) === false) {
 
@@ -307,7 +311,7 @@ class Node {
         }
         return $this->$$listName[$id];
     }
-    private function listGetLast($listName, $id = null) { 
+    private function listGetLast($listName, $id = null, $opt = false) { 
         
         if($this->__isset($listName) === false) {
 
@@ -376,10 +380,12 @@ class Node {
 
         if(isset($argumentList[0]) === false) {
             
-            $argumentList[0] = null;
+            $argumentList[0] = false;
         }
-        $conf = $argumentList[0];
-        
+        if(isset($argumentList[1]) === false) {
+            
+            $argumentList[1] = false;
+        }        
         if(strstr($name, 'List') === false) {
         
             return false;
@@ -391,7 +397,7 @@ class Node {
     
             if(strstr($name, $funcBaseName) !== false) {
     
-                return $this->$funcBaseName($listName, $argumentList[0]);
+                return $this->$funcBaseName($listName, $argumentList[0],  $argumentList[1]);
             }
         }
         return false;

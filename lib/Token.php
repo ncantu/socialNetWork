@@ -9,8 +9,8 @@ class Token {
     
     public static $token        = false;
     public static $userPublicId = false;
-    public static $profil;
-    public static $context;
+    public static $profil       = false;
+    public static $context      = false;
     
     public function __construct($setUp = false) {
     
@@ -37,11 +37,22 @@ class Token {
     }
     public function configure($res) {
 
-        self::$profil       = $res->profil;
-        self::$userPublicId = $res->userPublicId;
-        self::$context      = $res->context;
-        self::$token        = $res->token;
+        if(isset($res->profil) === true) {
+            
+           self::$profil = $res->profil;
+        }
+        if(isset($res->profil) === true) {
 
+            self::$userPublicId = $res->userPublicId;
+        }
+        if(isset($res->profil) === true) {
+
+            self::$context = $res->context;
+        }
+        if(isset($res->profil) === true) {
+
+            self::$token = $res->token;
+        }
         return true;
     }
     public function getContext(){
