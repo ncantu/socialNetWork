@@ -46,6 +46,7 @@ class Conf {
         $conf->semanticDefault        = 'all';
         $conf->domainDefault          = 'all';
         $conf->avantageConfDefault    = 'all';
+        $conf->keywordListValue       = $token::$context->keywordListValue;
         
         return $conf;
     }

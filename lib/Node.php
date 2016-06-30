@@ -42,7 +42,7 @@ class Node {
     private $printActionId;
     private $listActionId;
 
-
+    public $keywordListValue          = array();
     public $confirmActionNodeName     = 'confirm';
     public $confirmActionTitle        = 'CONFIRM';
     public $updateActionNodeName      = 'update';
@@ -608,6 +608,15 @@ class Node {
         $this->image  = 'http://cdn.'.Token::$context->domain.'/image/'.$id.'.png';
         $this->icon   = 'http://cdn.'.Token::$context->domain.'/image/'.$this->labelName.'_icon.png';
         
+        foreach($this->keywordListValue as $kw) {
+        
+            $conf             = new stdClass();
+            $conf->auditState = false;
+            $conf->value      = $kw;
+            $keyword          = new Node(false, $conf);
+        
+            $this->keywordListAdd($keyword);
+        }  
         foreach($this->listDefaultList as $listName){
             
             $listObj = $listName.'List';
