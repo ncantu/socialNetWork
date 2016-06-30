@@ -21,8 +21,6 @@ $confProfilButton->title      = 'Nicolas Cantu';
 
 $page->listMicroserviceAdd($confProfilButton, Filter::$me);
 
-$filterConf->accessModeListAdd('stateUpdate');
-
 $confNotificationButton           = $conf;
 $confNotificationButton->nodeName = 'notification';
 $confNotificationButton->title    = 'Notifications';

@@ -31,6 +31,8 @@ class Filter {
         
         $filterConf->childListAdd($child);
         
+        $filterConf->accessModeListAdd('stateUpdate');
+        
         return $filterConf;
     }
     public static function shareGet() {
