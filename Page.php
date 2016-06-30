@@ -30,45 +30,48 @@ $confProfilButton           = Conf::$main;
 $confProfilButton->nodeName = 'profil';
 $confProfilButton->title    = 'Nicolas Cantu';
 
-$page->listMicroserviceAdd($confProfilButton, Filter::$me);
+$page->profilMicroserviceList($confProfilButton, Filter::$me);
 
 $confNotificationButton           = Conf::$main;
 $confNotificationButton->nodeName = 'notification';
 $confNotificationButton->title    = 'Notifications';
 
-$page->listMicroserviceAdd($confNotificationButton, Filter::$me);
+$page->listMicroserviceList($confNotificationButton, Filter::$me);
 
 $confContactButton           = Conf::$main;
 $confContactButton->nodeName = 'contact';
 $confContactButton->title    = 'Contacts';
 
-$page->listMicroserviceAdd($confContactButton, Filter::$share);
+$page->notificationMicroserviceList($confContactButton, Filter::$share);
 
 $confRecommandationButton           = Conf::$main;
 $confRecommandationButton->nodeName = 'recommandation';
 $confRecommandationButton->title    = 'Recommandations';
 
-$page->listMicroserviceAdd($confRecommandationButton, Filter::$share);
+$page->recommandationMicroserviceList($confRecommandationButton, Filter::$share);
 
 $confCategoryButton           = Conf::$main;
 $confCategoryButton->nodeName = 'category';
 $confCategoryButton->title    = 'Categories';
 
-$page->listMicroserviceAdd($confCategoryButton, Filter::$share);
+$page->listMicroserviceList($confCategoryButton, Filter::$share);
 
 $confLegalButton           = Conf::$main;
 $confLegalButton->nodeName = 'legal';
 $confLegalButton->title    = 'Legal';
 
-$page->listMicroserviceAdd($confLegalButton, Filter::$share);
+$page->legalMicroserviceList($confLegalButton, Filter::$share);
 
 $confGeneralConditionButton           = Conf::$main;
-$confGeneralConditionButton->nodeName = 'generalConditions';
+$confGeneralConditionButton->nodeName = 'generalCondition';
 $confLegalButton->title               = 'General conditions';
 
-$page->listMicroserviceAdd($confLegalButton, Filter::$share);
+$page->generalConditionMicroserviceList($confLegalButton, Filter::$share);
 
 // @todo list profils
+
+
+
 // @todo ProfilDisconnected
 // @todo ProfilConnected
 // @todo ProfilAvantagePersonnal
