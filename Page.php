@@ -2,55 +2,82 @@
 
 require_once 'lib/Request.php';
 require_once 'lib/Token.php';
+require_once 'lib/Filter.php';
+require_once 'lib/Conf.php';
 require_once 'lib/Attribut.php';
 require_once 'lib/Relationship.php';
 require_once 'lib/Node.php';
 
-$_REQUEST[Token::TAG_DOMAIN]            = 'mesbonstuyaux';
-$_REQUEST[Token::TAG_LANG]              = 'fr';
-$_REQUEST[Token::TAG_VERSION]           = 'v0.0';
-$token                                  = new Token();
+$_REQUEST[Token::TAG_DOMAIN]  = 'mesbonstuyaux';
+$_REQUEST[Token::TAG_LANG]    = 'fr';
+$_REQUEST[Token::TAG_VERSION] = 'v0.0';
+$token                        = new Token(true);
+$filter                       = new Filter(true);
+$conf                         = new Conf(true);
+$page                         = new Node(false, Conf::$main);
+$confProfilButton             = $conf;
+$confProfilButton->nodeName   = 'profil';
+$confProfilButton->title      = 'Nicolas Cantu';
 
-$token->setUp();
+$page->listMicroserviceAdd($confProfilButton, Filter::$me);
 
-$conf                         = new stdClass();
-$conf->nodeName               = $token::$context->domain;
-$conf->labelName              = 'page';
-$conf->title                  = $token::$context->titleValue;
-$conf->fake                   = false;
-$conf->lang                   = $token::$context->lang;
-$conf->descriptionLong        = $token::$context->descriptionLongValue;
-$conf->descriptionShort       = $token::$context->descriptionShortValue;
-$conf->auditState             = true;
-$conf->editableState          = false;
-$conf->detailState            = false;
-$conf->childPaginationState   = false;
-$conf->childEditableState     = false;
-$conf->childDetailState       = false;
-$conf->favoriteActionState    = false;
-$conf->loveActionState        = false;
-$conf->followActionState      = false;
-$conf->shareActionState       = false;
-$conf->shareInternActionState = false;
-$conf->pdfActionIdState       = false;
-$conf->printActionIdState     = false;
-$conf->showDefault            = 'showVisible';
-$conf->accessModeDefault      = 'read';
-$conf->versionConfDefault     = 'all';
-$conf->themeDefault           = 'all';
-$conf->semanticDefault        = 'all';
-$conf->domainDefault          = 'all';
-$conf->avantageConfDefault    = 'all';
-$page                         = new Node(false, $conf);
-$conf                         = new stdClass();
-$conf->value                  = true;
-$state                        = new Node(false, $conf);
+$filterConf->accessModeListAdd('stateUpdate');
 
-$this->stateListAdd($state);
+$confNotificationButton           = $conf;
+$confNotificationButton->nodeName = 'notification';
+$confNotificationButton->title    = 'Notifications';
 
-$conf                         = new stdClass();
+$page->listMicroserviceAdd($confNotificationButton, Filter::$me);
+
+$confContactButton           = $conf;
+$confContactButton->nodeName = 'contact';
+$confContactButton->title    = 'Contacts';
+
+$page->listMicroserviceAdd($confContactButton, Filter::$share);
+
+$confRecommandationButton           = $conf;
+$confRecommandationButton->nodeName = 'recommandation';
+$confRecommandationButton->title    = 'Recommandations';
+
+$page->listMicroserviceAdd($confRecommandationButton, Filter::$share);
+
+$confCategoryButton           = $conf;
+$confCategoryButton->nodeName = 'category';
+$confCategoryButton->title    = 'Categories';
+
+$page->listMicroserviceAdd($confCategoryButton, Filter::$share);
+
+$confLegalButton           = $conf;
+$confLegalButton->nodeName = 'legal';
+$confLegalButton->title    = 'Legal';
+
+$page->listMicroserviceAdd($confLegalButton, Filter::$share);
+
+$confGeneralConditionButton           = $conf;
+$confGeneralConditionButton->nodeName = 'generalConditions';
+$confLegalButton->title               = 'General conditions';
+
+$page->listMicroserviceAdd($confLegalButton, Filter::$share);
+
+
 // @todo list profils
-// @todo list menu
+ProfilDisconnected
+ProfilConnected
+ProfilAvantagePersonnal
+ProfilAvantagePersonna2
+ProfilAvantageBusiness1
+ProfilAvantageBusiness2
+ProfilSocial
+ProfilSocialGoogle
+ProfilSocialFacebook
+ProfilSocialLinkedIn
+ProfilSocialTwitter
+ProfilSocialPinterest
+ProfilSocialInstagram
+ProfilSocialViadeo
+
+
+
 $child                        = new Node(false, $conf);
 
 $this->childListAdd($child);

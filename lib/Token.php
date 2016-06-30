@@ -11,7 +11,14 @@ class Token {
     public static $userPublicId = false;
     public static $profil;
     public static $context;
-
+    
+    public function __construct($setUp = false) {
+    
+        if($setUp === true) {
+             
+            $this->setUp();
+        }
+    }
     public function setUp(){
 
         $res = $this->get();

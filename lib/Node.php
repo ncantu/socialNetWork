@@ -2,43 +2,11 @@
 
 class Node {
     
-    CONST AUDIT_CREATE_STEP              = 'create';
-    CONST AUDIT_UPDATE_STEP              = 'update';     
-    CONST ACTION_CONFIRM_NODE_NAME       = 'confirm';
-    CONST ACTION_CONFIRM_TITLE           = 'CONFIRM';
-    CONST ACTION_UPDATE_NODE_NAME        = 'update';
-    CONST ACTION_UPDATE_TITLE            = 'UPDATE';
-    CONST ACTION_DELETE_NODE_NAME        = 'delete';
-    CONST ACTION_DELETE_TITLE            = 'DELETE';
-    CONST ACTION_DETAIL_NODE_NAME        = 'detail';
-    CONST ACTION_DETAIL_TITLE            = 'DETAIL';    
-    CONST ACTION_NEXT_NODE_NAME          = 'next';
-    CONST ACTION_NEXT_TITLE              = 'NEXT';
-    CONST ACTION_PREC_NODE_NAME          = 'prec';
-    CONST ACTION_PREC_TITLE              = 'PREC';
-    CONST ACTION_ADD_NODE_NAME           = 'add';
-    CONST ACTION_ADD_TITLE               = 'ADD';
-    CONST ACTION_REMOVE_NODE_NAME        = 'remove';
-    CONST ACTION_REMOVE_TITLE            = 'REMOVE';
-    CONST ACTION_FAVORITE_NODE_NAME      = 'favorite';
-    CONST ACTION_FAVORITE_TITLE          = 'FAVORITE';
-    CONST ACTION_LOVE_NODE_NAME          = 'love';
-    CONST ACTION_LOVE_TITLE              = 'LOVE';
-    CONST ACTION_FOLLOW_NODE_NAME        = 'follow';
-    CONST ACTION_FOLLOW_TITLE            = 'FOLLOW';
-    CONST ACTION_SHARE_NODE_NAME         = 'share';
-    CONST ACTION_SHARE_TITLE             = 'SHARE';
-    CONST ACTION_SHARE_INTERN_NODE_NAME  = 'shareInter';
-    CONST ACTION_SHARE_INTERN_TITLE      = 'PROMOTE';
-    CONST ACTION_PDF_NODE_NAME           = 'pdf';
-    CONST ACTION_PDF_TITLE               = 'PDF';
-    CONST ACTION_PRINT_NODE_NAME         = 'print';
-    CONST ACTION_PRINT_TITLE             = 'PRINT';
-    CONST ACTION_CHILD_DETAIL_NODE_NAME  = 'detail';
-    CONST ACTION_CHILD_DETAIL_TITLE      = 'DETAIL';    
+    CONST AUDIT_CREATE_STEP           = 'create';
+    CONST AUDIT_UPDATE_STEP           = 'update';    
     
-    private $toolNameList                = array();
-    private $attributNameList            = array(
+    private $toolNameList             = array();
+    private $attributNameList         = array(
         'publicId',
         'nodeName',
         'labelName',
@@ -56,6 +24,7 @@ class Node {
     private $relationshipList            = array();
     private $attributList                = array();
     private $versionConfList             = array();    
+    private $microserviceId;
     private $nextActionId;
     private $precActionId;
     private $detailActionId;
@@ -71,43 +40,111 @@ class Node {
     private $shareInternActionId;
     private $pdfActionId;
     private $printActionId;
+    private $listActionId;
 
-    public $listDefaultList              = array('accessMode', 'showConf', 'versionConf', 'theme', 'semantic', 'domain', 'avantage');    
-    public $accessModeDefault            = 'read';
-    public $showDefault                  = 'showNone';
-    public $versionConfDefault           = 'all';
-    public $themeDefault                 = 'all';
-    public $semanticDefault              = 'all';
-    public $domainDefault                = 'all';
-    public $avantageConfDefault          = 'all';
-    public $auditState                   = true;    
-    public $editableState                = false;
-    public $detailState                  = false;
-    public $childPaginationState         = false;
-    public $childEditableState           = false;
-    public $childDetailState             = false;      
-    public $favoriteActionState          = false;
-    public $loveActionState              = false;
-    public $followActionState            = false;
-    public $shareActionState             = false;
-    public $shareInternActionState       = false;
-    public $pdfActionIdState             = false;
-    public $printActionIdState           = false;    
-    public $keywordList                  = array();
-    public $accessModeList               = array();
-    public $showList                     = array();
-    public $themeList                    = array();
-    public $semanticList                 = array();
-    public $domainList                   = array();
-    public $scoreList                    = array();
-    public $avantageList                 = array();
-    public $rightList                    = array();
-    public $filterList                   = array();
-    public $valueList                    = array();
-    public $stateList                    = array();
-    public $childList                    = array();
-    public $emotionList                  = array();
-    public $actionList                   = array();
+
+    public $confirmActionNodeName     = 'confirm';
+    public $confirmActionTitle        = 'CONFIRM';
+    public $updateActionNodeName      = 'update';
+    public $updateActionTitle         = 'UPDATE';
+    public $deleteActionNodeName      = 'delete';
+    public $deleteActionTitle         = 'DELETE';
+    public $detailActionNodeName      = 'detail';
+    public $detailActionTitle         = 'DETAIL';
+    public $nextActionNodeName        = 'next';
+    public $nextActionTitle           = 'NEXT';
+    public $precActionNodeName        = 'prec';
+    public $precActionTitle           = 'PREC';
+    public $listActionNodeName        = 'list';
+    public $listActionTitle           = 'LIST';
+    public $addActionNodeName         = 'add';
+    public $addActionTitle            = 'ADD';
+    public $removeActionNodeName      = 'remove';
+    public $removeActionTitle         = 'REMOVE';
+    public $favoriteActionNodeName    = 'favorite';
+    public $favoriteActionTitle       = 'FAVORITE';
+    public $loveActionNodeName        = 'love';
+    public $loveActionTitle           = 'LOVE';
+    public $followActionNodeName      = 'follow';
+    public $followActionTitle         = 'FOLLOW';
+    public $shareActionNodeName       = 'share';
+    public $shareActionTitle          = 'SHARE';
+    public $shareInternActionNodeName = 'shareInter';
+    public $shareInternActionTitle    = 'PROMOTE';
+    public $pdfActionNodeName         = 'pdf';
+    public $prfActionTitle            = 'PDF';
+    public $printActionNodeName       = 'print';
+    public $printActionTitle          = 'PRINT';
+    public $childDetailActionNodeName = 'detail';
+    public $childDetailActionTitle    = 'DETAIL';
+    public $listFuncList              = array(
+        'Add',
+        'Remove',
+        'Update',
+        'Clean');
+    public $confFuncList              = array(
+        'Clean');
+    public $microserviceFuncList      = array(
+        'Confirm',
+        'Update',
+        'Delete',
+        'Next',
+        'Prec',
+        'List',
+        'Add',
+        'Remove',
+        'Favorite',
+        'Love',
+        'Follow',
+        'Share',
+        'ShareInter',
+        'Pdf',
+        'Print',
+        'Detail');
+    public $listDefaultList           = array(
+         'accessMode', 
+        'showConf', 
+        'versionConf', 
+        'theme', 
+        'semantic', 
+        'domain', 
+        'avantage');    
+    public $accessModeDefault         = 'read';
+    public $showDefault               = 'showNone';
+    public $versionConfDefault        = 'all';
+    public $themeDefault              = 'all';
+    public $semanticDefault           = 'all';
+    public $domainDefault             = 'all';
+    public $avantageConfDefault       = 'all';
+    public $auditState                = true;    
+    public $editableState             = false;
+    public $detailState               = false;
+    public $childPaginationState      = false;
+    public $childEditableState        = false;
+    public $childDetailState          = false;      
+    public $favoriteActionState       = false;
+    public $loveActionState           = false;
+    public $followActionState         = false;
+    public $shareActionState          = false;
+    public $shareInternActionState    = false;
+    public $pdfActionState            = false;
+    public $printActionState          = false;    
+    public $listActionState           = false;   
+    public $keywordList               = array();
+    public $accessModeList            = array();
+    public $showList                  = array();
+    public $themeList                 = array();
+    public $semanticList              = array();
+    public $domainList                = array();
+    public $scoreList                 = array();
+    public $avantageList              = array();
+    public $rightList                 = array();
+    public $valueList                 = array();
+    public $stateList                 = array();
+    public $childList                 = array();
+    public $emotionList               = array();
+    public $actionList                = array();
+    public $filterList                = array();
 
     public function getId() {
         
@@ -321,55 +358,107 @@ class Node {
     
         return $this->$$funcAdd($obj);
     }
-    public function __call($name, $argumentList = array()) { 
+    
+    public function microserviceCreate($nodeName, $actionName, $conf, $filterConf) {
+    
+        $labelNameVar                = $actionName.'actionNodeName';   
+        $titleVar                    = $actionName.'actionTitle';    
+        $id                          = self::$$labelNameVar.'_'.$nodeName;
+        $filterConf->auditState      = false;
+        $filterConf->nodeName        = $nodeName;
+        $filterConf->labelName       = $this->$labelNameVar;
+        $filterConf->title           = $this->$titleVar;
+        $this->microserviceList[$id] = $this->actionAdd($conf, $filterConf);
 
-        if(strstr($name, 'List') !== false) {
+        return $id;
+    }
+    private function __callFuncList($name, $argumentList = array()) {
 
-            $funcList   = array();
-            $funcList[] = 'Add';
-            $funcList[] = 'Remove';
-            $funcList[] = 'Update';
-            $funcList[] = 'Clean';
-
-            foreach($funcList as $func) {
-
-                $funcBaseName = 'list'.$func;
-                $listName     = str_replace(ucfirst($funcBaseName), '', $name).'List';
-
-                if(strstr($name, $funcBaseName) !== false) {
-
-                    if(isset($argumentList[0]) === false) {
-
-                        $argumentList[0] = null;
-                    }
-                    return $this->$funcBaseName($listName, $argumentList[0]);
-                }
-            }
-        }       
-        if(strstr($name, 'Conf') !== false) {
-
-            $conf       = $argumentList[0];
-            $funcList   = array();
-            $funcList[] = 'Clean';
-
-            foreach($funcList as $func) {
-
-                $funcBaseName = 'conf'.$func;
-                $labelName    = str_replace(ucfirst($funcBaseName), '', $name);
-
-                if(strstr($name, $funcBaseName) !== false) {
-
-                    if(isset($argumentList[0]) === false) {
-
-                        $argumentList[0] = null;
-                    }
-                    return $this->$funcBaseName($labelName, $conf);
-                }
+        if(isset($argumentList[0]) === false) {
+            
+            $argumentList[0] = null;
+        }
+        $conf = $argumentList[0];
+        
+        if(strstr($name, 'List') === false) {
+        
+            return false;
+        }    
+        foreach($this->listFuncList as $func) {
+    
+            $funcBaseName = 'list'.$func;
+            $listName     = str_replace(ucfirst($funcBaseName), '', $name).'List';
+    
+            if(strstr($name, $funcBaseName) !== false) {
+    
+                return $this->$funcBaseName($listName, $argumentList[0]);
             }
         }
         return false;
     }
-    public function __construct($create = false, $update = false, $conf = false) {
+    private function __callFuncConf($name, $argumentList = array()) {
+
+        if(isset($argumentList[0]) === false) {
+            
+            $argumentList[0] = null;
+        }
+        $conf = $argumentList[0];
+        
+        if(strstr($name, 'Conf') === false) {
+        
+            return false;
+        }
+        foreach($this->confFuncList as $func) {
+    
+            $funcBaseName = 'conf'.$func;
+            $labelName    = str_replace(ucfirst($funcBaseName), '', $name);
+    
+            if(strstr($name, $funcBaseName) !== false) {
+    
+                return $this->$funcBaseName($labelName, $conf);
+            }
+        }
+        return false;
+    }
+    private function __callFuncMicroservice($name, $argumentList = array()) {
+
+        if(isset($argumentList[0]) === false) {
+            
+            $argumentList[0] = null;
+        }
+        $conf = $argumentList[0];
+        
+        if(strstr($name, 'Microservice') === false) {
+        
+            return false;
+        }
+        foreach($this->microserviceFuncList as $func) {
+
+            $funcBaseName = 'microservice'.$func;
+            $labelName    = str_replace(ucfirst($funcBaseName), '', $name);
+
+            if(strstr($name, $funcBaseName) !== false) {
+
+                return $this->microserviceCreate($labelName, $func, $conf, $argumentList[1]);
+            }
+        }
+        return false;
+    }    
+    public function __call($name, $argumentList = array()) { 
+        
+        $this->__callFuncList($name, $argumentList);
+        $this->__callFuncConf($name, $argumentList);
+        $this->__callFuncMicroservice($name, $argumentList);
+        
+        return false;
+    }
+    public function __construct($create = false, $update = false, $conf = false, $state = true) {
+        
+        $confState        = new stdClass();
+        $confState->value = $state;
+        $state            = new Node(false, $confState);
+        
+        $this->stateListAdd($state);
         
         if($create === true) {
             
@@ -472,12 +561,8 @@ class Node {
     }
     private function actionAdd($conf, $filterConf, $confirmConf = false) {
 
-        $filterConf->auditState = false;
-        $filter                 = new Node(false, $filterConf);
         $conf->auditState       = false;
         $action                 = new Node(false, $conf);
-
-        $action->filterListAdd($filter);
         
         if($confirmConf !== false) {
          
@@ -486,6 +571,14 @@ class Node {
         
             $action->childListAdd($confirm);
         }
+        $filterConf->auditState = false;
+        $filter                 = new Node(false, $filterConf);
+        $microservice           = new Node(false, $this);
+
+        $microservice->filterListAdd($filter);
+        
+        $action->microservice = $microservice;
+        
         $id = $this->actionListAdd($action);
         
         return $id;
