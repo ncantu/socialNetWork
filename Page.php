@@ -4,7 +4,7 @@
  * @category Sample
  * @package  Framework
  * @copyright 2016 InSTRiiT SAS
- * @license MIT
+ * @license GNU General Public License, version 3
  * @since 0.0 Init
  * @uses Request for Request management
  * @uses Token for Token management

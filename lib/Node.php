@@ -8,7 +8,7 @@
  * @category Core
  * @package  Framework
  * @copyright 2016 InSTRiiT SAS
- * @license MIT
+ * @license GNU General Public License, version 3
  * @since 0.0 Init
  * @uses Attribut for Attribut management
  * @uses Relationship for Relationship management
@@ -373,6 +373,10 @@ class Node {
      */
     public $filterList = array();
 
+    /**
+     *
+     * @var \Node[] The list of any comptaible versions in relationships with this node
+     */
     public function getId() {
 
         $id = $this->publicId;
