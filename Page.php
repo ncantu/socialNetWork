@@ -21,9 +21,9 @@ require_once 'lib/Attribut.php';
 require_once 'lib/Relationship.php';
 require_once 'lib/Node.php';
 
-$_REQUEST [Token::TAG_DOMAIN] = 'mesbonstuyaux';
-$_REQUEST [Token::TAG_LANG] = 'fr';
-$_REQUEST [Token::TAG_VERSION] = 'v0.0';
+$_REQUEST[Token::TAG_DOMAIN] = 'mesbonstuyaux';
+$_REQUEST[Token::TAG_LANG] = 'fr';
+$_REQUEST[Token::TAG_VERSION] = 'v0.0';
 
 new Token(true);
 
@@ -150,57 +150,24 @@ Token::$profil->surname = 'Nicolas';
 Token::$profil->email = 'nicolas.cantu@instriit.com';
 Token::$profil->nodeName = Token::$profil->publicId;
 Token::$profil->avaltageList = array();
-Token::$profil->avaltageList [0]->category = 'plombier';
+Token::$profil->avaltageList[0]->category = 'plombier';
 
 new Filter(true);
-new Conf(true);
 
-$page = new Node(false, Conf::$main);
-$confProfilButton = Conf::$main;
-$confProfilButton->nodeName = 'profil';
-$confProfilButtonTitle = 'SE CONNECTER';
+$page = new Node(true);
+$profilButtonTitle = 'SE CONNECTER';
 
 if (isset(Token::$profil->nameFull) === true) {
     
-    $confProfilButton->title = Token::$profil->nameFull;
+    $profilButtonTitle = Token::$profil->nameFull;
 }
-$page->profilMicroserviceList($confProfilButton, Filter::$me);
-
-$confNotificationButton = Conf::$main;
-$confNotificationButton->nodeName = 'notification';
-$confNotificationButton->title = 'Notifications';
-
-$page->notificationMicroserviceList($confNotificationButton, Filter::$me);
-
-$confContactButton = Conf::$main;
-$confContactButton->nodeName = 'contact';
-$confContactButton->title = 'Contacts';
-
-$page->contactMicroserviceList($confContactButton, Filter::$share);
-
-$confRecommandationButton = Conf::$main;
-$confRecommandationButton->nodeName = 'recommandation';
-$confRecommandationButton->title = 'Recommandations';
-
-$page->recommandationMicroserviceList($confRecommandationButton, Filter::$share);
-
-$confCategoryButton = Conf::$main;
-$confCategoryButton->nodeName = 'category';
-$confCategoryButton->title = 'Categories';
-
-$page->categoryMicroserviceList($confCategoryButton, Filter::$share);
-
-$confLegalButton = Conf::$main;
-$confLegalButton->nodeName = 'legal';
-$confLegalButton->title = 'Legal';
-
-$page->legalMicroserviceList($confLegalButton, Filter::$share);
-
-$confGeneralConditionButton = Conf::$main;
-$confGeneralConditionButton->nodeName = 'generalCondition';
-$confGeneralConditionButton->title = 'General conditions';
-
-$page->generalConditionMicroserviceList($confLegalButton, Filter::$share);
+$page->buttonAdd($profilButtonTitle, true, 'profil', Filter::$me);
+$page->buttonAdd('Notifications', true, 'notification', Filter::$me);
+$page->buttonAdd('Contacts', true, 'contact', Filter::$share);
+$page->buttonAdd('Recommandations', true, 'recommandation', Filter::$share);
+$page->buttonAdd('Categories', true, 'category', Filter::$share);
+$page->buttonAdd('Legal', true, 'legal', Filter::$share);
+$page->buttonAdd('General conditions', true, 'generalCondition', Filter::$share);
 
 // @todo list profils
 $confProfil = Conf::$main;

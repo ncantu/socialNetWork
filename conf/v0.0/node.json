@@ -1,0 +1,264 @@
+{
+  "attributList": {
+    "publicId": {
+      "name": "publicId",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "name": {
+      "name": "name",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "name": {
+      "name": "name",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "title": {
+      "name": "title",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "style": {
+      "name": "style",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "script": {
+      "name": "",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "url": {
+      "name": "url",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "image": {
+      "name": "image",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "icon": {
+      "name": "icon",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "lang": {
+      "name": "lang",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "descriptionLong": {
+      "name": "descriptionLong",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "descriptionShort": {
+      "name": "descriptionShort",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "value": {
+      "name": "value",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "state": {
+      "name": "state",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },    
+    "accessMode": {
+      "name": "accessMode",
+      "valueList": [],
+      "state": true,
+      "valueDefault": "read"
+    },
+    "showConf": {
+      "name": "showConf",
+      "valueList": [],
+      "state": true,
+      "valueDefault": "showVisible"
+    },
+    "versionConf": {
+      "name": "versionConf",
+      "valueList": [],
+      "state": true,
+      "valueDefault": "all"
+    },
+    "theme": {
+      "name": "theme",
+      "valueList": [],
+      "state": true,
+      "valueDefault": "all"
+    },
+    "semantic": {
+      "name": "semantic",
+      "valueDefault": "all",
+      "state": true
+    },
+    "domain": {
+      "name": "domain",
+      "valueList": [],
+      "state": true,
+      "valueDefault": "all"
+    },
+    "avantage": {
+      "name": "avantage",
+      "valueList": [],
+      "state": true,
+      "valueDefault": "avantagePersonnal"
+    }
+    "stepWorkflow": {
+      "name": "stepWorkflow",
+      "valueList": [],
+      "state": true,
+      "valueDefault": "create"
+    }
+  },
+    "actionList": {
+      "confirm": {
+        "name": "confirm",
+        "title": "CONFIRM",
+        "state": true
+      },
+      "update": {
+        "name": "update",
+        "title": "UPDATE",
+        "state": true
+      },
+      "delete": {
+        "name": "delete",
+        "title": "DELETE",
+        "state": true
+      },
+      "next": {
+        "name": "next",
+        "title": "NEXT",
+        "state": true
+      },
+      "prec": {
+        "name": "prec",
+        "title": "PREC",
+        "state": true
+      },
+      "list": {
+        "name": "list",
+        "title": "LIST",
+        "state": true
+      },
+      "add": {
+        "name": "add",
+        "title": "ADD",
+        "state": true
+      },
+      "remove": {
+        "name": "remove",
+        "title": "REMOVE",
+        "state": true
+      },
+      "favorite": {
+        "name": "favorite",
+        "title": "FAVORITE",
+        "state": true
+      },
+      "follow": {
+        "name": "follow",
+        "title": "FOLLOW",
+        "state": true
+      },
+      "pdf": {
+        "name": "pdf",
+        "title": "PDF",
+        "state": true
+      },
+      "print": {
+        "name": "print",
+        "title": "PRINT",
+        "state": true
+      },
+      "detail": {
+        "name": "detail",
+        "title": "DETAIL",
+        "state": true
+      },
+      "stateTrue": {
+        "name": "stateTrue",
+        "title": "CONFIRM",
+        "state": true
+      },
+      "stateFalse": {
+        "name": "stateFalse",
+        "title": "DECLINE",
+        "state": true
+      },
+      "abuseTrue": {
+        "name": "abuseTrue",
+        "title": "ABUSE",
+        "state": true
+      },
+      "abuseFalse": {
+        "name": "abuseFalse",
+        "title": "NOT AN ABUSE",
+        "state": true
+      },
+      "sharepublicTrue": {
+        "name": "sharepublicTrue",
+        "title": "SHARE",
+        "state": true
+      },
+      "sharePublicFalse": {
+        "name": "sharePublicFalse",
+        "title": "SHARE NOT",
+        "state": true
+      },
+      "shareContactTrue": {
+        "name": "shareContactTrue",
+        "title": "SHARE WITH MY NETWORK",
+        "state": true
+      },
+      "shareContactFalse": {
+        "name": "shareContactFalse",
+        "title": "SHARE WITHOUT MY NETWORK",
+        "state": true
+      },
+      "shareUserTrue": {
+        "name": "shareUserTrue",
+        "title": "SHARE WITH",
+        "state": true
+      },
+      "shareUserFalse": {
+        "name": "shareUserFalse",
+        "title": "SHARE WITHOUT",
+        "state": true
+      },
+      "tag": {
+        "name": "tag",
+        "title": "TAG",
+        "state": true
+      }
+    },
+    "emotionList": {
+      "love": {
+        "name": "love",
+        "title": "LOVE",
+        "state": true
+      }
+    }
+}

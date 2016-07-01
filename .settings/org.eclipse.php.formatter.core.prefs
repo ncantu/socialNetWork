@@ -164,7 +164,7 @@ org.eclipse.php.formatter.core.formatter.insert_space_before_opening_brace_in_bl
 org.eclipse.php.formatter.core.formatter.insert_space_before_opening_brace_in_method_declaration=true
 org.eclipse.php.formatter.core.formatter.insert_space_before_opening_brace_in_switch=true
 org.eclipse.php.formatter.core.formatter.insert_space_before_opening_brace_in_type_declaration=true
-org.eclipse.php.formatter.core.formatter.insert_space_before_opening_bracket_in_array_reference=true
+org.eclipse.php.formatter.core.formatter.insert_space_before_opening_bracket_in_array_reference=false
 org.eclipse.php.formatter.core.formatter.insert_space_before_opening_paren_in_array_creation=false
 org.eclipse.php.formatter.core.formatter.insert_space_before_opening_paren_in_catch=true
 org.eclipse.php.formatter.core.formatter.insert_space_before_opening_paren_in_for=false
