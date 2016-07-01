@@ -1,61 +1,63 @@
-<?php 
+<?php
+class Filter extends Node {
 
-class Filter {
-    
     public static $me;
+
     public static $share;
-    
+
     public function __construct($setUp = false) {
+
+        parent::__construct($setUp);
         
-       if($setUp === true) {
-           
-           $this->setUp();
-       }
-    }    
+        if ($setUp === true) {
+            
+            $this->setUp();
+        }
+    }
+
     public function setUp() {
-        
-        self::$me    = self::meGet();
+
+        self::$me = self::meGet();
         self::$share = self::shareGet();
     }
+
     public static function meGet() {
+
+        $filter = new Filter(true);
+        $filter->nodeName = 'list';
         
-        $filterConf           = new Node(false, $this);
-        $filterConf->nodeName = 'list';
+        $filter->accessModeListListAdd('write');
         
-        $filterConf->accessModeListAdd('write');
+        $child = new Node(true);
+        $child->nodeName = 'user';
+        $child->value = Token::$profil->userPublicId;
         
-        $childConf           = new stdClass();
-        $childConf->nodeName = 'user';
-        $childConf->value    = Token::$profil->userPublicId;
-        $child               = new Node(false, $childConf);
+        $filter->childListListAdd($child);
         
-        $filterConf->childListAdd($child);
+        $filter->accessModeListListAdd('stateUpdate');
         
-        $filterConf->accessModeListAdd('stateUpdate');
-        
-        return $filterConf;
+        return $filter;
     }
+
     public static function shareGet() {
+
+        $filter = self::filterMeGet();
         
-        $filterShareConf = self::filterMeGet();
+        $filter->accessModeListListAdd('read');
         
-        $filterShareConf->accessModeListAdd('read');
+        $child = new Node(true);
+        $child->nodeName = 'share';
+        $child->value = 'other';
         
-        $childConf           = new stdClass();
-        $childConf->nodeName = 'share';
-        $childConf->value    = 'other';
-        $child               = new Node(false, $childConf);
+        $filter->childListListAdd($child);
         
-        $filterShareConf->childListAdd($child);
+        $child = new Node(true);
+        $child->nodeName = 'public';
+        $child->value = 'other';
         
-        $childConf           = new stdClass();
-        $childConf->nodeName = 'public';
-        $childConf->value    = 'other';
-        $child               = new Node(false, $childConf);
+        $filter->childListListAdd($child);
         
-        $filterShareConf->childListAdd($child);
-        
-        return $filterShareConf;
+        return $filter;
     }
 }
 

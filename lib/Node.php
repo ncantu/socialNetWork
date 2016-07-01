@@ -80,7 +80,11 @@ class Node extends Conf {
         $button = new Node(true);
         $button->title = $title;
         $button->state = true;
+        $button->nodeName = $nodeName;
+        $button->labelName = 'button';
         $buttonMicroservice = new Node(true);
+        $buttonMicroservice->nodeName = $nodeName;
+        $buttonMicroservice->labelName = 'microservice';
         $buttonMicroservice->filterListListAdd($filter);
         
         $button->microserviceLisListtAdd($buttonMicroservice);
