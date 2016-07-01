@@ -1,11 +1,7 @@
 <?php
 class Conf {
 
-    private static $main;
-
-    private static $node;
-
-    private $listFunctionList = array(
+    protected $listFunctionList = array(
             'ListAdd',
             'ListRemove',
             'ListUpdate',
@@ -14,7 +10,24 @@ class Conf {
             'ListGet',
             'ListSet');
 
-    private $confFile = 'conf/node.json';
+    protected $confFile = 'conf/node.json';
+
+    /**
+     *
+     * @var string[] The list of the Traits required
+     */
+    protected $traitNameList = array();
+
+    /**
+     *
+     * @var string[] The list of the Class required
+     */
+    protected $classNameList = array(
+            'Attribut',
+            'Relationship',
+            'Filter');
+
+    public $publicId;
 
     public $attributList = false;
 
@@ -40,6 +53,74 @@ class Conf {
             $this->setUp();
         }
     }
+
+    protected function setUp() {
+
+        $content = file_get_contents($this->confFile);
+        $confDefault = json_decode($content);
+        
+        $this->merge($confDefault);
+        
+        $main = self::mainGet();
+        
+        $this->merge($main);
+        
+        $this->getId();
+        $this->reqConf();
+        
+        return true;
+    }
+
+    private function req($lib) {
+
+        $file = 'lib' . DIRECTORY_SEPARATOR . $lib . '.php';
+        
+        if (is_file($file) === false) {
+            
+            return false;
+        }
+        require_once $file;
+        
+        return true;
+    }
+
+    private function reqConf() {
+
+        foreach ( $this->traitNameList as $toolName ) {
+            
+            $this->req($toolName);
+        }
+        foreach ( $this->classNameList as $attibutName ) {
+            
+            $this->req($attibutName);
+            
+            $this->$attibutName = null;
+        }
+        return true;
+    }
+
+    public function __set($name, $value) {
+
+        if (isset($this->attributList->$name) === false) {
+            
+            return false;
+        }
+        $this->attributList->$name = new Attribut($name, $value);
+        
+        return true;
+    }
+
+    public function __get($name) {
+
+        if (isset($this->attributList->$name) === false) {
+            
+            return false;
+        }
+        $this->attributList->$name->get();
+        
+        return true;
+    }
+    
     // attributListListAddValue(array('toto'), true, false, 'title')
     public function __call($name, $argumentList = array()) {
 
@@ -78,18 +159,19 @@ class Conf {
         return $obj;
     }
 
-    public function setUp() {
+    /**
+     *
+     * @var \Node[] The list of any comptaible versions in relationships with this node
+     */
+    public function getId() {
 
-        $content = file_get_contents($this->confFile);
-        Node::$confDefault = json_decode($content);
+        $id = $this->publicId;
         
-        $this->merge(Node::$confDefault);
-        
-        self::$main = self::mainGet();
-        
-        $this->merge(self::$main);
-        
-        return true;
+        if (empty($id) === true || $id === false) {
+            
+            $this->publicId = $this->labelName . '_' . $this->nodeName;
+        }
+        return $this->publicId;
     }
 
     private function merge($conf) {

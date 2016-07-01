@@ -252,6 +252,11 @@
         "name": "tag",
         "title": "TAG",
         "state": true
+      },
+      "comment": {
+        "name": "comment",
+        "title": "COMMENT",
+        "state": true
       }
     },
     "emotionList": {
