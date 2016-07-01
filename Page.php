@@ -161,13 +161,13 @@ if (isset(Token::$profil->nameFull) === true) {
     
     $profilButtonTitle = Token::$profil->nameFull;
 }
-$page->buttonAdd($profilButtonTitle, true, 'profil', Filter::$me);
-$page->buttonAdd('Notifications', true, 'notification', Filter::$me);
-$page->buttonAdd('Contacts', true, 'contact', Filter::$share);
-$page->buttonAdd('Recommandations', true, 'recommandation', Filter::$share);
-$page->buttonAdd('Categories', true, 'category', Filter::$share);
-$page->buttonAdd('Legal', true, 'legal', Filter::$share);
-$page->buttonAdd('General conditions', true, 'generalCondition', Filter::$share);
+$page->buttonAdd($profilButtonTitle, 'profil', Filter::$me);
+$page->buttonAdd('Notifications', 'notification', Filter::$me);
+$page->buttonAdd('Contacts', 'contact', Filter::$share);
+$page->buttonAdd('Recommandations', 'recommandation', Filter::$share);
+$page->buttonAdd('Categories', 'category', Filter::$share);
+$page->buttonAdd('Legal', 'legal', Filter::$share);
+$page->buttonAdd('General conditions', 'generalCondition', Filter::$share);
 
 // @todo list profils
 $confProfil = Conf::$main;

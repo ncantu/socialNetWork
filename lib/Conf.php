@@ -54,51 +54,15 @@ class Conf {
                     if (strstr($name, $listFunction) !== false) {
                         
                         $name = str_replace($listFunction, '', $name);
+                        $conf = false;
                         
-                        if ($listFunction === 'ListUpdate' || $listFunction === 'ListAdd') {
-                            
-                            $conf = new stdClass();
-                            $confName = lcfirst($name);
-                            $conf->name = $confName;
-                            
-                            if (isset($argumentList[0]) === false) {
-                                
-                                $argumentList[0] = array(
-                                        $this->$k->$confName->valueDefault);
-                            }
-                            elseif (is_array($argumentList[0]) === false) {
-                                
-                                $argumentList[0] = array(
-                                        $argumentList[0]);
-                            }
-                            if (isset($argumentList[1]) === false) {
-                                
-                                $argumentList[1] = $this->$k->$confName->valueDefault;
-                            }
-                            if (isset($argumentList[2]) === false) {
-                                
-                                $argumentList[2] = $this->$k->$confName->valueDefault;
-                            }
-                            if (isset($argumentList[3]) === false) {
-                                
-                                $argumentList[3] = $confName;
-                            }
-                            $conf->valueList = $argumentList[0];
-                            $conf->state = $argumentList[1];
-                            $conf->valueDefault = $argumentList[2];
-                            $conf->title = $argumentList[3];
-                        }
-                        elseif ($listFunction === 'ListClean' || $listFunction === 'ListGet' || $listFunction === 'ListExist' || $listFunction === 'Remove') {
-                            
-                            $conf = false;
-                        }
-                        elseif ($listFunction === 'ListSet') {
+                        if ($listFunction === 'ListSet' || $listFunction === 'ListUpdate' || $listFunction === 'ListAdd') {
                             
                             $conf = $argumentList[0];
                         }
                         $k = lcfirst($k);
                         
-                        return $this->$listFunction($k, $name, $conf);
+                        return $this->$listFunction($k, $conf, $name);
                     }
                 }
             }
@@ -154,7 +118,7 @@ class Conf {
         return $conf;
     }
 
-    private function attributExist($name, $obj = false, $conf = false) {
+    private function attributExist($name) {
 
         if (isset($this->$name) === false) {
             
@@ -163,21 +127,21 @@ class Conf {
         return true;
     }
 
-    private function listAdd($listName, $obj, $conf = false) {
+    private function listAdd($listName, $conf, $name = false) {
 
-        $confName = $obj->name;
+        $confName = $conf->name;
         $funcExist = $listName . 'ListExist';
         
         if ($this->$funcExist($listName, $confName) === true) {
             
             return false;
         }
-        $this->$listName->$confName = $obj;
+        $this->$listName->$confName = $conf;
         
         return true;
     }
 
-    private function listRemove($listName, $name, $conf = false) {
+    private function listRemove($listName, $conf, $name = false) {
 
         if (is_object($name) === true) {
             
@@ -188,30 +152,30 @@ class Conf {
         return true;
     }
 
-    private function listUpdate($listName, $obj, $conf = false) {
+    private function listUpdate($listName, $conf, $name = false) {
 
-        $confName = $obj->name;
+        $confName = $conf->name;
         $funcExist = $listName . 'ListExist';
         
         if ($this->$funcExist($listName, $confName) === false) {
             
             return false;
         }
-        $this->$listName->$confName = $obj;
+        $this->$listName->$confName = $conf;
         
         return true;
     }
 
-    private function listGet($listName, $obj, $conf = false) {
+    private function listGet($listName, $conf, $name) {
 
-        $confName = $obj->name;
+        $confName = $conf->name;
         $funcExist = $listName . 'ListExist';
         
         if ($this->$funcExist($listName, $confName) === false) {
             
             return false;
         }
-        return $this->$listName->$confName;
+        return $this->$listName->$confName->$name;
     }
 
     private function listSet($listName, $obj, $name, $value) {
@@ -231,7 +195,7 @@ class Conf {
         return $this->$listName->$confName->$name = $value;
     }
 
-    private function listExist($listName, $name, $conf = false) {
+    private function listExist($listName, $conf, $name) {
 
         if (isset($this->$listName->$name) === false) {
             
@@ -240,7 +204,7 @@ class Conf {
         return true;
     }
 
-    private function listClean($listName, $name = false, $conf = false) {
+    private function listClean($listName, $conf = false, $name = false) {
 
         foreach ( $this->$listName as $obj ) {
             

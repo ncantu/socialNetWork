@@ -113,11 +113,13 @@ class Node extends Conf {
         return true;
     }
 
-    public function buttonAdd($title, $state, $nodeName, $filter) {
+    public function buttonAdd($title, $nodeName, $filter) {
 
         $filter->nodeName = $nodeName;
-        $button = Node::attributListListUpdate($title, $state, $title, $title);
-        $buttonMicroservice = Node::attributListListUpdate($nodeName);
+        $button = new Node(true);
+        $button->title = 'title';
+        $button->state = 'state';
+        $buttonMicroservice = new Node(true);
         $buttonMicroservice->filterListListAdd($filter);
         
         $button->microserviceListAdd($buttonMicroservice);
