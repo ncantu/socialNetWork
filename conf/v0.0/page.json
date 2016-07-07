@@ -11,9 +11,9 @@
     ]
   },
   "service": {
-    "domain": "mesbonstuyaux",
+    "domain": "mesbonstuyaux.fr",
     "lang": "fr",
-    "version": "v0.0"
+    "versionConf": "v0.0"
   },
   "token": {
     "context": {
@@ -129,7 +129,7 @@
       ],
       "descriptionLongValue": "MES BONS TUYAUX Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage",
       "descriptionShortValue": "MES BONS TUYAUX Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa",
-      "titleValue": "MES BONS TUYAUX",
+      "title": "MES BONS TUYAUX",
       "lang": "fr",
       "version": "v0.0",
       "domain": "homeMesBonsTuyaux.fr"
@@ -141,10 +141,20 @@
       "name": "Cantu",
       "surname": "Nicolas",
       "email": "nicolas.cantu@instriit.com",
-      "nodeName": false,
+      "nodeName": "nicolas.cantu@instriit.com",
       "avantageList": {
-        "avantagePersonnal1": {},
+          "avantagePersonnal1": {
+              "title": "Compte personnel",
+              "publicId": "sdfkjsdgn",
+              "nodeName": "avantagePersonnal1",
+              "credit": 0,
+              "category": false
+        },
         "avantageBusiness1": {
+          "title": "Compte professionnel",
+          "publicId": "sdfkjsdgn",
+          "nodeName": "avantageBusiness1",
+          "credit": 10
           "category": "plombier"
         }
       },
@@ -154,7 +164,6 @@
   "profilList": {
     "disconnected": {
       "publicId": "anonymous",
-      "conf": "main",
       "title": "SE CONNECTER",
       "name": "",
       "surname": "",
@@ -196,7 +205,6 @@
       "portfolioList": {}
     },
     "avantagePersonnal1": {
-      "conf": "main",
       "publicId": "sdfkjsdgn",
       "title": "Expert des bons tuyaux",
       "name": "Cantu",
@@ -233,7 +241,13 @@
       "shareInternActionState": true,
       "pdfActionState": true,
       "printActionState": true,
-      "avantageList": {},
+      "avantageList": {          "avantagePersonnal1": {
+              "title": "Compte personnel",
+              "publicId": "sdfkjsdgn",
+              "nodeName": "avantagePersonnal1",
+              "credit": 0,
+              "category": false
+        },},
       "notificationList": {
         "contactAdd": {
           "publicId": "sdfsdfsdfkdsdsdjsdgn",
@@ -810,7 +824,6 @@
       "portfolioList": {}
     },
     "avantageBusiness1": {
-      "conf": "main",
       "publicId": "sdfkjsdgn",
       "title": "Expert des bons tuyaux",
       "name": "Cantu",
@@ -847,7 +860,13 @@
       "shareInternActionState": true,
       "pdfActionState": true,
       "printActionState": true,
-      "avantageList": {},
+      "avantageList": { "avantageBusiness1": {
+          "title": "Compte professionnel",
+          "publicId": "sdfkjsdgn",
+          "nodeName": "avantageBusiness1",
+          "credit": 10
+          "category": "plombier"
+        }},
       "notificationList": {
         "contactAdd": {
           "publicId": "sdfsdfsdfkdsdsdjsdgn",

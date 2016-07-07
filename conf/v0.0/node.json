@@ -124,7 +124,19 @@
       "valueList": [],
       "state": true,
       "valueDefault": "avantagePersonnal"
-    }
+    },
+    "cateory": {
+      "name": "cateory",
+      "valueList": [],
+      "state": true,
+      "valueDefault": false
+    },
+    "credit": {
+      "name": "credit",
+      "valueList": [],
+      "state": true,
+      "valueDefault": 0
+    },
     "stepWorkflow": {
       "name": "stepWorkflow",
       "valueList": [],

@@ -26,7 +26,7 @@ class Node extends Conf {
      *
      * @var \Node[] The list of any keywords in relationships with this node
      */
-    public $keywordListValue = array();
+    public $keywordValueList = array();
 
     /**
      *
@@ -52,17 +52,17 @@ class Node extends Conf {
 
     public $cdnDomain = 'cdn.';
 
-    protected function setUp() {
+    public function setUp() {
 
         parent::setUp();
         
-        $this->url = 'http://' . Token::$context->domain . '/' . $id . '.php';
-        $this->style = 'http://' . $this->cdnDomain . Token::$context->domain . '/style/' . $id . '.css';
-        $this->script = 'http: //' . $this->cdnDomain . Token::$context->domain . '/script/' . $id . '.js';
-        $this->image = 'http://' . $this->cdnDomain . Token::$context->domain . '/image/' . $id . '.png';
+        $this->url = 'http://' . Token::$context->domain . '/' . $this->publicId . '.php';
+        $this->style = 'http://' . $this->cdnDomain . Token::$context->domain . '/style/' . $this->publicId . '.css';
+        $this->script = 'http: //' . $this->cdnDomain . Token::$context->domain . '/script/' . $this->publicId . '.js';
+        $this->image = 'http://' . $this->cdnDomain . Token::$context->domain . '/image/' . $this->publicId . '.png';
         $this->icon = 'http://' . $this->cdnDomain . Token::$context->domain . '/image/' . $this->labelName . '_icon.png';
         
-        foreach ( $this->keywordListValue as $kw ) {
+        foreach ( $this->keywordValueList as $kw ) {
             
             $conf = new stdClass();
             $conf->auditState = false;

@@ -31,18 +31,6 @@ class Conf {
 
     public $publicId;
 
-    public $requireList = false;
-
-    public $service = false;
-
-    public $token = false;
-
-    public $profilList = false;
-
-    public $microserviceAddList = false;
-
-    public $microserviceCallList = false;
-
     public $attributList = false;
 
     public $actionList = false;
@@ -68,16 +56,12 @@ class Conf {
         }
     }
 
-    protected function setUp() {
+    public function setUp() {
 
         $content = file_get_contents($this->confFile);
         $confDefault = json_decode($content);
         
         $this->merge($confDefault);
-        
-        $main = self::mainGet();
-        
-        $this->merge($main);
         
         $this->getId();
         $this->reqConf();
@@ -198,20 +182,6 @@ class Conf {
             }
         }
         return true;
-    }
-
-    private static function mainGet() {
-
-        $conf = new Conf(true);
-        $conf->nodeName = $token::$context->domain;
-        $conf->labelName = 'page';
-        $conf->title = $token::$context->titleValue;
-        $conf->lang = $token::$context->lang;
-        $conf->descriptionLong = $token::$context->descriptionLongValue;
-        $conf->descriptionShort = $token::$context->descriptionShortValue;
-        $conf->keywordListValue = $token::$context->keywordListValue;
-        
-        return $conf;
     }
 
     private function attributExist($name) {
