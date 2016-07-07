@@ -258,80 +258,1171 @@
                 "printActionState" : true,
                 "avantageList": {},
                 "notificationList": {
-                
-                
-                             public $recommandationOnActionButtonId;
-                    public $recommandationOffActionButtonId;
-                    public $contactAddActionButtonId;
-                    public $contactRemoveActionButtonId;
-                    public $recommandationAcceptActionButtonId;
-                    public $contactAskAcceptActionButtonId;
-                    public $saveActionButtonId;
-                    public $separateActionButtonId;
-                    public $notificationListId;
-                    public $contactListId;
-                    public $portfolioListMyId;
-                    public $contactAddId;
-                    public $recommandationAddId;
-                    public $recommandationListMeId;
-                    public $recommandationListMyId;
-                    public $categoryListId;
-                    public $avantageListId;
+                    "contactAdd": {
+                        "publicId": "sdfsdfsdfkdsdsdjsdgn",
+                        "title": "Demande d'ajout de contact",
+                        "text": "Demande d'ajout de contact",
+                        "typeList": ["contact", "add"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "stateSet",
+                        "nodeName" : "contactAdd1",
+                        "labelName" : "Notification",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["contactManagement", "toRead", "contact", "add"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": false,
+                            }
+                        },
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },
+                        "microserviceAddList": {            
+                             "notificationSetStateAccept": {
+                                "buttonTitle" : "Accept", 
+                                "nodeName": "notification", 
+                                "filter": "publicId"
+                            },            
+                             "notificationSetStateRefuse": {
+                                "buttonTitle" : "Refuse", 
+                                "nodeName": "notification", 
+                                "filter": "publicId"
+                            }
+                        }
+                    },                    
+                    "contactAccepted": {
+                        "publicId": "sdfsdfsdfkdsdsdjsdgn",
+                        "title": "Demande d'ajout acceptée",
+                        "text": "Demande d'ajout acceptée",
+                        "typeList": ["contact", "accepted"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "read",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["contactManagement", "toRead", "contact", "accepted"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },
+                        "nodeName" : "contactAccepted1",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        }
+                    },
+                    "recommandationAdd": {
+                        "publicId": "qsdqd6300sdsdf",
+                        "title": "Demande de recommandation",
+                        "text": "Demande de recommandation",
+                        "typeList": ["recommandation", "add"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "stateSet",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["recommandationManagement", "toRead", "recommandation", "add"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": false,
+                            }
+                        },
+                        "nodeName" : "recommandationAdd1",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },
+                        "microserviceAddList": {            
+                             "notificationSetStateAccept": {
+                                "buttonTitle" : "Accept", 
+                                "nodeName": "notification", 
+                                "filter": "publicId"
+                            },            
+                             "notificationSetStateRefuse": {
+                                "buttonTitle" : "Refuse", 
+                                "nodeName": "notification", 
+                                "filter": "publicId"
+                            }
+                        }
+                    },                    
+                    "recommandationAccepted": {
+                        "publicId": "sdfsdfsdsdfsdffkdsdsdjsdgn",
+                        "title": "Demande de recommandation acceptée",
+                        "text": "Demande de recommandation acceptée",
+                        "typeList": ["recommandation", "accepted"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "read",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["recommandationManagement", "toRead", "recommandation", "accepted"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },
+                        "nodeName" : "recommandationAccepted",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        }
+                    },                     
+                    "recommandationAdded": {
+                        "publicId": "sdfsdfsdsdfsdffkdsdsdjsdgn",
+                        "title": "Nouvelle recommandation de votre contact",
+                        "text": "Nouvelle recommandation de votre contact",
+                        "typeList": ["recommandation", "added"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "read",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["recommandationManagement", "toRead", "recommandation", "added"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },
+                        "nodeName" : "recommandationAdded",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },
+                        "profilList": {                        
+                            "profil": {
+                                "publicId": "sdfkdsdsdjsdgn",
+                                "title": "Experte psycho",
+                                "name": "Cantu",
+                                "nameFull": "Nicole Cantu";
+                                "surname" : "Nicole",
+                                "email" : "li_ni_2@yahoo.fr",
+                                "category" : "plombier",
+                                "nodeName" : "li_ni_2@yahoo.fr",
+                                "labelName" : "Profil",
+                                "lang" : "FR",
+                                "descriptionLong" : "",
+                                "descriptionShort" : "",
+                                "auditState" : false,
+                                "editableState" : false,
+                                "detailState" : false,
+                                "childPaginationState" : false,
+                                "childEditableState" : false,
+                                "childDetailState" : true,
+                                "favoriteActionState" : true,
+                                "loveActionState" : true,
+                                "followActionState" : true,
+                                "shareActionState" : true,
+                                "shareInternActionState" : true,
+                                "pdfActionState" : true;
+                                "printActionState" : true,
+                                "listActionState" : false,
+                                "showDefault" : 'showVisible',
+                                "accessModeDefault" : 'read' 
+                            }                            
+                        }
+                    },            
+                    "portfollioUpdated": {
+                        "typeList": ["portfollio", "updated"],                  
+                        "publicId": "sdfqsdsdfsdsdfsdffkdsdsdjsdgn",
+                        "title": "Travail avec Nicolas Cantu",
+                        "text": "Travail avec Nicolas Cantu",
+                        "typeList": ["portfollio", "updated"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "read",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["portfolioManagement", "toRead", "portfollio", "updated"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },
+                        "nodeName" : "TravailAvecNicolasCantu",
+                        "labelName" : "PortFolio" ,
+                        "profil": {
+                            "publicId": "sdfkdssdsdfdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        }
+                    },
+                     "avantagePush": {
+                        "typeList": ["avantage", "push"],                  
+                        "publicId": "sdfqsdsdfsdsdsdfsdffsdffkdsdsdjsdgn",
+                        "title": "Vous êtes un professionnel et vous souhaitez être recommandé?",
+                        "text": "Vous êtes un professionnel et vous souhaitez être recommandé?",
+                        "typeList": ["avantage", "push"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "read",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["avantageManagement", "toRead", "avantage", "push"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },
+                        "nodeName" : "avantagePush1",
+                        "labelName" : "avantage",
+                        "microserviceAddList": {            
+                             "avantageSetStateAccept": {
+                                "buttonTitle" : "Commander le pack 10 recommandations", 
+                                "nodeName": "avantage10", 
+                                "filter": "publicId"
+                            },            
+                             "notificationSetStateRefuse": {
+                                "buttonTitle" : "Commander le pack 20 recommandations", 
+                                "nodeName": "avantage20", 
+                                "filter": "publicId"
+                            }
+                        }
+                   }
                 },
                 "contactList": {
-                
+                    "profil": {
+                            "publicId": "sdfkdssdsdfdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },                    
+                        "microserviceAddList": {            
+                             "portfolioEdit": {
+                                "buttonTitle" : "Mettre à jour", 
+                                "nodeName": "profilEdit", 
+                                "filter": "publicId"
+                            }
+                        }
+                     }
                 },
                 "recommandationList": {
-                
+                    "fsdfsdf4":{
+                        "publicId": "sdfsdfsdsdfsdffkdsdsdjsdgn",
+                        "title": "Nouvelle recommandation de votre contact",
+                        "text": "Nouvelle recommandation de votre contact",
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "edit",
+                        "workflowList": {
+                            "portfolioManagement": {
+                                "nodeName" : "toEdit",
+                                "typeList": ["recommandationManagement", "toEdit", "recommandation", "edit"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "edit",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },                    
+                        "nodeName" : "recommandationAdded",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },
+                        "profilList": {                        
+                            "profil": {
+                                "publicId": "sdfkdsdsdjsdgn",
+                                "title": "Experte psycho",
+                                "name": "Cantu",
+                                "nameFull": "Nicole Cantu";
+                                "surname" : "Nicole",
+                                "email" : "li_ni_2@yahoo.fr",
+                                "category" : "plombier",
+                                "nodeName" : "li_ni_2@yahoo.fr",
+                                "labelName" : "Profil",
+                                "lang" : "FR",
+                                "descriptionLong" : "",
+                                "descriptionShort" : "",
+                                "auditState" : false,
+                                "editableState" : false,
+                                "detailState" : false,
+                                "childPaginationState" : false,
+                                "childEditableState" : false,
+                                "childDetailState" : true,
+                                "favoriteActionState" : true,
+                                "loveActionState" : true,
+                                "followActionState" : true,
+                                "shareActionState" : true,
+                                "shareInternActionState" : true,
+                                "pdfActionState" : true;
+                                "printActionState" : true,
+                                "listActionState" : false,
+                                "showDefault" : 'showVisible',
+                                "accessModeDefault" : 'read' 
+                            }                            
+                        },                    
+                        "microserviceAddList": {            
+                             "portfolioEdit": {
+                                "buttonTitle" : "Mettre à jour", 
+                                "nodeName": "recommandationEdit", 
+                                "filter": "publicId"
+                            }
+                        }
+                    }
                 },
+                "recommandationByList": {}
                 "portfolioList": {}
-             }   
              },         
              "avantageBusiness1": {
              
-             
+                "conf": "main",
+                "publicId": "sdfkjsdgn",
+                "title": "Expert des bons tuyaux",
+                "name": "Cantu",
+                "nameFull": "Nicolas Cantu";
+                "surname" : "Nicolas",
+                "email" : "nicolas.cantu@instriit.com",
+                "mdp" : false,
+                "mdpConfirm" : false,
+                "category" : false,
+                "nodeName" : "nicolas.cantu@instriit.com",
+                "labelName" : "Profil",
+                "lang" : false,
+                "descriptionLong" : false,
+                "descriptionShort" : false,
+                "auditState" : true,
+                "editableState" : false,
+                "detailState" : false,
+                "childPaginationState" : false,
+                "childEditableState" : false,
+                "childDetailState" : true,
+                "favoriteActionState" : true,
+                "loveActionState" : true,
+                "followActionState" : true,
+                "shareActionState" : true,
+                "shareInternActionState" : true,
+                "pdfActionState" : true;
+                "printActionState" : true,
+                "listActionState" : false,
+                "showDefault" : 'showVisible',
+                "accessModeDefault" : 'update',  
+                "versionConfDefault" : 'all',
+                "themeDefault" : 'all',
+                "semanticDefault" : 'all',
+                "domainDefault" : 'all',
+                "avantageConfDefault" : 'all',
+                "keywordListValue" : [],
+                "accessModeDefault": "create",
+                "editableState" : true,
+                "childEditableState" : true,
+                "childDetailState" : true,
+                "favoriteActionState" : false,
+                "loveActionState" : false,
+                "followActionState" : false,
+                "shareActionState" : true,
+                "shareInternActionState" : true,
+                "pdfActionState" : true,
+                "printActionState" : true,
+                "avantageList": {},
+                "notificationList": {
+                    "contactAdd": {
+                        "publicId": "sdfsdfsdfkdsdsdjsdgn",
+                        "title": "Demande d'ajout de contact",
+                        "text": "Demande d'ajout de contact",
+                        "typeList": ["contact", "add"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "stateSet",
+                        "nodeName" : "contactAdd1",
+                        "labelName" : "Notification",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["contactManagement", "toRead", "contact", "add"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": false,
+                            }
+                        },
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },
+                        "microserviceAddList": {            
+                             "notificationSetStateAccept": {
+                                "buttonTitle" : "Accept", 
+                                "nodeName": "notification", 
+                                "filter": "publicId"
+                            },            
+                             "notificationSetStateRefuse": {
+                                "buttonTitle" : "Refuse", 
+                                "nodeName": "notification", 
+                                "filter": "publicId"
+                            }
+                        }
+                    },                    
+                    "contactAccepted": {
+                        "publicId": "sdfsdfsdfkdsdsdjsdgn",
+                        "title": "Demande d'ajout acceptée",
+                        "text": "Demande d'ajout acceptée",
+                        "typeList": ["contact", "accepted"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "read",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["contactManagement", "toRead", "contact", "accepted"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },
+                        "nodeName" : "contactAccepted1",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        }
+                    },
+                    "recommandationAdd": {
+                        "publicId": "qsdqd6300sdsdf",
+                        "title": "Demande de recommandation",
+                        "text": "Demande de recommandation",
+                        "typeList": ["recommandation", "add"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "stateSet",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["recommandationManagement", "toRead", "recommandation", "add"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": false,
+                            }
+                        },
+                        "nodeName" : "recommandationAdd1",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },
+                        "microserviceAddList": {            
+                             "notificationSetStateAccept": {
+                                "buttonTitle" : "Accept", 
+                                "nodeName": "notification", 
+                                "filter": "publicId"
+                            },            
+                             "notificationSetStateRefuse": {
+                                "buttonTitle" : "Refuse", 
+                                "nodeName": "notification", 
+                                "filter": "publicId"
+                            }
+                        }
+                    },                    
+                    "recommandationAccepted": {
+                        "publicId": "sdfsdfsdsdfsdffkdsdsdjsdgn",
+                        "title": "Demande de recommandation acceptée",
+                        "text": "Demande de recommandation acceptée",
+                        "typeList": ["recommandation", "accepted"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "read",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["recommandationManagement", "toRead", "recommandation", "accepted"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },
+                        "nodeName" : "recommandationAccepted",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        }
+                    },                     
+                    "recommandationAdded": {
+                        "publicId": "sdfsdfsdsdfsdffkdsdsdjsdgn",
+                        "title": "Nouvelle recommandation de votre contact",
+                        "text": "Nouvelle recommandation de votre contact",
+                        "typeList": ["recommandation", "added"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "read",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["recommandationManagement", "toRead", "recommandation", "added"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },
+                        "nodeName" : "recommandationAdded",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },
+                        "profilList": {                        
+                            "profil": {
+                                "publicId": "sdfkdsdsdjsdgn",
+                                "title": "Experte psycho",
+                                "name": "Cantu",
+                                "nameFull": "Nicole Cantu";
+                                "surname" : "Nicole",
+                                "email" : "li_ni_2@yahoo.fr",
+                                "category" : "plombier",
+                                "nodeName" : "li_ni_2@yahoo.fr",
+                                "labelName" : "Profil",
+                                "lang" : "FR",
+                                "descriptionLong" : "",
+                                "descriptionShort" : "",
+                                "auditState" : false,
+                                "editableState" : false,
+                                "detailState" : false,
+                                "childPaginationState" : false,
+                                "childEditableState" : false,
+                                "childDetailState" : true,
+                                "favoriteActionState" : true,
+                                "loveActionState" : true,
+                                "followActionState" : true,
+                                "shareActionState" : true,
+                                "shareInternActionState" : true,
+                                "pdfActionState" : true;
+                                "printActionState" : true,
+                                "listActionState" : false,
+                                "showDefault" : 'showVisible',
+                                "accessModeDefault" : 'read' 
+                            }                            
+                        }
+                    },            
+                    "portfollioUpdated": {
+                        "typeList": ["portfollio", "updated"],                  
+                        "publicId": "sdfqsdsdfsdsdfsdffkdsdsdjsdgn",
+                        "title": "Travail avec Nicolas Cantu",
+                        "text": "Travail avec Nicolas Cantu",
+                        "typeList": ["portfollio", "updated"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "read",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["portfolioManagement", "toRead", "portfollio", "updated"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },
+                        "nodeName" : "TravailAvecNicolasCantu",
+                        "labelName" : "PortFolio" ,
+                        "profil": {
+                            "publicId": "sdfkdssdsdfdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        }
+                    },
+                     "avantagePush": {
+                        "typeList": ["avantage", "push"],                  
+                        "publicId": "sdfqsdsdfsdsdsdfsdffsdffkdsdsdjsdgn",
+                        "title": "Vous n'avez plus que 3 recommandations possibles",
+                        "text": "Vous n'avez plus que 3 recommandations possibles",
+                        "typeList": ["avantage", "push"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "read",
+                        "workflowList": {
+                            "contactManagement": {
+                                "nodeName" : "toRead",
+                                "typeList": ["avantageManagement", "toRead", "avantage", "push"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "stateSet",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },
+                        "nodeName" : "avantagePush1",
+                        "labelName" : "avantage",
+                        "microserviceAddList": {            
+                             "avantageSetStateAccept": {
+                                "buttonTitle" : "Commander le pack 10 recommandations", 
+                                "nodeName": "avantage10", 
+                                "filter": "publicId"
+                            },            
+                             "notificationSetStateRefuse": {
+                                "buttonTitle" : "Commander le pack 20 recommandations", 
+                                "nodeName": "avantage20", 
+                                "filter": "publicId"
+                            }
+                        }
+                   }
+                },
+                "contactList": {
+                    "profil": {
+                            "publicId": "sdfkdssdsdfdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },                    
+                        "microserviceAddList": {            
+                             "portfolioEdit": {
+                                "buttonTitle" : "Mettre à jour", 
+                                "nodeName": "profilEdit", 
+                                "filter": "publicId"
+                            }
+                        }
+                     }
+                },
+                "recommandationList": {
+                    "fsdfsdf4":{
+                        "publicId": "sdfsdfsdsdfsdffkdsdsdjsdgn",
+                        "title": "Nouvelle recommandation de votre contact",
+                        "text": "Nouvelle recommandation de votre contact",
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "edit",
+                        "workflowList": {
+                            "portfolioManagement": {
+                                "nodeName" : "toEdit",
+                                "typeList": ["recommandationManagement", "toEdit", "recommandation", "edit"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "edit",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },                    
+                        "nodeName" : "recommandationAdded",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },
+                        "profilList": {                        
+                            "profil": {
+                                "publicId": "sdfkdsdsdjsdgn",
+                                "title": "Experte psycho",
+                                "name": "Cantu",
+                                "nameFull": "Nicole Cantu";
+                                "surname" : "Nicole",
+                                "email" : "li_ni_2@yahoo.fr",
+                                "category" : "plombier",
+                                "nodeName" : "li_ni_2@yahoo.fr",
+                                "labelName" : "Profil",
+                                "lang" : "FR",
+                                "descriptionLong" : "",
+                                "descriptionShort" : "",
+                                "auditState" : false,
+                                "editableState" : false,
+                                "detailState" : false,
+                                "childPaginationState" : false,
+                                "childEditableState" : false,
+                                "childDetailState" : true,
+                                "favoriteActionState" : true,
+                                "loveActionState" : true,
+                                "followActionState" : true,
+                                "shareActionState" : true,
+                                "shareInternActionState" : true,
+                                "pdfActionState" : true;
+                                "printActionState" : true,
+                                "listActionState" : false,
+                                "showDefault" : 'showVisible',
+                                "accessModeDefault" : 'read' 
+                            }                            
+                        },                    
+                        "microserviceAddList": {            
+                             "portfolioEdit": {
+                                "buttonTitle" : "Mettre à jour", 
+                                "nodeName": "recommandationEdit", 
+                                "filter": "publicId"
+                            }
+                        }
+                    }
+                },
+                "recommandationByList": {
+                    "fsdfsdf4":{
+                        "publicId": "sdfsdfsdsdfsdffkdsdsdjsdgn",
+                        "title": "Nouvelle recommandation de votre contact",
+                        "text": "Nouvelle recommandation de votre contact",
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "edit",
+                        "workflowList": {
+                            "portfolioManagement": {
+                                "nodeName" : "toEdit",
+                                "typeList": ["recommandationManagement", "toEdit", "recommandation", "edit"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "edit",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },                    
+                        "nodeName" : "recommandationAdded",
+                        "labelName" : "Notification",
+                        "profil": {
+                            "publicId": "sdfkdsdsdjsdgn",
+                            "title": "Experte psycho",
+                            "name": "Cantu",
+                            "nameFull": "Nicole Cantu";
+                            "surname" : "Nicole",
+                            "email" : "li_ni_2@yahoo.fr",
+                            "category" : false,
+                            "nodeName" : "li_ni_2@yahoo.fr",
+                            "labelName" : "Profil",
+                            "lang" : "FR",
+                            "descriptionLong" : "",
+                            "descriptionShort" : "",
+                            "auditState" : false,
+                            "editableState" : false,
+                            "detailState" : false,
+                            "childPaginationState" : false,
+                            "childEditableState" : false,
+                            "childDetailState" : true,
+                            "favoriteActionState" : true,
+                            "loveActionState" : true,
+                            "followActionState" : true,
+                            "shareActionState" : true,
+                            "shareInternActionState" : true,
+                            "pdfActionState" : true;
+                            "printActionState" : true,
+                            "listActionState" : false,
+                            "showDefault" : 'showVisible',
+                            "accessModeDefault" : 'read' 
+                        },
+                        "microserviceAddList": {            
+                             "portfolioEdit": {
+                                "buttonTitle" : "Mettre à jour", 
+                                "nodeName": "recommandationEdit", 
+                                "filter": "publicId"
+                            }
+                        }
+                    }
+                },
                 
-                /*
-                
-                $avantage1                                  : Conf::$main;
-                
-                
-                $portfolio1                                 : Conf::$main;
-                
-                public $recommandationOnActionButtonId;
-                public $recommandationOffActionButtonId;
-                public $contactAddActionButtonId;
-                public $contactRemoveActionButtonId;
-                public $recommandationAcceptActionButtonId;
-                public $contactAskAcceptActionButtonId;
-                public $saveActionButtonId;
-                public $separateActionButtonId;
-                public $notificationListId;
-                public $contactListId;
-                public $portfolioListMyId;
-                public $contactAddId;
-                public $recommandationAddId;
-                public $recommandationListMeId;
-                public $recommandationListMyId;
-                public $categoryListId;
-                public $avantageListId;
-             
-                foreach ( Token::$profil->avantageList as $avantage ) {
-                
-                    $child->listAvantageAdd($avantage);
-                    $child->listCategoryAdd($avantage->category);
-                
-                    $confProfilAvantage : $confProfilConnected;
-                    $childId : $page->childListAdd(null, $confProfilAvantage);
-                    $child : $page->childListGet($childId);
-                
-                    $child->notificationMicroserviceList($confNotificationButton, Filter::$me);
-                    $child->contactMicroserviceList($confContactButton, Filter::$me);
-                    $child->recommandationMicroserviceList($confRecommandationButton, Filter::$me);
+                "portfolioList": {
+                    "sdfqsdsdfsdsdfsdffkdsdsdjsdgn": {        
+                        "publicId": "sdfqsdsdfsdsdfsdffkdsdsdjsdgn",
+                        "title": "Travail avec Nicolas Cantu",
+                        "text": "Travail avec Nicolas Cantu",
+                        "typeList": ["portfollio", "updated"],
+                        "showDefault" : "showVisible",
+                        "accessModeDefault" : "edit",
+                        "workflowList": {
+                            "portfolioManagement": {
+                                "nodeName" : "toEdit",
+                                "typeList": ["portfolioManagement", "toEdit", "portfollio", "updated"],
+                                "labelName" : "workflow",
+                                "accessModeDefault" : "edit",   
+                                "expireTimeStamp": 116515616515,
+                            }
+                        },                    
+                        "microserviceAddList": {            
+                             "portfolioEdit": {
+                                "buttonTitle" : "Mettre à jour", 
+                                "nodeName": "portfolioEdit", 
+                                "filter": "publicId"
+                            }
+                        }
+                    }
                 }
-             },         
-             "avantageBusiness1": {
-             
              },        
              "socialGoogle": {
                   "kind": "plus#person",
@@ -535,7 +1626,7 @@
                   }
                   "semanticList": {}
              }
-        }        
+        },
         "microserviceAddList": {            
             "profilGetList": {
                     "buttonTitle" : false, 
