@@ -1,6 +1,8 @@
 <?php
 class Conf {
 
+    CONST CONF_FILE = 'conf/node.json';
+
     protected $listFunctionList = array(
             'ListAdd',
             'ListRemove',
@@ -10,7 +12,7 @@ class Conf {
             'ListGet',
             'ListSet');
 
-    protected $confFile = 'conf/node.json';
+    protected $confFile = self::CONF_FILE;
 
     /**
      *
@@ -28,6 +30,18 @@ class Conf {
             'Filter');
 
     public $publicId;
+
+    public $requireList = false;
+
+    public $service = false;
+
+    public $token = false;
+
+    public $profilList = false;
+
+    public $microserviceAddList = false;
+
+    public $microserviceCallList = false;
 
     public $attributList = false;
 

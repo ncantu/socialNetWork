@@ -1,5 +1,5 @@
 {
-  "require": {
+  "requireList": {
     "v0.0": [
       "Request",
       "Token.php",
