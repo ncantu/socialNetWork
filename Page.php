@@ -94,6 +94,7 @@ class Page extends Node {
 
         foreach ( $this->profilList as $profil ) {
             
+            // @todo create buildProdil()
             $node = new Node(false);
             $node->labelName = $labelName;
             $node->publicId = $profil->publicId;
@@ -113,8 +114,8 @@ class Page extends Node {
             $node->detailState = $profil->detailState;
             $node->childPaginationState = $profil->childPaginationState;
             $node->listActionState = $profil->listActionState;
-            $node->showDefault = $profil->showDefault;
-            $node->accessModeDefault = $profil->accessModeDefault;
+            $node->showConf = $profil->showConf;
+            $node->accessMode = $profil->accessMode;
             $node->versionConfDefault = $profil->versionConfDefault;
             $node->themeDefault = $profil->themeDefault;
             $node->semanticDefault = $profil->semanticDefault;
@@ -133,6 +134,7 @@ class Page extends Node {
             $node->printActionState = $profil->printActionState;
             $node = $this->buildAvantageList($node);
             
+            // @todo
             $todo = '
                   "notificationList": {
                     "contactAdd": {
@@ -143,8 +145,8 @@ class Page extends Node {
                         "contact",
                         "add"
                       ],
-                      "showDefault": "showVisible",
-                      "accessModeDefault": "stateSet",
+                      "showConf": "showVisible",
+                      "accessMode": "stateSet",
                       "nodeName": "contactAdd1",
                       "labelName": "Notification",
                       "workflowList": {
@@ -157,7 +159,7 @@ class Page extends Node {
                             "add"
                           ],
                           "labelName": "workflow",
-                          "accessModeDefault": "stateSet",
+                          "accessMode": "stateSet",
                           "expireTimeStamp": false
                         }
                       },
@@ -188,8 +190,8 @@ class Page extends Node {
                         "pdfActionState": true,
                         "printActionState": true,
                         "listActionState": false,
-                        "showDefault": "showVisible",
-                        "accessModeDefault": "read"
+                        "showConf": "showVisible",
+                        "accessMode": "read"
                       },
                       "microserviceAddList": {
                         "notificationSetStateAccept": {
@@ -213,8 +215,8 @@ class Page extends Node {
                         "contact",
                         "accepted"
                       ],
-                      "showDefault": "showVisible",
-                      "accessModeDefault": "read",
+                      "showConf": "showVisible",
+                      "accessMode": "read",
                       "workflowList": {
                         "contactManagement": {
                           "nodeName": "toRead",
@@ -225,7 +227,7 @@ class Page extends Node {
                             "accepted"
                           ],
                           "labelName": "workflow",
-                          "accessModeDefault": "stateSet",
+                          "accessMode": "stateSet",
                           "expireTimeStamp": 116515616515
                         }
                       },
@@ -258,8 +260,8 @@ class Page extends Node {
                         "pdfActionState": true,
                         "printActionState": true,
                         "listActionState": false,
-                        "showDefault": "showVisible",
-                        "accessModeDefault": "read"
+                        "showConf": "showVisible",
+                        "accessMode": "read"
                       }
                     },
                     "recommandationAdd": {
@@ -270,8 +272,8 @@ class Page extends Node {
                         "recommandation",
                         "add"
                       ],
-                      "showDefault": "showVisible",
-                      "accessModeDefault": "stateSet",
+                      "showConf": "showVisible",
+                      "accessMode": "stateSet",
                       "workflowList": {
                         "contactManagement": {
                           "nodeName": "toRead",
@@ -282,7 +284,7 @@ class Page extends Node {
                             "add"
                           ],
                           "labelName": "workflow",
-                          "accessModeDefault": "stateSet",
+                          "accessMode": "stateSet",
                           "expireTimeStamp": false
                         }
                       },
@@ -315,8 +317,8 @@ class Page extends Node {
                         "pdfActionState": true,
                         "printActionState": true,
                         "listActionState": false,
-                        "showDefault": "showVisible",
-                        "accessModeDefault": "read"
+                        "showConf": "showVisible",
+                        "accessMode": "read"
                       },
                       "microserviceAddList": {
                         "notificationSetStateAccept": {
@@ -339,8 +341,8 @@ class Page extends Node {
                         "recommandation",
                         "accepted"
                       ],
-                      "showDefault": "showVisible",
-                      "accessModeDefault": "read",
+                      "showConf": "showVisible",
+                      "accessMode": "read",
                       "workflowList": {
                         "contactManagement": {
                           "nodeName": "toRead",
@@ -351,7 +353,7 @@ class Page extends Node {
                             "accepted"
                           ],
                           "labelName": "workflow",
-                          "accessModeDefault": "stateSet",
+                          "accessMode": "stateSet",
                           "expireTimeStamp": 116515616515
                         }
                       },
@@ -384,8 +386,8 @@ class Page extends Node {
                         "pdfActionState": true,
                         "printActionState": true,
                         "listActionState": false,
-                        "showDefault": "showVisible",
-                        "accessModeDefault": "read"
+                        "showConf": "showVisible",
+                        "accessMode": "read"
                       }
                     },
                     "recommandationAdded": {
@@ -396,8 +398,8 @@ class Page extends Node {
                         "recommandation",
                         "added"
                       ],
-                      "showDefault": "showVisible",
-                      "accessModeDefault": "read",
+                      "showConf": "showVisible",
+                      "accessMode": "read",
                       "workflowList": {
                         "contactManagement": {
                           "nodeName": "toRead",
@@ -408,7 +410,7 @@ class Page extends Node {
                             "added"
                           ],
                           "labelName": "workflow",
-                          "accessModeDefault": "stateSet",
+                          "accessMode": "stateSet",
                           "expireTimeStamp": 116515616515
                         }
                       },
@@ -441,8 +443,8 @@ class Page extends Node {
                         "pdfActionState": true,
                         "printActionState": true,
                         "listActionState": false,
-                        "showDefault": "showVisible",
-                        "accessModeDefault": "read"
+                        "showConf": "showVisible",
+                        "accessMode": "read"
                       },
                       "profilList": {
                         "profil": {
@@ -472,8 +474,8 @@ class Page extends Node {
                           "pdfActionState": true,
                           "printActionState": true,
                           "listActionState": false,
-                          "showDefault": "showVisible",
-                          "accessModeDefault": "read"
+                          "showConf": "showVisible",
+                          "accessMode": "read"
                         }
                       }
                     },
@@ -485,8 +487,8 @@ class Page extends Node {
                       "publicId": "sdfqsdsdfsdsdfsdffkdsdsdjsdgn",
                       "title": "Travail avec Nicolas Cantu",
                       "text": "Travail avec Nicolas Cantu",
-                      "showDefault": "showVisible",
-                      "accessModeDefault": "read",
+                      "showConf": "showVisible",
+                      "accessMode": "read",
                       "workflowList": {
                         "contactManagement": {
                           "nodeName": "toRead",
@@ -497,7 +499,7 @@ class Page extends Node {
                             "updated"
                           ],
                           "labelName": "workflow",
-                          "accessModeDefault": "stateSet",
+                          "accessMode": "stateSet",
                           "expireTimeStamp": 116515616515
                         }
                       },
@@ -530,8 +532,8 @@ class Page extends Node {
                         "pdfActionState": true,
                         "printActionState": true,
                         "listActionState": false,
-                        "showDefault": "showVisible",
-                        "accessModeDefault": "read"
+                        "showConf": "showVisible",
+                        "accessMode": "read"
                       }
                     },
                     "avantagePush": {
@@ -542,8 +544,8 @@ class Page extends Node {
                       "publicId": "sdfqsdsdfsdsdsdfsdffsdffkdsdsdjsdgn",
                       "title": "Vous êtes un professionnel et vous souhaitez être recommandé?",
                       "text": "Vous êtes un professionnel et vous souhaitez être recommandé?",
-                      "showDefault": "showVisible",
-                      "accessModeDefault": "read",
+                      "showConf": "showVisible",
+                      "accessMode": "read",
                       "workflowList": {
                         "contactManagement": {
                           "nodeName": "toRead",
@@ -554,7 +556,7 @@ class Page extends Node {
                             "push"
                           ],
                           "labelName": "workflow",
-                          "accessModeDefault": "stateSet",
+                          "accessMode": "stateSet",
                           "expireTimeStamp": 116515616515
                         }
                       },
@@ -602,8 +604,8 @@ class Page extends Node {
                       "pdfActionState": true,
                       "printActionState": true,
                       "listActionState": false,
-                      "showDefault": "showVisible",
-                      "accessModeDefault": "read"
+                      "showConf": "showVisible",
+                      "accessMode": "read"
                     },
                     "microserviceAddList": {
                       "portfolioEdit": {
@@ -618,8 +620,8 @@ class Page extends Node {
                       "publicId": "sdfsdfsdsdfsdffkdsdsdjsdgn",
                       "title": "Nouvelle recommandation de votre contact",
                       "text": "Nouvelle recommandation de votre contact",
-                      "showDefault": "showVisible",
-                      "accessModeDefault": "edit",
+                      "showConf": "showVisible",
+                      "accessMode": "edit",
                       "workflowList": {
                         "portfolioManagement": {
                           "nodeName": "toEdit",
@@ -630,7 +632,7 @@ class Page extends Node {
                             "edit"
                           ],
                           "labelName": "workflow",
-                          "accessModeDefault": "edit",
+                          "accessMode": "edit",
                           "expireTimeStamp": 116515616515
                         }
                       },
@@ -663,8 +665,8 @@ class Page extends Node {
                         "pdfActionState": true,
                         "printActionState": true,
                         "listActionState": false,
-                        "showDefault": "showVisible",
-                        "accessModeDefault": "read"
+                        "showConf": "showVisible",
+                        "accessMode": "read"
                       },
                       "profilList": {
                         "profil": {
@@ -694,8 +696,8 @@ class Page extends Node {
                           "pdfActionState": true,
                           "printActionState": true,
                           "listActionState": false,
-                          "showDefault": "showVisible",
-                          "accessModeDefault": "read"
+                          "showConf": "showVisible",
+                          "accessMode": "read"
                         }
                       },
                       "microserviceAddList": {
@@ -710,13 +712,82 @@ class Page extends Node {
                   "recommandationByList": {},
                   "portfolioList": {}';
             $node->setUp();
+            
+            $this->profilListListAdd($node);
         }
-        
         return true;
     }
 
-    private function buildToken($labelName = 'Token', $contextLabelName = 'Context', $profilLabelName = 'Profil', $avantageLabelName = 'avantage') {
+    private function buildNotificationList($obj) {
 
+        foreach ( $obj->notificationList as $notificationDetailList ) {
+            
+            $node = $this->buildNotification($notificationDetailList);
+            
+            $obj->childListListAdd($node);
+        }
+        return $obj;
+    }
+
+    private function buildNotification($notificationDetailList, $labelName = 'Notification') {
+
+        $node = new Node(false);
+        $node->publicId = $notificationDetailList->publicId;
+        $node->title = $notificationDetailList->title;
+        $node->text = $notificationDetailList->text;
+        $node->typeList = $notificationDetailList->typeList;
+        $node->showConf = $notificationDetailList->showConf;
+        $node->accessMode = $notificationDetailList->accessMode;
+        $node->nodeName = $notificationDetailList->nodeName;
+        $node = $this->buildWorkflowList($node);
+        
+        // @todo
+        $todo = '
+        $node->microserviceAddList": {
+        $node->notificationSetStateAccept": {
+        $node->buttonTitle": "Accept",
+        $node->nodeName": "notification",
+        $node->filter": "publicId"
+        }';
+        
+        return $node;
+    }
+
+    private function buildWorkflowList($obj) {
+
+        foreach ( $obj->workflowList as $workflowDetailList ) {
+            
+            $node = $this->buildWorkflow($workflowDetailList);
+            
+            $obj->childListListAdd($node);
+        }
+        return $obj;
+    }
+
+    private function buildWorkflow($workflowDetailList, $labelName = 'Workflow') {
+        
+        // @todo
+        $todo = '
+                 $node->workflowList": {
+        $node->contactManagement": {
+        $node->nodeName": "toRead",
+        $node->typeList": [
+                "contactManagement",
+                "toRead",
+                "contact",
+                "add"
+        ],
+                        $node->labelName": "workflow",
+        $node->accessMode": "stateSet",
+        $node->expireTimeStamp": false
+        ';
+        
+        return $node;
+    }
+
+    private function buildToken($labelName = 'Token', $contextLabelName = 'Context', $profilLabelName = 'Profil', $avantageLabelName = 'avantage') {
+        
+        // @todo create buildContext()
         $context = new Node(false);
         $context->keywordList = $this->token->context->keywordList;
         $context->descriptionLongValue = $this->token->context->descriptionLongValue;
@@ -728,6 +799,7 @@ class Page extends Node {
         $context->domain = $this->token->context->domain;
         $context->setUp();
         
+        // @todo call buildProfil()
         $profil = new Node(false);
         $profil->nameFull = $this->token->profil->nameFull;
         $profil->title = $this->token->profil->title;
@@ -754,7 +826,7 @@ class Page extends Node {
         return true;
     }
 
-    private function buildAvantageList($obj, $labelName = 'Avantage') {
+    private function buildAvantageList($obj) {
 
         foreach ( $obj->avantageList as $avantageDetailList ) {
             
