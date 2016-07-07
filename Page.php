@@ -19,6 +19,8 @@
  */
 class Page extends Node {
 
+    CONST VERSION_LOAD = 'v0.0';
+
     CONST CONF_FILE = 'conf/page.json';
 
     protected $confFile = self::CONF_FILE;
@@ -27,6 +29,12 @@ class Page extends Node {
 
         parent::__construct(true, Conf::CONF_FILE);
         parent::__construct(true, self::CONF_FILE);
+    }
+
+    public function build() {
+
+        foreach ( $this->requireList as $require ) {
+        }
     }
 
     public function buttonAdd($title, $nodeName, $filter) {
@@ -45,6 +53,19 @@ class Page extends Node {
         $button->microserviceLisListtAdd($buttonMicroservice);
         
         return $this->childAddListListAdd($button);
+    }
+
+    private function require($libName) {
+
+        $file = 'lib/' . self::VERSION_LOAD . '/' . $libName . '.php';
+        
+        if (is_file($file) === true) {
+            
+            return false;
+        }
+        require_once $file;
+        
+        return true;
     }
 }
 
