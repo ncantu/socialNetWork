@@ -1,0 +1,398 @@
+{
+    "require": {
+        "v0.0":[
+            "Request",
+            "Token.php",
+            "Filter.php",
+            "Conf.php",
+            "Attribut.php",
+            "Relationship.php",
+            "Node.php"       
+        ]   
+    },
+    "service": {
+        "domain": "mesbonstuyaux",
+        "lang": "fr",
+        "version": "v0.0"
+    },
+    "token": {
+        "context":
+            "keywordValueList": [
+                    'MES',
+                    'BONS',
+                    'TUYAUX',
+                    'parrainage',
+                    'recommandation',
+                    'professionnel',
+                    'confiance',
+                    'réseaux',
+                    'proches',
+                    'amis',
+                    'entourage',
+                    'artisans',
+                    'services',
+                    'entretien',
+                    'dépannage',
+                    'travaux',
+                    'maison',
+                    'santé',
+                    'bricolage',
+                    'jardinage',
+                    'plomberie',
+                    'électricité',
+                    'chauffage',
+                    'serrure',
+                    'voiture',
+                    'mécanique',
+                    'conseiller financier',
+                    'juridique',
+                    'avocat',
+                    'droit',
+                    'Santé',
+                    'médecin',
+                    'kiné',
+                    'ostéopathe',
+                    'gastro-entérologue',
+                    'dentiste',
+                    'ophtalmologiste',
+                    'pédiatre',
+                    'podologue',
+                    'diététicien',
+                    'psychiatre',
+                    'psychologue',
+                    'gynécologue',
+                    'acupuncteur',
+                    'ORL',
+                    'Bien-être',
+                    'Esthéticienne',
+                    'Coiffeur',
+                    'Prof de fitness',
+                    'yoga',
+                    'Enfants',
+                    'Pédiatre',
+                    'baby-sitter',
+                    'aide scolaire',
+                    'Animaux',
+                    'Vétérinaire',
+                    'éleveur',
+                    'toilettiste',
+                    'pet-sitter',
+                    'Dépannage',
+                    'plombier',
+                    'serrurier',
+                    'électricien',
+                    'mécanicien',
+                    'chauffagiste',
+                    'garagiste',
+                    'Maisons',
+                    'architecte',
+                    'maçon',
+                    'carreleur',
+                    'peintre',
+                    'plombier',
+                    'serrurier',
+                    'électricien',
+                    'décorateur',
+                    'ramoneur',
+                    'jardinier',
+                    'pépiniériste',
+                    'fenêtres',
+                    'toiture',
+                    'piscine(s)',
+                    'parquets',
+                    'cuisiniste',
+                    'charpentier',
+                    'ébéniste',
+                    'Juridique',
+                    'Notaire',
+                    'avocat',
+                    'conseiller',
+                    'juridique',
+                    'syndic',
+                    'obsèques',
+                    'Finance',
+                    'Agent d’assurance',
+                    'Conseiller en Gestion de Patrimoine',
+                    'Agent immobilier',
+                    'Expert-comptable',
+                    'Expert fiscal',
+                    'Evènements',
+                    'Wedding planner',
+                    'traiteur',
+                    'DJ',
+                    'sonorisation',
+                    'éclairage',
+                    'photographe',
+                    'fleuriste',
+                    'musicien',
+                    'orchestre'
+                ],
+                "descriptionLongValue": "MES BONS TUYAUX Référencement et moteur de recherches de prestataires basé sur les recommandations de votre entourage",
+                "descriptionShortValue": "MES BONS TUYAUX Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa",
+                "titleValue": "MES BONS TUYAUX",
+                "lang": "fr",
+                "version": "v0.0",
+                "domain": "homeMesBonsTuyaux.fr"                
+            }
+            "profil": {
+                "nameFull": "Nicolas Cantu";
+                "title": "Expert des bons tuyaux",
+                "publicId": "sdfkjsdgn",
+                "name": "Cantu",
+                "surname": "Nicolas",
+                "email": "nicolas.cantu@instriit.com",
+                "nodeName": false,
+                "avantageList": {
+                    "avantagePersonnal1": {
+                    },
+                    "avantageBusiness1": {
+                        "category": "plombier"
+                    }
+                },
+                "connectedStatus": true
+            }
+        },
+        "profilList": {
+            "disconnected": {
+                "publicId": "anonymous",
+                "conf": "main",
+                "title": "SE CONNECTER",
+                "name": "",
+                "surname" : "",
+                "email" : "",
+                "mdp" : "",
+                "mdpConfirm" : "",
+                "category" : false,
+                "nodeName" : "DISCONNECTED",
+                "labelName" : "Profil",
+                "lang" : false,
+                "descriptionLong" : false,
+                "descriptionShort" : false,
+                "auditState" : true,
+                "editableState" : false,
+                "detailState" : false,
+                "childPaginationState" : false,
+                "childEditableState" : false,
+                "childDetailState" : true,
+                "favoriteActionState" : true,
+                "loveActionState" : true,
+                "followActionState" : true,
+                "shareActionState" : true,
+                "shareInternActionState" : true,
+                "pdfActionState" : true;
+                "printActionState" : true,
+                "listActionState" : false,
+                "showDefault" : 'showVisible',
+                "accessModeDefault" : 'read',
+                "versionConfDefault" : 'all',
+                "themeDefault" : 'all',
+                "semanticDefault" : 'all',
+                "domainDefault" : 'all',
+                "avantageConfDefault" : 'all',
+                "keywordListValue" : [],
+                "accessModeDefault": "create",
+                "editableState" : true,
+                "childEditableState" : true,
+                "childDetailState" : true,
+                "favoriteActionState" : false,
+                "loveActionState" : false,
+                "followActionState" : false,
+                "shareActionState" : false,
+                "shareInternActionState" : false,
+                "pdfActionState" : false,
+                "printActionState" : false,
+                "avantageList": {},
+                "notificationList": {},
+                "contactList": {},
+                "recommandationList": {},
+                "portfolioList": {}
+             },
+             "avantagePersonnal1": {
+                "conf": "main",
+                "publicId": "sdfkjsdgn",
+                "title": "Expert des bons tuyaux",
+                "name": "Cantu",
+                "nameFull": "Nicolas Cantu";
+                "surname" : "Nicolas",
+                "email" : "nicolas.cantu@instriit.com",
+                "mdp" : false,
+                "mdpConfirm" : false,
+                "category" : false,
+                "nodeName" : "nicolas.cantu@instriit.com",
+                "labelName" : "Profil",
+                "lang" : false,
+                "descriptionLong" : false,
+                "descriptionShort" : false,
+                "auditState" : true,
+                "editableState" : false,
+                "detailState" : false,
+                "childPaginationState" : false,
+                "childEditableState" : false,
+                "childDetailState" : true,
+                "favoriteActionState" : true,
+                "loveActionState" : true,
+                "followActionState" : true,
+                "shareActionState" : true,
+                "shareInternActionState" : true,
+                "pdfActionState" : true;
+                "printActionState" : true,
+                "listActionState" : false,
+                "showDefault" : 'showVisible',
+                "accessModeDefault" : 'update',  --
+                "versionConfDefault" : 'all',
+                "themeDefault" : 'all',
+                "semanticDefault" : 'all',
+                "domainDefault" : 'all',
+                "avantageConfDefault" : 'all',
+                "keywordListValue" : [],
+                "accessModeDefault": "create",
+                "editableState" : true,
+                "childEditableState" : true,
+                "childDetailState" : true,
+                "favoriteActionState" : false,
+                "loveActionState" : false,
+                "followActionState" : false,
+                "shareActionState" : true,
+                "shareInternActionState" : true,
+                "pdfActionState" : true,
+                "printActionState" : true,
+                "avantageList": {},
+                "notificationList": {
+                
+                
+                             public $recommandationOnActionButtonId;
+                    public $recommandationOffActionButtonId;
+                    public $contactAddActionButtonId;
+                    public $contactRemoveActionButtonId;
+                    public $recommandationAcceptActionButtonId;
+                    public $contactAskAcceptActionButtonId;
+                    public $saveActionButtonId;
+                    public $separateActionButtonId;
+                    public $notificationListId;
+                    public $contactListId;
+                    public $portfolioListMyId;
+                    public $contactAddId;
+                    public $recommandationAddId;
+                    public $recommandationListMeId;
+                    public $recommandationListMyId;
+                    public $categoryListId;
+                    public $avantageListId;
+                },
+                "contactList": {
+                
+                },
+                "recommandationList": {
+                
+                },
+                "portfolioList": {}
+             }   
+             },         
+             "avantageBusiness1": {
+             
+             
+                
+                /*
+                
+                $avantage1                                  : Conf::$main;
+                
+                
+                $portfolio1                                 : Conf::$main;
+                
+                public $recommandationOnActionButtonId;
+                public $recommandationOffActionButtonId;
+                public $contactAddActionButtonId;
+                public $contactRemoveActionButtonId;
+                public $recommandationAcceptActionButtonId;
+                public $contactAskAcceptActionButtonId;
+                public $saveActionButtonId;
+                public $separateActionButtonId;
+                public $notificationListId;
+                public $contactListId;
+                public $portfolioListMyId;
+                public $contactAddId;
+                public $recommandationAddId;
+                public $recommandationListMeId;
+                public $recommandationListMyId;
+                public $categoryListId;
+                public $avantageListId;
+             
+                foreach ( Token::$profil->avantageList as $avantage ) {
+                
+                    $child->listAvantageAdd($avantage);
+                    $child->listCategoryAdd($avantage->category);
+                
+                    $confProfilAvantage : $confProfilConnected;
+                    $childId : $page->childListAdd(null, $confProfilAvantage);
+                    $child : $page->childListGet($childId);
+                
+                    $child->notificationMicroserviceList($confNotificationButton, Filter::$me);
+                    $child->contactMicroserviceList($confContactButton, Filter::$me);
+                    $child->recommandationMicroserviceList($confRecommandationButton, Filter::$me);
+                }
+             },         
+             "avantageBusiness1": {
+             
+             },        
+             "socialGoogle": {
+             
+             },         
+             "socialFacebook": {
+             
+             },         
+             "socialLinkedIn": {
+             
+             },         
+             "socialTwitter": {
+             
+             },         
+             "socialInstagram": {
+             
+             },         
+             "socialViadeo": {
+             
+             }
+        }        
+        "microserviceAddList": {            
+            "profilGetList": {
+                    "buttonTitle" : false, 
+                    "nodeName": "profil", 
+                    "filter": "me"
+            },
+            "notificationGetList": {
+                    "buttonTitle" : "Notifications", 
+                    "nodeName": "notification", 
+                    "filter": "me"
+            },
+            "contactGetList": {
+                    "buttonTitle" : "Contacts", 
+                    "nodeName": "contact", 
+                    "filter": "share"
+            },
+            "recommandationGetList": {
+                    "buttonTitle" : "Recommandations", 
+                    "nodeName": "recommandation", 
+                    "filter": "share"
+            },
+            "categoryGetList": {
+                    "buttonTitle" : "Categories", 
+                    "nodeName": "category", 
+                    "filter": "share"
+            },
+            "legalGetList": {
+                    "buttonTitle" : "Legal", 
+                    "nodeName": "legal", 
+                    "filter": "share"
+            },
+            "generalConditionGetList": {
+                    "buttonTitle" : "General conditions", 
+                    "nodeName": "generalCondition", 
+                    "filter": "share"
+            }
+       },
+        "microserviceCallList": {            
+            "profilGetList": {
+                    "nodeName": "profil", 
+                    "filter": "me"
+            }
+        }
+}
