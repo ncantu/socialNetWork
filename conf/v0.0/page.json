@@ -131,7 +131,7 @@
       "descriptionShortValue": "MES BONS TUYAUX Plateforme de référencement et moteur de recherches de prestataires dans le domaine des services basé sur les recommandations de votre entourage. Vos proches peuvent ainsi sélectionner les professionnels que vous parrainez et vice versa",
       "title": "MES BONS TUYAUX",
       "lang": "fr",
-      "version": "v0.0",
+      "versionConf": "v0.0",
       "domain": "homeMesBonsTuyaux.fr"
     },
     "profil": {
