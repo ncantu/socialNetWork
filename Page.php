@@ -63,6 +63,19 @@ class Page extends Node {
         return true;
     }
 
+    protected function listBuild($listName, $conf, $name = false) {
+
+        $func = 'build' . ucfirst($listName);
+        
+        foreach ( $conf->$listName as $key => $detailList ) {
+            
+            $node = $this->$func($detailList, $key);
+            
+            $conf->childListListAdd($node);
+        }
+        return $conf;
+    }
+
     private function buildTokenStatic() {
 
         return new Token(true);
@@ -320,19 +333,6 @@ class Page extends Node {
         $node->childListListAdd($profil);
         
         return $node;
-    }
-
-    private function listBuild($listName, $conf, $name = false) {
-
-        $func = 'build' . ucfirst($listName);
-        
-        foreach ( $conf->$listName as $key => $detailList ) {
-            
-            $node = $this->$func($detailList, $key);
-            
-            $conf->childListListAdd($node);
-        }
-        return $conf;
     }
 }
 
