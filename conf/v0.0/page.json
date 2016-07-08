@@ -143,18 +143,18 @@
       "email": "nicolas.cantu@instriit.com",
       "nodeName": "nicolas.cantu@instriit.com",
       "avantageList": {
-          "avantagePersonnal1": {
-              "title": "Compte personnel",
-              "publicId": "sdfkjsdgn",
-              "nodeName": "avantagePersonnal1",
-              "credit": 0,
-              "category": false
+        "avantagePersonnal1": {
+          "title": "Compte personnel",
+          "publicId": "sdfkjsdgn",
+          "nodeName": "avantagePersonnal1",
+          "credit": 0,
+          "category": false
         },
         "avantageBusiness1": {
           "title": "Compte professionnel",
           "publicId": "sdfkjsdgn",
           "nodeName": "avantageBusiness1",
-          "credit": 10
+          "credit": 10,
           "category": "plombier"
         }
       },
@@ -241,13 +241,15 @@
       "shareInternActionState": true,
       "pdfActionState": true,
       "printActionState": true,
-      "avantageList": {          "avantagePersonnal1": {
-              "title": "Compte personnel",
-              "publicId": "sdfkjsdgn",
-              "nodeName": "avantagePersonnal1",
-              "credit": 0,
-              "category": false
-        },},
+      "avantageList": {
+        "avantagePersonnal1": {
+          "title": "Compte personnel",
+          "publicId": "sdfkjsdgn",
+          "nodeName": "avantagePersonnal1",
+          "credit": 0,
+          "category": false
+        }
+      },
       "notificationList": {
         "contactAdd": {
           "publicId": "sdfsdfsdfkdsdsdjsdgn",
@@ -860,13 +862,15 @@
       "shareInternActionState": true,
       "pdfActionState": true,
       "printActionState": true,
-      "avantageList": { "avantageBusiness1": {
+      "avantageList": {
+        "avantageBusiness1": {
           "title": "Compte professionnel",
           "publicId": "sdfkjsdgn",
           "nodeName": "avantageBusiness1",
-          "credit": 10
+          "credit": 10,
           "category": "plombier"
-        }},
+        }
+      },
       "notificationList": {
         "contactAdd": {
           "publicId": "sdfsdfsdfkdsdsdjsdgn",
