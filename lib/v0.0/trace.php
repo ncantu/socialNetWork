@@ -83,8 +83,6 @@ class Trace {
 
     private $stdoutState = false;
 
-    private $fileState = false;
-
     private $logFullState = false;
 
     private $securityLevel;
