@@ -575,7 +575,7 @@ class Trace {
 
     private function env() {
 
-        $this->env_name = Conf::ENV;
+        $this->env_name = self::$envName;
         $this->env_SERVER_SERVER_ADMIN = $this->SysVarItem($_SERVER, 'SERVER_ADMIN');
         
         return true;
