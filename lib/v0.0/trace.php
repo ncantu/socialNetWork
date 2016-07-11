@@ -1,6 +1,12 @@
 <?php
 class Trace {
 
+    CONST CONF_DIR = 'conf/';
+
+    CONST CONF_FILE = 'trace.json';
+
+    CONST CONF_VERSION = 'v0.0';
+
     CONST VOID = '<<VOID>>';
 
     CONST ALL = 'ALL';
@@ -49,31 +55,45 @@ class Trace {
 
     CONST SEC_F = 'secT05052016';
 
-    private static $stateList = array(
-            'endValue',
-            'endOK',
-            'startParam',
-            'start',
-            'info',
-            'notice',
-            'warning',
-            'fatal');
+    private $debugAll = true;
 
-    private static $stateCodeList = array(
-            '000-001',
-            '200-301',
-            '200-401',
-            '200-201',
-            '200-001',
-            '200-101',
-            '500-101',
-            '500-001');
+    private static $errorCodeList;
 
-    public static $errorCodeList;
+    private static $envList;
 
-    public static $errorLevelList;
+    private static $envName;
 
-    public static $envSequence = 0;
+    private static $errorLevelList;
+
+    private static $envSequence = 0;
+
+    private $errorLevel;
+
+    private $httpCode;
+
+    private $funcReturnState;
+
+    private $exitState;
+
+    private $fileState;
+
+    private $stdoutState;
+
+    private $logFullState;
+
+    private $securityLevel;
+
+    private $majorCode;
+
+    private $majorShortMsg;
+
+    private $majorFullMsg;
+
+    private $secondaryCode;
+
+    private $secondaryShortMsg;
+
+    private $secondaryFullMsg;
 
     private $sentence = self::VOID;
 
@@ -109,19 +129,15 @@ class Trace {
 
     private $returnValue;
 
-    private $errorLevelInfo;
-
-    private $errorInfoLevel;
-
     private $errorInfo;
 
-    private $exitFunc;
+    private $exitFunc = self::VOID_FUNC;
 
-    private $stdoutFunc;
+    private $stdoutFunc = self::VOID_FUNC;
 
-    private $errVerbose;
+    private $errVerbose = self::VOID_FUNC;
 
-    private $fileFunc;
+    private $fileFunc = self::VOID_FUNC;
 
     private $t_time;
 
@@ -160,8 +176,6 @@ class Trace {
     private $code_minor;
 
     private $tr_back_json;
-
-    private $code_level;
 
     private $evt_sequence;
 
@@ -301,21 +315,36 @@ class Trace {
 
     private $mock_json;
 
-    public static $mockState = false;
+    private static $mockState = false;
 
-    public static $mockName;
+    private static $mockName;
 
-    public static $userPublicId;
+    private static $userPublicId;
 
-    public static $appPublicId;
+    private static $appPublicId;
+
+    public static function configure() {
+
+        $conf = file_get_contents(self::CONF_DIR . self::CONF_VERSION . '/' . self::CONF_FILE);
+        $conf = json_decode($conf);
+        
+        date_default_timezone_set($conf->timeZone);
+        self::$envName = $conf->envName;
+        $envName = self::$envName;
+        self::$errorCodeList = $conf->errorCodeList;
+        self::$envList = $conf->envList->$envName;
+        self::$typeSet = $conf->typeSet;
+        self::$typeGet = $conf->typeGet;
+        
+        return true;
+    }
 
     public static function __callstatic($name, $argumentList) {
 
-        foreach ( self::$stateList as $key => $state ) {
+        foreach ( self::errorCodeList as $codeDetailList ) {
             
-            if ($name === $state) {
+            if ($name === $codeDetailList->errorLevel) {
                 
-                $code = self::$stateCodeList[$key];
                 $line = null;
                 $method = null;
                 $class = null;
@@ -339,12 +368,13 @@ class Trace {
                     
                     if ($res === false) {
                         
-                        $code = self::$stateList[7];
+                        $errorLevel = 'fatal';
                     }
                 }
+                $errorTypeList = self::$envList->$name;
                 $trace = new Trace();
                 
-                return $trace->t($code, $line, $method, $class, $var);
+                return $trace->t($codeDetailList, $errorTypeList, $line, $method, $class, $var);
             }
         }
         return false;
@@ -357,7 +387,7 @@ class Trace {
 
     private function stdout() {
 
-        $this->notification_send($this->Sentence);
+        echo $this->sentence;
         
         return true;
     }
@@ -687,9 +717,9 @@ class Trace {
 
     private function logFileContent($toTrace, $sep = self::SEP, $sepReplace = self::SEP_REPLACE) {
 
-        $this->Log = json_encode($toTrace);
-        $this->Log = str_replace($sep, $sepReplace, $this->Log);
-        $this->Log .= $sep;
+        $this->log = json_encode($toTrace);
+        $this->log = str_replace($sep, $sepReplace, $this->log);
+        $this->log .= $sep;
         
         return true;
     }
@@ -715,7 +745,7 @@ class Trace {
         $this->Session();
         $this->Mock();
         
-        $toTrace = $this->LogOptimize();
+        $toTrace = $this->logOptimize();
         
         return $toTrace;
     }
@@ -745,7 +775,7 @@ class Trace {
         if ($fp === false)
             return false;
         
-        fwrite($fp, $this->Log);
+        fwrite($fp, $this->log);
         
         return fclose($fp);
     }
@@ -756,125 +786,52 @@ class Trace {
         return $errorLevel;
     }
 
-    private function tErrorInfo($code) {
+    private function t($codeDetailList, $errorTypeList, $line, $method, $class, $var = self::VOID, $res = self::VOID) {
 
-        $confErrorCodeList = self::$errorCodeList;
-        $this->errorInfo = $confErrorCodeList->$code;
-        $this->errorInfoLevel = $this->errorInfo->errorLevel;
+        self::$envSequence++;
         
-        $this->securityLevelUpdate($this->errorInfo->errorLevel);
+        $this->funcReturnState = $errorTypeList->funcReturnState;
+        $this->exitState = $errorTypeList->exitState;
+        $this->stdoutState = $errorTypeList->stdoutState;
+        $this->logFullState = $errorTypeList->logFullState;
+        $this->funcReturnState = $errorTypeList->funcReturnState;
         
-        $errorInfoLevel = $this->errorInfoLevel;
-        $this->errorLevelInfo = self::$errorLevelList->$errorInfoLevel;
-        
-        return true;
-    }
-
-    private function tReturnValue($var = self::VOID) {
-
-        $returnValue = $this->errorLevelInfo->funcReturn;
-        $returnCase[true] = true;
-        $returnCase[false] = false;
-        $returnCase['value'] = $var;
-        $this->returnValue = $returnCase[$returnValue];
-        
-        return true;
-    }
-
-    private function tExitFunc($ExitFunc = self::FILE_FUNC, $funcVoid = self::VOID_FUNC) {
-
-        $exitStatus = $this->errorLevelInfo->exit;
-        $exitCase[true] = $ExitFunc;
-        $exitCase[false] = $funcVoid;
-        $this->exitFunc = $exitCase[$exitStatus];
-        
-        return true;
-    }
-
-    private function tStdoutFunc($funcVoid = self::VOID_FUNC, $StdoutFunc = self::STDOUT_FUNC) {
-
-        $stdoutStatus = $this->errorLevelInfo->Stdout;
-        $stdoutCase[true] = $StdoutFunc;
-        $stdoutCase[false] = $funcVoid;
-        $this->stdoutFunc = $stdoutCase[$stdoutStatus];
-        
-        return true;
-    }
-
-    private function tErrVerbose($errorVerboseShortSuffix = self::ERR_VERBOSE_SHORT_SUFFIX, $errorVerboseFullSuffix = self::ERR_VERBOSE_FULL_SUFFIX) {
-
-        $logFullStatus = $this->errorLevelInfo->logFull;
-        $logFullCase[true] = $errorVerboseFullSuffix;
-        $logFullCase[false] = $errorVerboseShortSuffix;
-        $this->errVerbose = $logFullCase[$logFullStatus];
-        
-        return true;
-    }
-
-    private function tTraceFileStatus($funcVoid = self::VOID_FUNC, $fileFunc = self::FILE_FUNC) {
-
-        $FileStatus = $this->errorLevelInfo->File;
-        $FileCase[true] = $fileFunc;
-        $FileCase[false] = $funcVoid;
-        $this->fileFunc = $FileCase[$FileStatus];
-        
-        return true;
-    }
-
-    private function t($code, $line, $method, $class, $var = self::VOID) {
-
-        if (is_object(self::$errorCodeList) === false) {
+        if ($this->exitState === true) {
             
-            $errorType = substr($code, 0, 3);
-            
-            switch ($errorType) {
-                
-                case '500' :
-                    $this->returnValue = false;
-                    $this->exitFunc = self::EXIT_FUNC;
-                    $this->stdoutFunc = self::STDOUT_FUNC;
-                    $this->fileFunc = self::FILE_FUNC;
-                    break;
-                case '200' :
-                    $this->returnValue = true;
-                    $this->exitFunc = self::VOID_FUNC;
-                    $this->stdoutFunc = self::VOID_FUNC;
-                    $this->fileFunc = self::VOID_FUNC;
-                    break;
-                case '000' :
-                    $this->returnValue = $var;
-                    $this->exitFunc = self::VOID_FUNC;
-                    $this->stdoutFunc = self::VOID_FUNC;
-                    $this->fileFunc = self::VOID_FUNC;
-                    break;
-                default :
-                    $this->returnValue = false;
-                    $this->exitFunc = self::EXIT_FUNC;
-                    $this->stdoutFunc = self::STDOUT_FUNC;
-                    $this->fileFunc = self::FILE_FUNC;
-                    breal;
-            }
-            $httpCode = $errorType;
+            $this->exitFunc = self::EXIT_FUNC;
         }
-        else {
+        if ($this->stdoutState === true) {
             
-            $this->tErrorInfo($code);
-            $this->tReturnValue($var);
-            $this->tExitFunc();
-            $this->tStdoutFunc();
-            $this->tErrVerbose();
-            $this->tTraceFileStatus();
-            
-            $httpCode = $this->errorLevelInfo->httpCode;
+            $this->stdoutFunc = self::STDOUT_FUNC;
         }
-        $toTrace = $this->Prepare($line, $method, $class, $var);
+        if ($this->logFullState === true) {
+            
+            $this->fileFunc = self::FILE_FUNC;
+        }
+        $this->errorLevel = $codeDetailList->errorLevel;
+        $this->httpCode = $errorTypeList->httpCode;
+        $this->securityLevel = $codeDetailList->securityLevel;
+        $this->majorCode = $codeDetailList->majorCode;
+        $this->majorShortMsg = $codeDetailList->majorShortMsg;
+        $this->majorFullMsg = $codeDetailList->majorFullMsg;
+        $this->secondaryCode = $codeDetailList->secondaryCode;
+        $this->secondaryShortMsg = $codeDetailList->secondaryShortMsg;
+        $this->secondaryFullMsg = $codeDetailList->secondaryFullMsg;
         
-        $this->LogFileContent($toTrace);
+        $toTrace = $this->prepare($line, $method, $class, $var);
+        
+        $this->logFileContent($toTrace);
         
         $func = $this->fileFunc;
+        
+        if ($this->debugAll === true) {
+            
+            $func = 'stdout';
+        }
+        
         $this->$func();
         
-        http_response_code($httpCode);
+        http_response_code($this->httpCode);
         
         $func = $this->stdoutFunc;
         $this->$func();
