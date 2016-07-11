@@ -54,6 +54,8 @@ class Node extends Conf {
 
     public function setUp() {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        
         parent::setUp();
         
         $this->url = 'http://' . Token::$context->domain . '/' . $this->publicId . '.php';
@@ -71,11 +73,16 @@ class Node extends Conf {
             
             $this->keywordListAdd($keyword);
         }
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     public function buttonAdd($title, $nodeName, $filter) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $title);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $nodeName);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $filter);
+        
         $filter->nodeName = $nodeName;
         $button = new Node(true);
         $button->title = $title;
@@ -89,11 +96,16 @@ class Node extends Conf {
         
         $button->microserviceLisListtAdd($buttonMicroservice);
         
-        return $this->childAddListListAdd($button);
+        $res = $this->childAddListListAdd($button);
+        
+        return Trace::endValue(__LINE__, __METHOD__, __CLASS__, $res);
     }
 
     private function listToRelationshipList($list) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $list);
+        
         foreach ( $list as $obj ) {
             
             $relationshipName = $this->nodeName . '_' . $obj->nodeName;
@@ -103,7 +115,7 @@ class Node extends Conf {
             $this->relationshipListListAdd($relationship);
         }
         
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 }
 

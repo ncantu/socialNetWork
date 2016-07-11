@@ -1,7 +1,0 @@
-{
-  "name" : "socialNetWork",
-  "repositories" : [ {
-    "type" : "composer",
-    "url" : "https://packagist.org/"
-  } ]
-}

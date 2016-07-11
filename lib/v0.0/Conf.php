@@ -1,7 +1,11 @@
 <?php
 class Conf {
 
-    CONST CONF_FILE = 'conf/node.json';
+    CONST CONF_DIR = 'conf/';
+
+    CONST CONF_VERSION = 'v0.0';
+
+    CONST CONF_FILE = 'node.json';
 
     protected $listFunctionList = array(
             'ListAdd',
@@ -12,7 +16,7 @@ class Conf {
             'ListGet',
             'ListSet');
 
-    protected $confFile = self::CONF_FILE;
+    protected $confFile = false;
 
     /**
      *
@@ -37,8 +41,13 @@ class Conf {
 
     public $emotionList = false;
 
-    public function __construct($setUp = false, $confFile = false) {
+    public function __construct($setUp = false, $confFile = self::CONF_FILE, $confVersion = self::CONF_VERSION) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $setUp);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $confFile);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $confVersion);
+        
         foreach ( $this as $k => $v ) {
             
             if (strstr($k, 'List') !== false && $v === false) {
@@ -48,16 +57,19 @@ class Conf {
         }
         if ($confFile !== false) {
             
-            $this->confFile = $confFile;
+            $this->confFile = self::CONF_DIR . $confVersion . '/' . $confFile;
         }
         if ($setUp === true) {
             
             $this->setUp();
         }
+        Trace::end(__LINE__, __METHOD__, __CLASS__);
     }
 
     public function setUp() {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        
         $content = file_get_contents($this->confFile);
         $confDefault = json_decode($content);
         
@@ -66,11 +78,14 @@ class Conf {
         $this->getId();
         $this->reqConf();
         
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     private function req($lib) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $lib);
+        
         $file = 'lib' . DIRECTORY_SEPARATOR . $lib . '.php';
         
         if (is_file($file) === false) {
@@ -79,11 +94,13 @@ class Conf {
         }
         require_once $file;
         
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     private function reqConf() {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        
         foreach ( $this->traitNameList as $toolName ) {
             
             $this->req($toolName);
@@ -94,34 +111,45 @@ class Conf {
             
             $this->$attibutName = null;
         }
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     public function __set($name, $value) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $value);
+        
         if (isset($this->attributList->$name) === false) {
             
             return false;
         }
         $this->attributList->$name = new Attribut($name, $value);
         
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     public function __get($name) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        
         if (isset($this->attributList->$name) === false) {
             
             return false;
         }
         $this->attributList->$name->get();
         
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
     
     // attributListListAddValue(array('toto'), true, false, 'title')
     public function __call($name, $argumentList = array()) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $argumentList);
+        
         foreach ( $this as $k => $v ) {
             
             if (strstr($name, $k) !== false) {
@@ -140,21 +168,26 @@ class Conf {
                             $conf = $argumentList[0];
                         }
                         $k = lcfirst($k);
+                        $res = $this->$listFunction($k, $conf, $name);
                         
-                        return $this->$listFunction($k, $conf, $name);
+                        return Trace::endValue(__LINE__, __METHOD__, __CLASS__, $res);
                     }
                 }
             }
         }
-        return false;
+        return Trace::fatal(__LINE__, __METHOD__, __CLASS__);
     }
     // attributListListAddValue(array('toto'), true, false)
-    public function __callstatic($name, $argumentList = array()) {
+    public static function __callstatic($name, $argumentList = array()) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $argumentList);
+        
         $obj = new self(true);
         $obj->__call($name, $argumentList);
         
-        return $obj;
+        return Trace::endValue(__LINE__, __METHOD__, __CLASS__, $obj);
     }
 
     /**
@@ -163,17 +196,23 @@ class Conf {
      */
     public function getId() {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        
         $id = $this->publicId;
         
         if (empty($id) === true || $id === false) {
             
             $this->publicId = $this->labelName . '_' . $this->nodeName;
         }
-        return $this->publicId;
+        
+        return Trace::endValue(__LINE__, __METHOD__, __CLASS__, $this->publicId);
     }
 
     private function merge($conf) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $conf);
+        
         foreach ( $this as $k => $v ) {
             
             if (isset($conf->$k) === true) {
@@ -181,20 +220,28 @@ class Conf {
                 $this->$k = $conf->$k;
             }
         }
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     private function attributExist($name) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        
         if (isset($this->$name) === false) {
             
             return false;
         }
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     private function listAdd($listName, $conf, $name = false) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $listName);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $conf);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        
         $confName = $conf->name;
         $funcExist = $listName . 'ListExist';
         
@@ -204,22 +251,32 @@ class Conf {
         }
         $this->$listName->$confName = $conf;
         
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     private function listRemove($listName, $conf, $name = false) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $listName);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $conf);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        
         if (is_object($name) === true) {
             
             $name = $name->name;
         }
         unset($this->$listName->$name);
         
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     private function listUpdate($listName, $conf, $name = false) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $listName);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $conf);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        
         $confName = $conf->name;
         $funcExist = $listName . 'ListExist';
         
@@ -229,11 +286,16 @@ class Conf {
         }
         $this->$listName->$confName = $conf;
         
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     private function listGet($listName, $conf, $name) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $listName);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $conf);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        
         $confName = $conf->name;
         $funcExist = $listName . 'ListExist';
         
@@ -241,11 +303,18 @@ class Conf {
             
             return false;
         }
-        return $this->$listName->$confName->$name;
+        
+        return Trace::endValue(__LINE__, __METHOD__, __CLASS__, $this->$listName->$confName->$name);
     }
 
     private function listSet($listName, $obj, $name, $value) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $listName);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $obj);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $value);
+        
         $confName = $obj->name;
         $funcExist = $listName . 'ListExist';
         
@@ -258,25 +327,37 @@ class Conf {
             
             return false;
         }
-        return $this->$listName->$confName->$name = $value;
+        $this->$listName->$confName->$name = $value;
+        
+        return Trace::endValue(__LINE__, __METHOD__, __CLASS__, $value);
     }
 
     private function listExist($listName, $conf, $name) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $listName);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $conf);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        
         if (isset($this->$listName->$name) === false) {
             
             return false;
         }
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 
     private function listClean($listName, $conf = false, $name = false) {
 
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $listName);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $conf);
+        Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
+        
         foreach ( $this->$listName as $obj ) {
             
             $this->listRemove($listName, $obj);
         }
-        return true;
+        return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }
 }
 
