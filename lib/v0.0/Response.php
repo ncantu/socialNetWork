@@ -55,7 +55,7 @@ class Response extends Node {
         Trace::startParam(__LINE__, __METHOD__, __CLASS__, $confFile);
         Trace::startParam(__LINE__, __METHOD__, __CLASS__, $confVersion);
         
-        parent::__construct(true, Conf::CONF_FILE, Conf::CONF_VERSION);
+        parent::__construct(true, Conf::FILE, Conf::VERSION);
         $listFunctionList[] = 'listBuild';
         parent::__construct(true, $confFile, $confVersion);
         $this->buildRequireList();

@@ -17,7 +17,7 @@ class Trace {
 
     CONST FILE_DATE_FORMAT = 'YmdH';
 
-    CONST DIR = '../log/';
+    CONST DIR = 'log/';
 
     CONST ERR_VERBOSE_SHORT = 'short';
 
@@ -121,7 +121,7 @@ class Trace {
 
     private $errVerbose;
 
-    private $FileFunc;
+    private $fileFunc;
 
     private $t_time;
 
@@ -311,11 +311,16 @@ class Trace {
 
     public static function __callstatic($name, $argumentList) {
 
-        foreach ( $this->stateList as $key => $state ) {
+        foreach ( self::$stateList as $key => $state ) {
             
             if ($name === $state) {
                 
                 $code = self::$stateCodeList[$key];
+                $line = null;
+                $method = null;
+                $class = null;
+                $var = null;
+                $res = null;
                 
                 if (isset($argumentList[0]) === true) {
                     $line = $argumentList[0];
@@ -331,6 +336,11 @@ class Trace {
                 }
                 if (isset($argumentList[4]) === true) {
                     $res = $argumentList[4];
+                    
+                    if ($res === false) {
+                        
+                        $code = self::$stateList[7];
+                    }
                 }
                 $trace = new Trace();
                 
@@ -519,7 +529,7 @@ class Trace {
 
     private function env() {
 
-        $this->env_name = Conf::$envName;
+        $this->env_name = Conf::ENV;
         $this->env_SERVER_SERVER_ADMIN = $this->SysVarItem($_SERVER, 'SERVER_ADMIN');
         
         return true;
@@ -566,7 +576,7 @@ class Trace {
         $this->mock_userIdCryptedS = self::$userPublicId;
         $this->mock_appIdCryptedS = self::$appPublicId;
         $this->mock_name = self::$mockName;
-        $this->mock_state = self::$mokeState;
+        $this->mock_state = self::$mockState;
         $this->mock_json = $this->ClassExport('Mock');
         
         return true;
@@ -712,6 +722,11 @@ class Trace {
 
     private function file($fileSeparator = self::FILE_SEPARATPOR, $fileExt = self::FILE_EXT, $fileWriteMode = self::FILE_WRITE_MODE) {
 
+        if (is_dir(self::DIR) === false) {
+            
+            mkdir(self::DIR, 0777);
+        }
+        
         switch (self::$mockState) {
             case false :
                 $prefix = '';
@@ -796,12 +811,12 @@ class Trace {
         return true;
     }
 
-    private function tTraceFileStatus($funcVoid = self::VOID_FUNC, $FileFunc = self::FILE_FUNC) {
+    private function tTraceFileStatus($funcVoid = self::VOID_FUNC, $fileFunc = self::FILE_FUNC) {
 
         $FileStatus = $this->errorLevelInfo->File;
-        $FileCase[true] = $FileFunc;
+        $FileCase[true] = $fileFunc;
         $FileCase[false] = $funcVoid;
-        $this->FileFunc = $FileCase[$FileStatus];
+        $this->fileFunc = $FileCase[$FileStatus];
         
         return true;
     }
@@ -818,25 +833,25 @@ class Trace {
                     $this->returnValue = false;
                     $this->exitFunc = self::EXIT_FUNC;
                     $this->stdoutFunc = self::STDOUT_FUNC;
-                    $this->FileFunc = self::FILE_FUNC;
+                    $this->fileFunc = self::FILE_FUNC;
                     break;
                 case '200' :
                     $this->returnValue = true;
                     $this->exitFunc = self::VOID_FUNC;
                     $this->stdoutFunc = self::VOID_FUNC;
-                    $this->FileFunc = self::VOID_FUNC;
+                    $this->fileFunc = self::VOID_FUNC;
                     break;
                 case '000' :
                     $this->returnValue = $var;
                     $this->exitFunc = self::VOID_FUNC;
                     $this->stdoutFunc = self::VOID_FUNC;
-                    $this->FileFunc = self::VOID_FUNC;
+                    $this->fileFunc = self::VOID_FUNC;
                     break;
                 default :
                     $this->returnValue = false;
                     $this->exitFunc = self::EXIT_FUNC;
                     $this->stdoutFunc = self::STDOUT_FUNC;
-                    $this->FileFunc = self::FILE_FUNC;
+                    $this->fileFunc = self::FILE_FUNC;
                     breal;
             }
             $httpCode = $errorType;

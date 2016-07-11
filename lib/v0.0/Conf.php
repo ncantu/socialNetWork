@@ -1,11 +1,13 @@
 <?php
 class Conf {
 
-    CONST CONF_DIR = 'conf/';
+    CONST DIR = 'conf/';
 
-    CONST CONF_VERSION = 'v0.0';
+    CONST VERSION = 'v0.0';
 
-    CONST CONF_FILE = 'node.json';
+    CONST ENV = 'developpement';
+
+    CONST FILE = 'node.json';
 
     protected $listFunctionList = array(
             'ListAdd',
@@ -41,7 +43,7 @@ class Conf {
 
     public $emotionList = false;
 
-    public function __construct($setUp = false, $confFile = self::CONF_FILE, $confVersion = self::CONF_VERSION) {
+    public function __construct($setUp = false, $confFile = self::FILE, $confVersion = self::VERSION) {
 
         Trace::start(__LINE__, __METHOD__, __CLASS__);
         Trace::startParam(__LINE__, __METHOD__, __CLASS__, $setUp);
@@ -57,7 +59,7 @@ class Conf {
         }
         if ($confFile !== false) {
             
-            $this->confFile = self::CONF_DIR . $confVersion . '/' . $confFile;
+            $this->confFile = self::DIR . $confVersion . '/' . $confFile;
         }
         if ($setUp === true) {
             
