@@ -360,10 +360,6 @@ class Trace {
 
         foreach ( self::$errorCodeList as $codeDetailList ) {
             
-            echo $name . '<br />';
-            echo $codeDetailList->errorLevel . '<br />';
-            echo '<br />';
-            
             if ($name === $codeDetailList->errorLevel) {
                 
                 $line = null;
@@ -392,10 +388,9 @@ class Trace {
                         $errorLevel = 'fatal';
                     }
                 }
-                $errorTypeList = self::$envList->$name;
                 $trace = new Trace();
                 
-                return $trace->t($codeDetailList, $errorTypeList, $line, $method, $class, $var);
+                return $trace->t($codeDetailList, self::$envList->errorTypeList->$name, $line, $method, $class, $var);
             }
         }
         return false;
@@ -805,11 +800,11 @@ class Trace {
 
         self::$envSequence++;
         
-        $this->funcReturnState = $errorTypeList->funcReturnState;
-        $this->exitState = $errorTypeList->exitState;
-        $this->stdoutState = $errorTypeList->stdoutState;
-        $this->logFullState = $errorTypeList->logFullState;
-        $this->funcReturnState = $errorTypeList->funcReturnState;
+        $this->funcReturnState = $errorTypeList->funcReturn;
+        $this->exitState = $errorTypeList->exit;
+        $this->stdoutState = $errorTypeList->stdout;
+        $this->logFullState = $errorTypeList->logFull;
+        $this->funcReturnState = $errorTypeList->funcReturn;
         
         if ($this->exitState === true) {
             
