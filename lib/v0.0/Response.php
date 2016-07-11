@@ -70,6 +70,7 @@ class Response extends Node {
         
         $this->buildState = $buildState;
         
+        $this->buildTraceStatic();
         $this->buildTokenStatic();
         $this->buildFilterStatic();
         $this->buildRequireList();
@@ -128,6 +129,15 @@ class Response extends Node {
             $conf->childListListAdd($node);
         }
         return Trace::endValue(__LINE__, __METHOD__, __CLASS__, $conf);
+    }
+
+    private function buildTraceStatic() {
+
+        Trace::start(__LINE__, __METHOD__, __CLASS__);
+        
+        $res = new Trace(true);
+        
+        return Trace::endValue(__LINE__, __METHOD__, __CLASS__, $res);
     }
 
     private function buildTokenStatic() {

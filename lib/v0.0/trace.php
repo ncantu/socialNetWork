@@ -55,45 +55,49 @@ class Trace {
 
     CONST SEC_F = 'secT05052016';
 
-    private $debugAll = true;
+    private static $errorCodeList = array();
 
-    private static $errorCodeList;
+    private static $envList = array();
 
-    private static $envList;
+    private static $errorLevelList = array();
+
+    private static $envSequence = 0;
 
     private static $envName;
 
-    private static $errorLevelList;
+    private static $typeSet;
 
-    private static $envSequence = 0;
+    private static $typeGet;
+
+    private $debugAll = true;
 
     private $errorLevel;
 
     private $httpCode;
 
-    private $funcReturnState;
+    private $funcReturnState = false;
 
-    private $exitState;
+    private $exitState = false;
 
-    private $fileState;
+    private $fileState = false;
 
-    private $stdoutState;
+    private $stdoutState = false;
 
-    private $logFullState;
+    private $logFullState = false;
 
     private $securityLevel;
 
     private $majorCode;
 
-    private $majorShortMsg;
+    private $majorShortMsg = '';
 
-    private $majorFullMsg;
+    private $majorFullMsg = '';
 
     private $secondaryCode;
 
-    private $secondaryShortMsg;
+    private $secondaryShortMsg = '';
 
-    private $secondaryFullMsg;
+    private $secondaryFullMsg = '';
 
     private $sentence = self::VOID;
 
@@ -169,15 +173,9 @@ class Trace {
 
     private $ts_s;
 
-    private $code_code;
-
-    private $code_major;
-
-    private $code_minor;
+    private $codeCode;
 
     private $tr_back_json;
-
-    private $evt_sequence;
 
     private $req_SERVER_SCRIPT_NAME;
 
@@ -323,9 +321,28 @@ class Trace {
 
     private static $appPublicId;
 
+    public function __construct($configure = false) {
+
+        if ($configure === true) {
+            
+            self::configure();
+        }
+    }
+
     public static function configure() {
 
+        $file = self::CONF_DIR . self::CONF_VERSION . '/' . self::CONF_FILE;
+        
+        if (is_file($file) === false) {
+            
+            exit('ERR CONF');
+        }
         $conf = file_get_contents(self::CONF_DIR . self::CONF_VERSION . '/' . self::CONF_FILE);
+        
+        if ($conf === false) {
+            
+            exit('ERR CONF');
+        }
         $conf = json_decode($conf);
         
         date_default_timezone_set($conf->timeZone);
@@ -341,7 +358,11 @@ class Trace {
 
     public static function __callstatic($name, $argumentList) {
 
-        foreach ( self::errorCodeList as $codeDetailList ) {
+        foreach ( self::$errorCodeList as $codeDetailList ) {
+            
+            echo $name . '<br />';
+            echo $codeDetailList->errorLevel . '<br />';
+            echo '<br />';
             
             if ($name === $codeDetailList->errorLevel) {
                 
@@ -424,27 +445,47 @@ class Trace {
         return get_class_vars($className);
     }
 
-    private function sentence($description, $line, $method, $class, $instance, $lineTag = self::LINE_TAG, $methodTag = self::METHOD_TAG, $classTag = self::CLASS_TAG, $instanceTag = self::INSTANCE_TAG, $sep = self::SEP) {
+    private function codeSet() {
 
-        $code = $description->major->code . '-' . $description->secondary->code;
+        $this->codeCode = $this->majorCode . '-' . $this->secondaryCode;
+        
+        return true;
+    }
+
+    private function sentence($line, $method, $class, $instance, $lineTag = self::LINE_TAG, $methodTag = self::METHOD_TAG, $classTag = self::CLASS_TAG, $instanceTag = self::INSTANCE_TAG, $sep = self::SEP) {
+
+        $this->codeSet();
         
         switch ($this->errVerbose) {
             
             case self::ERR_VERBOSE_FULL :
-                $description->major->short->msg .= ' ' . $description->major->full->msg;
-                $description->secondary->short->msg .= ' ' . $description->secondary->full->msg;
+                $this->majorShortMsg .= ' ' . $this->majorFullMsg;
+                $this->secondaryShortMsg .= ' ' . $this->secondaryFullMsg;
                 break;
             default :
                 break;
         }
         $this->sentence = '';
-        $this->sentence .= ucfirst(strtolower($this->errorInfoLevel)) . ' ' . $code . ': ' . $description->major->short->msg;
-        $this->sentence .= ' ' . $description->secondary->short->msg;
+        $this->sentence .= ucfirst(strtolower($this->errorLevel)) . ' ' . $this->codeCode . ': ' . $this->majorShortMsg;
+        $this->sentence .= ' ' . $this->secondaryShortMsg;
         $this->sentence = str_replace($lineTag, $line, $this->sentence);
         $this->sentence = str_replace($methodTag, $method, $this->sentence);
         $this->sentence = str_replace($classTag, $class, $this->sentence);
         $this->sentence = str_replace($instanceTag, $instance, $this->sentence);
         $this->sentence .= $sep;
+        
+        return true;
+    }
+
+    private function code($instance, $class, $method, $line, $var, $codeSep = self::CODE_SEPARATPOR) {
+
+        $this->codeSet();
+        $this->i_name = $instance;
+        $this->c_name = $class;
+        $this->m_name = $method;
+        $this->l_number = $line;
+        $this->var_json = $this->SysVar($var);
+        $this->envSequence = self::$envSequence;
         
         return true;
     }
@@ -466,24 +507,6 @@ class Trace {
         $this->tH_H = date('H', $this->t_time);
         $this->tmin_i = date('i', $this->t_time);
         $this->ts_s = date('s', $this->t_time);
-        
-        return true;
-    }
-
-    private function code($description, $instance, $class, $method, $line, $var, $codeSep = self::CODE_SEPARATPOR) {
-
-        self::$envSequence++;
-        
-        $this->code_major = $description->major->code;
-        $this->code_minor = $description->secondary->code;
-        $this->code_code = $description->major->code . $codeSep . $this->code_minor;
-        $this->code_level = $this->errorInfoLevel;
-        $this->i_name = $instance;
-        $this->c_name = $class;
-        $this->m_name = $method;
-        $this->l_number = $line;
-        $this->var_json = $this->SysVar($var);
-        $this->evt_sequence = self::$envSequence;
         
         return true;
     }
@@ -605,9 +628,6 @@ class Trace {
 
         $this->mock_userIdCryptedS = self::$userPublicId;
         $this->mock_appIdCryptedS = self::$appPublicId;
-        $this->mock_name = self::$mockName;
-        $this->mock_state = self::$mockState;
-        $this->mock_json = $this->ClassExport('Mock');
         
         return true;
     }
@@ -708,9 +728,8 @@ class Trace {
             $v = $this->secureVar($v);
             $toTrace->$k = $v;
         }
-        unset($toTrace->Log);
+        unset($toTrace->log);
         unset($toTrace->errorLevelInfo);
-        unset($toTrace->errorInfo);
         
         return $toTrace;
     }
@@ -728,22 +747,18 @@ class Trace {
 
         $instance = get_class($this);
         
-        if (is_object($this->errorInfo) != false) {
-            
-            $description = $this->errorInfo->description;
-            $this->Sentence($description, $line, $method, $class, $instance);
-            $this->Code($description, $instance, $class, $method, $line, $var);
-        }
-        $this->Time();
-        $this->Request();
-        $this->App();
-        $this->HostApp();
-        $this->Env();
-        $this->Conf();
-        $this->User();
-        $this->HostClient();
-        $this->Session();
-        $this->Mock();
+        $this->sentence($line, $method, $class, $instance);
+        $this->code($instance, $class, $method, $line, $var);
+        $this->time();
+        $this->request();
+        $this->app();
+        $this->hostApp();
+        $this->env();
+        $this->conf();
+        $this->user();
+        $this->hostClient();
+        $this->session();
+        $this->mock();
         
         $toTrace = $this->logOptimize();
         

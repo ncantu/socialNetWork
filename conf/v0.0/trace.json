@@ -1,6 +1,7 @@
 {
   "timeZone": "UTC",
   "envName": "dev",
+  "errorCodeList": {
     "500-101": {
       "label": "errorCode",
       "errorLevel": "fatal",
@@ -91,7 +92,7 @@
     }
   },
   "envList": {
-    "envDev": {
+    "dev": {
       "label": "Environment",
       "nextName": "envPreProd",
       "precMin": "envDev",
