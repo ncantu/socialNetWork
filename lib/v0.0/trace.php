@@ -362,9 +362,6 @@ class Trace {
             
             if ($name === $codeDetailList->errorLevel) {
                 
-                var_export($argumentList);
-                echo '<br />';
-                
                 $line = null;
                 $method = null;
                 $class = null;
