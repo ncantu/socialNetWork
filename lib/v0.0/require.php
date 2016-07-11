@@ -1,20 +1,25 @@
 <?php
-$libVersion = 'v0.0';
-$libDir = 'lib/';
-$libRequireDir = $libDir . $libVersion . '/';
-$libExt = '.php';
 
-require_once $libRequireDir . 'Trace' . $libExt;
-require_once $libRequireDir . 'Token' . $libExt;
-require_once $libRequireDir . 'Conf' . $libExt;
-require_once $libRequireDir . 'Node' . $libExt;
-require_once $libRequireDir . 'Attribut' . $libExt;
-require_once $libRequireDir . 'Relationship' . $libExt;
-require_once $libRequireDir . 'Filter' . $libExt;
-require_once $libRequireDir . 'Response' . $libExt;
+function req($class, $staticInit = false, $libVersion = 'v0.0', $libDir = 'lib/', $libExt = '.php') {
 
-new Trace(true);
-new Token(true);
-new Filter(true);
+    $libRequireDir = $libDir . $libVersion . '/';
+    
+    require_once $libRequireDir . $class . $libExt;
+    
+    if ($staticInit === true) {
+        
+        new $class(true);
+    }
+}
+
+req('Trace', true);
+req('Request');
+req('Token', true);
+req('Conf');
+req('Node');
+req('Attribut');
+req('Relationship');
+req('Filter', true);
+req('Response');
 
 ?>

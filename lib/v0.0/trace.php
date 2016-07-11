@@ -279,6 +279,8 @@ class Trace {
 
     private $env_name;
 
+    private $envSeq;
+
     private $env_SERVER_SERVER_ADMIN;
 
     private $cf_json;
@@ -476,7 +478,7 @@ class Trace {
         $this->m_name = $method;
         $this->l_number = $line;
         $this->var_json = $this->SysVar($var);
-        $this->envSequence = self::$envSequence;
+        $this->envSeq = self::$envSequence;
         
         return true;
     }
