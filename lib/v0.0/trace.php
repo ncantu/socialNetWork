@@ -83,6 +83,8 @@ class Trace {
 
     private $stdoutState = false;
 
+    private $fileState = false;
+
     private $logFullState = false;
 
     private $securityLevel;
@@ -451,14 +453,10 @@ class Trace {
 
         $this->codeSet();
         
-        switch ($this->errVerbose) {
+        if ($this->logFullState === true) {
             
-            case self::ERR_VERBOSE_FULL :
-                $this->majorShortMsg .= ' ' . $this->majorFullMsg;
-                $this->secondaryShortMsg .= ' ' . $this->secondaryFullMsg;
-                break;
-            default :
-                break;
+            $this->majorShortMsg .= ' ' . $this->majorFullMsg;
+            $this->secondaryShortMsg .= ' ' . $this->secondaryFullMsg;
         }
         $this->sentence = '';
         $this->sentence .= ucfirst(strtolower($this->errorLevel)) . ' ' . $this->codeCode . ': ' . $this->majorShortMsg;
@@ -675,46 +673,42 @@ class Trace {
 
     private function logOptimize() {
 
-        switch ($this->errVerbose) {
+        if ($this->logFullState === true) {
             
-            case self::ERR_VERBOSE_SHORT :
-                $this->Short();
-                break;
-            case self::ERR_VERBOSE_FULL :
-                
-                switch ($this->errorInfoLevel) {
-                    case 'notice' :
-                        $this->line = self::VOID;
-                        $this->method = self::VOID;
-                        $this->class = self::VOID;
-                        $this->instance = self::VOID;
-                        $this->varJson = self::VOID;
-                        $this->app_json = self::VOID;
-                        $this->req_REQUEST_JSON = self::VOID;
-                        $this->u_json = self::VOID;
-                        $this->ss_json = self::VOID;
-                        $this->ss_SESSION_JSON = self::VOID;
-                        $this->cf_json = self::VOID;
-                        $this->tr_back_json = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 3);
-                        break;
-                    case 'warning' :
-                        $this->app_json = self::VOID;
-                        $this->req_REQUEST_JSON = self::VOID;
-                        $this->u_json = self::VOID;
-                        $this->ss_json = self::VOID;
-                        $this->ss_SESSION_JSON = self::VOID;
-                        $this->tr_back_json = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 5);
-                        break;
-                    case 'fatal' :
-                        $this->l_bakl_json = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 0);
-                        break;
-                    default :
-                        $this->Short();
-                        break;
-                }
-                break;
-            default :
-                break;
+            switch ($this->errorLevel) {
+                case 'notice' :
+                    $this->line = self::VOID;
+                    $this->method = self::VOID;
+                    $this->class = self::VOID;
+                    $this->instance = self::VOID;
+                    $this->varJson = self::VOID;
+                    $this->app_json = self::VOID;
+                    $this->req_REQUEST_JSON = self::VOID;
+                    $this->u_json = self::VOID;
+                    $this->ss_json = self::VOID;
+                    $this->ss_SESSION_JSON = self::VOID;
+                    $this->cf_json = self::VOID;
+                    $this->tr_back_json = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 3);
+                    break;
+                case 'warning' :
+                    $this->app_json = self::VOID;
+                    $this->req_REQUEST_JSON = self::VOID;
+                    $this->u_json = self::VOID;
+                    $this->ss_json = self::VOID;
+                    $this->ss_SESSION_JSON = self::VOID;
+                    $this->tr_back_json = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 5);
+                    break;
+                case 'fatal' :
+                    $this->l_back_json = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 0);
+                    break;
+                default :
+                    $this->short();
+                    break;
+            }
+        }
+        else {
+            
+            $this->short();
         }
         $toTrace = new stdClass();
         
@@ -802,7 +796,8 @@ class Trace {
         
         $this->funcReturnState = $errorTypeList->funcReturn;
         $this->exitState = $errorTypeList->exit;
-        $this->stdoutState = $errorTypeList->stdout;
+        $this->stdoutState = $errorTypeList->traceStdout;
+        $this->fileState = $errorTypeList->traceFile;
         $this->logFullState = $errorTypeList->logFull;
         $this->funcReturnState = $errorTypeList->funcReturn;
         
@@ -814,7 +809,7 @@ class Trace {
             
             $this->stdoutFunc = self::STDOUT_FUNC;
         }
-        if ($this->logFullState === true) {
+        if ($this->fileState === true) {
             
             $this->fileFunc = self::FILE_FUNC;
         }
