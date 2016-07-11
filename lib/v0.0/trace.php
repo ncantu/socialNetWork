@@ -39,8 +39,6 @@ class Trace {
 
     CONST CLASS_TAG = '__CLASS__';
 
-    CONST INSTANCE_TAG = '__INSTANCE__';
-
     CONST DATE_FORMAT = 'Y-m-d H:i:s';
 
     CONST EXIT_FUNC = 'Exit';
@@ -364,11 +362,13 @@ class Trace {
             
             if ($name === $codeDetailList->errorLevel) {
                 
+                var_export($argumentList);
+                echo '<br />';
+                
                 $line = null;
                 $method = null;
                 $class = null;
                 $var = null;
-                $res = null;
                 
                 if (isset($argumentList[0]) === true) {
                     $line = $argumentList[0];
@@ -382,14 +382,6 @@ class Trace {
                 if (isset($argumentList[3]) === true) {
                     $var = $argumentList[3];
                 }
-                if (isset($argumentList[4]) === true) {
-                    $res = $argumentList[4];
-                    
-                    if ($res === false) {
-                        
-                        $errorLevel = 'fatal';
-                    }
-                }
                 $trace = new Trace();
                 
                 return $trace->t($codeDetailList, self::$envList->errorTypeList->$name, $line, $method, $class, $var);
@@ -398,14 +390,14 @@ class Trace {
         return false;
     }
 
-    private function void($opt = '') {
+    private function void($opt = true) {
 
         return;
     }
 
-    private function stdout() {
+    private function stdout($eol = '<br />') {
 
-        echo $this->sentence;
+        echo $this->sentence . $eol;
         
         return true;
     }
@@ -449,7 +441,7 @@ class Trace {
         return true;
     }
 
-    private function sentence($line, $method, $class, $instance, $lineTag = self::LINE_TAG, $methodTag = self::METHOD_TAG, $classTag = self::CLASS_TAG, $instanceTag = self::INSTANCE_TAG, $sep = self::SEP) {
+    private function sentence($line, $method, $class, $lineTag = self::LINE_TAG, $methodTag = self::METHOD_TAG, $classTag = self::CLASS_TAG, $sep = self::SEP) {
 
         $this->codeSet();
         
@@ -464,16 +456,14 @@ class Trace {
         $this->sentence = str_replace($lineTag, $line, $this->sentence);
         $this->sentence = str_replace($methodTag, $method, $this->sentence);
         $this->sentence = str_replace($classTag, $class, $this->sentence);
-        $this->sentence = str_replace($instanceTag, $instance, $this->sentence);
         $this->sentence .= $sep;
         
         return true;
     }
 
-    private function code($instance, $class, $method, $line, $var, $codeSep = self::CODE_SEPARATPOR) {
+    private function code($class, $method, $line, $var, $codeSep = self::CODE_SEPARATPOR) {
 
         $this->codeSet();
-        $this->i_name = $instance;
         $this->c_name = $class;
         $this->m_name = $method;
         $this->l_number = $line;
@@ -734,10 +724,8 @@ class Trace {
 
     private function prepare($line, $method, $class, $var) {
 
-        $instance = get_class($this);
-        
-        $this->sentence($line, $method, $class, $instance);
-        $this->code($instance, $class, $method, $line, $var);
+        $this->sentence($line, $method, $class);
+        $this->code($class, $method, $line, $var);
         $this->time();
         $this->request();
         $this->app();
