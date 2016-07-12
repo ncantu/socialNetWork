@@ -88,8 +88,6 @@ class Trace {
 
     public $httpCode;
 
-    private $funcReturnState = false;
-
     private $exitState = false;
 
     private $fileState = false;
@@ -826,22 +824,20 @@ class Trace {
         return $errorLevel;
     }
 
-    private function t($codeDetailList, $errorTypeList, $line, $method, $class, $var) {
+    private function t($codeDetailList, $errorTypeList, $line, $method, $class, $var, $returnValueVar = 'var') {
 
         self::$envSequence++;
         
         $this->returnValue = $errorTypeList->returnValue;
         
-        if ($this->returnValue === 'var') {
+        if ($this->returnValue === $returnValueVar) {
             
             $this->returnValue = $var;
         }
-        $this->funcReturnState = $errorTypeList->funcReturn;
         $this->exitState = $errorTypeList->exit;
         $this->stdoutState = $errorTypeList->traceStdout;
         $this->fileState = $errorTypeList->traceFile;
         $this->logFullState = $errorTypeList->logFull;
-        $this->funcReturnState = $errorTypeList->funcReturn;
         
         if ($this->exitState === true) {
             
@@ -885,5 +881,5 @@ $old_error_handler = set_error_handler('userErrorHandler');
 
 error_reporting(0);
 
-ob_start('send');
+// ob_start('send');
 ?>

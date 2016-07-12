@@ -102,7 +102,7 @@
           "label": "ErrorLevel",
           "errorLevel": "2",
           "httpCode": "500",
-          "funcReturn": false,
+
           "exit": true,
           "traceFile": true,
           "traceStdout": true,
@@ -113,7 +113,7 @@
           "label": "ErrorLevel",
           "errorLevel": "3",
           "httpCode": "500",
-          "funcReturn": false,
+
           "exit": true,
           "traceFile": true,
           "traceStdout": true,
@@ -124,7 +124,7 @@
           "label": "ErrorLevel",
           "errorLevel": "1",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": true,
@@ -135,7 +135,7 @@
           "label": "ErrorLevel",
           "errorLevel": "0",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -146,7 +146,7 @@
           "label": "ErrorLevel",
           "errorLevel": "0",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -157,7 +157,7 @@
           "label": "ErrorLevel",
           "errorLevel": "0",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -168,7 +168,7 @@
           "label": "ErrorLevel",
           "errorLevel": "0",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -190,7 +190,7 @@
           "label": "ErrorLevel",
           "errorLevel": "0",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -210,7 +210,7 @@
           "label": "ErrorLevel",
           "errorLevel": "warning",
           "httpCode": "500",
-          "funcReturn": false,
+
           "exit": true,
           "traceFile": true,
           "traceStdout": true,
@@ -221,7 +221,7 @@
           "label": "ErrorLevel",
           "errorLevel": "fatal",
           "httpCode": "500",
-          "funcReturn": false,
+
           "exit": true,
           "traceFile": true,
           "traceStdout": true,
@@ -232,7 +232,7 @@
           "label": "ErrorLevel",
           "errorLevel": "notice",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": true,
@@ -243,7 +243,7 @@
           "label": "ErrorLevel",
           "errorLevel": "info",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -254,7 +254,7 @@
           "label": "ErrorLevel",
           "errorLevel": "start",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -265,7 +265,7 @@
           "label": "ErrorLevel",
           "errorLevel": "endOK",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -287,7 +287,7 @@
           "label": "ErrorLevel",
           "errorLevel": "startParam",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -306,7 +306,7 @@
           "label": "ErrorLevel",
           "errorLevel": "startParam",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -317,7 +317,7 @@
           "label": "ErrorLevel",
           "errorLevel": "3",
           "httpCode": "500",
-          "funcReturn": false,
+
           "exit": true,
           "traceFile": true,
           "traceStdout": false,
@@ -328,7 +328,7 @@
           "label": "ErrorLevel",
           "errorLevel": "notice",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": false,
           "traceStdout": false,
@@ -339,7 +339,7 @@
           "label": "ErrorLevel",
           "errorLevel": "info",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": false,
           "traceStdout": false,
@@ -350,7 +350,7 @@
           "label": "ErrorLevel",
           "errorLevel": "start",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": false,
           "traceStdout": false,
@@ -361,7 +361,7 @@
           "label": "ErrorLevel",
           "errorLevel": "endOK",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
@@ -383,7 +383,7 @@
           "label": "ErrorLevel",
           "errorLevel": "startParam",
           "httpCode": "200",
-          "funcReturn": true,
+
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
