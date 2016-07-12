@@ -11,7 +11,7 @@
       "majorFullMsg": "error",
       "secondaryCode": "001",
       "secondaryShortMsg": "fatal",
-      "secondaryFullMsg": "__LINE__"
+      "secondaryFullMsg": "__METHOD__ __CLASS__ __LINE__"
     },
     "500-001": {
       "label": "errorCode",
@@ -22,7 +22,7 @@
       "majorFullMsg": "error",
       "secondaryCode": "001",
       "secondaryShortMsg": "warning",
-      "secondaryFullMsg": "__LINE__"
+      "secondaryFullMsg": "__METHOD__ __CLASS__ __LINE__"
     },
     "200-101": {
       "label": "errorCode",
@@ -33,7 +33,7 @@
       "majorFullMsg": "notification",
       "secondaryCode": "101",
       "secondaryShortMsg": "notice",
-      "secondaryFullMsg": "__LINE__"
+      "secondaryFullMsg": "__METHOD__ __CLASS__ __LINE__"
     },
     "200-001": {
       "label": "errorCode",

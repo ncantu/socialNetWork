@@ -69,6 +69,28 @@ class Trace {
             E_STRICT => 'notice',
             E_RECOVERABLE_ERROR => 'fatal');
 
+    public $errorLevel;
+
+    public $httpCode;
+
+    public $majorCode;
+
+    public $majorShortMsg = '';
+
+    public $majorFullMsg = '';
+
+    public $secondaryCode;
+
+    public $secondaryShortMsg = '';
+
+    public $secondaryFullMsg = '';
+
+    public $sentence = self::VOID;
+
+    public $returnValue;
+
+    public $codeCode;
+
     private static $errorCodeList = array();
 
     private static $envList = array();
@@ -85,10 +107,6 @@ class Trace {
 
     private $debugAll = true;
 
-    public $errorLevel;
-
-    public $httpCode;
-
     private $exitState = false;
 
     private $fileState = false;
@@ -98,22 +116,6 @@ class Trace {
     private $logFullState = false;
 
     private $securityLevel;
-
-    public $majorCode;
-
-    public $majorShortMsg = '';
-
-    private $majorFullMsg = '';
-
-    public $secondaryCode;
-
-    public $secondaryShortMsg = '';
-
-    private $secondaryFullMsg = '';
-
-    public $sentence = self::VOID;
-
-    private $log = self::VOID;
 
     private $t_n_state = self::VOID;
 
@@ -143,7 +145,7 @@ class Trace {
 
     private $t_r_value = self::VOID;
 
-    public $returnValue;
+    private $token = self::VOID;
 
     private $exitFunc = self::VOID_FUNC;
 
@@ -182,8 +184,6 @@ class Trace {
     private $tmin_i;
 
     private $ts_s;
-
-    public $codeCode;
 
     private $tr_back_json;
 
@@ -345,11 +345,23 @@ class Trace {
 
     public function send($obj = false) {
 
-        $content = ob_get_clean();
+        header('Content-Type: application/json; charset=utf-8', $this->httpCode);
         
-        trace::info(__LINE__, __CLASS__, __METHOD__, $content);
+        if ($obj === false) {
+            
+            $obj = new stdClass();
+            
+            foreach ( get_object_vars($this) as $k => $v ) {
+                
+                if (strstr($k, 'json') !== false) {
+                    continue;
+                }
+                $obj->$k = $v;
+            }
+        }
+        $content = json_encode($obj, JSON_PRETTY_PRINT);
         
-        if ($this->stdoutState === true) {
+        if ($this->stdoutState === true || $this->debugAll === true) {
             
             $this->stdoutFunc = self::STDOUT_FUNC;
         }
@@ -357,32 +369,20 @@ class Trace {
             
             $this->fileFunc = self::FILE_FUNC;
         }
-        foreach ( self::$backTrace as $toTrace ) {
+        foreach ( self::$backTrace as $k => $toTrace ) {
             
-            $this->logFileContent($toTrace);
+            $log = $this->logFileContent($toTrace);
             
             $func = $this->fileFunc;
-            $this->$func();
+            $this->$func($log);
             
             $func = $this->stdoutFunc;
             
-            $this->$func();
+            $this->$func($toTrace->sentence);
+            unset(self::$backTrace[$k]);
         }
-        header('Content-Type: application/json; charset=utf-8', $this->httpCode);
-        
-        if ($obj === false) {
-            
-            $obj = $this;
-        }
-        if ($this->debugAll === true) {
-            
-            echo $content;
-        }
-        $content = json_encode($obj, JSON_PRETTY_PRINT);
-        
         echo $content;
-        
-        return true;
+        exit();
     }
 
     public static function configure() {
@@ -448,14 +448,14 @@ class Trace {
         return;
     }
 
-    private function stdout($eol = '<br />') {
+    private function stdout($sentence, $eol = '<br />') {
 
-        echo $this->sentence . $eol;
+        echo $sentence . $eol;
         
         return true;
     }
 
-    private function exit() {
+    private function exit($obj = false) {
 
         $this->send();
         exit();
@@ -465,7 +465,7 @@ class Trace {
 
         if (is_string($var) === false && is_null($var) === false && is_numeric($var) === false && is_bool($var) === false) {
             
-            $var = json_encode($var);
+            // $var = json_encode($var);
         }
         return $var;
     }
@@ -639,7 +639,7 @@ class Trace {
 
     private function user() {
 
-        $this->totken = Token::$profil;
+        $this->token = Token::$profil;
         
         return true;
     }
@@ -726,29 +726,17 @@ class Trace {
             
             switch ($this->errorLevel) {
                 case 'notice' :
-                    $this->line = self::VOID;
-                    $this->method = self::VOID;
-                    $this->class = self::VOID;
-                    $this->instance = self::VOID;
-                    $this->varJson = self::VOID;
-                    $this->app_json = self::VOID;
-                    $this->req_REQUEST_JSON = self::VOID;
                     $this->u_json = self::VOID;
-                    $this->ss_json = self::VOID;
                     $this->ss_SESSION_JSON = self::VOID;
                     $this->cf_json = self::VOID;
                     $this->tr_back_json = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 3);
                     break;
                 case 'warning' :
-                    $this->app_json = self::VOID;
-                    $this->req_REQUEST_JSON = self::VOID;
                     $this->u_json = self::VOID;
-                    $this->ss_json = self::VOID;
                     $this->ss_SESSION_JSON = self::VOID;
                     $this->tr_back_json = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 5);
                     break;
                 case 'fatal' :
-                    $this->l_back_json = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 0);
                     break;
                 default :
                     $this->short();
@@ -761,24 +749,23 @@ class Trace {
         }
         $toTrace = new stdClass();
         
+        $toTrace->sentence = $this->sentence;
+        
         foreach ( $this as $k => $v ) {
             
             $v = $this->secureVar($v);
             $toTrace->$k = $v;
         }
-        unset($toTrace->log);
-        unset($toTrace->errorLevelInfo);
-        
         return $toTrace;
     }
 
     private function logFileContent($toTrace, $sep = self::SEP, $sepReplace = self::SEP_REPLACE) {
 
-        $this->log = json_encode($toTrace);
-        $this->log = str_replace($sep, $sepReplace, $this->log);
-        $this->log .= $sep;
+        $log = json_encode($toTrace);
+        $log = str_replace($sep, $sepReplace, $log);
+        $log .= $sep;
         
-        return true;
+        return $log;
     }
 
     private function prepare($line, $method, $class, $var) {
@@ -796,13 +783,12 @@ class Trace {
         $this->session();
         $this->mock();
         
-        $toTrace = $this->logOptimize();
-        self::$backTrace[] = $toTrace;
+        self::$backTrace[] = $this->logOptimize();
         
-        return $toTrace;
+        return true;
     }
 
-    private function file($fileSeparator = self::FILE_SEPARATPOR, $fileExt = self::FILE_EXT, $fileWriteMode = self::FILE_WRITE_MODE) {
+    private function file($log, $fileSeparator = self::FILE_SEPARATPOR, $fileExt = self::FILE_EXT, $fileWriteMode = self::FILE_WRITE_MODE) {
 
         if (is_dir(self::DIR) === false) {
             
@@ -833,7 +819,7 @@ class Trace {
             
             return false;
         }
-        $res = fwrite($fp, $this->log);
+        $res = fwrite($fp, $log);
         
         if ($res === 0 || $res === false) {
             
@@ -879,12 +865,8 @@ class Trace {
         $this->secondaryShortMsg = $codeDetailList->secondaryShortMsg;
         $this->secondaryFullMsg = $codeDetailList->secondaryFullMsg;
         
-        $toTrace = $this->prepare($line, $method, $class, $var);
+        $this->prepare($line, $method, $class, $var);
         
-        if ($this->debugAll === true) {
-            
-            $this->stdout();
-        }
         $this->exitState = $errorTypeList->exit;
         
         if ($this->exitState === true) {
@@ -900,8 +882,6 @@ class Trace {
 
 function userErrorHandler($errno, $errmsg, $filename, $linenum, $vars) {
 
-    echo $errno . ' ' . $errmsg . ' ' . $filename . ' ' . $linenum . ' ' . json_encode($vars, JSON_PRETTY_PRINT);
-    
     $func = Trace::PHP_ERROR_TYPE_MAPPING[$errno];
     
     return Trace::$func($linenum, $errmsg, basename(str_replace('.php', '', $filename)), $vars);
@@ -928,9 +908,9 @@ function userShutdownHandler() {
 }
 
 ini_set('display_errors', 'on');
-register_shutdown_function('userShutdownHandler');
-set_error_handler('userErrorHandler');
-set_exception_handler('userExceptionHandler');
+/*
+ * register_shutdown_function('userShutdownHandler'); set_error_handler('userErrorHandler'); set_exception_handler('userExceptionHandler');
+ */
 error_reporting(E_ALL);
 
 ob_start('ob_gzhandler');
