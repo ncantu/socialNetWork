@@ -343,41 +343,46 @@ class Trace {
         }
     }
 
-    public static function send($trace, $content = '') {
+    public function send($obj = false) {
 
-        $content .= ob_get_contents();
+        $content = ob_get_clean();
         
-        if (is_object($trace) === false) {
+        trace::info(__LINE__, __CLASS__, __METHOD__, $content);
+        
+        if ($this->stdoutState === true) {
             
-            $trace = new Trace();
-            
-            return $trace::fatal(__LINE__, __CLASS__, __METHOD__, $content . $trace);
+            $this->stdoutFunc = self::STDOUT_FUNC;
         }
-        if ($trace->stdoutState === true) {
+        if ($this->fileState === true) {
             
-            $trace->stdoutFunc = self::STDOUT_FUNC;
-        }
-        if ($trace->fileState === true) {
-            
-            $trace->fileFunc = self::FILE_FUNC;
+            $this->fileFunc = self::FILE_FUNC;
         }
         foreach ( self::$backTrace as $toTrace ) {
             
-            $trace->logFileContent($toTrace);
+            $this->logFileContent($toTrace);
             
-            $func = $trace->fileFunc;
-            $trace->$func();
+            $func = $this->fileFunc;
+            $this->$func();
             
-            $func = $trace->stdoutFunc;
+            $func = $this->stdoutFunc;
             
-            $trace->$func();
+            $this->$func();
         }
-        header('Content-Type: application/json; charset=utf-8', true, $trace->httpCode);
-        ob_clean();
-        echo json_encode($trace, JSON_PRETTY_PRINT);
+        header('Content-Type: application/json; charset=utf-8', $this->httpCode);
         
-        ob_end_flush();
-        exit();
+        if ($obj === false) {
+            
+            $obj = $this;
+        }
+        if ($this->debugAll === true) {
+            
+            echo $content;
+        }
+        $content = json_encode($obj, JSON_PRETTY_PRINT);
+        
+        echo $content;
+        
+        return true;
     }
 
     public static function configure() {
@@ -452,7 +457,8 @@ class Trace {
 
     private function exit() {
 
-        return $this->send($this);
+        $this->send();
+        exit();
     }
 
     private function secureVar($var) {
@@ -921,15 +927,11 @@ function userShutdownHandler() {
     return Trace::$func($error['line'], $error['message'], basename(str_replace('.php', '', $error['file'])), $error);
 }
 
-function send($buffer) {
-
-    return Trace::send($buffer);
-}
 ini_set('display_errors', 'on');
 register_shutdown_function('userShutdownHandler');
 set_error_handler('userErrorHandler');
 set_exception_handler('userExceptionHandler');
 error_reporting(E_ALL);
 
-ob_start('send');
+ob_start('ob_gzhandler');
 ?>

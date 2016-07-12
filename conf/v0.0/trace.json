@@ -68,6 +68,17 @@
       "secondaryShortMsg": "start param",
       "secondaryFullMsg": "__METHOD__ __CLASS__ __LINE__"
     },
+    "200-000": {
+      "label": "errorCode",
+      "errorLevel": "end",
+      "securityLevel": 0,
+      "majorCode": "200",
+      "majorShortMsg": "system",
+      "majorFullMsg": "notification",
+      "secondaryCode": "301",
+      "secondaryShortMsg": "endOK",
+      "secondaryFullMsg": "__METHOD__ __CLASS__ __LINE__"
+    },
     "200-301": {
       "label": "errorCode",
       "errorLevel": "endOK",
@@ -261,6 +272,17 @@
           "logFull": true,
           "returnValue": true
         },
+        "end": {
+          "label": "ErrorLevel",
+          "errorLevel": "0",
+          "httpCode": "200",
+
+          "exit": false,
+          "traceFile": true,
+          "traceStdout": false,
+          "logFull": true,
+          "returnValue": true
+        },
         "endOK": {
           "label": "ErrorLevel",
           "errorLevel": "endOK",
@@ -355,6 +377,17 @@
           "traceFile": false,
           "traceStdout": false,
           "logFull": false,
+          "returnValue": true
+        },
+        "end": {
+          "label": "ErrorLevel",
+          "errorLevel": "0",
+          "httpCode": "200",
+
+          "exit": false,
+          "traceFile": true,
+          "traceStdout": false,
+          "logFull": true,
           "returnValue": true
         },
         "endOK": {
