@@ -19,7 +19,7 @@ class Trace {
 
     CONST FILE_WRITE_MODE = 'a+';
 
-    CONST FILE_FUNC = 'File';
+    CONST FILE_FUNC = 'file';
 
     CONST FILE_DATE_FORMAT = 'YmdH';
 
@@ -41,9 +41,9 @@ class Trace {
 
     CONST DATE_FORMAT = 'Y-m-d H:i:s';
 
-    CONST EXIT_FUNC = 'Exit';
+    CONST EXIT_FUNC = 'exit';
 
-    CONST STDOUT_FUNC = 'Stdout';
+    CONST STDOUT_FUNC = 'stdout';
 
     CONST ERR_VERBOSE_SHORT_SUFFIX = 'short';
 
@@ -55,6 +55,7 @@ class Trace {
 
     CONST PHP_ERROR_TYPE_MAPPING = array(
             E_ERROR => 'fatal',
+            'error' => 'fatal',
             E_WARNING => 'warning',
             E_PARSE => 'warning',
             E_NOTICE => 'notice',
@@ -342,38 +343,40 @@ class Trace {
         }
     }
 
-    public static function send($obj) {
+    public static function send($trace, $content = '') {
 
-        if ($this->stdoutState === true) {
-            
-            $this->stdoutFunc = self::STDOUT_FUNC;
-        }
-        if ($this->fileState === true) {
-            
-            $this->fileFunc = self::FILE_FUNC;
-        }
-        foreach ( self::$backTrace as $toTrace ) {
-            
-            $this->logFileContent($toTrace);
-            
-            $func = $this->fileFunc;
-            
-            $this->$func();
-            
-            $func = $this->stdoutFunc;
-            
-            $this->$func();
-        }
-        if (is_object($obj) === false) {
+        $content .= ob_get_contents();
+        
+        if (is_object($trace) === false) {
             
             $trace = new Trace();
             
-            return $trace::fatal(__LINE__, __CLASS__, __METHOD__, $obj);
+            return $trace::fatal(__LINE__, __CLASS__, __METHOD__, $content . $trace);
         }
-        header('Content-Type: application/json; charset=utf-8', true, $this->httpCode);
+        if ($trace->stdoutState === true) {
+            
+            $trace->stdoutFunc = self::STDOUT_FUNC;
+        }
+        if ($trace->fileState === true) {
+            
+            $trace->fileFunc = self::FILE_FUNC;
+        }
+        foreach ( self::$backTrace as $toTrace ) {
+            
+            $trace->logFileContent($toTrace);
+            
+            $func = $trace->fileFunc;
+            $trace->$func();
+            
+            $func = $trace->stdoutFunc;
+            
+            $trace->$func();
+        }
+        header('Content-Type: application/json; charset=utf-8', true, $trace->httpCode);
+        ob_clean();
+        echo json_encode($trace, JSON_PRETTY_PRINT);
         
-        echo json_encode($obj, JSON_PRETTY_PRINT);
-        
+        ob_end_flush();
         exit();
     }
 
@@ -486,7 +489,7 @@ class Trace {
         return true;
     }
 
-    private function sentence($line, $method, $class, $lineTag = self::LINE_TAG, $methodTag = self::METHOD_TAG, $classTag = self::CLASS_TAG, $sep = self::SEP) {
+    private function sentence($line, $method, $class, $var, $lineTag = self::LINE_TAG, $methodTag = self::METHOD_TAG, $classTag = self::CLASS_TAG, $sep = self::SEP) {
 
         $this->codeSet();
         
@@ -501,6 +504,11 @@ class Trace {
         $this->sentence = str_replace($lineTag, $line, $this->sentence);
         $this->sentence = str_replace($methodTag, $method, $this->sentence);
         $this->sentence = str_replace($classTag, $class, $this->sentence);
+        
+        if ($this->logFullState === true && $this->debugAll === true) {
+            
+            $this->sentence .= ' ' . json_encode($var, JSON_PRETTY_PRINT);
+        }
         $this->sentence .= $sep;
         
         return true;
@@ -769,7 +777,7 @@ class Trace {
 
     private function prepare($line, $method, $class, $var) {
 
-        $this->sentence($line, $method, $class);
+        $this->sentence($line, $method, $class, $var);
         $this->code($class, $method, $line, $var);
         $this->time();
         $this->request();
@@ -808,14 +816,32 @@ class Trace {
         $userId = str_replace('\\', 'I', $userId);
         $userId = str_replace("'", 'I', $userId);
         $filename = self::DIR . $prefix . date(self::FILE_DATE_FORMAT, time()) . $fileSeparator . $userId . $fileExt;
+        
+        if (is_file($filename) === false) {
+            file_put_contents($filename, "\n");
+        }
+        
         $fp = fopen($filename, $fileWriteMode);
         
-        if ($fp === false)
+        if ($fp === false) {
+            
             return false;
+        }
+        $res = fwrite($fp, $this->log);
         
-        fwrite($fp, $this->log);
+        if ($res === 0 || $res === false) {
+            
+            return false;
+        }
+        $res = fclose($fp);
         
-        return fclose($fp);
+        if ($res === false) {
+            
+            return false;
+        }
+        chmod($filename, 0777);
+        
+        return true;
     }
 
     private function securityLevelUpdate($errorLevel) {
@@ -834,15 +860,9 @@ class Trace {
             
             $this->returnValue = $var;
         }
-        $this->exitState = $errorTypeList->exit;
         $this->stdoutState = $errorTypeList->traceStdout;
         $this->fileState = $errorTypeList->traceFile;
         $this->logFullState = $errorTypeList->logFull;
-        
-        if ($this->exitState === true) {
-            
-            $this->exitFunc = self::EXIT_FUNC;
-        }
         $this->errorLevel = $codeDetailList->errorLevel;
         $this->httpCode = $errorTypeList->httpCode;
         $this->securityLevel = $codeDetailList->securityLevel;
@@ -859,6 +879,12 @@ class Trace {
             
             $this->stdout();
         }
+        $this->exitState = $errorTypeList->exit;
+        
+        if ($this->exitState === true) {
+            
+            $this->exitFunc = self::EXIT_FUNC;
+        }
         $func = $this->exitFunc;
         $this->$func();
         
@@ -868,18 +894,42 @@ class Trace {
 
 function userErrorHandler($errno, $errmsg, $filename, $linenum, $vars) {
 
+    echo $errno . ' ' . $errmsg . ' ' . $filename . ' ' . $linenum . ' ' . json_encode($vars, JSON_PRETTY_PRINT);
+    
     $func = Trace::PHP_ERROR_TYPE_MAPPING[$errno];
     
     return Trace::$func($linenum, $errmsg, basename(str_replace('.php', '', $filename)), $vars);
+}
+
+function userExceptionHandler($e) {
+
+    return Trace::fatal($e->getLine(), $e->getMessage(), basename(str_replace('.php', '', $e->getFile())), $e);
+}
+
+function userShutdownHandler() {
+
+    $error = error_get_last();
+    
+    if (isset($error['type']) === true && isset(Trace::PHP_ERROR_TYPE_MAPPING[$error['type']])) {
+        
+        $func = Trace::PHP_ERROR_TYPE_MAPPING[$error['type']];
+    }
+    else {
+        
+        $func = 'fatal';
+    }
+    return Trace::$func($error['line'], $error['message'], basename(str_replace('.php', '', $error['file'])), $error);
 }
 
 function send($buffer) {
 
     return Trace::send($buffer);
 }
-$old_error_handler = set_error_handler('userErrorHandler');
+ini_set('display_errors', 'on');
+register_shutdown_function('userShutdownHandler');
+set_error_handler('userErrorHandler');
+set_exception_handler('userExceptionHandler');
+error_reporting(E_ALL);
 
-error_reporting(0);
-
-// ob_start('send');
+ob_start('send');
 ?>
