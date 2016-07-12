@@ -33,7 +33,7 @@ class Filter extends Node {
 
         Trace::start(__LINE__, __METHOD__, __CLASS__);
         
-        $filter = new Filter(true);
+        $filter = new Filter(false);
         $filter->nodeName = 'list';
         
         $filter->accessModeListListAdd('write');

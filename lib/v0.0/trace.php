@@ -53,6 +53,8 @@ class Trace {
 
     CONST SEC_F = 'secT05052016';
 
+    CONST BACKTRACE_MAX = 10;
+
     CONST PHP_ERROR_TYPE_MAPPING = array(
             E_ERROR => 'fatal',
             'error' => 'fatal',
@@ -90,6 +92,20 @@ class Trace {
     public $returnValue;
 
     public $codeCode;
+
+    private static $outputSecure = array(
+            'debugAll',
+            'exitState',
+            'fileState',
+            'stdoutState',
+            'logFullState',
+            'exitFunc',
+            'stdoutFunc',
+            'errVerbose',
+            'fileFunc',
+            'returnValue',
+            'secondaryShortMsg',
+            'secondaryFullMsg');
 
     private static $errorCodeList = array();
 
@@ -347,19 +363,15 @@ class Trace {
 
         header('Content-Type: application/json; charset=utf-8', $this->httpCode);
         
-        if ($obj === false) {
+        $traceSend = new stdClass();
+        $traceSend->obj = false;
+        
+        if (is_object($obj) === true) {
             
-            $obj = new stdClass();
-            
-            foreach ( get_object_vars($this) as $k => $v ) {
-                
-                if (strstr($k, 'json') !== false) {
-                    continue;
-                }
-                $obj->$k = $v;
-            }
+            $traceSend->obj = get_object_vars($obj);
         }
-        $content = json_encode($obj, JSON_PRETTY_PRINT);
+        $traceSend->trace = end(self::$backTrace);
+        $content = json_encode($traceSend, JSON_PRETTY_PRINT);
         
         if ($this->stdoutState === true || $this->debugAll === true) {
             
@@ -369,18 +381,8 @@ class Trace {
             
             $this->fileFunc = self::FILE_FUNC;
         }
-        foreach ( self::$backTrace as $k => $toTrace ) {
-            
-            $log = $this->logFileContent($toTrace);
-            
-            $func = $this->fileFunc;
-            $this->$func($log);
-            
-            $func = $this->stdoutFunc;
-            
-            $this->$func($toTrace->sentence);
-            unset(self::$backTrace[$k]);
-        }
+        $this->output();
+        
         echo $content;
         exit();
     }
@@ -443,6 +445,34 @@ class Trace {
         return false;
     }
 
+    private function output() {
+
+        foreach ( self::$backTrace as $k => $toTrace ) {
+            
+            $log = $this->logFileContent($toTrace);
+            
+            $func = $this->fileFunc;
+            $this->$func($log);
+            
+            $func = $this->stdoutFunc;
+            
+            $this->$func($toTrace->sentence);
+            unset(self::$backTrace[$k]);
+        }
+        return true;
+    }
+
+    private function backtraceAdd($trace, $max = self::BACKTRACE_MAX) {
+
+        self::$backTrace[] = $trace;
+        
+        if (count(self::$backTrace) >= $max) {
+            
+            $this->output();
+        }
+        return true;
+    }
+
     private function void($opt = true) {
 
         return;
@@ -462,11 +492,11 @@ class Trace {
     }
 
     private function secureVar($var) {
-
-        if (is_string($var) === false && is_null($var) === false && is_numeric($var) === false && is_bool($var) === false) {
-            
-            // $var = json_encode($var);
-        }
+        
+        // if (is_string($var) === false && is_null($var) === false && is_numeric($var) === false && is_bool($var) === false) {
+        
+        // $var = json_encode($var);
+        // }
         return $var;
     }
 
@@ -504,7 +534,7 @@ class Trace {
             $this->majorShortMsg .= ' ' . $this->majorFullMsg;
             $this->secondaryShortMsg .= ' ' . $this->secondaryFullMsg;
         }
-        $this->sentence = '';
+        $this->sentence = time() . ' ';
         $this->sentence .= ucfirst(strtolower($this->errorLevel)) . ' ' . $this->codeCode . ': ' . $this->majorShortMsg;
         $this->sentence .= ' ' . $this->secondaryShortMsg;
         $this->sentence = str_replace($lineTag, $line, $this->sentence);
@@ -753,8 +783,11 @@ class Trace {
         
         foreach ( $this as $k => $v ) {
             
-            $v = $this->secureVar($v);
-            $toTrace->$k = $v;
+            if (in_array($k, self::$outputSecure) !== false) {
+                
+                $v = $this->secureVar($v);
+                $toTrace->$k = $v;
+            }
         }
         return $toTrace;
     }
@@ -783,7 +816,9 @@ class Trace {
         $this->session();
         $this->mock();
         
-        self::$backTrace[] = $this->logOptimize();
+        $trace = $this->logOptimize();
+        
+        $this->backtraceAdd($trace);
         
         return true;
     }
@@ -810,6 +845,7 @@ class Trace {
         $filename = self::DIR . $prefix . date(self::FILE_DATE_FORMAT, time()) . $fileSeparator . $userId . $fileExt;
         
         if (is_file($filename) === false) {
+            
             file_put_contents($filename, "\n");
         }
         
@@ -882,29 +918,19 @@ class Trace {
 
 function userErrorHandler($errno, $errmsg, $filename, $linenum, $vars) {
 
-    $func = Trace::PHP_ERROR_TYPE_MAPPING[$errno];
-    
-    return Trace::$func($linenum, $errmsg, basename(str_replace('.php', '', $filename)), $vars);
+    return Trace::fatalUserError($linenum, $errmsg, basename(str_replace('.php', '', $filename)), $vars);
 }
 
 function userExceptionHandler($e) {
 
-    return Trace::fatal($e->getLine(), $e->getMessage(), basename(str_replace('.php', '', $e->getFile())), $e);
+    return Trace::fatalException($e->getLine(), $e->getMessage(), basename(str_replace('.php', '', $e->getFile())), $e);
 }
 
 function userShutdownHandler() {
 
     $error = error_get_last();
     
-    if (isset($error['type']) === true && isset(Trace::PHP_ERROR_TYPE_MAPPING[$error['type']])) {
-        
-        $func = Trace::PHP_ERROR_TYPE_MAPPING[$error['type']];
-    }
-    else {
-        
-        $func = 'fatal';
-    }
-    return Trace::$func($error['line'], $error['message'], basename(str_replace('.php', '', $error['file'])), $error);
+    return Trace::fatalShutdown($error['line'], $error['message'], basename(str_replace('.php', '', $error['file'])), $error);
 }
 
 ini_set('display_errors', 'on');

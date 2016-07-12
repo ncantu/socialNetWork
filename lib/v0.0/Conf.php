@@ -50,11 +50,15 @@ class Conf {
         Trace::startParam(__LINE__, __METHOD__, __CLASS__, $confFile);
         Trace::startParam(__LINE__, __METHOD__, __CLASS__, $confVersion);
         
-        foreach ( $this as $k => $v ) {
+        $list = get_object_vars($this);
+        
+        foreach ( $list as $k => $v ) {
             
             if (strstr($k, 'List') !== false && $v === false) {
                 
                 $this->$k = new stdClass();
+                
+                continue;
             }
         }
         if ($confFile !== false) {
@@ -177,7 +181,7 @@ class Conf {
                 }
             }
         }
-        return Trace::fatal(__LINE__, __METHOD__, __CLASS__);
+        return Trace::fatal(__LINE__, __METHOD__, __CLASS__, $name);
     }
     // attributListListAddValue(array('toto'), true, false)
     public static function __callstatic($name, $argumentList = array()) {

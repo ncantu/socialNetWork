@@ -9,7 +9,40 @@
       "majorCode": "500",
       "majorShortMsg": "system",
       "majorFullMsg": "error",
-      "secondaryCode": "001",
+      "secondaryCode": "101",
+      "secondaryShortMsg": "fatal",
+      "secondaryFullMsg": "__METHOD__ __CLASS__ __LINE__"
+    },
+    "500-102": {
+      "label": "errorCode",
+      "errorLevel": "fatalUserError",
+      "securityLevel": 5,
+      "majorCode": "500",
+      "majorShortMsg": "system",
+      "majorFullMsg": "error",
+      "secondaryCode": "102",
+      "secondaryShortMsg": "fatal",
+      "secondaryFullMsg": "__METHOD__ __CLASS__ __LINE__"
+    },
+    "500-103": {
+      "label": "errorCode",
+      "errorLevel": "fatalException",
+      "securityLevel": 5,
+      "majorCode": "500",
+      "majorShortMsg": "system",
+      "majorFullMsg": "error",
+      "secondaryCode": "103",
+      "secondaryShortMsg": "fatal",
+      "secondaryFullMsg": "__METHOD__ __CLASS__ __LINE__"
+    },
+    "500-104": {
+      "label": "errorCode",
+      "errorLevel": "fatalShutdown",
+      "securityLevel": 5,
+      "majorCode": "500",
+      "majorShortMsg": "system",
+      "majorFullMsg": "error",
+      "secondaryCode": "104",
       "secondaryShortMsg": "fatal",
       "secondaryFullMsg": "__METHOD__ __CLASS__ __LINE__"
     },
@@ -131,6 +164,36 @@
           "logFull": true,
           "returnValue": false
         },
+        "fatalException": {
+          "label": "ErrorLevel",
+          "errorLevel": "5",
+          "httpCode": "500",
+          "exit": true,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
+          "returnValue": false
+        },        
+        "fatalShutdown": {
+          "label": "ErrorLevel",
+          "errorLevel": "5",
+          "httpCode": "500",
+          "exit": true,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
+          "returnValue": false
+        },        
+        "fatalUserError": {
+          "label": "ErrorLevel",
+          "errorLevel": "5",
+          "httpCode": "500",
+          "exit": true,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
+          "returnValue": false
+        },
         "notice": {
           "label": "ErrorLevel",
           "errorLevel": "1",
@@ -149,7 +212,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -160,7 +223,18 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
+          "logFull": true,
+          "returnValue": true
+        },
+        "final": {
+          "label": "ErrorLevel",
+          "errorLevel": "0",
+          "httpCode": "200",
+
+          "exit": false,
+          "traceFile": true,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -171,7 +245,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -182,7 +256,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -193,7 +267,7 @@
           "funcReturn": "value",
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": "var"
         },
@@ -204,7 +278,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         }
@@ -239,6 +313,36 @@
           "logFull": true,
           "returnValue": false
         },
+        "fatalException": {
+          "label": "ErrorLevel",
+          "errorLevel": "5",
+          "httpCode": "500",
+          "exit": true,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
+          "returnValue": false
+        },        
+        "fatalShutdown": {
+          "label": "ErrorLevel",
+          "errorLevel": "5",
+          "httpCode": "500",
+          "exit": true,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
+          "returnValue": false
+        },        
+        "fatalUserError": {
+          "label": "ErrorLevel",
+          "errorLevel": "5",
+          "httpCode": "500",
+          "exit": true,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
+          "returnValue": false
+        },
         "notice": {
           "label": "ErrorLevel",
           "errorLevel": "notice",
@@ -264,6 +368,17 @@
         "start": {
           "label": "ErrorLevel",
           "errorLevel": "start",
+          "httpCode": "200",
+
+          "exit": false,
+          "traceFile": true,
+          "traceStdout": false,
+          "logFull": true,
+          "returnValue": true
+        },
+        "final": {
+          "label": "ErrorLevel",
+          "errorLevel": "0",
           "httpCode": "200",
 
           "exit": false,
@@ -346,6 +461,36 @@
           "logFull": true,
           "returnValue": false
         },
+        "fatalException": {
+          "label": "ErrorLevel",
+          "errorLevel": "5",
+          "httpCode": "500",
+          "exit": true,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
+          "returnValue": false
+        },        
+        "fatalShutdown": {
+          "label": "ErrorLevel",
+          "errorLevel": "5",
+          "httpCode": "500",
+          "exit": true,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
+          "returnValue": false
+        },        
+        "fatalUserError": {
+          "label": "ErrorLevel",
+          "errorLevel": "5",
+          "httpCode": "500",
+          "exit": true,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
+          "returnValue": false
+        },
         "notice": {
           "label": "ErrorLevel",
           "errorLevel": "notice",
@@ -373,13 +518,24 @@
           "errorLevel": "start",
           "httpCode": "200",
 
-          "exit": false,
+          "exit": true,
           "traceFile": false,
           "traceStdout": false,
           "logFull": false,
           "returnValue": true
         },
         "end": {
+          "label": "ErrorLevel",
+          "errorLevel": "0",
+          "httpCode": "200",
+
+          "exit": false,
+          "traceFile": true,
+          "traceStdout": false,
+          "logFull": true,
+          "returnValue": true
+        },
+        "final": {
           "label": "ErrorLevel",
           "errorLevel": "0",
           "httpCode": "200",
