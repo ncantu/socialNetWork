@@ -106,7 +106,8 @@
           "exit": true,
           "traceFile": true,
           "traceStdout": true,
-          "logFull": true
+          "logFull": true,
+          "returnValue": false
         },
         "fatal": {
           "label": "ErrorLevel",
@@ -116,7 +117,8 @@
           "exit": true,
           "traceFile": true,
           "traceStdout": true,
-          "logFull": true
+          "logFull": true,
+          "returnValue": false
         },
         "notice": {
           "label": "ErrorLevel",
@@ -126,7 +128,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": true,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         },
         "info": {
           "label": "ErrorLevel",
@@ -136,7 +139,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         },
         "start": {
           "label": "ErrorLevel",
@@ -146,7 +150,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         },
         "end": {
           "label": "ErrorLevel",
@@ -156,7 +161,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         },
         "endOK": {
           "label": "ErrorLevel",
@@ -166,7 +172,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         },
         "endValue": {
           "label": "ErrorLevel",
@@ -176,7 +183,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": "var"
         },
         "startParam": {
           "label": "ErrorLevel",
@@ -186,7 +194,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         }
       }
     },
@@ -205,7 +214,8 @@
           "exit": true,
           "traceFile": true,
           "traceStdout": true,
-          "logFull": true
+          "logFull": true,
+          "returnValue": false
         },
         "fatal": {
           "label": "ErrorLevel",
@@ -215,7 +225,8 @@
           "exit": true,
           "traceFile": true,
           "traceStdout": true,
-          "logFull": true
+          "logFull": true,
+          "returnValue": false
         },
         "notice": {
           "label": "ErrorLevel",
@@ -225,7 +236,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": true,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         },
         "info": {
           "label": "ErrorLevel",
@@ -235,7 +247,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         },
         "start": {
           "label": "ErrorLevel",
@@ -245,7 +258,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         },
         "endOK": {
           "label": "ErrorLevel",
@@ -255,7 +269,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         },
         "endValue": {
           "label": "ErrorLevel",
@@ -265,7 +280,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": "var"
         },
         "startParam": {
           "label": "ErrorLevel",
@@ -275,7 +291,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         }
       }
     },
@@ -293,7 +310,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": false
+          "logFull": false,
+          "returnValue": false
         },
         "fatal": {
           "label": "ErrorLevel",
@@ -303,7 +321,8 @@
           "exit": true,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": false
         },
         "notice": {
           "label": "ErrorLevel",
@@ -313,7 +332,8 @@
           "exit": false,
           "traceFile": false,
           "traceStdout": false,
-          "logFull": false
+          "logFull": false,
+          "returnValue": true
         },
         "info": {
           "label": "ErrorLevel",
@@ -323,7 +343,8 @@
           "exit": false,
           "traceFile": false,
           "traceStdout": false,
-          "logFull": false
+          "logFull": false,
+          "returnValue": true
         },
         "start": {
           "label": "ErrorLevel",
@@ -333,7 +354,8 @@
           "exit": false,
           "traceFile": false,
           "traceStdout": false,
-          "logFull": false
+          "logFull": false,
+          "returnValue": true
         },
         "endOK": {
           "label": "ErrorLevel",
@@ -343,7 +365,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         },
         "endValue": {
           "label": "ErrorLevel",
@@ -353,7 +376,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": "var"
         },
         "startParam": {
           "label": "ErrorLevel",
@@ -363,7 +387,8 @@
           "exit": false,
           "traceFile": true,
           "traceStdout": false,
-          "logFull": true
+          "logFull": true,
+          "returnValue": true
         }
       }
     }

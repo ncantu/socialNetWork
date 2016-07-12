@@ -53,6 +53,21 @@ class Trace {
 
     CONST SEC_F = 'secT05052016';
 
+    CONST PHP_ERROR_TYPE_MAPPING = array(
+            E_ERROR => 'fatal',
+            E_WARNING => 'warning',
+            E_PARSE => 'warning',
+            E_NOTICE => 'notice',
+            E_CORE_ERROR => 'fatal',
+            E_CORE_WARNING => 'fatal',
+            E_COMPILE_ERROR => 'fatal',
+            E_COMPILE_WARNING => 'fatal',
+            E_USER_ERROR => 'fatal',
+            E_USER_WARNING => 'warning',
+            E_USER_NOTICE => 'notice',
+            E_STRICT => 'notice',
+            E_RECOVERABLE_ERROR => 'fatal');
+
     private static $errorCodeList = array();
 
     private static $envList = array();
@@ -69,9 +84,9 @@ class Trace {
 
     private $debugAll = true;
 
-    private $errorLevel;
+    public $errorLevel;
 
-    private $httpCode;
+    public $httpCode;
 
     private $funcReturnState = false;
 
@@ -85,19 +100,19 @@ class Trace {
 
     private $securityLevel;
 
-    private $majorCode;
+    public $majorCode;
 
-    private $majorShortMsg = '';
+    public $majorShortMsg = '';
 
     private $majorFullMsg = '';
 
-    private $secondaryCode;
+    public $secondaryCode;
 
-    private $secondaryShortMsg = '';
+    public $secondaryShortMsg = '';
 
     private $secondaryFullMsg = '';
 
-    private $sentence = self::VOID;
+    public $sentence = self::VOID;
 
     private $log = self::VOID;
 
@@ -129,9 +144,7 @@ class Trace {
 
     private $t_r_value = self::VOID;
 
-    private $returnValue;
-
-    private $errorInfo;
+    public $returnValue;
 
     private $exitFunc = self::VOID_FUNC;
 
@@ -171,7 +184,7 @@ class Trace {
 
     private $ts_s;
 
-    private $codeCode;
+    public $codeCode;
 
     private $tr_back_json;
 
@@ -321,12 +334,49 @@ class Trace {
 
     private static $appPublicId;
 
+    private static $backTrace = array();
+
     public function __construct($configure = false) {
 
         if ($configure === true) {
             
             self::configure();
         }
+    }
+
+    public static function send($obj) {
+
+        if ($this->stdoutState === true) {
+            
+            $this->stdoutFunc = self::STDOUT_FUNC;
+        }
+        if ($this->fileState === true) {
+            
+            $this->fileFunc = self::FILE_FUNC;
+        }
+        foreach ( self::$backTrace as $toTrace ) {
+            
+            $this->logFileContent($toTrace);
+            
+            $func = $this->fileFunc;
+            
+            $this->$func();
+            
+            $func = $this->stdoutFunc;
+            
+            $this->$func();
+        }
+        if (is_object($obj) === false) {
+            
+            $trace = new Trace();
+            
+            return $trace::fatal(__LINE__, __CLASS__, __METHOD__, $obj);
+        }
+        header('Content-Type: application/json; charset=utf-8', true, $this->httpCode);
+        
+        echo json_encode($obj, JSON_PRETTY_PRINT);
+        
+        exit();
     }
 
     public static function configure() {
@@ -401,7 +451,7 @@ class Trace {
 
     private function exit() {
 
-        exit();
+        return $this->send($this);
     }
 
     private function secureVar($var) {
@@ -491,7 +541,7 @@ class Trace {
         return true;
     }
 
-    public function request() {
+    private function request() {
 
         $this->req_SERVER_SCRIPT_NAME = $this->SysVarItem($_SERVER, 'SCRIPT_NAME');
         $this->req_SERVER_REQUEST_URI = $this->SysVarItem($_SERVER, 'REQUEST_URI');
@@ -735,6 +785,7 @@ class Trace {
         $this->mock();
         
         $toTrace = $this->logOptimize();
+        self::$backTrace[] = $toTrace;
         
         return $toTrace;
     }
@@ -775,10 +826,16 @@ class Trace {
         return $errorLevel;
     }
 
-    private function t($codeDetailList, $errorTypeList, $line, $method, $class, $var = self::VOID, $res = self::VOID) {
+    private function t($codeDetailList, $errorTypeList, $line, $method, $class, $var) {
 
         self::$envSequence++;
         
+        $this->returnValue = $errorTypeList->returnValue;
+        
+        if ($this->returnValue === 'var') {
+            
+            $this->returnValue = $var;
+        }
         $this->funcReturnState = $errorTypeList->funcReturn;
         $this->exitState = $errorTypeList->exit;
         $this->stdoutState = $errorTypeList->traceStdout;
@@ -789,14 +846,6 @@ class Trace {
         if ($this->exitState === true) {
             
             $this->exitFunc = self::EXIT_FUNC;
-        }
-        if ($this->stdoutState === true) {
-            
-            $this->stdoutFunc = self::STDOUT_FUNC;
-        }
-        if ($this->fileState === true) {
-            
-            $this->fileFunc = self::FILE_FUNC;
         }
         $this->errorLevel = $codeDetailList->errorLevel;
         $this->httpCode = $errorTypeList->httpCode;
@@ -810,22 +859,10 @@ class Trace {
         
         $toTrace = $this->prepare($line, $method, $class, $var);
         
-        $this->logFileContent($toTrace);
-        
-        $func = $this->fileFunc;
-        
         if ($this->debugAll === true) {
             
-            $func = 'stdout';
+            $this->stdout();
         }
-        
-        $this->$func();
-        
-        http_response_code($this->httpCode);
-        
-        $func = $this->stdoutFunc;
-        $this->$func();
-        
         $func = $this->exitFunc;
         $this->$func();
         
@@ -833,4 +870,20 @@ class Trace {
     }
 }
 
+function userErrorHandler($errno, $errmsg, $filename, $linenum, $vars) {
+
+    $func = Trace::PHP_ERROR_TYPE_MAPPING[$errno];
+    
+    return Trace::$func($linenum, $errmsg, basename(str_replace('.php', '', $filename)), $vars);
+}
+
+function send($buffer) {
+
+    return Trace::send($buffer);
+}
+$old_error_handler = set_error_handler('userErrorHandler');
+
+error_reporting(0);
+
+ob_start('send');
 ?>
