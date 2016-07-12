@@ -30,6 +30,8 @@ class Response extends Node {
 
     CONST LIB_EXT = '.php';
 
+    private $response;
+
     protected $confFile = self::CONF_FILE;
 
     protected $buildState = false;
@@ -45,8 +47,6 @@ class Response extends Node {
     protected $microserviceAddList = false;
 
     protected $microserviceCallList = false;
-
-    private $response;
 
     public function __construct($setUp = false, $confFile = self::CONF_FILE, $confVersion = self::CONF_VERSION) {
 

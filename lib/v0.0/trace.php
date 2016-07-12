@@ -908,10 +908,9 @@ function userShutdownHandler() {
 }
 
 ini_set('display_errors', 'on');
-/*
- * register_shutdown_function('userShutdownHandler'); set_error_handler('userErrorHandler'); set_exception_handler('userExceptionHandler');
- */
+register_shutdown_function('userShutdownHandler');
+set_error_handler('userErrorHandler');
+set_exception_handler('userExceptionHandler');
 error_reporting(E_ALL);
-
 ob_start('ob_gzhandler');
 ?>

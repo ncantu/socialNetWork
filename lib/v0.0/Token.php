@@ -108,7 +108,7 @@ class Token {
         Trace::start(__LINE__, __METHOD__, __CLASS__);
         
         $res = Request::requestVal(self::TAG);
-        $res = $this->graphRequestGet();
+        // $res = $this->graphRequestGet();
         
         if ($res === false) {
             
