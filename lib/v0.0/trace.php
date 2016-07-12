@@ -448,9 +448,9 @@ class Trace {
         return;
     }
 
-    private function stdout($sentence, $eol = '<br />') {
+    private function stdout($sentence) {
 
-        echo $sentence . $eol;
+        echo $sentence;
         
         return true;
     }
