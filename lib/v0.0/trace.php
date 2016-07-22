@@ -77,15 +77,15 @@ class Trace {
 
     public $majorCode;
 
-    public $majorShortMsg = '';
+    private $majorShortMsg = '';
 
-    public $majorFullMsg = '';
+    private $majorFullMsg = '';
 
     public $secondaryCode;
 
-    public $secondaryShortMsg = '';
+    private $secondaryShortMsg = '';
 
-    public $secondaryFullMsg = '';
+    private $secondaryFullMsg = '';
 
     public $sentence = self::VOID;
 
@@ -94,18 +94,7 @@ class Trace {
     public $codeCode;
 
     private static $outputSecure = array(
-            'debugAll',
-            'exitState',
-            'fileState',
-            'stdoutState',
-            'logFullState',
-            'exitFunc',
-            'stdoutFunc',
-            'errVerbose',
-            'fileFunc',
-            'returnValue',
-            'secondaryShortMsg',
-            'secondaryFullMsg');
+            'returnValue');
 
     private static $errorCodeList = array();
 
@@ -525,9 +514,23 @@ class Trace {
         return true;
     }
 
+    private function sentenceTemplate($sentence, $line, $method, $class, $lineTag = self::LINE_TAG, $methodTag = self::METHOD_TAG, $classTag = self::CLASS_TAG, $sep = self::SEP) {
+
+        $sentence = str_replace($lineTag, $line, $sentence);
+        $sentence = str_replace($methodTag, $method, $sentence);
+        $sentence = str_replace($classTag, $class, $sentence);
+        
+        return $sentence;
+    }
+
     private function sentence($line, $method, $class, $var, $lineTag = self::LINE_TAG, $methodTag = self::METHOD_TAG, $classTag = self::CLASS_TAG, $sep = self::SEP) {
 
         $this->codeSet();
+        
+        $this->majorShortMsg .= $this->sentenceTemplate($this->majorShortMsg, $line, $method, $class);
+        $this->secondaryShortMsg .= $this->sentenceTemplate($this->secondaryShortMsg, $line, $method, $class);
+        $this->majorFullMsg .= $this->sentenceTemplate($this->majorFullMsg, $line, $method, $class);
+        $this->secondaryFullMsg .= $this->sentenceTemplate($this->secondaryFullMsg, $line, $method, $class);
         
         if ($this->logFullState === true) {
             
@@ -537,9 +540,7 @@ class Trace {
         $this->sentence = time() . ' ';
         $this->sentence .= ucfirst(strtolower($this->errorLevel)) . ' ' . $this->codeCode . ': ' . $this->majorShortMsg;
         $this->sentence .= ' ' . $this->secondaryShortMsg;
-        $this->sentence = str_replace($lineTag, $line, $this->sentence);
-        $this->sentence = str_replace($methodTag, $method, $this->sentence);
-        $this->sentence = str_replace($classTag, $class, $this->sentence);
+        $this->sentence = $this->sentenceTemplate($this->sentence, $line, $method, $class);
         
         if ($this->logFullState === true && $this->debugAll === true) {
             

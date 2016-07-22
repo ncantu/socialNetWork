@@ -158,6 +158,8 @@ class Conf {
         
         foreach ( $this as $k => $v ) {
             
+            echo $k . "\n";
+            
             if (strstr($name, $k) !== false) {
                 
                 $name = str_replace($k, '', $name);

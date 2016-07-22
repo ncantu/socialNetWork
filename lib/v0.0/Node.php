@@ -40,6 +40,8 @@ class Node extends Conf {
      */
     public $filterList = false;
 
+    public $accessModeListListAdd = array();
+
     /**
      *
      * @var Object The list of any microservice in relationships with this node
