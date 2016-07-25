@@ -158,25 +158,33 @@ class Conf {
         
         foreach ( $this as $k => $v ) {
             
-            echo $k . "\n";
-            
             if (strstr($name, $k) !== false) {
                 
-                $name = str_replace($k, '', $name);
+                $name2 = str_replace($k, '', $name);
+                
+                Trace::info(__LINE__, __METHOD__, __CLASS__, $name2);
                 
                 foreach ( $this->listFunctionList as $listFunction ) {
                     
-                    if (strstr($name, $listFunction) !== false) {
+                    if (strstr($name2, $listFunction) !== false) {
                         
-                        $name = str_replace($listFunction, '', $name);
+                        $name3 = str_replace($listFunction, '', $name2);
+                        
+                        Trace::info(__LINE__, __METHOD__, __CLASS__, $name2);
+                        
                         $conf = false;
                         
                         if ($listFunction === 'ListSet' || $listFunction === 'ListUpdate' || $listFunction === 'ListAdd') {
                             
                             $conf = $argumentList[0];
                         }
+                        Trace::info(__LINE__, __METHOD__, __CLASS__, $conf);
+                        
                         $k = lcfirst($k);
-                        $res = $this->$listFunction($k, $conf, $name);
+                        
+                        Trace::info(__LINE__, __METHOD__, __CLASS__, $k);
+                        
+                        $res = $this->$listFunction($k, $conf, $name3);
                         
                         return Trace::endValue(__LINE__, __METHOD__, __CLASS__, $res);
                     }
@@ -250,14 +258,31 @@ class Conf {
         Trace::startParam(__LINE__, __METHOD__, __CLASS__, $conf);
         Trace::startParam(__LINE__, __METHOD__, __CLASS__, $name);
         
-        $confName = $conf->name;
+        if (isset($conf->name) === false) {
+            
+            $confName = $conf;
+        }
+        else {
+            
+            $confName = $conf->name;
+        }
         $funcExist = $listName . 'ListExist';
         
         if ($this->$funcExist($listName, $confName) === true) {
             
             return false;
         }
-        $this->$listName->$confName = $conf;
+        $update = $this->$listName;
+        
+        if (is_object($this->$listName) === true) {
+            
+            $update->$confName = $conf;
+        }
+        else {
+            
+            $update[$confName] = $conf;
+        }
+        $this->$listName = $update;
         
         return Trace::endOk(__LINE__, __METHOD__, __CLASS__);
     }

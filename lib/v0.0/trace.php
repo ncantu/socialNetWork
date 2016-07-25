@@ -446,7 +446,7 @@ class Trace {
             $func = $this->stdoutFunc;
             
             $this->$func($toTrace->sentence);
-            unset(self::$backTrace[$k]);
+            // unset(self::$backTrace[$k]);
         }
         return true;
     }
@@ -940,4 +940,5 @@ set_error_handler('userErrorHandler');
 set_exception_handler('userExceptionHandler');
 error_reporting(E_ALL);
 ob_start('ob_gzhandler');
+
 ?>

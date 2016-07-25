@@ -361,7 +361,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -372,7 +372,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -383,7 +383,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -394,7 +394,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -405,7 +405,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -416,7 +416,7 @@
           "funcReturn": "value",
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": "var"
         },
@@ -427,7 +427,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         }
@@ -446,8 +446,8 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
-          "logFull": false,
+          "traceStdout": true,
+          "logFull": true,
           "returnValue": false
         },
         "fatal": {
@@ -457,7 +457,7 @@
 
           "exit": true,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": false
         },
@@ -497,9 +497,9 @@
           "httpCode": "200",
 
           "exit": false,
-          "traceFile": false,
-          "traceStdout": false,
-          "logFull": false,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
           "returnValue": true
         },
         "info": {
@@ -508,9 +508,9 @@
           "httpCode": "200",
 
           "exit": false,
-          "traceFile": false,
-          "traceStdout": false,
-          "logFull": false,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
           "returnValue": true
         },
         "start": {
@@ -519,9 +519,9 @@
           "httpCode": "200",
 
           "exit": true,
-          "traceFile": false,
-          "traceStdout": false,
-          "logFull": false,
+          "traceFile": true,
+          "traceStdout": true,
+          "logFull": true,
           "returnValue": true
         },
         "end": {
@@ -531,7 +531,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -542,7 +542,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -553,7 +553,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         },
@@ -564,7 +564,7 @@
           "funcReturn": "value",
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": "var"
         },
@@ -575,7 +575,7 @@
 
           "exit": false,
           "traceFile": true,
-          "traceStdout": false,
+          "traceStdout": true,
           "logFull": true,
           "returnValue": true
         }

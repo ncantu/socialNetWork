@@ -40,7 +40,7 @@ class Node extends Conf {
      */
     public $filterList = false;
 
-    public $accessModeListListAdd = array();
+    public $accessModeList = array();
 
     /**
      *
